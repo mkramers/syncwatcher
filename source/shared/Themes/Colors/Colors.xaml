@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="NormalBackgroundBrush" Color="{DynamicResource NormalBackground}" />
+    <SolidColorBrush x:Key="AltNormalBackgroundBrush" Color="{DynamicResource AltNormalBackground}" />
+    <SolidColorBrush x:Key="HighlightedBackgroundBrush" Color="{DynamicResource HighlightedBackground}" />
+    <SolidColorBrush x:Key="AltHighlightedBackgroundBrush" Color="{DynamicResource AltHighlightedBackground}" />
+    <SolidColorBrush x:Key="NormalForegroundBrush" Color="{DynamicResource NormalForeground}" />
+</ResourceDictionary>

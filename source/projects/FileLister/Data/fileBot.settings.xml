@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<FilebotSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Action>MOVE</Action>
+  <Clean>true</Clean>
+  <DeleteAfterExtract>true</DeleteAfterExtract>
+  <UseExcludeList>true</UseExcludeList>
+  <ExcludeListPath>D:\p4_home\trunk\projects\_old\FileLister\bin\Debug\amc.ignore.txt</ExcludeListPath>
+  <UseLogFile>true</UseLogFile>
+  <LogFilePath>D:\p4_home\trunk\projects\_old\FileLister\bin\Debug\amc.log.txt</LogFilePath>
+  <IsNonStrict>true</IsNonStrict>
+  <FilebotBinaries>D:\Unsorted\filebot</FilebotBinaries>
+</FilebotSettings>

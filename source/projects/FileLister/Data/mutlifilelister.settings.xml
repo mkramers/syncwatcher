@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<FileListerSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <RootLists>
+    <ArrayOfString>
+      <string>D:/Unsorted/completed</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>F:/videos</string>
+    </ArrayOfString>
+  </RootLists>
+</FileListerSettings>

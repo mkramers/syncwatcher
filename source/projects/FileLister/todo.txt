@@ -1,0 +1,11 @@
+﻿- busy indicator on refresh
+- improve icons/layout
+- add settings button
+- remove delete button on rows
+- context menu on file rows
+	- open in explorer
+	- move to unsorted
+- parse <series - ep - title>
+- filter by incosistent parse
+- tool to specify series ep (title)
+	- add tool to file row context menu

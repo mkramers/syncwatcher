@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Common.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Color x:Key="NormalBackground">#ffffff</Color>
+    <Color x:Key="AltNormalBackground">#ffffff</Color>
+    <Color x:Key="HighlightedBackground">Gray</Color>
+    <Color x:Key="AltHighlightedBackground">#add8e6</Color>
+    <Color x:Key="NormalForeground">#000000</Color>
+
+</ResourceDictionary>

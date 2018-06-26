@@ -1,0 +1,1221 @@
+<?xml version="1.0"?>
+<Filebot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Action>MOVE</Action>
+  <Clean>true</Clean>
+  <DeleteAfterExtract>true</DeleteAfterExtract>
+  <UseExcludeList>false</UseExcludeList>
+  <ExcludeListPath>settings\amcignore.txt</ExcludeListPath>
+  <UseLogFile>true</UseLogFile>
+  <LogFilePath>amclog.txt</LogFilePath>
+  <CompletedRenames>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\test\[ www.TorrentDay.com ] - Workaholics.S02E09.Man.Up.HDTV.XviD-FQM\workaholics.s02e09.hdtv.xvid-fqm.avi] to [F:\Videos\TV Shows\Workaholics\Season 02\Workaholics - S02E09 - Man Up.avi]</RawLine>
+      <DateTime>2017-04-11T00:23:16.1968154-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\test\[ www.TorrentDay.com ] - Workaholics.S02E09.Man.Up.HDTV.XviD-FQM\workaholics.s02e09.hdtv.xvid-fqm.avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Workaholics\Season 02\Workaholics - S02E09 - Man Up.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Better.Call.Saul.S03E01.720p.HDTV.x264-FLEET\better.call.saul.s03e01.720p.hdtv.x264-fleet\Better.Call.Saul.S03E01.720p.HDTV.x264-FLEET\Better.Call.Saul.S03E01.720p.HDTV.x264-FLEET.mkv] to [F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E01 - Mabel.mkv]</RawLine>
+      <DateTime>2017-04-11T00:38:42.9846938-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Better.Call.Saul.S03E01.720p.HDTV.x264-FLEET\better.call.saul.s03e01.720p.hdtv.x264-fleet\Better.Call.Saul.S03E01.720p.HDTV.x264-FLEET\Better.Call.Saul.S03E01.720p.HDTV.x264-FLEET.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E01 - Mabel.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\big.brother.canada.s05e12.hdtv.x264.mp4] to [F:\Videos\TV Shows\Big Brother Canada\Season 05\Big Brother Canada - S05E12 - Nominations #5.mp4]</RawLine>
+      <DateTime>2017-04-11T19:27:48.116315-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\big.brother.canada.s05e12.hdtv.x264.mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Big Brother Canada\Season 05\Big Brother Canada - S05E12 - Nominations #5.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\big.brother.canada.s05e13.hdtv.x264.mp4] to [F:\Videos\TV Shows\Big Brother Canada\Season 05\Big Brother Canada - S05E13 - Veto #5.mp4]</RawLine>
+      <DateTime>2017-04-13T20:01:10.0178582-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\big.brother.canada.s05e13.hdtv.x264.mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Big Brother Canada\Season 05\Big Brother Canada - S05E13 - Veto #5.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\big.brother.canada.s05e14.eviction.hdtv.x264.mp4] to [F:\Videos\TV Shows\Big Brother Canada\Season 05\Big Brother Canada - S05E14 - Double Eviction.mp4]</RawLine>
+      <DateTime>2017-04-14T11:29:17.5217888-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\big.brother.canada.s05e14.eviction.hdtv.x264.mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Big Brother Canada\Season 05\Big Brother Canada - S05E14 - Double Eviction.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Bates.Motel.S05E06.WEB-DL.x264-FUM[ettv]\Bates.Motel.S05E06.WEB-DL.x264-FUM[ettv].mp4] to [F:\Videos\TV Shows\Bates Motel\Season 05\Bates Motel - S05E06 - Marion.mp4]</RawLine>
+      <DateTime>2017-04-16T10:49:08.2788265-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Bates.Motel.S05E06.WEB-DL.x264-FUM[ettv]\Bates.Motel.S05E06.WEB-DL.x264-FUM[ettv].mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Bates Motel\Season 05\Bates Motel - S05E06 - Marion.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Bates.Motel.S05E07.WEB-DL.x264-FUM[ettv]\Bates.Motel.S05E07.WEB-DL.x264-FUM[ettv].mp4] to [F:\Videos\TV Shows\Bates Motel\Season 05\Bates Motel - S05E07 - Inseparable.mp4]</RawLine>
+      <DateTime>2017-04-16T10:49:16.0913909-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Bates.Motel.S05E07.WEB-DL.x264-FUM[ettv]\Bates.Motel.S05E07.WEB-DL.x264-FUM[ettv].mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Bates Motel\Season 05\Bates Motel - S05E07 - Inseparable.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Greys.Anatomy.S13E20.HDTV.x264-KILLERS[ettv]\Greys.Anatomy.S13E20.HDTV.x264-KILLERS[ettv].mkv] to [F:\Videos\TV Shows\Grey's Anatomy\Season 13\Grey's Anatomy - S13E20 - In the Air Tonight.mkv]</RawLine>
+      <DateTime>2017-04-16T10:49:22.450917-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Greys.Anatomy.S13E20.HDTV.x264-KILLERS[ettv]\Greys.Anatomy.S13E20.HDTV.x264-KILLERS[ettv].mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Grey's Anatomy\Season 13\Grey's Anatomy - S13E20 - In the Air Tonight.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\www.Torrenting.com - Jane.the.Virgin.S03E15.XviD-AFG\Jane.the.Virgin.S03E15.XviD-AFG.avi] to [F:\Videos\TV Shows\Jane the Virgin\Season 03\Jane the Virgin - S03E15 - Chapter Fifty-Nine.avi]</RawLine>
+      <DateTime>2017-04-16T10:49:30.8058658-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\www.Torrenting.com - Jane.the.Virgin.S03E15.XviD-AFG\Jane.the.Virgin.S03E15.XviD-AFG.avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Jane the Virgin\Season 03\Jane the Virgin - S03E15 - Chapter Fifty-Nine.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\www.Torrenting.com - Scandal.US.S06E10.HDTV.x264-SVA\Scandal.US.S06E10.HDTV.x264-SVA.mkv] to [F:\Videos\TV Shows\Scandal (2012)\Season 06\Scandal (2012) - S06E10 - The Decision.mkv]</RawLine>
+      <DateTime>2017-04-16T10:49:40.8310046-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\www.Torrenting.com - Scandal.US.S06E10.HDTV.x264-SVA\Scandal.US.S06E10.HDTV.x264-SVA.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Scandal (2012)\Season 06\Scandal (2012) - S06E10 - The Decision.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\[ www.torrenting.com ] - Paranormal.Survivor.S01E10.Skeptics.Turned.Believers.XviD-AFG\Paranormal.Survivor.S01E10.Skeptics.Turned.Believers.XviD-AFG.avi] to [F:\Videos\TV Shows\Paranormal Survivor\Season 01\Paranormal Survivor - S01E10 - Skeptics Turned Believers.avi]</RawLine>
+      <DateTime>2017-04-17T18:44:37.6678257-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\[ www.torrenting.com ] - Paranormal.Survivor.S01E10.Skeptics.Turned.Believers.XviD-AFG\Paranormal.Survivor.S01E10.Skeptics.Turned.Believers.XviD-AFG.avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Survivor\Season 01\Paranormal Survivor - S01E10 - Skeptics Turned Believers.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal Survivor S01E01 Haunted Objects HDTV x264-SPASM\Paranormal.Survivor.S01E01.Haunted.Objects.HDTV.x264-SPASM.mp4] to [F:\Videos\TV Shows\Paranormal Survivor\Season 01\Paranormal Survivor - S01E01 - Haunted Objects.mp4]</RawLine>
+      <DateTime>2017-04-17T18:44:48.5075611-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal Survivor S01E01 Haunted Objects HDTV x264-SPASM\Paranormal.Survivor.S01E01.Haunted.Objects.HDTV.x264-SPASM.mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Survivor\Season 01\Paranormal Survivor - S01E01 - Haunted Objects.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Survivor.S01E08.400p.mp4\Paranormal.Survivor.S01E08.400p.HDTV.x264-][ Evil.Messengers ][ 20-Jul-2015 ].mp4] to [F:\Videos\TV Shows\Survivor (GR)\Season 01\Survivor (GR) - S01E08 - Malaysia Episode 8.mp4]</RawLine>
+      <DateTime>2017-04-17T18:44:53.997452-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S01E08.400p.mp4\Paranormal.Survivor.S01E08.400p.HDTV.x264-][ Evil.Messengers ][ 20-Jul-2015 ].mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Survivor (GR)\Season 01\Survivor (GR) - S01E08 - Malaysia Episode 8.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Survivor.S01E09.720p.mp4\Paranormal.Survivor.S01E09.720p.HDTV.x264-][ Multiple.Witnesses ][ 27-Jul-2015 ].mp4] to [F:\Videos\TV Shows\Survivor (GR)\Season 01\Survivor (GR) - S01E09 - Malaysia Episode 9.mp4]</RawLine>
+      <DateTime>2017-04-17T18:45:00.4560511-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S01E09.720p.mp4\Paranormal.Survivor.S01E09.720p.HDTV.x264-][ Multiple.Witnesses ][ 27-Jul-2015 ].mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Survivor (GR)\Season 01\Survivor (GR) - S01E09 - Malaysia Episode 9.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Survivor.S02E07.Family.Phantoms.HDTV.x264-TRiAL\Paranormal.Survivor.S02E07.Family.Phantoms.HDTV.x264-TRiAL.mp4] to [F:\Videos\TV Shows\Paranormal Survivor\Season 02\Paranormal Survivor - S02E07 - Family Phantoms.mp4]</RawLine>
+      <DateTime>2017-04-17T18:45:09.4514553-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S02E07.Family.Phantoms.HDTV.x264-TRiAL\Paranormal.Survivor.S02E07.Family.Phantoms.HDTV.x264-TRiAL.mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Survivor\Season 02\Paranormal Survivor - S02E07 - Family Phantoms.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Last.Week.Tonight.with.John.Oliver.S04E09.720p.WEBRip.2CH.x265.HEVC-PSA.mkv] to [F:\Videos\TV Shows\Last Week Tonight with John Oliver\Season 04\Last Week Tonight with John Oliver - S04E09 - Episode 98.mkv]</RawLine>
+      <DateTime>2017-04-17T18:50:49.0992843-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Last.Week.Tonight.with.John.Oliver.S04E09.720p.WEBRip.2CH.x265.HEVC-PSA.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Last Week Tonight with John Oliver\Season 04\Last Week Tonight with John Oliver - S04E09 - Episode 98.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\MasterChef.Canada.S04E07.HDTV.x264-CROOKS[ettv]\masterchef.canada.s04e07.hdtv.x264-crooks[ettv].mkv] to [F:\Videos\TV Shows\MasterChef Canada\Season 04\MasterChef Canada - S04E07 - Egg Showdown.mkv]</RawLine>
+      <DateTime>2017-04-17T18:51:02.9881736-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\MasterChef.Canada.S04E07.HDTV.x264-CROOKS[ettv]\masterchef.canada.s04e07.hdtv.x264-crooks[ettv].mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\MasterChef Canada\Season 04\MasterChef Canada - S04E07 - Egg Showdown.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Better.Call.Saul.S03E02.720p.HDTV.x264-FLEET\better.call.saul.s03e02.720p.hdtv.x264-fleet\Better.Call.Saul.S03E02.720p.HDTV.x264-FLEET\Better.Call.Saul.S03E02.720p.HDTV.x264-FLEET.mkv] to [F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E02 - Witness.mkv]</RawLine>
+      <DateTime>2017-04-19T00:18:49.8906274-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Better.Call.Saul.S03E02.720p.HDTV.x264-FLEET\better.call.saul.s03e02.720p.hdtv.x264-fleet\Better.Call.Saul.S03E02.720p.HDTV.x264-FLEET\Better.Call.Saul.S03E02.720p.HDTV.x264-FLEET.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E02 - Witness.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\big.brother.canada.s05e16.hdtv.x264.mp4] to [F:\Videos\TV Shows\Big Brother Canada\Season 05\Big Brother Canada - S05E16 - Veto #7.mp4]</RawLine>
+      <DateTime>2017-04-20T16:05:45.6260897-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\big.brother.canada.s05e16.hdtv.x264.mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Big Brother Canada\Season 05\Big Brother Canada - S05E16 - Veto #7.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Fargo.S03E01.PROPER.720p.HDTV.x264-SVA\fargo.s03e01.proper.720p.hdtv.x264-sva\Fargo.S03E01.PROPER.720p.HDTV.x264-SVA\Fargo.S03E01.PROPER.720p.HDTV.x264-SVA.mkv] to [F:\Videos\TV Shows\Fargo\Season 03\Fargo - S03E01 - The Law of Vacant Places.mkv]</RawLine>
+      <DateTime>2017-04-20T16:49:02.3756396-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Fargo.S03E01.PROPER.720p.HDTV.x264-SVA\fargo.s03e01.proper.720p.hdtv.x264-sva\Fargo.S03E01.PROPER.720p.HDTV.x264-SVA\Fargo.S03E01.PROPER.720p.HDTV.x264-SVA.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Fargo\Season 03\Fargo - S03E01 - The Law of Vacant Places.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\The.Detour.S02E08.HDTV.x264-LOL\the.detour.208.hdtv-lol\The.Detour.S02E08.HDTV.x264-LOL\the.detour.208.hdtv-lol.mkv] to [F:\Videos\TV Shows\The Detour\Season 02\The Detour - S02E08 - The Job.mkv]</RawLine>
+      <DateTime>2017-04-20T16:49:42.2928238-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\The.Detour.S02E08.HDTV.x264-LOL\the.detour.208.hdtv-lol\The.Detour.S02E08.HDTV.x264-LOL\the.detour.208.hdtv-lol.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Detour\Season 02\The Detour - S02E08 - The Job.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\The.Detour.S02E09.HDTV.x264-MiNDTHEGAP\the.detour.s02e09.hdtv.x264-mtg\The.Detour.S02E09.HDTV.x264-MiNDTHEGAP\the.detour.s02e09.hdtv.x264-mtg.mkv] to [F:\Videos\TV Shows\The Detour\Season 02\The Detour - S02E09 - The Dilemma.mkv]</RawLine>
+      <DateTime>2017-04-20T16:49:47.5705351-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\The.Detour.S02E09.HDTV.x264-MiNDTHEGAP\the.detour.s02e09.hdtv.x264-mtg\The.Detour.S02E09.HDTV.x264-MiNDTHEGAP\the.detour.s02e09.hdtv.x264-mtg.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Detour\Season 02\The Detour - S02E09 - The Dilemma.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\The.Detour.S02E10.720p.HDTV.x264-KILLERS\the.detour.s02e10.720p.hdtv.x264-killers\The.Detour.S02E10.720p.HDTV.x264-KILLERS\The.Detour.S02E10.720p.HDTV.x264-KILLERS.mkv] to [F:\Videos\TV Shows\The Detour\Season 02\The Detour - S02E10 - The Trip.mkv]</RawLine>
+      <DateTime>2017-04-20T16:49:51.5223228-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\The.Detour.S02E10.720p.HDTV.x264-KILLERS\the.detour.s02e10.720p.hdtv.x264-killers\The.Detour.S02E10.720p.HDTV.x264-KILLERS\The.Detour.S02E10.720p.HDTV.x264-KILLERS.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Detour\Season 02\The Detour - S02E10 - The Trip.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\The.Detour.S02E11.HDTV.x264-KILLERS\the.detour.s02e11.hdtv.x264-killers\The.Detour.S02E11.HDTV.x264-KILLERS\The.Detour.S02E11.HDTV.x264-KILLERS.mkv] to [F:\Videos\TV Shows\The Detour\Season 02\The Detour - S02E11 - The Mule.mkv]</RawLine>
+      <DateTime>2017-04-20T16:50:02.7432413-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\The.Detour.S02E11.HDTV.x264-KILLERS\the.detour.s02e11.hdtv.x264-killers\The.Detour.S02E11.HDTV.x264-KILLERS\The.Detour.S02E11.HDTV.x264-KILLERS.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Detour\Season 02\The Detour - S02E11 - The Mule.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\The.Detour.S02E12.PROPER.HDTV.x264-FLEET\the.detour.s02e12.proper.hdtv.x264-fleet\The.Detour.S02E12.PROPER.HDTV.x264-FLEET\The.Detour.S02E12.PROPER.HDTV.x264-FLEET.mkv] to [F:\Videos\TV Shows\The Detour\Season 02\The Detour - S02E12 - The Ass.mkv]</RawLine>
+      <DateTime>2017-04-20T16:50:09.0276763-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\The.Detour.S02E12.PROPER.HDTV.x264-FLEET\the.detour.s02e12.proper.hdtv.x264-fleet\The.Detour.S02E12.PROPER.HDTV.x264-FLEET\The.Detour.S02E12.PROPER.HDTV.x264-FLEET.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Detour\Season 02\The Detour - S02E12 - The Ass.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\big.brother.canada.s05e17.eviction.hdtv.x264.mp4] to [F:\Videos\TV Shows\Big Brother Canada\Season 05\Big Brother Canada - S05E17 - Live Eviction #7.mp4]</RawLine>
+      <DateTime>2017-04-21T23:23:24.5360218-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\big.brother.canada.s05e17.eviction.hdtv.x264.mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Big Brother Canada\Season 05\Big Brother Canada - S05E17 - Live Eviction #7.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Girls.S06E10.HDTV.x264-KILLERS[ettv]\Girls.S06E10.HDTV.x264-KILLERS[ettv].mkv] to [F:\Videos\TV Shows\Girls\Season 06\Girls - S06E10 - Latching.mkv]</RawLine>
+      <DateTime>2017-04-23T19:54:53.8795612-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Girls.S06E10.HDTV.x264-KILLERS[ettv]\Girls.S06E10.HDTV.x264-KILLERS[ettv].mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Girls\Season 06\Girls - S06E10 - Latching.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Big.Little.Lies.S01E02.WEBRip.XviD-FUM[ettv]\Big.Little.Lies.S01E02.WEBRip.XviD-FUM[ettv].avi] to [F:\Videos\TV Shows\Big Little Lies\Season 01\Big Little Lies - S01E02 - Serious Mothering.avi]</RawLine>
+      <DateTime>2017-04-24T18:46:51.3565373-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Big.Little.Lies.S01E02.WEBRip.XviD-FUM[ettv]\Big.Little.Lies.S01E02.WEBRip.XviD-FUM[ettv].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Big Little Lies\Season 01\Big Little Lies - S01E02 - Serious Mothering.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Big.Little.Lies.S01E03.WEBRip.XviD-FUM[ettv]\Big.Little.Lies.S01E03.WEBRip.XviD-FUM[ettv].avi] to [F:\Videos\TV Shows\Big Little Lies\Season 01\Big Little Lies - S01E03 - Living the Dream.avi]</RawLine>
+      <DateTime>2017-04-24T18:47:04.1776061-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Big.Little.Lies.S01E03.WEBRip.XviD-FUM[ettv]\Big.Little.Lies.S01E03.WEBRip.XviD-FUM[ettv].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Big Little Lies\Season 01\Big Little Lies - S01E03 - Living the Dream.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Big.Little.Lies.S01E04.WEBRip.XviD-FUM[ettv]\Big.Little.Lies.S01E04.WEBRip.XviD-FUM[ettv].avi] to [F:\Videos\TV Shows\Big Little Lies\Season 01\Big Little Lies - S01E04 - Push Comes to Shove.avi]</RawLine>
+      <DateTime>2017-04-24T18:47:15.418557-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Big.Little.Lies.S01E04.WEBRip.XviD-FUM[ettv]\Big.Little.Lies.S01E04.WEBRip.XviD-FUM[ettv].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Big Little Lies\Season 01\Big Little Lies - S01E04 - Push Comes to Shove.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Big.Little.Lies.S01E05.WEBRip.XviD-FUM[ettv]\Big.Little.Lies.S01E05.WEBRip.XviD-FUM[ettv].avi] to [F:\Videos\TV Shows\Big Little Lies\Season 01\Big Little Lies - S01E05 - Once Bitten.avi]</RawLine>
+      <DateTime>2017-04-24T18:47:26.3172675-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Big.Little.Lies.S01E05.WEBRip.XviD-FUM[ettv]\Big.Little.Lies.S01E05.WEBRip.XviD-FUM[ettv].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Big Little Lies\Season 01\Big Little Lies - S01E05 - Once Bitten.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Big.Little.Lies.S01E07.WEBRip.XviD-FUM[ettv]\Big.Little.Lies.S01E07.WEBRip.XviD-FUM[ettv].avi] to [F:\Videos\TV Shows\Big Little Lies\Season 01\Big Little Lies - S01E07 - You Get What You Need.avi]</RawLine>
+      <DateTime>2017-04-24T18:47:37.1028962-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Big.Little.Lies.S01E07.WEBRip.XviD-FUM[ettv]\Big.Little.Lies.S01E07.WEBRip.XviD-FUM[ettv].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Big Little Lies\Season 01\Big Little Lies - S01E07 - You Get What You Need.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\www.Torrenting.com - Big.Little.Lies.S01E06.HDTV.x264-SVA\Big.Little.Lies.S01E06.HDTV.x264-SVA.mkv] to [F:\Videos\TV Shows\Big Little Lies\Season 01\Big Little Lies - S01E06 - Burning Love.mkv]</RawLine>
+      <DateTime>2017-04-24T18:47:49.766854-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\www.Torrenting.com - Big.Little.Lies.S01E06.HDTV.x264-SVA\Big.Little.Lies.S01E06.HDTV.x264-SVA.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Big Little Lies\Season 01\Big Little Lies - S01E06 - Burning Love.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Silicon.Valley.S04E01.INTERNAL.720p.HDTV.x264-aAF[ettv]\Silicon.Valley.S04E01.INTERNAL.720p.HDTV.x264-aAF[ettv].mkv] to [F:\Videos\TV Shows\Silicon Valley\Season 04\Silicon Valley - S04E01 - Success Failure.mkv]</RawLine>
+      <DateTime>2017-04-24T20:48:26.1646028-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Silicon.Valley.S04E01.INTERNAL.720p.HDTV.x264-aAF[ettv]\Silicon.Valley.S04E01.INTERNAL.720p.HDTV.x264-aAF[ettv].mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Silicon Valley\Season 04\Silicon Valley - S04E01 - Success Failure.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Better.Call.Saul.S03E03.720p.HDTV.x264-AVS\better.call.saul.s03e03.720p.hdtv.x264-avs\Better.Call.Saul.S03E03.720p.HDTV.x264-AVS\Better.Call.Saul.S03E03.720p.HDTV.x264-AVS.mkv] to [F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E03 - Sunk Costs.mkv]</RawLine>
+      <DateTime>2017-04-25T20:01:40.2594592-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Better.Call.Saul.S03E03.720p.HDTV.x264-AVS\better.call.saul.s03e03.720p.hdtv.x264-avs\Better.Call.Saul.S03E03.720p.HDTV.x264-AVS\Better.Call.Saul.S03E03.720p.HDTV.x264-AVS.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E03 - Sunk Costs.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\The.Handmaids.Tale.S01E01.Offred.1080p.HULU.WEBRip.DDP5.1.HEVC.x265.mkv] to [F:\Videos\TV Shows\The Handmaid's Tale\Season 01\The Handmaid's Tale - S01E01 - Offred.mkv]</RawLine>
+      <DateTime>2017-04-27T21:15:16.0296488-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\The.Handmaids.Tale.S01E01.Offred.1080p.HULU.WEBRip.DDP5.1.HEVC.x265.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Handmaid's Tale\Season 01\The Handmaid's Tale - S01E01 - Offred.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\www.Torrenting.com - Jane.the.Virgin.S03E16.HDTV.x264-SVA\Jane.the.Virgin.S03E16.HDTV.x264-SVA.mkv] to [F:\Videos\TV Shows\Jane the Virgin\Season 03\Jane the Virgin - S03E16 - Chapter Sixty.mkv]</RawLine>
+      <DateTime>2017-04-27T21:15:44.9240879-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\www.Torrenting.com - Jane.the.Virgin.S03E16.HDTV.x264-SVA\Jane.the.Virgin.S03E16.HDTV.x264-SVA.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Jane the Virgin\Season 03\Jane the Virgin - S03E16 - Chapter Sixty.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal Witness S05E08 The Pit HDTV x264-SDI.mp4] to [F:\Videos\TV Shows\Paranormal Witness\Season 05\Paranormal Witness - S05E08 - The Pit.mp4]</RawLine>
+      <DateTime>2017-04-27T22:35:49.7228162-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal Witness S05E08 The Pit HDTV x264-SDI.mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Witness\Season 05\Paranormal Witness - S05E08 - The Pit.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Survivor.S02E05.480p.224mb.hdtv,x264-[ Possessed ][ 24-Jan-2016 ].mp4] to [F:\Videos\TV Shows\Paranormal Survivor\Season 02\Paranormal Survivor - S02E05 - Possessed.mp4]</RawLine>
+      <DateTime>2017-04-27T22:36:01.6592599-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S02E05.480p.224mb.hdtv,x264-[ Possessed ][ 24-Jan-2016 ].mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Survivor\Season 02\Paranormal Survivor - S02E05 - Possessed.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\[ www.torrenting.com ] - Paranormal.Survivor.S02E03.An.Invitation.to.Evil.XviD-AFG\Paranormal.Survivor.S02E03.An.Invitation.to.Evil.XviD-AFG.avi] to [F:\Videos\TV Shows\Paranormal Survivor\Season 02\Paranormal Survivor - S02E03 - An Invitation to Evil.avi]</RawLine>
+      <DateTime>2017-04-27T23:09:41.1797918-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\[ www.torrenting.com ] - Paranormal.Survivor.S02E03.An.Invitation.to.Evil.XviD-AFG\Paranormal.Survivor.S02E03.An.Invitation.to.Evil.XviD-AFG.avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Survivor\Season 02\Paranormal Survivor - S02E03 - An Invitation to Evil.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Survivor.S01E02.480p.mp4\Paranormal.Survivor.S01E02.480p.HDTV.x264-][ Dont Invite Them In ][ 08-Jun-2015 ].mp4] to [F:\Videos\TV Shows\Survivor (GR)\Season 01\Survivor (GR) - S01E02 - Malaysia Episode 2.mp4]</RawLine>
+      <DateTime>2017-04-28T00:09:25.3390865-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S01E02.480p.mp4\Paranormal.Survivor.S01E02.480p.HDTV.x264-][ Dont Invite Them In ][ 08-Jun-2015 ].mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Survivor (GR)\Season 01\Survivor (GR) - S01E02 - Malaysia Episode 2.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E01.The.Motel.720p.HDTV.x264-DHD.mkv] to [F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E01 - The Motel.mkv]</RawLine>
+      <DateTime>2017-04-28T00:09:30.4567069-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E01.The.Motel.720p.HDTV.x264-DHD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E01 - The Motel.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E02.Nightmare.on.Chestnut.Street.720p.HDTV.x264-DHD.mkv] to [F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E02 - Nightmare on Chestnut Street.mkv]</RawLine>
+      <DateTime>2017-04-28T00:09:53.6791332-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E02.Nightmare.on.Chestnut.Street.720p.HDTV.x264-DHD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E02 - Nightmare on Chestnut Street.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E03.The.Molech.720p.HDTV.x264-DHD.mkv] to [F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E03 - The Molech.mkv]</RawLine>
+      <DateTime>2017-04-28T00:10:21.864071-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E03.The.Molech.720p.HDTV.x264-DHD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E03 - The Molech.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E04.Suzy.Doll.720p.HDTV.x264-DHD.mkv] to [F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E04 - Suzy Doll.mkv]</RawLine>
+      <DateTime>2017-04-28T00:10:48.1906924-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E04.Suzy.Doll.720p.HDTV.x264-DHD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E04 - Suzy Doll.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E05.Poppys.Revenge.720p.HDTV.x264-DHD.mkv] to [F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E05 - Poppy's Revenge.mkv]</RawLine>
+      <DateTime>2017-04-28T00:11:13.1533535-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E05.Poppys.Revenge.720p.HDTV.x264-DHD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E05 - Poppy's Revenge.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E06.The.Dark.Pond.720p.HDTV.x264-DHD.mkv] to [F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E06 - The Dark Pond.mkv]</RawLine>
+      <DateTime>2017-04-28T00:11:40.4306454-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E06.The.Dark.Pond.720p.HDTV.x264-DHD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E06 - The Dark Pond.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E07.Demon.House.720p.HDTV.x264-DHD.mkv] to [F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E07 - Demon House.mkv]</RawLine>
+      <DateTime>2017-04-28T00:12:11.1563796-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E07.Demon.House.720p.HDTV.x264-DHD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E07 - Demon House.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E08.Sacred.Ground.720p.HDTV.x264-DHD.mkv] to [F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E08 - Sacred Ground.mkv]</RawLine>
+      <DateTime>2017-04-28T00:12:36.2641419-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E08.Sacred.Ground.720p.HDTV.x264-DHD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E08 - Sacred Ground.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E09.The.Fireplace.720p.HDTV.x264-DHD.mkv] to [F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E09 - The Fireplace.mkv]</RawLine>
+      <DateTime>2017-04-28T00:13:01.52701-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E09.The.Fireplace.720p.HDTV.x264-DHD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E09 - The Fireplace.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E10.The.Real.Conjuring.720p.HDTV.x264-DHD.mkv] to [F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E10 - The Real Conjuring.mkv]</RawLine>
+      <DateTime>2017-04-28T00:13:24.4192034-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E10.The.Real.Conjuring.720p.HDTV.x264-DHD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E10 - The Real Conjuring.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E11.When.Hell.Freezes.Over.720p.HDTV.x264-DHD.mkv] to [F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E11 - When Hell Freezes Over.mkv]</RawLine>
+      <DateTime>2017-04-28T00:13:55.1179177-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E11.When.Hell.Freezes.Over.720p.HDTV.x264-DHD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E11 - When Hell Freezes Over.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E12.Beneath.the.Rock.720p.HDTV.x264-DHD.mkv] to [F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E12 - Beneath the Rock.mkv]</RawLine>
+      <DateTime>2017-04-28T00:14:18.9677887-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E12.Beneath.the.Rock.720p.HDTV.x264-DHD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E12 - Beneath the Rock.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E13.Ashes.to.Ashes.720p.HDTV.x264-DHD.mkv] to [F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E13 - Ashes to Ashes.mkv]</RawLine>
+      <DateTime>2017-04-28T00:14:46.2460834-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Witness.Season.04.720p.HDTV.x264-DHD\Paranormal.Witness.S04E13.Ashes.to.Ashes.720p.HDTV.x264-DHD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Witness\Season 04\Paranormal Witness - S04E13 - Ashes to Ashes.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Survivor.S02E03.480p.227mb.mp4\Paranormal.Survivor.S02E03.480p.227mb.HDTV.x264-][ An Invitation to Evil ][ 09-Jan-2016 ].mp4] to [F:\Videos\TV Shows\Paranormal Survivor\Season 02\Paranormal Survivor - S02E03 - An Invitation to Evil.mp4]</RawLine>
+      <DateTime>2017-04-28T00:15:26.7457325-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S02E03.480p.227mb.mp4\Paranormal.Survivor.S02E03.480p.227mb.HDTV.x264-][ An Invitation to Evil ][ 09-Jan-2016 ].mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Survivor\Season 02\Paranormal Survivor - S02E03 - An Invitation to Evil.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Survivor.S02E06.Child.Victims.HDTV.x264-TRiAL\Paranormal.Survivor.S02E06.Child.Victims.HDTV.x264-TRiAL.mp4] to [F:\Videos\TV Shows\Paranormal Survivor\Season 02\Paranormal Survivor - S02E06 - Child Victims.mp4]</RawLine>
+      <DateTime>2017-04-28T00:32:06.7260799-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S02E06.Child.Victims.HDTV.x264-TRiAL\Paranormal.Survivor.S02E06.Child.Victims.HDTV.x264-TRiAL.mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Survivor\Season 02\Paranormal Survivor - S02E06 - Child Victims.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Survivor.S01E05+E06.480p.mp4\Paranormal.Survivor.S01E05.480p.HDTV.x264-][ Territorial.Spirits ][ 30-Jun-2015 ].mp4] to [F:\Videos\TV Shows\Survivor (GR)\Season 01\Survivor (GR) - S01E05 - Malaysia Episode 5.mp4]</RawLine>
+      <DateTime>2017-04-28T01:04:51.3527802-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S01E05+E06.480p.mp4\Paranormal.Survivor.S01E05.480p.HDTV.x264-][ Territorial.Spirits ][ 30-Jun-2015 ].mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Survivor (GR)\Season 01\Survivor (GR) - S01E05 - Malaysia Episode 5.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Survivor.S01E05+E06.480p.mp4\Paranormal.Survivor.S01E06.480p.HDTV.x264-][ When.Spirits.Talk ][ 05-Jul=2015 ].mp4] to [F:\Videos\TV Shows\Paranormal Survivor\Season 01\Paranormal Survivor - S01E06 - When Spirits Talk.mp4]</RawLine>
+      <DateTime>2017-04-28T01:04:56.333303-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S01E05+E06.480p.mp4\Paranormal.Survivor.S01E06.480p.HDTV.x264-][ When.Spirits.Talk ][ 05-Jul=2015 ].mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Survivor\Season 01\Paranormal Survivor - S01E06 - When Spirits Talk.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Survivor.S02E10.Face.to.Face.with.Evil.HDTV.x264-TRiAL\Paranormal.Survivor.S02E10.Face.to.Face.with.Evil.HDTV.x264-TRiAL.mp4] to [F:\Videos\TV Shows\Paranormal Survivor\Season 02\Paranormal Survivor - S02E10 - Face to Face With Evil.mp4]</RawLine>
+      <DateTime>2017-04-28T04:32:16.3846969-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S02E10.Face.to.Face.with.Evil.HDTV.x264-TRiAL\Paranormal.Survivor.S02E10.Face.to.Face.with.Evil.HDTV.x264-TRiAL.mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Survivor\Season 02\Paranormal Survivor - S02E10 - Face to Face With Evil.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Greys.Anatomy.S13E21.HDTV.x264-KILLERS[ettv]\Greys.Anatomy.S13E21.HDTV.x264-KILLERS[ettv].mkv] to [F:\Videos\TV Shows\Grey's Anatomy\Season 13\Grey's Anatomy - S13E21 - Don't Stop Me Now.mkv]</RawLine>
+      <DateTime>2017-04-30T16:45:13.856528-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Greys.Anatomy.S13E21.HDTV.x264-KILLERS[ettv]\Greys.Anatomy.S13E21.HDTV.x264-KILLERS[ettv].mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Grey's Anatomy\Season 13\Grey's Anatomy - S13E21 - Don't Stop Me Now.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\The Handmaids Tale S01E02 WEBRip x264-RMTeam.mkv] to [F:\Videos\TV Shows\The Handmaid's Tale\Season 01\The Handmaid's Tale - S01E02 - Birth Day.mkv]</RawLine>
+      <DateTime>2017-04-30T16:45:31.0907356-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\The Handmaids Tale S01E02 WEBRip x264-RMTeam.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Handmaid's Tale\Season 01\The Handmaid's Tale - S01E02 - Birth Day.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\www.Torrenting.com - Scandal.US.S06E12.HDTV.x264-SVA\Scandal.US.S06E12.HDTV.x264-SVA.mkv] to [F:\Videos\TV Shows\Scandal (2012)\Season 06\Scandal (2012) - S06E12 - Mercy.mkv]</RawLine>
+      <DateTime>2017-04-30T16:45:36.2603989-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\www.Torrenting.com - Scandal.US.S06E12.HDTV.x264-SVA\Scandal.US.S06E12.HDTV.x264-SVA.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Scandal (2012)\Season 06\Scandal (2012) - S06E12 - Mercy.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Hidden.Figures.2016.1080p.BRRiP.6CH.ShAaNiG.mkv] to [F:\Videos\Movies\Hidden Figures (2016)\Hidden Figures (2016).mkv]</RawLine>
+      <DateTime>2017-04-30T17:29:16.5665038-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Hidden.Figures.2016.1080p.BRRiP.6CH.ShAaNiG.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\Movies\Hidden Figures (2016)\Hidden Figures (2016).mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\www.Torrenting.com - MasterChef.Canada.S04E08.XviD-AFG\MasterChef.Canada.S04E08.XviD-AFG.avi] to [F:\Videos\TV Shows\MasterChef Canada\Season 04\MasterChef Canada - S04E08 - Auberge Anniversary.avi]</RawLine>
+      <DateTime>2017-04-30T18:44:36.3300977-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\www.Torrenting.com - MasterChef.Canada.S04E08.XviD-AFG\MasterChef.Canada.S04E08.XviD-AFG.avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\MasterChef Canada\Season 04\MasterChef Canada - S04E08 - Auberge Anniversary.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Silicon.Valley.S04E02.720p.HDTV.x264-AVS\silicon.valley.s04e02.720p.hdtv.x264-avs\Silicon.Valley.S04E02.720p.HDTV.x264-AVS\Silicon.Valley.S04E02.720p.HDTV.x264-AVS.mkv] to [F:\Videos\TV Shows\Silicon Valley\Season 04\Silicon Valley - S04E02 - Terms of Service.mkv]</RawLine>
+      <DateTime>2017-05-01T18:41:15.2930932-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Silicon.Valley.S04E02.720p.HDTV.x264-AVS\silicon.valley.s04e02.720p.hdtv.x264-avs\Silicon.Valley.S04E02.720p.HDTV.x264-AVS\Silicon.Valley.S04E02.720p.HDTV.x264-AVS.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Silicon Valley\Season 04\Silicon Valley - S04E02 - Terms of Service.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\www.torrenting.com - The.Handmaids.Tale.S01E03.720p.WEBRip.x264-MOROSE\the.handmaids.tale.s01e03.720p.webrip.x264-morose.mkv] to [F:\Videos\TV Shows\The Handmaid's Tale\Season 01\The Handmaid's Tale - S01E03 - Late.mkv]</RawLine>
+      <DateTime>2017-05-01T20:17:58.8910935-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\www.torrenting.com - The.Handmaids.Tale.S01E03.720p.WEBRip.x264-MOROSE\the.handmaids.tale.s01e03.720p.webrip.x264-morose.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Handmaid's Tale\Season 01\The Handmaid's Tale - S01E03 - Late.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Better.Call.Saul.S03E04.720p.HDTV.x264-AVS\better.call.saul.s03e04.720p.hdtv.x264-avs\Better.Call.Saul.S03E04.720p.HDTV.x264-AVS\Better.Call.Saul.S03E04.720p.HDTV.x264-AVS.mkv] to [F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E04 - Sabrosito.mkv]</RawLine>
+      <DateTime>2017-05-02T20:42:23.4201498-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Better.Call.Saul.S03E04.720p.HDTV.x264-AVS\better.call.saul.s03e04.720p.hdtv.x264-avs\Better.Call.Saul.S03E04.720p.HDTV.x264-AVS\Better.Call.Saul.S03E04.720p.HDTV.x264-AVS.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E04 - Sabrosito.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\From [ WWW.TORRENTING.COM ] - The.Affair.S03E04.HDTV.x264-FLEET\The.Affair.S03E04.HDTV.x264-FLEET.mkv] to [F:\Videos\TV Shows\The Affair\Season 03\The Affair - S03E04 - Episode 4.mkv]</RawLine>
+      <DateTime>2017-05-04T21:24:43.3296542-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\From [ WWW.TORRENTING.COM ] - The.Affair.S03E04.HDTV.x264-FLEET\The.Affair.S03E04.HDTV.x264-FLEET.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Affair\Season 03\The Affair - S03E04 - Episode 4.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Paranormal.Survivor.S02E04.480p.183mb.HDTV.x264-][ Messages from Beyond ][ 17-Jan-2016 ].mp4] to [F:\Videos\TV Shows\Paranormal Survivor\Season 02\Paranormal Survivor - S02E04 - Messages from Beyond.mp4]</RawLine>
+      <DateTime>2017-05-04T21:24:51.6051691-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S02E04.480p.183mb.HDTV.x264-][ Messages from Beyond ][ 17-Jan-2016 ].mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Paranormal Survivor\Season 02\Paranormal Survivor - S02E04 - Messages from Beyond.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\The.Handmaids.Tale.S01E04.WEBRip.x264-RBB.mp4] to [F:\Videos\TV Shows\The Handmaid's Tale\Season 01\The Handmaid's Tale - S01E04 - Nolite Te Bastardes Carborundorum.mp4]</RawLine>
+      <DateTime>2017-05-04T21:22:32.8751311-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\The.Handmaids.Tale.S01E04.WEBRip.x264-RBB.mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Handmaid's Tale\Season 01\The Handmaid's Tale - S01E04 - Nolite Te Bastardes Carborundorum.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Greys.Anatomy.S13E22.HDTV.x264-KILLERS[ettv]\Greys.Anatomy.S13E22.HDTV.x264-KILLERS[ettv].mkv] to [F:\Videos\TV Shows\Grey's Anatomy\Season 13\Grey's Anatomy - S13E22 - Leave It Inside.mkv]</RawLine>
+      <DateTime>2017-05-07T19:33:04.1843463-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Greys.Anatomy.S13E22.HDTV.x264-KILLERS[ettv]\Greys.Anatomy.S13E22.HDTV.x264-KILLERS[ettv].mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Grey's Anatomy\Season 13\Grey's Anatomy - S13E22 - Leave It Inside.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\MasterChef.Canada.S04E09.HDTV.x264-CROOKS[ettv]\masterchef.canada.s04e09.hdtv.x264-crooks[ettv].mkv] to [F:\Videos\TV Shows\MasterChef Canada\Season 04\MasterChef Canada - S04E09 - Take Five.mkv]</RawLine>
+      <DateTime>2017-05-07T19:33:13.5389929-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\MasterChef.Canada.S04E09.HDTV.x264-CROOKS[ettv]\masterchef.canada.s04e09.hdtv.x264-crooks[ettv].mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\MasterChef Canada\Season 04\MasterChef Canada - S04E09 - Take Five.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Scandal.US.S06E11.WEBRip.XviD-FUM[ettv]\Scandal.US.S06E11.WEBRip.XviD-FUM[ettv].avi] to [F:\Videos\TV Shows\Scandal (2012)\Season 06\Scandal (2012) - S06E11 - Trojan Horse.avi]</RawLine>
+      <DateTime>2017-05-07T19:33:24.0894552-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Scandal.US.S06E11.WEBRip.XviD-FUM[ettv]\Scandal.US.S06E11.WEBRip.XviD-FUM[ettv].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Scandal (2012)\Season 06\Scandal (2012) - S06E11 - Trojan Horse.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\www.Torrenting.com - Scandal.US.S06E13.HDTV.x264-SVA\Scandal.US.S06E13.HDTV.x264-SVA.mkv] to [F:\Videos\TV Shows\Scandal (2012)\Season 06\Scandal (2012) - S06E13 - The Box.mkv]</RawLine>
+      <DateTime>2017-05-07T19:33:33.6252018-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\www.Torrenting.com - Scandal.US.S06E13.HDTV.x264-SVA\Scandal.US.S06E13.HDTV.x264-SVA.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Scandal (2012)\Season 06\Scandal (2012) - S06E13 - The Box.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E01 - Sex And The City [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E01 - Sex And The City.eng.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:41.0566124-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E01 - Sex And The City [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E01 - Sex And The City.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E02 - Models And Mortals [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E02 - Models and Mortals.eng.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.4463406-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E02 - Models And Mortals [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E02 - Models and Mortals.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E03 - Bay Of Married Pigs [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E03 - Bay of Married Pigs.eng.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.4503435-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E03 - Bay Of Married Pigs [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E03 - Bay of Married Pigs.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E04 - Valley Of The Twenty-Something Guys [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E04 - Valley of the Twenty-Something Guys.eng.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.4653721-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E04 - Valley Of The Twenty-Something Guys [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E04 - Valley of the Twenty-Something Guys.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E05 - The Power Of Female Sex [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E05 - The Power of Female Sex.eng.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.4693574-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E05 - The Power Of Female Sex [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E05 - The Power of Female Sex.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E06 - Secret Sex [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E06 - Secret Sex.eng.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.4733596-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E06 - Secret Sex [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E06 - Secret Sex.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E07 - The Monogamists [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E07 - The Monogamists.eng.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.4813663-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E07 - The Monogamists [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E07 - The Monogamists.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E08 - Three's A Crowd [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E08 - Three's a Crowd.eng.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.486369-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E08 - Three's A Crowd [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E08 - Three's a Crowd.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E09 - The Turtle And The Hare [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E09 - The Turtle and the Hare.eng.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.4903725-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E09 - The Turtle And The Hare [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E09 - The Turtle and the Hare.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E10 - The Baby Shower [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E10 - The Baby Shower.eng.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.4943743-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E10 - The Baby Shower [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E10 - The Baby Shower.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E11 - The Drought [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E11 - The Drought.eng.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.4983788-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E11 - The Drought [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E11 - The Drought.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E12 - Oh Come All Ye Faithful [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E12 - Oh Come, All Ye Faithful.eng.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.5033809-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E12 - Oh Come All Ye Faithful [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E12 - Oh Come, All Ye Faithful.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E01 - Sex And The City [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E01 - Sex And The City.fre.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.5203931-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E01 - Sex And The City [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E01 - Sex And The City.fre.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E02 - Models And Mortals [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E02 - Models and Mortals.fre.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.5243956-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E02 - Models And Mortals [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E02 - Models and Mortals.fre.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E03 - Bay Of Married Pigs [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E03 - Bay of Married Pigs.fre.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.5294145-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E03 - Bay Of Married Pigs [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E03 - Bay of Married Pigs.fre.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E04 - Valley Of The Twenty-Something Guys [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E04 - Valley of the Twenty-Something Guys.fre.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.5344037-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E04 - Valley Of The Twenty-Something Guys [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E04 - Valley of the Twenty-Something Guys.fre.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E05 - The Power Of Female Sex [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E05 - The Power of Female Sex.fre.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.539411-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E05 - The Power Of Female Sex [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E05 - The Power of Female Sex.fre.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E06 - Secret Sex [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E06 - Secret Sex.fre.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.5444104-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E06 - Secret Sex [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E06 - Secret Sex.fre.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E07 - The Monogamists [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E07 - The Monogamists.fre.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.5484136-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E07 - The Monogamists [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E07 - The Monogamists.fre.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E08 - Three's A Crowd [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E08 - Three's a Crowd.fre.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.553416-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E08 - Three's A Crowd [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E08 - Three's a Crowd.fre.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E09 - The Turtle And The Hare [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E09 - The Turtle and the Hare.fre.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.5574195-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E09 - The Turtle And The Hare [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E09 - The Turtle and the Hare.fre.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E10 - The Baby Shower [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E10 - The Baby Shower.fre.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.5624232-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E10 - The Baby Shower [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E10 - The Baby Shower.fre.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E11 - The Drought [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E11 - The Drought.fre.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.5674275-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E11 - The Drought [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E11 - The Drought.fre.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E12 - Oh Come All Ye Faithful [RavyDavy].srt] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E12 - Oh Come, All Ye Faithful.fre.srt]</RawLine>
+      <DateTime>2017-05-07T23:07:50.5924444-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\French Subtitles\Sex And The City S1E12 - Oh Come All Ye Faithful [RavyDavy].srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E12 - Oh Come, All Ye Faithful.fre.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E01 - Sex And The City [RavyDavy].avi] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E01 - Sex And The City.avi]</RawLine>
+      <DateTime>2017-05-07T23:07:50.5974482-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E01 - Sex And The City [RavyDavy].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E01 - Sex And The City.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E02 - Models And Mortals [RavyDavy].avi] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E02 - Models and Mortals.avi]</RawLine>
+      <DateTime>2017-05-07T23:07:57.0560238-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E02 - Models And Mortals [RavyDavy].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E02 - Models and Mortals.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E03 - Bay Of Married Pigs [RavyDavy] .avi] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E03 - Bay of Married Pigs.avi]</RawLine>
+      <DateTime>2017-05-07T23:08:03.4705662-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E03 - Bay Of Married Pigs [RavyDavy] .avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E03 - Bay of Married Pigs.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E04 - Valley Of The Twenty-Something Guys [RavyDavy].avi] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E04 - Valley of the Twenty-Something Guys.avi]</RawLine>
+      <DateTime>2017-05-07T23:08:10.0652379-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E04 - Valley Of The Twenty-Something Guys [RavyDavy].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E04 - Valley of the Twenty-Something Guys.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E05 - The Power Of Female Sex [RavyDavy].avi] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E05 - The Power of Female Sex.avi]</RawLine>
+      <DateTime>2017-05-07T23:08:15.9314277-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E05 - The Power Of Female Sex [RavyDavy].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E05 - The Power of Female Sex.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E06 - Secret Sex [RavyDavy].avi] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E06 - Secret Sex.avi]</RawLine>
+      <DateTime>2017-05-07T23:08:22.0507277-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E06 - Secret Sex [RavyDavy].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E06 - Secret Sex.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E07 - The Monogamists [RavyDavy].avi] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E07 - The Monogamists.avi]</RawLine>
+      <DateTime>2017-05-07T23:08:27.8898809-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E07 - The Monogamists [RavyDavy].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E07 - The Monogamists.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E08 - Three's A Crowd [RavyDavy].avi] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E08 - Three's a Crowd.avi]</RawLine>
+      <DateTime>2017-05-07T23:08:33.5999085-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E08 - Three's A Crowd [RavyDavy].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E08 - Three's a Crowd.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E09 - The Turtle And The Hare [RavyDavy].avi] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E09 - The Turtle and the Hare.avi]</RawLine>
+      <DateTime>2017-05-07T23:08:39.8053039-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E09 - The Turtle And The Hare [RavyDavy].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E09 - The Turtle and the Hare.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E10 - The Baby Shower [RavyDavy].avi] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E10 - The Baby Shower.avi]</RawLine>
+      <DateTime>2017-05-07T23:08:45.705483-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E10 - The Baby Shower [RavyDavy].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E10 - The Baby Shower.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E11 - The Drought [RavyDavy].avi] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E11 - The Drought.avi]</RawLine>
+      <DateTime>2017-05-07T23:08:51.58765-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E11 - The Drought [RavyDavy].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E11 - The Drought.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E12 - Oh Come All Ye Faithful [RavyDavy].avi] to [F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E12 - Oh Come, All Ye Faithful.avi]</RawLine>
+      <DateTime>2017-05-07T23:08:57.7380066-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\SATC - Season1 XviD [RavyDavy]\Sex And The City S1E12 - Oh Come All Ye Faithful [RavyDavy].avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Sex and the City\Season 01\Sex and the City - S01E12 - Oh Come, All Ye Faithful.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\The.Affair.S03E05.DVDRip.X264-REWARD\the.affair.s03e05.dvdrip.x264-reward\The.Affair.S03E05.DVDRip.X264-REWARD\The.Affair.S03E05.DVDRip.X264-REWARD.mkv] to [F:\Videos\TV Shows\The Affair\Season 03\The Affair - S03E05 - Episode 5.mkv]</RawLine>
+      <DateTime>2017-05-08T21:29:49.9311005-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\The.Affair.S03E05.DVDRip.X264-REWARD\the.affair.s03e05.dvdrip.x264-reward\The.Affair.S03E05.DVDRip.X264-REWARD\The.Affair.S03E05.DVDRip.X264-REWARD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Affair\Season 03\The Affair - S03E05 - Episode 5.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Silicon.Valley.S04E03.REPACK.720p.HDTV.x264-AVS\silicon.valley.s04e03.repack.720p.hdtv.x264-avs\Silicon.Valley.S04E03.REPACK.720p.HDTV.x264-AVS\Silicon.Valley.S04E03.REPACK.720p.HDTV.x264-AVS.mkv] to [F:\Videos\TV Shows\Silicon Valley\Season 04\Silicon Valley - S04E03 - Intellectual Property.mkv]</RawLine>
+      <DateTime>2017-05-09T19:27:15.5813824-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Silicon.Valley.S04E03.REPACK.720p.HDTV.x264-AVS\silicon.valley.s04e03.repack.720p.hdtv.x264-avs\Silicon.Valley.S04E03.REPACK.720p.HDTV.x264-AVS\Silicon.Valley.S04E03.REPACK.720p.HDTV.x264-AVS.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Silicon Valley\Season 04\Silicon Valley - S04E03 - Intellectual Property.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\The.Affair.S03E07.DVDRip.X264-REWARD\the.affair.s03e07.dvdrip.x264-reward\The.Affair.S03E07.DVDRip.X264-REWARD\The.Affair.S03E07.DVDRip.X264-REWARD.mkv] to [F:\Videos\TV Shows\The Affair\Season 03\The Affair - S03E07 - Episode 7.mkv]</RawLine>
+      <DateTime>2017-05-09T19:27:32.6424626-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\The.Affair.S03E07.DVDRip.X264-REWARD\the.affair.s03e07.dvdrip.x264-reward\The.Affair.S03E07.DVDRip.X264-REWARD\The.Affair.S03E07.DVDRip.X264-REWARD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Affair\Season 03\The Affair - S03E07 - Episode 7.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\The.Affair.S03E08.DVDRip.X264-REWARD\the.affair.s03e08.dvdrip.x264-reward\The.Affair.S03E08.DVDRip.X264-REWARD\The.Affair.S03E08.DVDRip.X264-REWARD.mkv] to [F:\Videos\TV Shows\The Affair\Season 03\The Affair - S03E08 - Episode 8.mkv]</RawLine>
+      <DateTime>2017-05-09T19:27:39.3992484-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\The.Affair.S03E08.DVDRip.X264-REWARD\the.affair.s03e08.dvdrip.x264-reward\The.Affair.S03E08.DVDRip.X264-REWARD\The.Affair.S03E08.DVDRip.X264-REWARD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Affair\Season 03\The Affair - S03E08 - Episode 8.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\The.Affair.S03E09.DVDRip.X264-REWARD\the.affair.s03e09.dvdrip.x264-reward\The.Affair.S03E09.DVDRip.X264-REWARD\The.Affair.S03E09.DVDRip.X264-REWARD.mkv] to [F:\Videos\TV Shows\The Affair\Season 03\The Affair - S03E09 - Episode 9.mkv]</RawLine>
+      <DateTime>2017-05-09T19:27:46.4142195-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\The.Affair.S03E09.DVDRip.X264-REWARD\the.affair.s03e09.dvdrip.x264-reward\The.Affair.S03E09.DVDRip.X264-REWARD\The.Affair.S03E09.DVDRip.X264-REWARD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Affair\Season 03\The Affair - S03E09 - Episode 9.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\The.Affair.S03E10.DVDRip.X264-REWARD\the.affair.s03e10.dvdrip.x264-reward\The.Affair.S03E10.DVDRip.X264-REWARD\The.Affair.S03E10.DVDRip.X264-REWARD.mkv] to [F:\Videos\TV Shows\The Affair\Season 03\The Affair - S03E10 - Episode 10.mkv]</RawLine>
+      <DateTime>2017-05-09T19:27:52.7467035-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\The.Affair.S03E10.DVDRip.X264-REWARD\the.affair.s03e10.dvdrip.x264-reward\The.Affair.S03E10.DVDRip.X264-REWARD\The.Affair.S03E10.DVDRip.X264-REWARD.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Affair\Season 03\The Affair - S03E10 - Episode 10.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\www.torrenting.com - Better.Call.Saul.S03E05.720p.HDTV.x264-FLEET\Better.Call.Saul.S03E05.720p.HDTV.x264-FLEET.mkv] to [F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E05 - Chicanery.mkv]</RawLine>
+      <DateTime>2017-05-10T13:36:05.2572307-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\www.torrenting.com - Better.Call.Saul.S03E05.720p.HDTV.x264-FLEET\Better.Call.Saul.S03E05.720p.HDTV.x264-FLEET.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E05 - Chicanery.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Better.Call.Saul.S03E05.WEB-DL.x264-FUM[ettv]\Better.Call.Saul.S03E05.WEB-DL.x264-FUM[ettv].mp4] to [F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E05 - Chicanery.mp4]</RawLine>
+      <DateTime>2017-05-10T13:39:56.7499033-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Better.Call.Saul.S03E05.WEB-DL.x264-FUM[ettv]\Better.Call.Saul.S03E05.WEB-DL.x264-FUM[ettv].mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E05 - Chicanery.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\www.Torrenting.com - Jungletown.S01E05.HDTV.x264-W4F\jungletown.s01e05.hdtv.x264-w4f.mkv] to [F:\Videos\TV Shows\Jungletown\Season 01\Jungletown - S01E05 - Entertaining Jungle-Style.mkv]</RawLine>
+      <DateTime>2017-05-11T21:55:26.8311083-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\www.Torrenting.com - Jungletown.S01E05.HDTV.x264-W4F\jungletown.s01e05.hdtv.x264-w4f.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Jungletown\Season 01\Jungletown - S01E05 - Entertaining Jungle-Style.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\www.Torrenting.com - The.Handmaids.Tale.S01E05.XviD-AFG\The.Handmaids.Tale.S01E05.XviD-AFG.avi] to [F:\Videos\TV Shows\The Handmaid's Tale\Season 01\The Handmaid's Tale - S01E05 - Faithful.avi]</RawLine>
+      <DateTime>2017-05-11T21:55:40.0142363-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\www.Torrenting.com - The.Handmaids.Tale.S01E05.XviD-AFG\The.Handmaids.Tale.S01E05.XviD-AFG.avi</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Handmaid's Tale\Season 01\The Handmaid's Tale - S01E05 - Faithful.avi</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Greys.Anatomy.S13E23.HDTV.x264-KILLERS[ettv]\Greys.Anatomy.S13E23.HDTV.x264-KILLERS[ettv].mkv] to [F:\Videos\TV Shows\Grey's Anatomy\Season 13\Grey's Anatomy - S13E23 - True Colors.mkv]</RawLine>
+      <DateTime>2017-05-15T20:03:43.7128429-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Greys.Anatomy.S13E23.HDTV.x264-KILLERS[ettv]\Greys.Anatomy.S13E23.HDTV.x264-KILLERS[ettv].mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Grey's Anatomy\Season 13\Grey's Anatomy - S13E23 - True Colors.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Silicon.Valley.S04E04.720p.WEB.h264-TBS[ettv]\silicon.valley.s04e04.720p.web.h264-tbs[ettv].mkv] to [F:\Videos\TV Shows\Silicon Valley\Season 04\Silicon Valley - S04E04 - Teambuilding Exercise.mkv]</RawLine>
+      <DateTime>2017-05-15T20:03:54.4644565-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Silicon.Valley.S04E04.720p.WEB.h264-TBS[ettv]\silicon.valley.s04e04.720p.web.h264-tbs[ettv].mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Silicon Valley\Season 04\Silicon Valley - S04E04 - Teambuilding Exercise.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\www.Torrenting.com - Scandal.US.S06E14.HDTV.x264-SVA\Scandal.US.S06E14.HDTV.x264-SVA.mkv] to [F:\Videos\TV Shows\Scandal (2012)\Season 06\Scandal (2012) - S06E14 - Head Games.mkv]</RawLine>
+      <DateTime>2017-05-15T20:04:12.701376-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\www.Torrenting.com - Scandal.US.S06E14.HDTV.x264-SVA\Scandal.US.S06E14.HDTV.x264-SVA.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Scandal (2012)\Season 06\Scandal (2012) - S06E14 - Head Games.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Better.Call.Saul.S03E06.720p.WEB.h264-FFN.mp4] to [F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E06 - Off Brand.mp4]</RawLine>
+      <DateTime>2017-05-17T20:28:41.5139885-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Better.Call.Saul.S03E06.720p.WEB.h264-FFN.mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E06 - Off Brand.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E01.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E01 - Out of Town.eng.srt]</RawLine>
+      <DateTime>2017-05-18T21:53:48.9496969-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E01.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E01 - Out of Town.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E02.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E02 - Love Among the Ruins.eng.srt]</RawLine>
+      <DateTime>2017-05-18T21:53:57.6100028-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E02.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E02 - Love Among the Ruins.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E03.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E03 - My Old Kentucky Home.eng.srt]</RawLine>
+      <DateTime>2017-05-18T21:53:57.6140056-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E03.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E03 - My Old Kentucky Home.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E04.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E04 - The Arrangements.eng.srt]</RawLine>
+      <DateTime>2017-05-18T21:53:57.6190246-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E04.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E04 - The Arrangements.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E05.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E05 - The Fog.eng.srt]</RawLine>
+      <DateTime>2017-05-18T21:53:57.6240127-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E05.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E05 - The Fog.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E06.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E06 - Guy Walks Into an Advertising Agency.eng.srt]</RawLine>
+      <DateTime>2017-05-18T21:53:57.6290164-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E06.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E06 - Guy Walks Into an Advertising Agency.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E07.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E07 - Seven Twenty Three.eng.srt]</RawLine>
+      <DateTime>2017-05-18T21:53:57.6330203-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E07.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E07 - Seven Twenty Three.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E08.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E08 - Souvenir.eng.srt]</RawLine>
+      <DateTime>2017-05-18T21:53:57.638023-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E08.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E08 - Souvenir.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E09.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E09 - Wee Small Hours.eng.srt]</RawLine>
+      <DateTime>2017-05-18T21:53:57.6500311-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E09.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E09 - Wee Small Hours.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E10.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E10 - The Color Blue.eng.srt]</RawLine>
+      <DateTime>2017-05-18T21:53:57.6550349-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E10.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E10 - The Color Blue.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E11.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E11 - The Gypsy and the Hobo.eng.srt]</RawLine>
+      <DateTime>2017-05-18T21:53:57.6600392-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E11.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E11 - The Gypsy and the Hobo.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E12.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E12 - The Grown-Ups.eng.srt]</RawLine>
+      <DateTime>2017-05-18T21:53:57.6650419-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E12.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E12 - The Grown-Ups.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E13.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E13 - Shut the Door. Have a Seat.eng.srt]</RawLine>
+      <DateTime>2017-05-18T21:53:57.670046-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E13.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.srt</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E13 - Shut the Door. Have a Seat.eng.srt</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E01.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E01 - Out of Town.mkv]</RawLine>
+      <DateTime>2017-05-18T21:53:57.6870572-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E01.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E01 - Out of Town.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E02.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E02 - Love Among the Ruins.mkv]</RawLine>
+      <DateTime>2017-05-18T21:54:07.3378937-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E02.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E02 - Love Among the Ruins.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E03.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E03 - My Old Kentucky Home.mkv]</RawLine>
+      <DateTime>2017-05-18T21:54:17.0397663-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E03.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E03 - My Old Kentucky Home.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E04.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E04 - The Arrangements.mkv]</RawLine>
+      <DateTime>2017-05-18T21:54:26.6015545-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E04.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E04 - The Arrangements.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E05.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E05 - The Fog.mkv]</RawLine>
+      <DateTime>2017-05-18T21:54:36.0462307-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E05.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E05 - The Fog.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E06.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E06 - Guy Walks Into an Advertising Agency.mkv]</RawLine>
+      <DateTime>2017-05-18T21:54:45.3268212-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E06.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E06 - Guy Walks Into an Advertising Agency.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E07.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E07 - Seven Twenty Three.mkv]</RawLine>
+      <DateTime>2017-05-18T21:54:54.6644175-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E07.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E07 - Seven Twenty Three.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E08.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E08 - Souvenir.mkv]</RawLine>
+      <DateTime>2017-05-18T21:55:04.0940969-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E08.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E08 - Souvenir.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E09.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E09 - Wee Small Hours.mkv]</RawLine>
+      <DateTime>2017-05-18T21:55:13.456729-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E09.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E09 - Wee Small Hours.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E10.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E10 - The Color Blue.mkv]</RawLine>
+      <DateTime>2017-05-18T21:55:22.6892818-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E10.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E10 - The Color Blue.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E11.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E11 - The Gypsy and the Hobo.mkv]</RawLine>
+      <DateTime>2017-05-18T21:55:32.3681431-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E11.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E11 - The Gypsy and the Hobo.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E12.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E12 - The Grown-Ups.mkv]</RawLine>
+      <DateTime>2017-05-18T21:55:41.5766481-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E12.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E12 - The Grown-Ups.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E13.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv] to [F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E13 - Shut the Door. Have a Seat.mkv]</RawLine>
+      <DateTime>2017-05-18T21:55:51.1294149-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Mad.Men.S03.Season.3.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed\Mad.Men.S03E13.720p.5.1Ch.BluRay.ReEnc-DeeJayAhmed.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Mad Men\Season 03\Mad Men - S03E13 - Shut the Door. Have a Seat.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\The.Handmaids.Tale.S01E06.A.Womans.Place.1080p.HULU.WEBRip.HEVC.2CH.x265.mkv] to [F:\Videos\TV Shows\The Handmaid's Tale\Season 01\The Handmaid's Tale - S01E06 - A Woman's Place.mkv]</RawLine>
+      <DateTime>2017-05-18T21:56:02.6986101-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\The.Handmaids.Tale.S01E06.A.Womans.Place.1080p.HULU.WEBRip.HEVC.2CH.x265.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\The Handmaid's Tale\Season 01\The Handmaid's Tale - S01E06 - A Woman's Place.mkv</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\big.brother.canada.s05e29.finale.hdtv.x264.mp4] to [F:\Videos\TV Shows\Big Brother Canada\Season 05\Big Brother Canada - S05E29 - The Finale.mp4]</RawLine>
+      <DateTime>2017-05-19T18:09:59.6725222-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\big.brother.canada.s05e29.finale.hdtv.x264.mp4</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\TV Shows\Big Brother Canada\Season 05\Big Brother Canada - S05E29 - The Finale.mp4</ProposedFile>
+    </RenameResult>
+    <RenameResult>
+      <RawLine>[MOVE] Rename [D:\Unsorted\completed\Fist.Fight.2017.1080p.BRRiP.6CH.ShAaNiG.mkv] to [F:\Videos\Movies\Fist Fight (2017)\Fist Fight (2017).mkv]</RawLine>
+      <DateTime>2017-05-20T22:52:42.0990086-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Fist.Fight.2017.1080p.BRRiP.6CH.ShAaNiG.mkv</OriginalFile>
+      <Mode>TEST</Mode>
+      <ProposedFile>F:\Videos\Movies\Fist Fight (2017)\Fist Fight (2017).mkv</ProposedFile>
+    </RenameResult>
+  </CompletedRenames>
+  <Skipped>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\test\Greys.Anatomy.S13E15.HDTV.x264-LOL\greys.anatomy.1315.hdtv-lol\Greys.Anatomy.S13E15.HDTV.x264-LOL\greys.anatomy.1315.hdtv-lol.mkv] because [F:\Videos\TV Shows\Grey's Anatomy\Season 13\Grey's Anatomy - S13E15 - Civil War.mkv] already exists</RawLine>
+      <DateTime>2017-04-11T00:23:23.5450478-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\test\Greys.Anatomy.S13E15.HDTV.x264-LOL\greys.anatomy.1315.hdtv-lol\Greys.Anatomy.S13E15.HDTV.x264-LOL\greys.anatomy.1315.hdtv-lol.mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\test\Its.Always.Sunny.in.Philadelphia.S11E05.720p.HDTV.x264-AVS[ettv]\Its.Always.Sunny.in.Philadelphia.S11E05.720p.HDTV.x264-AVS[ettv].mkv] because [F:\Videos\TV Shows\It's Always Sunny in Philadelphia\Season 11\It's Always Sunny in Philadelphia - S11E05 - Mac &amp; Dennis Move to the Suburbs.mkv] already exists</RawLine>
+      <DateTime>2017-04-11T00:23:23.7001577-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\test\Its.Always.Sunny.in.Philadelphia.S11E05.720p.HDTV.x264-AVS[ettv]\Its.Always.Sunny.in.Philadelphia.S11E05.720p.HDTV.x264-AVS[ettv].mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\test\Its.Always.Sunny.in.Philadelphia.S11E06.720p.HDTV.x264-AVS[ettv]\Its.Always.Sunny.in.Philadelphia.S11E06.720p.HDTV.x264-AVS[ettv].mkv] because [F:\Videos\TV Shows\It's Always Sunny in Philadelphia\Season 11\It's Always Sunny in Philadelphia - S11E06 - Being Frank.mkv] already exists</RawLine>
+      <DateTime>2017-04-11T00:23:23.7011579-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\test\Its.Always.Sunny.in.Philadelphia.S11E06.720p.HDTV.x264-AVS[ettv]\Its.Always.Sunny.in.Philadelphia.S11E06.720p.HDTV.x264-AVS[ettv].mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\test\Its.Always.Sunny.in.Philadelphia.S11E07.720p.HDTV.x264-AVS[ettv]\Its.Always.Sunny.in.Philadelphia.S11E07.720p.HDTV.x264-AVS[ettv].mkv] because [F:\Videos\TV Shows\It's Always Sunny in Philadelphia\Season 11\It's Always Sunny in Philadelphia - S11E07 - McPoyle vs. Ponderosa The Trial of the Century.mkv] already exists</RawLine>
+      <DateTime>2017-04-11T00:23:23.7011579-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\test\Its.Always.Sunny.in.Philadelphia.S11E07.720p.HDTV.x264-AVS[ettv]\Its.Always.Sunny.in.Philadelphia.S11E07.720p.HDTV.x264-AVS[ettv].mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\test\Its.Always.Sunny.in.Philadelphia.S12E05.REPACK.720p.HDTV.x264-AVS\Its.Always.Sunny.in.Philadelphia.S12E05.REPACK.720p.HDTV.x264-AVS.mkv] because [F:\Videos\TV Shows\It's Always Sunny in Philadelphia\Season 12\It's Always Sunny in Philadelphia - S12E05 - Making Dennis Reynolds a Murderer.mkv] already exists</RawLine>
+      <DateTime>2017-04-11T00:23:23.7011579-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\test\Its.Always.Sunny.in.Philadelphia.S12E05.REPACK.720p.HDTV.x264-AVS\Its.Always.Sunny.in.Philadelphia.S12E05.REPACK.720p.HDTV.x264-AVS.mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\test\Its.Always.Sunny.in.Philadelphia.S12E10.HDTV.x264-SVA\its.always.sunny.in.philadelphia.s12e10.hdtv.x264-sva\Its.Always.Sunny.in.Philadelphia.S12E10.HDTV.x264-SVA\Its.Always.Sunny.in.Philadelphia.S12E10.HDTV.x264-SVA.mkv] because [F:\Videos\TV Shows\It's Always Sunny in Philadelphia\Season 12\It's Always Sunny in Philadelphia - S12E10 - Dennis' Double Life.mkv] already exists</RawLine>
+      <DateTime>2017-04-11T00:23:23.7021585-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\test\Its.Always.Sunny.in.Philadelphia.S12E10.HDTV.x264-SVA\its.always.sunny.in.philadelphia.s12e10.hdtv.x264-sva\Its.Always.Sunny.in.Philadelphia.S12E10.HDTV.x264-SVA\Its.Always.Sunny.in.Philadelphia.S12E10.HDTV.x264-SVA.mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\test\Life.in.Pieces.S02E16.720p.HDTV.x264-FLEET\life.in.pieces.s02e16.720p.hdtv.x264-fleet\Life.in.Pieces.S02E16.720p.HDTV.x264-FLEET\Life.in.Pieces.S02E16.720p.HDTV.x264-FLEET.mkv] because [F:\Videos\TV Shows\Life in Pieces\Season 02\Life in Pieces - S02E16 - Earthquake Mechanic Old Dirtbike.mkv] already exists</RawLine>
+      <DateTime>2017-04-11T00:23:23.7431882-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\test\Life.in.Pieces.S02E16.720p.HDTV.x264-FLEET\life.in.pieces.s02e16.720p.hdtv.x264-fleet\Life.in.Pieces.S02E16.720p.HDTV.x264-FLEET\Life.in.Pieces.S02E16.720p.HDTV.x264-FLEET.mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\test\MasterChef.Canada.S04E02.HDTV.x264-2HD\masterchef.canada.s04e02.hdtv.x264-2hd\MasterChef.Canada.S04E02.HDTV.x264-2HD\MasterChef.Canada.S04E02.HDTV.x264-2HD.mkv] because [F:\Videos\TV Shows\MasterChef Canada\Season 04\MasterChef Canada - S04E02 - Home on the Range.mkv] already exists</RawLine>
+      <DateTime>2017-04-11T00:23:23.8482628-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\test\MasterChef.Canada.S04E02.HDTV.x264-2HD\masterchef.canada.s04e02.hdtv.x264-2hd\MasterChef.Canada.S04E02.HDTV.x264-2HD\MasterChef.Canada.S04E02.HDTV.x264-2HD.mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\test\Nashville.2012.S05E11.720p.HDTV.x264-AVS\nashville.2012.s05e11.720p.hdtv.x264-avs\Nashville.2012.S05E11.720p.HDTV.x264-AVS\Nashville.2012.S05E11.720p.HDTV.x264-AVS.mkv] because [F:\Videos\TV Shows\Nashville (2012)\Season 05\Nashville (2012) - S05E11 - Fire and Rain.mkv] already exists</RawLine>
+      <DateTime>2017-04-11T00:23:23.8922942-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\test\Nashville.2012.S05E11.720p.HDTV.x264-AVS\nashville.2012.s05e11.720p.hdtv.x264-avs\Nashville.2012.S05E11.720p.HDTV.x264-AVS\Nashville.2012.S05E11.720p.HDTV.x264-AVS.mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\test\Scandal.US.S06E05.HDTV.x264-SVA\scandal.us.s06e05.hdtv.x264-sva\Scandal.US.S06E05.HDTV.x264-SVA\Scandal.US.S06E05.HDTV.x264-SVA.mkv] because [F:\Videos\TV Shows\Scandal (2012)\Season 06\Scandal (2012) - S06E05 - They All Bow Down.mkv] already exists</RawLine>
+      <DateTime>2017-04-11T00:23:23.9363252-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\test\Scandal.US.S06E05.HDTV.x264-SVA\scandal.us.s06e05.hdtv.x264-sva\Scandal.US.S06E05.HDTV.x264-SVA\Scandal.US.S06E05.HDTV.x264-SVA.mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\Better.Call.Saul.S03E01.720p.HDTV.x264-AVS\better.call.saul.s03e01.720p.hdtv.x264-avs\Better.Call.Saul.S03E01.720p.HDTV.x264-AVS\Better.Call.Saul.S03E01.720p.HDTV.x264-AVS.mkv] because [F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E01 - Mabel.mkv] already exists</RawLine>
+      <DateTime>2017-04-11T19:28:15.4077463-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Better.Call.Saul.S03E01.720p.HDTV.x264-AVS\better.call.saul.s03e01.720p.hdtv.x264-avs\Better.Call.Saul.S03E01.720p.HDTV.x264-AVS\Better.Call.Saul.S03E01.720p.HDTV.x264-AVS.mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\Better.Call.Saul.S03E01.HDTV.x264-SVA\better.call.saul.s03e01.hdtv.x264-sva\Better.Call.Saul.S03E01.HDTV.x264-SVA\Better.Call.Saul.S03E01.HDTV.x264-SVA.mkv] because [F:\Videos\TV Shows\Better Call Saul\Season 03\Better Call Saul - S03E01 - Mabel.mkv] already exists</RawLine>
+      <DateTime>2017-04-11T19:28:15.4077463-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Better.Call.Saul.S03E01.HDTV.x264-SVA\better.call.saul.s03e01.hdtv.x264-sva\Better.Call.Saul.S03E01.HDTV.x264-SVA\Better.Call.Saul.S03E01.HDTV.x264-SVA.mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\Bates.Motel.S05E04.WEB-DL.x264-FUM[ettv]\Bates.Motel.S05E04.WEB-DL.x264-FUM[ettv].mp4] because [F:\Videos\TV Shows\Bates Motel\Season 05\Bates Motel - S05E04 - Hidden.mp4] already exists</RawLine>
+      <DateTime>2017-04-18T23:55:54.3765473-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Bates.Motel.S05E04.WEB-DL.x264-FUM[ettv]\Bates.Motel.S05E04.WEB-DL.x264-FUM[ettv].mp4</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\Bates.Motel.S05E08.WEB-DL.x264-FUM[ettv]\Bates.Motel.S05E08.WEB-DL.x264-FUM[ettv].mp4] because [F:\Videos\TV Shows\Bates Motel\Season 05\Bates Motel - S05E08 - The Body.mp4] already exists</RawLine>
+      <DateTime>2017-04-18T23:55:54.3785514-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Bates.Motel.S05E08.WEB-DL.x264-FUM[ettv]\Bates.Motel.S05E08.WEB-DL.x264-FUM[ettv].mp4</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\Bates.Motel.S05E05.WEB-DL.XviD-FUM[ettv]\Bates.Motel.S05E05.WEB-DL.XviD-FUM[ettv].avi] because [F:\Videos\TV Shows\Bates Motel\Season 05\Bates Motel - S05E05 - Dreams Die First.avi] already exists</RawLine>
+      <DateTime>2017-04-18T23:55:54.3785514-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Bates.Motel.S05E05.WEB-DL.XviD-FUM[ettv]\Bates.Motel.S05E05.WEB-DL.XviD-FUM[ettv].avi</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\MasterChef.Canada.S04E07.HDTV.x264-CROOKS[ettv]\masterchef.canada.s04e07.hdtv.x264-crooks[ettv].mkv] because [F:\Videos\TV Shows\MasterChef Canada\Season 04\MasterChef Canada - S04E07 - Egg Showdown.mkv] already exists</RawLine>
+      <DateTime>2017-04-23T17:09:35.6928189-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\MasterChef.Canada.S04E07.HDTV.x264-CROOKS[ettv]\masterchef.canada.s04e07.hdtv.x264-crooks[ettv].mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\Girls.S06E10.HDTV.x264-KILLERS[ettv]\Girls.S06E10.HDTV.x264-KILLERS[ettv].mkv] because [F:\Videos\TV Shows\Girls\Season 06\Girls - S06E10 - Latching.mkv] already exists</RawLine>
+      <DateTime>2017-04-25T20:47:07.5766586-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Girls.S06E10.HDTV.x264-KILLERS[ettv]\Girls.S06E10.HDTV.x264-KILLERS[ettv].mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\Paranormal.Survivor.S02E07.Family.Phantoms.HDTV.x264-TRiAL\Paranormal.Survivor.S02E07.Family.Phantoms.HDTV.x264-TRiAL.mp4] because [F:\Videos\TV Shows\Paranormal Survivor\Season 02\Paranormal Survivor - S02E07 - Family Phantoms.mp4] already exists</RawLine>
+      <DateTime>2017-05-02T22:15:18.7989954-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S02E07.Family.Phantoms.HDTV.x264-TRiAL\Paranormal.Survivor.S02E07.Family.Phantoms.HDTV.x264-TRiAL.mp4</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\Paranormal.Survivor.S01E09.720p.mp4\Paranormal.Survivor.S01E09.720p.HDTV.x264-][ Multiple.Witnesses ][ 27-Jul-2015 ].mp4] because [F:\Videos\TV Shows\Survivor (GR)\Season 01\Survivor (GR) - S01E09 - Malaysia Episode 9.mp4] already exists</RawLine>
+      <DateTime>2017-05-02T22:15:18.7989954-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S01E09.720p.mp4\Paranormal.Survivor.S01E09.720p.HDTV.x264-][ Multiple.Witnesses ][ 27-Jul-2015 ].mp4</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\www.torrenting.com - The.Handmaids.Tale.S01E03.720p.WEBRip.x264-MOROSE\the.handmaids.tale.s01e03.720p.webrip.x264-morose.mkv] because [F:\Videos\TV Shows\The Handmaid's Tale\Season 01\The Handmaid's Tale - S01E03 - Late.mkv] already exists</RawLine>
+      <DateTime>2017-05-02T22:15:18.8620415-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\www.torrenting.com - The.Handmaids.Tale.S01E03.720p.WEBRip.x264-MOROSE\the.handmaids.tale.s01e03.720p.webrip.x264-morose.mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\Paranormal.Survivor.S01E05+E06.480p.mp4\Paranormal.Survivor.S01E05.480p.HDTV.x264-][ Territorial.Spirits ][ 30-Jun-2015 ].mp4] because [F:\Videos\TV Shows\Survivor (GR)\Season 01\Survivor (GR) - S01E05 - Malaysia Episode 5.mp4] already exists</RawLine>
+      <DateTime>2017-05-02T22:14:34.7587995-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S01E05+E06.480p.mp4\Paranormal.Survivor.S01E05.480p.HDTV.x264-][ Territorial.Spirits ][ 30-Jun-2015 ].mp4</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\Paranormal.Survivor.S01E05+E06.480p.mp4\Paranormal.Survivor.S01E06.480p.HDTV.x264-][ When.Spirits.Talk ][ 05-Jul=2015 ].mp4] because [F:\Videos\TV Shows\Paranormal Survivor\Season 01\Paranormal Survivor - S01E06 - When Spirits Talk.mp4] already exists</RawLine>
+      <DateTime>2017-05-02T22:15:18.7979948-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S01E05+E06.480p.mp4\Paranormal.Survivor.S01E06.480p.HDTV.x264-][ When.Spirits.Talk ][ 05-Jul=2015 ].mp4</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\Paranormal.Survivor.S01E05.480p.HDTV.x264-][ Territorial.Spirits ][ 30-Jun-2015 ].mp4] because [F:\Videos\TV Shows\Survivor (GR)\Season 01\Survivor (GR) - S01E05 - Malaysia Episode 5.mp4] already exists</RawLine>
+      <DateTime>2017-05-02T22:15:18.7989954-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Paranormal.Survivor.S01E05.480p.HDTV.x264-][ Territorial.Spirits ][ 30-Jun-2015 ].mp4</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\www.Torrenting.com - Scandal.US.S06E12.HDTV.x264-SVA\Scandal.US.S06E12.HDTV.x264-SVA.mkv] because [F:\Videos\TV Shows\Scandal (2012)\Season 06\Scandal (2012) - S06E12 - Mercy.mkv] already exists</RawLine>
+      <DateTime>2017-05-07T19:33:33.6252018-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\www.Torrenting.com - Scandal.US.S06E12.HDTV.x264-SVA\Scandal.US.S06E12.HDTV.x264-SVA.mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\The.Affair.S03E06.DVDRip.X264-REWARD\the.affair.s03e06.dvdrip.x264-reward\The.Affair.S03E06.DVDRip.X264-REWARD\The.Affair.S03E06.DVDRip.X264-REWARD.mkv] because [F:\Videos\TV Shows\The Affair\Season 03\The Affair - S03E06 - Episode 6.mkv] already exists</RawLine>
+      <DateTime>2017-05-09T19:27:32.6424626-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\The.Affair.S03E06.DVDRip.X264-REWARD\the.affair.s03e06.dvdrip.x264-reward\The.Affair.S03E06.DVDRip.X264-REWARD\The.Affair.S03E06.DVDRip.X264-REWARD.mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\Silicon.Valley.S04E03.REPACK.720p.HDTV.x264-AVS\silicon.valley.s04e03.repack.720p.hdtv.x264-avs\Silicon.Valley.S04E03.REPACK.720p.HDTV.x264-AVS\Silicon.Valley.S04E03.REPACK.720p.HDTV.x264-AVS.mkv] because [F:\Videos\TV Shows\Silicon Valley\Season 04\Silicon Valley - S04E03 - Intellectual Property.mkv] already exists</RawLine>
+      <DateTime>2017-05-10T12:41:52.8977486-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Silicon.Valley.S04E03.REPACK.720p.HDTV.x264-AVS\silicon.valley.s04e03.repack.720p.hdtv.x264-avs\Silicon.Valley.S04E03.REPACK.720p.HDTV.x264-AVS\Silicon.Valley.S04E03.REPACK.720p.HDTV.x264-AVS.mkv</OriginalFile>
+    </SkipResult>
+    <SkipResult>
+      <RawLine>Skipped [D:\Unsorted\completed\Silicon.Valley.S04E04.720p.WEB.h264-TBS[ettv]\silicon.valley.s04e04.720p.web.h264-tbs[ettv].mkv] because [F:\Videos\TV Shows\Silicon Valley\Season 04\Silicon Valley - S04E04 - Teambuilding Exercise.mkv] already exists</RawLine>
+      <DateTime>2017-05-22T19:30:52.7008006-04:00</DateTime>
+      <OriginalFile>D:\Unsorted\completed\Silicon.Valley.S04E04.720p.WEB.h264-TBS[ettv]\silicon.valley.s04e04.720p.web.h264-tbs[ettv].mkv</OriginalFile>
+    </SkipResult>
+  </Skipped>
+  <FilebotDirectory>D:\Unsorted\filebot</FilebotDirectory>
+</Filebot>

@@ -1,0 +1,1 @@
+makensis systemCleaner.nsi

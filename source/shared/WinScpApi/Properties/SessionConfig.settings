@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
+              GeneratedClassNamespace="Common.SFTP" GeneratedClassName="SessionConfig">
+  <Profiles />
+  <Settings>
+    <Setting Name="HistoryFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">..\\..\\history.xml</Value>
+    </Setting>
+    <Setting Name="WatchPeriod" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10000</Value>
+    </Setting>
+    <Setting Name="NumberOfSlots" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="SshHostKeyFingerprint" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ssh-rsa 2048 13:bd:c2:98:f6:9d:53:f7:1a:6a:38:9d:14:2e:1f:7a</Value>
+    </Setting>
+    <Setting Name="Host" Type="System.String" Scope="User">
+      <Value Profile="(Default)">mole.seedhost.eu</Value>
+    </Setting>
+    <Setting Name="DeleteSource" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="RemoteRoots" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">
+        &lt;?xml version="1.0" encoding="utf-16"?&gt;
+        &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+        &lt;string&gt;/home6/emptycup/downloads/completed/test&lt;/string&gt;
+        &lt;string&gt;/home6/emptycup/downloads/test2&lt;/string&gt;
+        &lt;string&gt;/home6/emptycup/downloads/completed&lt;/string&gt;
+        &lt;/ArrayOfString&gt;
+      </Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

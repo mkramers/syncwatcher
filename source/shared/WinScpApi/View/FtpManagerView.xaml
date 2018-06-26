@@ -1,0 +1,242 @@
+﻿<UserControl
+    x:Class="WinScpApi.View.FtpManagerView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Themes.Converters;assembly=Themes"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.fontawesome.io/icons/"
+    xmlns:framework="clr-namespace:Common.Framework;assembly=Common"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:themes="clr-namespace:Themes;assembly=Themes"
+    xmlns:view="clr-namespace:WinScpApi.View"
+    xmlns:viewModel="clr-namespace:WinScpApi.ViewModel"
+    d:DataContext="{d:DesignInstance viewModel:FtpManagerViewModel}"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ContextMenu x:Key="FileListRowMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem Command="{Binding CancelCommand}" Header="Cancel" />
+        </ContextMenu>
+        <Style x:Key="FileListRowStyle" TargetType="{x:Type DataGridRow}">
+            <Setter Property="ContextMenu" Value="{StaticResource FileListRowMenu}" />
+        </Style>
+        <Style x:Key="TextBlockStyleKey" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        </Style>
+        <converters:BoolToBrushConverter
+            x:Key="StatusBooleanToBrushConverter"
+            FalseValue="Red"
+            TrueValue="Green" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <ComboBox
+                Grid.Column="0"
+                Height="24"
+                Margin="6"
+                VerticalAlignment="Center"
+                ItemsSource="{Binding Manager.RemoteRoots}"
+                SelectedItem="{Binding SelectedRemoteRoot}" />
+
+            <Button
+                Grid.Column="1"
+                Width="30"
+                Height="30"
+                Margin="2"
+                Background="Transparent"
+                Command="{Binding SyncAllCommand}"
+                IsEnabled="{Binding Manager.Client.IsOpened}">
+                <Button.Content>
+                    <fa:ImageAwesome
+                        Width="18"
+                        Height="18"
+                        Icon="ChevronRight" />
+                </Button.Content>
+            </Button>
+
+            <ComboBox
+                Grid.Column="2"
+                Height="24"
+                Margin="6"
+                VerticalAlignment="Center"
+                ItemsSource="{Binding Manager.LocalRoots}"
+                SelectedItem="{Binding SelectedLocalRoot, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Button
+                Grid.Column="3"
+                Width="24"
+                Height="24"
+                Margin="6"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Background="Transparent"
+                Command="{Binding RefreshCommand}"
+                IsEnabled="{Binding Manager.Client.IsOpened}">
+                <Button.Content>
+                    <fa:ImageAwesome
+                        Width="18"
+                        Height="18"
+                        Icon="Refresh" />
+                </Button.Content>
+            </Button>
+
+            <Button
+                Grid.Column="4"
+                Width="24"
+                Height="24"
+                Margin="6"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Command="{Binding Manager.Client.InvertConnectionCommand}"
+                Foreground="{Binding Path=Manager.Client.IsOpened, Converter={StaticResource StatusBooleanToBrushConverter}}">
+                <Button.Content>
+                    <fa:ImageAwesome
+                        Width="18"
+                        Height="18"
+                        Foreground="{Binding Manager.Client.IsOpened, Converter={StaticResource StatusBooleanToBrushConverter}}"
+                        Icon="Plug" />
+                </Button.Content>
+            </Button>
+        </Grid>
+
+        <view:FtpExplorerView
+            Grid.Row="1"
+            Margin="6"
+            DataContext="{Binding Manager.RemoteRootViewModel}" />
+
+        <Grid
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            Visibility="{Binding Manager.Client.IsOpened, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Button
+                Grid.Row="0"
+                Width="36"
+                Height="36"
+                Background="Transparent"
+                Command="{Binding Manager.Client.InvertConnectionCommand}"
+                Visibility="{Binding Manager.Client.IsBusy, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                <Button.Content>
+                    <fa:ImageAwesome
+                        Width="18"
+                        Height="18"
+                        Icon="Refresh" />
+                </Button.Content>
+            </Button>
+
+            <TextBlock
+                Grid.Row="1"
+                HorizontalAlignment="Center"
+                Text="{Binding DisconnectedMessage}"
+                Visibility="{Binding Manager.Client.IsBusy, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
+        </Grid>
+
+        <Grid Grid.Row="1" Visibility="{Binding Manager.Client.IsBusy, Converter={StaticResource BoolToVisibilityConverter}}">
+            <fa:ImageAwesome
+                Width="24"
+                Height="24"
+                Icon="Spinner"
+                Spin="True" />
+        </Grid>
+
+        <framework:CustomDataGrid
+            Grid.Row="2"
+            Margin="6"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            IsReadOnly="True"
+            ItemsSource="{Binding Manager.Downloads}"
+            RowHeaderWidth="0"
+            RowStyle="{StaticResource FileListRowStyle}"
+            SelectedItemsList="{Binding SelectedDownloads, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            SelectionMode="Extended"
+            SelectionUnit="FullRow">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding RelativeName}"
+                    ElementStyle="{StaticResource TextBlockStyleKey}"
+                    Header="Name" />
+                <DataGridTextColumn
+                    Width="50"
+                    Binding="{Binding Size, Converter={StaticResource FileSizeToStringConverter}}"
+                    Header="Size" />
+                <DataGridTemplateColumn MinWidth="125" Header="Progress">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <ItemContainerTemplate>
+                            <Grid>
+                                <ProgressBar
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Maximum="100"
+                                    Minimum="0"
+                                    Value="{Binding PercentCompleted, Mode=OneWay}" />
+
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding DisplayCps}" />
+                            </Grid>
+                        </ItemContainerTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </framework:CustomDataGrid>
+
+        <Grid Grid.Row="3" Height="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="0"
+                Margin="7"
+                Command="{Binding DeleteHistoryCommand}"
+                Content="Del.Histroy" />
+
+            <Button
+                Grid.Column="2"
+                Margin="7"
+                Command="{Binding TestCommand}"
+                Content="test" />
+
+            <Button
+                Grid.Column="4"
+                Margin="7"
+                Command="{Binding CancelCommand}"
+                Content="Cancel" />
+
+            <Button
+                Grid.Column="3"
+                Margin="7"
+                Command="{Binding SyncSelectedCommand}"
+                Content="Sync"
+                IsEnabled="{Binding Manager.Client.IsOpened}" />
+
+        </Grid>
+    </Grid>
+</UserControl>
