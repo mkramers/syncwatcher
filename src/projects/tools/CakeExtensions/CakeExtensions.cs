@@ -1,7 +1,6 @@
 ﻿using System;
 using Cake.Core;
 using Cake.Core.Annotations;
-using P4Commands;
 
 namespace CakeExtensions
 {
@@ -28,23 +27,6 @@ namespace CakeExtensions
         public static int TheAnswerToLife(this ICakeContext context)
         {
             return 42;
-        }
-    }
-
-    public static class P4Extensions
-    {
-        [CakeMethodAlias]
-        public static string GetCurrentChangeList(this ICakeContext _context)
-        {
-            var changeList = Commands.GetChangelist();
-            return changeList?.ToString();
-        }
-
-        [CakeMethodAlias]
-        public static string GetCurrentChangeList(this ICakeContext _context, string _stageFile)
-        {
-            var changeList = Commands.GetChangelist();
-            return changeList?.ToString();
         }
     }
 }

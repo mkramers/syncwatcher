@@ -54,14 +54,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\P4Commands\P4Commands.csproj">
-      <Project>{fe28739e-af53-4368-af38-430072f046e9}</Project>
-      <Name>P4Commands</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>(robocopy .\ ..\..\..\..\syncwatcher\tools\Cake /is "$(TargetFileName)" "P4Commands.dll")</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
