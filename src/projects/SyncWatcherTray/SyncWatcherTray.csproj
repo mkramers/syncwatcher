@@ -150,6 +150,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Resource Include="Settings\settings.xml" />
+    <Resource Include="build\assemblyInfoFileList.txt" />
+    <Resource Include="build\currentVersion.txt" />
+    <Resource Include="build\original_jenkins.txt" />
     <Content Include="WinSCP.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -158,6 +161,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="build\build.cake" />
+    <None Include="build\build.ps1" />
+    <None Include="build\buildInstaller.nsi" />
     <None Include="Config\log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
