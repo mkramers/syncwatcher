@@ -278,21 +278,6 @@ namespace Common
             return contents;
         }
 
-        public static string GetScreenRegion(ScreenRegion _region)
-        {
-            var output =
-                $"ScreenRegion={_region.Name},{_region.Value},{_region.ReferencePath},{_region.TopLeftX},{_region.TopLeftY},{_region.BottomRightX},{_region.BottomRightY}";
-            return output;
-        }
-
-        public static string GetScreenRegion(string _name, int _value, string _referencePath, int _topLeftX,
-            int _topLeftY, int _bottomRightX, int _bottomRightY)
-        {
-            var output =
-                $"ScreenRegion={_name},{_value},{_referencePath},{_topLeftX},{_topLeftY},{_bottomRightX},{_bottomRightY}";
-            return output;
-        }
-
         public static StaticAnalysisWarning GetStaticAnalysisWarning(List<string> _data)
         {
             StaticAnalysisWarning warning = null;

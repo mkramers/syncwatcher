@@ -105,12 +105,10 @@
     <Compile Include="Framework\GroupFilter.cs" />
     <Compile Include="Framework\InputHandler.cs" />
     <Compile Include="Utilities\MathF.cs" />
-    <Compile Include="Focal\NeedleGuideValues.cs" />
     <Compile Include="Framework\ObservableObject.cs" />
     <Compile Include="Framework\ObservableRangeCollection.cs" />
     <Compile Include="API\OpenVPN.cs" />
     <Compile Include="IO\RemoteFileInfo.cs" />
-    <Compile Include="Focal\ScreenRegion.cs" />
     <Compile Include="IO\SessionInfo.cs" />
     <Compile Include="IO\SessionManager.cs" />
     <Compile Include="Utilities\StaticAnalysisWarning.cs" />
