@@ -29,9 +29,9 @@ echo -----end post build
 echo.
 
 ::prepare test data
-set testSource="F:\Videos\TV Shows\Anne\Season 01"
+::set testSource="F:\Videos\TV Shows\Anne\Season 01"
 ::set testSource="F:\Videos\TV Shows\Mad Men\Season 05"
-set testDestination=D:\Unsorted\completed
-
+::set testDestination=D:\Unsorted\completed
 ::(robocopy %testSource% %testDestination% /s /is /mov) ^& IF %ERRORLEVEL% GTR 3 exit %ERRORLEVEL%
+
 exit 0
