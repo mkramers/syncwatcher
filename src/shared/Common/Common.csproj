@@ -75,7 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\solutions\syncWatcher\VersionInfo.cs">
+    <Compile Include="..\..\solutions\VersionInfo.cs">
       <Link>VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Framework\DeferredAction.cs" />
