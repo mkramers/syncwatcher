@@ -46,9 +46,6 @@ namespace WinScpApi
             var appSettings = ConfigurationManager.AppSettings;
             var username = appSettings["Username"];
             var hex = ConfigurationManager.AppSettings["Password"];
-            var bytes = Enumerable.Range(0, hex.Length / 2).Select(_x => Convert.ToByte(hex.Substring(_x * 2, 2), 16))
-                .ToArray();
-            var decrypted = ProtectedData.Unprotect(bytes, null, DataProtectionScope.CurrentUser);
 
             // Setup session options
             var sessionOptions = new SessionOptions
@@ -56,7 +53,7 @@ namespace WinScpApi
                 Protocol = Protocol.Sftp,
                 HostName = m_config.Host,
                 UserName = username,
-                Password = Encoding.Unicode.GetString(decrypted),
+                Password = hex != null ? GetPasswordFromHex(hex) : "",
                 SshHostKeyFingerprint = m_config.SshHostKeyFingerprint
             };
             sessionOptions.AddRawSettings("AuthGSSAPI", "1");
@@ -71,6 +68,17 @@ namespace WinScpApi
             Client.DownloadComplete += Client_DownloadComplete;
 
             m_remoteRootViewModel = new FtpDirectoryViewModel(CurrentRemoteRoot, this, true);
+        }
+
+        private static string GetPasswordFromHex(string hex)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(hex));
+
+            var bytes = Enumerable.Range(0, hex.Length / 2).Select(_x => Convert.ToByte(hex.Substring(_x * 2, 2), 16))
+                .ToArray();
+            var decrypted = ProtectedData.Unprotect(bytes, null, DataProtectionScope.CurrentUser);
+            var password = Encoding.Unicode.GetString(decrypted);
+            return password;
         }
 
         private async void Client_ConnectionChanged(object _sender, ConnectionChangedEventArgs _e)
