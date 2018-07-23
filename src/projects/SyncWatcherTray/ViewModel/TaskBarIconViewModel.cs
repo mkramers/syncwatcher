@@ -33,7 +33,7 @@ namespace SyncWatcherTray.ViewModel
 
             m_timer.Start();
 
-            IsBusy = false;
+            IsBusy = true;
         }
 
         public void SetIsNotBusy()
