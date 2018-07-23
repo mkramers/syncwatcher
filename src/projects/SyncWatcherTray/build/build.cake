@@ -7,7 +7,7 @@ var changeListNumber = Argument<string>("changeList", "0");
 var outputDir = Argument<string>("output", "./publish");
 var assemblyInfoFileList = Argument<string>("assemblyInfoFileList", "assemblyInfoFileList.txt");
 var archiveDir = Argument<string>("archive", "./archive");
-var isQuickMode = Argument<bool>("quick", false);
+var isQuickMode = Argument<bool>("quick", false); 
 
 //////////////////////////////////////////////////////////////////////
 //PROJECT
