@@ -50,23 +50,19 @@ namespace SyncWatcherTray.ViewModel
 
         private static void CreateFtpManager(string _inputDirectory, out FtpManagerViewModel _managerViewModel)
         {
-            _managerViewModel = null;
+            FtpSessionConfig sessionConfig = Settings.Default.FtpSessionConfig ?? FtpSessionConfig.Default;
 
-            var sessionConfig = Settings.Default.FtpSessionConfig;
-            if (sessionConfig == null)
-            {
-                Settings.Default.FtpSessionConfig = FtpSessionConfig.Default;
-                Settings.Default.Save();
-
-                sessionConfig = Settings.Default.FtpSessionConfig;
-                Debug.Assert(sessionConfig != null);
-            }
+            Settings.Default.FtpSessionConfig = sessionConfig;
+            Settings.Default.Save();
 
             FtpManager manager = new FtpManager(sessionConfig, new List<string> { _inputDirectory });
-
             _managerViewModel = new FtpManagerViewModel(manager);
+        }
 
-            var lastRemotePath = Settings.Default.LastRemotePath;
+        private static void SelectLastLocalRoot(FtpManagerViewModel _managerViewModel)
+        {
+            string lastRemotePath = Settings.Default.LastRemotePath;
+
             if (!string.IsNullOrWhiteSpace(lastRemotePath))
             {
                 _managerViewModel.SelectedRemoteRoot = lastRemotePath;
@@ -81,6 +77,8 @@ namespace SyncWatcherTray.ViewModel
         private static void RunPostOperations(FtpManagerViewModel _ftpManagerViewModel)
         {
             Debug.Assert(_ftpManagerViewModel != null);
+            
+            SelectLastLocalRoot(_ftpManagerViewModel);
 
             var autoConnectFtp = Settings.Default.AutoConnectFtp;
             if (autoConnectFtp)
