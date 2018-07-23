@@ -50,21 +50,6 @@ namespace SyncWatcherTray.ViewModel
             RunPostOperations();
         }
 
-        private static void SelectLastLocalRoot(FtpManagerViewModel _managerViewModel)
-        {
-            string lastRemotePath = Settings.Default.LastRemotePath;
-
-            if (!string.IsNullOrWhiteSpace(lastRemotePath))
-            {
-                _managerViewModel.SelectedRemoteRoot = lastRemotePath;
-            }
-            else
-            {
-                Settings.Default.LastRemotePath = _managerViewModel.SelectedLocalRoot;
-                Settings.Default.Save();
-            }
-        }
-
         private void RunPostOperations()
         {
             FtpManagerViewModel ftpManagerViewModel = FtpManagerViewModel;
@@ -83,6 +68,21 @@ namespace SyncWatcherTray.ViewModel
                 {
                     connect.Execute(null);
                 }
+            }
+        }
+
+        private static void SelectLastLocalRoot(FtpManagerViewModel _managerViewModel)
+        {
+            string lastRemotePath = Settings.Default.LastRemotePath;
+
+            if (!string.IsNullOrWhiteSpace(lastRemotePath))
+            {
+                _managerViewModel.SelectedRemoteRoot = lastRemotePath;
+            }
+            else
+            {
+                Settings.Default.LastRemotePath = _managerViewModel.SelectedLocalRoot;
+                Settings.Default.Save();
             }
         }
 
