@@ -3,6 +3,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Common.Framework.EventHelpers;
 using Common.Mvvm;
 using Common.SFTP;
 using GalaSoft.MvvmLight;
@@ -12,6 +13,8 @@ namespace WinScpApi.ViewModel
 {
     public class FtpManagerViewModel : ViewModelBase
     {
+        public event EventHandler<StringEventArgs> LocalRootChanged;
+
         public FtpManagerViewModel(FtpManager _manager)
         {
             Debug.Assert(_manager != null);
@@ -159,6 +162,8 @@ Quisque vel nisi porta, porta mi vitae, vulputate augue. Sed ac vehicula nibh. S
                 {
                     Manager.CurrentLocalRoot = value;
                     RaisePropertyChanged();
+
+                    LocalRootChanged?.Invoke(this, new StringEventArgs(value));
                 }
             }
         }

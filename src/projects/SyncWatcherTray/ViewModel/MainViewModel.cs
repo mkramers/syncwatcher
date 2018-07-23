@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Common.Framework.EventHelpers;
 using Common.Mvvm;
 using Common.SFTP;
 using FilebotApi.ViewModel;
@@ -46,8 +47,15 @@ namespace SyncWatcherTray.ViewModel
 
             FtpManagerViewModel = new FtpManagerViewModel(manager);
             FtpManagerViewModel.PropertyChanged += FtpManagerViewModel_PropertyChanged;
-            
+            FtpManagerViewModel.LocalRootChanged += FtpManagerViewModel_LocalRootChanged;
+
             RunPostOperations();
+        }
+        
+        private void FtpManagerViewModel_LocalRootChanged(object _sender, StringEventArgs _e)
+        {
+            Settings.Default.LastRemotePath = FtpManagerViewModel.SelectedRemoteRoot;
+            Settings.Default.Save();
         }
 
         private void RunPostOperations()
@@ -110,8 +118,7 @@ namespace SyncWatcherTray.ViewModel
             }
             else if (propertyName == nameof(FtpManagerViewModel.SelectedRemoteRoot))
             {
-                Settings.Default.LastRemotePath = FtpManagerViewModel.SelectedRemoteRoot;
-                Settings.Default.Save();
+
             }
         }
 
