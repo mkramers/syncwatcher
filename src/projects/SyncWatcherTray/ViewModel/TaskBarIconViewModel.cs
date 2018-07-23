@@ -60,7 +60,7 @@ namespace SyncWatcherTray.ViewModel
             var greenBusyUri = new Uri("pack://application:,,,/Resources/coffeeGreenBusy.ico");
             m_greenBusy = new BitmapImage(greenBusyUri);
             m_greenBusy.Freeze();
-        }/
+        }
 
         private void Timer_Elapsed(object _sender, ElapsedEventArgs _e)
         {
