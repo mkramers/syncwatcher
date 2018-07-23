@@ -117,12 +117,12 @@ namespace SyncWatcherTray.ViewModel
 
         private void Operation_Started(object _sender, EventArgs _e)
         {
-            TaskBarIcon.SetIsBusy(true);
+            TaskBarIcon.SetIsBusy();
         }
 
         private void Operation_Completed(object _sender, EventArgs _e)
         {
-            TaskBarIcon.SetIsBusy(false);
+            TaskBarIcon.SetIsNotBusy();
         }
 
         public ICommand OrganizeCommand => FilebotManager.CompletedDirectory.OrganizeCommand;

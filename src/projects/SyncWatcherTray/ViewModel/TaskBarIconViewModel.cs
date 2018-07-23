@@ -25,25 +25,26 @@ namespace SyncWatcherTray.ViewModel
             m_timer.Elapsed += Timer_Elapsed;
         }
 
-        public void SetIsBusy(bool _isBusy)
+        public void SetIsBusy()
         {
-            if (m_isBusy != _isBusy)
-            {
-                var timer = m_timer;
+            Debug.Assert(!m_isBusy);
 
-                if (_isBusy)
-                {
-                    UpdateIcon(m_green);
-                    timer.Start();
-                }
-                else
-                {
-                    timer.Stop();
-                    UpdateIcon(m_idleIcon);
-                }
+            UpdateIcon(m_green);
 
-                m_isBusy = _isBusy;
-            }
+            m_timer.Start();
+
+            m_isBusy = false;
+        }
+
+        public void SetIsNotBusy()
+        {
+            Debug.Assert(m_isBusy);
+
+            m_timer.Stop();
+
+            UpdateIcon(m_idleIcon);
+
+            m_isBusy = false;
         }
 
         private void CreateIcons()
@@ -59,7 +60,7 @@ namespace SyncWatcherTray.ViewModel
             var greenBusyUri = new Uri("pack://application:,,,/Resources/coffeeGreenBusy.ico");
             m_greenBusy = new BitmapImage(greenBusyUri);
             m_greenBusy.Freeze();
-        }
+        }/
 
         private void Timer_Elapsed(object _sender, ElapsedEventArgs _e)
         {
