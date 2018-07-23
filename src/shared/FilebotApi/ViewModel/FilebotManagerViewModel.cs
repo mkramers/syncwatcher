@@ -14,7 +14,7 @@ namespace FilebotApi.ViewModel
 {
     public class FilebotManagerViewModel : ViewModelBase
     {
-        private FilebotManagerViewModel()
+        public FilebotManagerViewModel()
         {
             const string input = @"D:\Unsorted\completed";
             const string outputDir = @"F:\Videos";
@@ -50,23 +50,6 @@ namespace FilebotApi.ViewModel
             }
 
             CompletedDirectory = new LocalCleanerViewModel(input, outputDir, filebot);
-        }
-
-        public static bool TryCreateFilebotManager(out FilebotManagerViewModel _manager)
-        {
-            _manager = null;
-
-            try
-            {
-                _manager = new FilebotManagerViewModel();
-            }
-            catch (Exception e)
-            {
-                _manager = null;
-                Console.WriteLine($"Failed to create FilebotManagerViewModel: {e.Message}");
-            }
-
-            return _manager != null;
         }
 
         private void Filebot_Completed(object _sender, Filebot.FileBotOrganizeEventArgs _e)

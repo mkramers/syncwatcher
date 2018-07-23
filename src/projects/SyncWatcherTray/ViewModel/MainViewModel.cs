@@ -22,31 +22,24 @@ namespace SyncWatcherTray.ViewModel
         {
             TaskBarIcon = new TaskbarIconViewModel();
 
+            FilebotManager = new FilebotManagerViewModel();
+            FilebotManager.FilebotStarted += Operation_Started;
+            FilebotManager.FilebotCompleted += Operation_Completed;
+
+            Settings defaultSettings = Settings.Default;
+
+            defaultSettings.FtpSessionConfig = defaultSettings.FtpSessionConfig ?? FtpSessionConfig.Default;
+            defaultSettings.Save();
+
             const string completedDir = @"D:\Unsorted\completed";
 
-            if (!FilebotManagerViewModel.TryCreateFilebotManager(out var filebotManager))
-            {
-                var message = $"Failed to create FilebotManager! See log for details.";
-                PopupManager.Instance.ShowError(message, "Invalid path!");
-                return;
-            }
-
-            filebotManager.FilebotStarted += Operation_Started;
-            filebotManager.FilebotCompleted += Operation_Completed;
-
-            FilebotManager = filebotManager;
-
-            FtpSessionConfig sessionConfig = Settings.Default.FtpSessionConfig ?? FtpSessionConfig.Default;
-
-            Settings.Default.FtpSessionConfig = sessionConfig;
-            Settings.Default.Save();
-
-            FtpManager manager = new FtpManager(sessionConfig, new List<string> { completedDir });
+            FtpManager manager = new FtpManager(defaultSettings.FtpSessionConfig, new List<string> { completedDir });
             manager.OperationStarted += Operation_Started;
             manager.OperationCompleted += Operation_Completed;
 
+            FtpManagerViewModel = new FtpManagerViewModel(manager);
             FtpManagerViewModel.LocalRootChanged += FtpManagerViewModel_LocalRootChanged;
-
+            
             RunPostOperations();
         }
         
