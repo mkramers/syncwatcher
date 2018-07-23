@@ -35,12 +35,7 @@ namespace SyncWatcherTray.ViewModel
 
             FilebotManager = filebotManager;
 
-            if (!TryCreateFtpManager(input, out var ftpManagerViewModel))
-            {
-                var message = $"Failed to create FtpManager! See log for details.";
-                PopupManager.Instance.ShowError(message, "Error");
-                return;
-            }
+            CreateFtpManager(input, out var ftpManagerViewModel);
 
             ftpManagerViewModel.PropertyChanged += FtpManagerViewModel_PropertyChanged;
 
@@ -53,7 +48,7 @@ namespace SyncWatcherTray.ViewModel
             RunPostOperations(ftpManagerViewModel);
         }
 
-        private static bool TryCreateFtpManager(string _inputDirectory, out FtpManagerViewModel _managerViewModel)
+        private static void CreateFtpManager(string _inputDirectory, out FtpManagerViewModel _managerViewModel)
         {
             _managerViewModel = null;
 
@@ -67,17 +62,7 @@ namespace SyncWatcherTray.ViewModel
                 Debug.Assert(sessionConfig != null);
             }
 
-            FtpManager manager;
-
-            try
-            {
-                manager = new FtpManager(sessionConfig, new List<string> { _inputDirectory });
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return false;
-            }
+            FtpManager manager = new FtpManager(sessionConfig, new List<string> { _inputDirectory });
 
             _managerViewModel = new FtpManagerViewModel(manager);
 
@@ -91,8 +76,6 @@ namespace SyncWatcherTray.ViewModel
                 Settings.Default.LastRemotePath = _managerViewModel.SelectedLocalRoot;
                 Settings.Default.Save();
             }
-
-            return _managerViewModel != null;
         }
 
         private static void RunPostOperations(FtpManagerViewModel _ftpManagerViewModel)
