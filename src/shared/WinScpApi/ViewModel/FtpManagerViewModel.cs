@@ -15,7 +15,6 @@ namespace WinScpApi.ViewModel
     public class FtpManagerViewModel : ViewModelBase
     {
         private string m_disconnectedMessage;
-
         private IList m_selectedDownloads;
 
         public ICommand SyncSelectedCommand
@@ -36,7 +35,6 @@ namespace WinScpApi.ViewModel
                 };
             }
         }
-
         public ICommand SyncAllCommand
         {
             get
@@ -48,7 +46,6 @@ namespace WinScpApi.ViewModel
                 };
             }
         }
-
         public ICommand RefreshCommand
         {
             get
@@ -60,7 +57,6 @@ namespace WinScpApi.ViewModel
                 };
             }
         }
-
         public ICommand CancelCommand
         {
             get
@@ -72,7 +68,6 @@ namespace WinScpApi.ViewModel
                 };
             }
         }
-
         public ICommand DeleteHistoryCommand
         {
             get
@@ -84,7 +79,6 @@ namespace WinScpApi.ViewModel
                 };
             }
         }
-
         public ICommand TestCommand
         {
             get
@@ -111,9 +105,7 @@ Quisque vel nisi porta, porta mi vitae, vulputate augue. Sed ac vehicula nibh. S
             }
         }
 
-
         public FtpManager Manager { get; }
-
         public IList SelectedDownloads
         {
             get => m_selectedDownloads;
@@ -123,13 +115,11 @@ Quisque vel nisi porta, porta mi vitae, vulputate augue. Sed ac vehicula nibh. S
                 RaisePropertyChanged();
             }
         }
-
         public string SelectedRemoteRoot
         {
             get => Manager.CurrentRemoteRoot;
             set => Manager.SetRemoteHost(value);
         }
-
         public string SelectedLocalRoot
         {
             get => Manager.CurrentLocalRoot;
@@ -144,7 +134,6 @@ Quisque vel nisi porta, porta mi vitae, vulputate augue. Sed ac vehicula nibh. S
                 }
             }
         }
-
         public string DisconnectedMessage
         {
             get => m_disconnectedMessage;
