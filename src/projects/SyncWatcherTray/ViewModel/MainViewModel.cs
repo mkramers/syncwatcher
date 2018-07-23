@@ -45,8 +45,6 @@ namespace SyncWatcherTray.ViewModel
             manager.OperationStarted += Operation_Started;
             manager.OperationCompleted += Operation_Completed;
 
-            FtpManagerViewModel = new FtpManagerViewModel(manager);
-            FtpManagerViewModel.PropertyChanged += FtpManagerViewModel_PropertyChanged;
             FtpManagerViewModel.LocalRootChanged += FtpManagerViewModel_LocalRootChanged;
 
             RunPostOperations();
@@ -107,19 +105,6 @@ namespace SyncWatcherTray.ViewModel
             await FtpManagerViewModel.Dispose();
 
             Cleanup();
-        }
-
-        private void FtpManagerViewModel_PropertyChanged(object _sender, System.ComponentModel.PropertyChangedEventArgs _e)
-        {
-            var propertyName = _e.PropertyName;
-            var correct = nameof(FtpManagerViewModel.SelectedLocalRoot);
-            if (propertyName == correct)
-            {
-            }
-            else if (propertyName == nameof(FtpManagerViewModel.SelectedRemoteRoot))
-            {
-
-            }
         }
 
         private void Operation_Started(object _sender, EventArgs _e)
