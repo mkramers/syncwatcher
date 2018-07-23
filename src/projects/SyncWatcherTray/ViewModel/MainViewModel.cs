@@ -41,18 +41,13 @@ namespace SyncWatcherTray.ViewModel
             Settings.Default.Save();
 
             FtpManager manager = new FtpManager(sessionConfig, new List<string> { completedDir });
+            manager.OperationStarted += Operation_Started;
+            manager.OperationCompleted += Operation_Completed;
 
-            var ftpManagerViewModel = new FtpManagerViewModel(manager);
-
-            ftpManagerViewModel.PropertyChanged += FtpManagerViewModel_PropertyChanged;
-
-            FtpManager ftpManager = ftpManagerViewModel.Manager;
-            ftpManager.OperationStarted += Operation_Started;
-            ftpManager.OperationCompleted += Operation_Completed;
-
-            FtpManagerViewModel = ftpManagerViewModel;
-
-            RunPostOperations(ftpManagerViewModel);
+            FtpManagerViewModel = new FtpManagerViewModel(manager);
+            FtpManagerViewModel.PropertyChanged += FtpManagerViewModel_PropertyChanged;
+            
+            RunPostOperations();
         }
 
         private static void SelectLastLocalRoot(FtpManagerViewModel _managerViewModel)
@@ -70,19 +65,20 @@ namespace SyncWatcherTray.ViewModel
             }
         }
 
-        private static void RunPostOperations(FtpManagerViewModel _ftpManagerViewModel)
+        private void RunPostOperations()
         {
-            Debug.Assert(_ftpManagerViewModel != null);
+            FtpManagerViewModel ftpManagerViewModel = FtpManagerViewModel;
+            Debug.Assert(ftpManagerViewModel != null);
             
-            SelectLastLocalRoot(_ftpManagerViewModel);
+            SelectLastLocalRoot(ftpManagerViewModel);
 
-            var autoConnectFtp = Settings.Default.AutoConnectFtp;
+            bool autoConnectFtp = Settings.Default.AutoConnectFtp;
             if (autoConnectFtp)
             {
-                var client = _ftpManagerViewModel.Manager?.Client;
+                FtpClient client = ftpManagerViewModel.Manager?.Client;
                 Debug.Assert(client != null);
 
-                var connect = client.InvertConnectionCommand;
+                ICommand connect = client.InvertConnectionCommand;
                 if (connect.CanExecute(null))
                 {
                     connect.Execute(null);
