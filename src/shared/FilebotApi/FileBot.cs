@@ -78,6 +78,11 @@ namespace FilebotApi
             Debug.Assert(!string.IsNullOrWhiteSpace(_recordsPath));
             Debug.Assert(_records != null);
 
+            if (!File.Exists(_recordsPath))
+            {
+                return;
+            }
+
             var lines = File.ReadAllLines(_recordsPath);
             var renameResults = new List<RenameResult>();
             var skipResults = new List<SkipResult>();
