@@ -31,7 +31,7 @@ namespace FilebotApi.ViewModel
             }
 
             string settingsPath = Path.Combine(directory, "settings.xml");
-            string recordsPath = @"D:\Unsorted\amclog.txt";
+            string recordsPath = Path.Combine(directory, "amclog.txt");
 
             Directories = new[]
             {
