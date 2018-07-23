@@ -21,7 +21,7 @@ namespace SyncWatcherTray.ViewModel
         {
             TaskBarIcon = new TaskbarIconViewModel();
 
-            const string input = @"D:\Unsorted\completed";
+            const string completedDir = @"D:\Unsorted\completed";
 
             if (!FilebotManagerViewModel.TryCreateFilebotManager(out var filebotManager))
             {
@@ -35,28 +35,24 @@ namespace SyncWatcherTray.ViewModel
 
             FilebotManager = filebotManager;
 
-            CreateFtpManager(input, out var ftpManagerViewModel);
+            FtpSessionConfig sessionConfig = Settings.Default.FtpSessionConfig ?? FtpSessionConfig.Default;
+
+            Settings.Default.FtpSessionConfig = sessionConfig;
+            Settings.Default.Save();
+
+            FtpManager manager = new FtpManager(sessionConfig, new List<string> { completedDir });
+
+            var ftpManagerViewModel = new FtpManagerViewModel(manager);
 
             ftpManagerViewModel.PropertyChanged += FtpManagerViewModel_PropertyChanged;
 
-            var ftpManager = ftpManagerViewModel.Manager;
+            FtpManager ftpManager = ftpManagerViewModel.Manager;
             ftpManager.OperationStarted += Operation_Started;
             ftpManager.OperationCompleted += Operation_Completed;
 
             FtpManagerViewModel = ftpManagerViewModel;
 
             RunPostOperations(ftpManagerViewModel);
-        }
-
-        private static void CreateFtpManager(string _inputDirectory, out FtpManagerViewModel _managerViewModel)
-        {
-            FtpSessionConfig sessionConfig = Settings.Default.FtpSessionConfig ?? FtpSessionConfig.Default;
-
-            Settings.Default.FtpSessionConfig = sessionConfig;
-            Settings.Default.Save();
-
-            FtpManager manager = new FtpManager(sessionConfig, new List<string> { _inputDirectory });
-            _managerViewModel = new FtpManagerViewModel(manager);
         }
 
         private static void SelectLastLocalRoot(FtpManagerViewModel _managerViewModel)
