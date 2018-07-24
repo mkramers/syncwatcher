@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Common.Framework.EventHelpers;
+using Common.IO;
 using Common.Mvvm;
 using Common.SFTP;
 using FilebotApi.ViewModel;
@@ -42,7 +43,11 @@ namespace SyncWatcherTray.ViewModel
                 Directory.CreateDirectory(directory);
             }
 
-            FilebotManager = new FilebotManagerViewModel(directory, directories);
+            const string input = @"D:\Unsorted\completed";
+            const string outputDir = @"F:\Videos";
+            SourceDestinationPaths paths = new SourceDestinationPaths(input, outputDir);
+
+            FilebotManager = new FilebotManagerViewModel(directory, paths, directories);
             FilebotManager.FilebotStarted += Operation_Started;
             FilebotManager.FilebotCompleted += Operation_Completed;
 
@@ -50,10 +55,8 @@ namespace SyncWatcherTray.ViewModel
 
             defaultSettings.FtpSessionConfig = defaultSettings.FtpSessionConfig ?? FtpSessionConfig.Default;
             defaultSettings.Save();
-
-            const string completedDir = @"D:\Unsorted\completed";
-
-            FtpManager manager = new FtpManager(defaultSettings.FtpSessionConfig, new List<string> { completedDir });
+            
+            FtpManager manager = new FtpManager(defaultSettings.FtpSessionConfig, new List<string> { input });
             manager.OperationStarted += Operation_Started;
             manager.OperationCompleted += Operation_Completed;
 

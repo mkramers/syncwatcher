@@ -90,6 +90,7 @@
     <Compile Include="IO\FileWatcher.cs" />
     <Compile Include="IO\IOUtilities.cs" />
     <Compile Include="IO\Listener.cs" />
+    <Compile Include="IO\SourceDestinationPaths.cs" />
     <Compile Include="IO\SyncthingWatcher.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\NotifyAppender.cs" />

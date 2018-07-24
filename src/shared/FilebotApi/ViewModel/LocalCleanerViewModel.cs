@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Common.IO;
 using Common.Mvvm;
 using GalaSoft.MvvmLight;
 using MVVM;
@@ -11,14 +12,19 @@ namespace FilebotApi.ViewModel
 {
     public class LocalCleanerViewModel : ViewModelBase
     {
-        public LocalCleanerViewModel(string _inputDir, string _outputDir, Filebot _filebot)
+        public LocalCleanerViewModel(SourceDestinationPaths _paths, Filebot _filebot)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(_inputDir));
-            Debug.Assert(!string.IsNullOrWhiteSpace(_outputDir));
+            Debug.Assert(_paths != null);
+
+            var inputDir = _paths.SourcePath;
+            var outputDir = _paths.DestinationPath;
+
+            Debug.Assert(!string.IsNullOrWhiteSpace(inputDir));
+            Debug.Assert(!string.IsNullOrWhiteSpace(outputDir));
             Debug.Assert(_filebot != null);
 
-            DirectoryViewModel = new DirectoryViewModel(_inputDir, "Complete");
-            OutputDirectory = _outputDir;
+            DirectoryViewModel = new DirectoryViewModel(inputDir, "Complete");
+            OutputDirectory = outputDir;
             Filebot = _filebot;
             Filebot.BusyChanged += Filebot_OnBusyChaned;
         }

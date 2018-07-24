@@ -7,6 +7,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using MVVM.ViewModel;
 using System.Collections.Generic;
+using Common.IO;
 
 namespace FilebotApi.ViewModel
 {
@@ -16,9 +17,10 @@ namespace FilebotApi.ViewModel
         public LocalCleanerViewModel CompletedDirectory { get; }
         public IEnumerable<DirectoryViewModel> Directories { get; }
 
-        public FilebotManagerViewModel(string _appDataDirectory, IEnumerable<DirectoryViewModel> _directories)
+        public FilebotManagerViewModel(string _appDataDirectory, SourceDestinationPaths _paths, IEnumerable<DirectoryViewModel> _directories)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_appDataDirectory));
+            Debug.Assert(_paths != null);
             Debug.Assert(_directories != null);
 
             Directories = _directories;
@@ -33,10 +35,7 @@ namespace FilebotApi.ViewModel
                 Filebot = filebot;
             }
 
-            const string input = @"D:\Unsorted\completed";
-            const string outputDir = @"F:\Videos";
-
-            CompletedDirectory = new LocalCleanerViewModel(input, outputDir, filebot);
+            CompletedDirectory = new LocalCleanerViewModel(_paths, filebot);
         }
 
         private void Filebot_Completed(object _sender, FileBotOrganizeEventArgs _e)
