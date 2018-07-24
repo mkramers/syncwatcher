@@ -14,7 +14,6 @@ namespace FilebotApi
         private bool m_isBusy;
 
         public FilebotSettings Settings { get; }
-        public string SettingsFile { get; private set; }
         public FilebotRecords Records { get; }
         public string RecordsFile { get; }
         public bool IsBusy
@@ -41,6 +40,7 @@ namespace FilebotApi
             Debug.Assert(!string.IsNullOrWhiteSpace(_recordsPath));
 
             Settings = _settings;
+
             Records = new FilebotRecords();
             Records.RequestRefresh += Records_RequestRefresh;
 
@@ -58,28 +58,9 @@ namespace FilebotApi
             if (!File.Exists(_settingsPath))
                 FilebotSettings.CreateDefaultSettingsFile(_settingsPath);
 
-            if (TryLoad(_settingsPath, _recordsPath, out _filebot))
-                success = true;
-
-            return success;
-        }
-
-        private static bool TryLoad(string _settingsPath, string _recordsPath, out Filebot _filebot)
-        {
-            Debug.Assert(!string.IsNullOrWhiteSpace(_settingsPath));
-            Debug.Assert(_recordsPath != null);
-
-            _filebot = null;
-
-            bool success = false;
-
             if (FilebotSettings.TryLoad(_settingsPath, out FilebotSettings settings))
             {
-                _filebot = new Filebot(settings, _recordsPath)
-                {
-                    SettingsFile = _settingsPath
-                };
-
+                _filebot = new Filebot(settings, _recordsPath);
                 success = true;
             }
 
