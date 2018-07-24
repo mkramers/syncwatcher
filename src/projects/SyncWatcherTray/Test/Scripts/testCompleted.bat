@@ -26,8 +26,9 @@ if "%mode%" == "copy" (
 
 :clean
 	echo Cleaning %dest%
-	if exist %dest%, rmdir /s /q %dest%
-	mkdir %dest%	
+	if not exist %dest%, mkdir %dest%
+	del /q "%dest%\*"
+	FOR /D %%p IN ("%dest%\*.*") DO rmdir "%%p" /s /q
 	goto :eof
 	
 :copy
