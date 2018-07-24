@@ -9,7 +9,7 @@ using GalaSoft.MvvmLight;
 
 namespace FilebotApi
 {
-    public class Filebot : ViewModelBase
+    public partial class Filebot : ViewModelBase
     {
         private bool m_isBusy;
 
@@ -28,29 +28,6 @@ namespace FilebotApi
                     BusyChanged?.Invoke(this, EventArgs.Empty);
                     RaisePropertyChanged();
                 }
-            }
-        }
-
-        public enum ActionType
-        {
-            MOVE,
-            COPY,
-            TEST
-        }
-
-        public enum OrganizeResult
-        {
-            SUCCESS,
-            FAIL
-        }
-
-        public class FileBotOrganizeEventArgs : EventArgs
-        {
-            public OrganizeResult Result { get; }
-
-            public FileBotOrganizeEventArgs(OrganizeResult _result)
-            {
-                Result = _result;
             }
         }
 

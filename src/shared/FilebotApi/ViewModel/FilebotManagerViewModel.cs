@@ -39,7 +39,7 @@ namespace FilebotApi.ViewModel
             CompletedDirectory = new LocalCleanerViewModel(input, outputDir, filebot);
         }
 
-        private void Filebot_Completed(object _sender, Filebot.FileBotOrganizeEventArgs _e)
+        private void Filebot_Completed(object _sender, FileBotOrganizeEventArgs _e)
         {
             RefreshCompletedDirectory();
         }
@@ -59,7 +59,7 @@ namespace FilebotApi.ViewModel
             add => Filebot.Started += value;
             remove => Filebot.Started -= value;
         }
-        public event EventHandler<Filebot.FileBotOrganizeEventArgs> FilebotCompleted
+        public event EventHandler<FileBotOrganizeEventArgs> FilebotCompleted
         {
             add => Filebot.Stopped += value;
             remove => Filebot.Stopped -= value;
