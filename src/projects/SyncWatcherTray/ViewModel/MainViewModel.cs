@@ -9,6 +9,7 @@ using Common.Framework.EventHelpers;
 using Common.IO;
 using Common.Mvvm;
 using Common.SFTP;
+using FilebotApi;
 using FilebotApi.ViewModel;
 using GalaSoft.MvvmLight;
 using MVVM.Popups;
@@ -58,7 +59,14 @@ namespace SyncWatcherTray.ViewModel
                 Directory.CreateDirectory(directory);
             }
 
-            FilebotManagerViewModel filebotManager = new FilebotManagerViewModel(directory, _paths, directories);
+            string settingsPath = Path.Combine(appData, "settings.xml");
+            string recordsPath = Path.Combine(appData, "amclog.txt");
+
+            if (Filebot.TryCreate(settingsPath, recordsPath, out Filebot filebot))
+            {
+            }
+
+            FilebotManagerViewModel filebotManager = new FilebotManagerViewModel(directory, _paths, directories, filebot);
             filebotManager.FilebotStarted += Operation_Started;
             filebotManager.FilebotCompleted += Operation_Completed;
             return filebotManager;

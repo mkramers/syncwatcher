@@ -17,28 +17,21 @@ namespace FilebotApi.ViewModel
         public LocalCleanerViewModel CompletedDirectory { get; }
         public IEnumerable<DirectoryViewModel> Directories { get; }
 
-        public FilebotManagerViewModel(string _appDataDirectory, SourceDestinationPaths _paths, IEnumerable<DirectoryViewModel> _directories)
+        public FilebotManagerViewModel(string _appDataDirectory, SourceDestinationPaths _paths, IEnumerable<DirectoryViewModel> _directories, Filebot _filebot)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_appDataDirectory));
             Debug.Assert(_paths != null);
             Debug.Assert(_directories != null);
+            Debug.Assert(_filebot != null);
+            
+            _filebot.Stopped += Filebot_OnStopped;
 
             Directories = _directories;
 
-            string settingsPath = Path.Combine(_appDataDirectory, "settings.xml");
-            string recordsPath = Path.Combine(_appDataDirectory, "amclog.txt");
-
-            if (Filebot.TryCreate(settingsPath, recordsPath, out Filebot filebot))
-            {
-                filebot.Stopped += Filebot_Completed;
-
-                Filebot = filebot;
-            }
-
-            CompletedDirectory = new LocalCleanerViewModel(_paths, filebot);
+            CompletedDirectory = new LocalCleanerViewModel(_paths, _filebot);
         }
 
-        private void Filebot_Completed(object _sender, FileBotOrganizeEventArgs _e)
+        private void Filebot_OnStopped(object _sender, FileBotOrganizeEventArgs _e)
         {
             Application.Current.Dispatcher.Invoke(RefreshCompletedDirectory);
         }
