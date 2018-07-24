@@ -30,15 +30,23 @@ namespace SyncWatcherTray.ViewModel
             const string outputDir = @"F:\Videos";
             SourceDestinationPaths paths = new SourceDestinationPaths(input, outputDir);
 
-            FilebotManager = InitializeFilebotManager(paths);
+            string appDataRoot = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string appDataDirectory = Path.Combine(appDataRoot, "SyncWatcher");
+            if (!Directory.Exists(appDataDirectory))
+            {
+                Directory.CreateDirectory(appDataDirectory);
+            }
+
+            FilebotManager = InitializeFilebotManager(appDataDirectory, paths);
 
             FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
 
             RunPostOperations();
         }
 
-        private FilebotManagerViewModel InitializeFilebotManager(SourceDestinationPaths _paths)
+        private FilebotManagerViewModel InitializeFilebotManager(string _appDataDirectory, SourceDestinationPaths _paths)
         {
+            Debug.Assert(!string.IsNullOrWhiteSpace(_appDataDirectory));
             Debug.Assert(_paths != null);
 
             const string tvDir = @"F:\videos\TV Shows";
@@ -50,20 +58,12 @@ namespace SyncWatcherTray.ViewModel
                 new DirectoryViewModel(moviesDir, "MOVIES")
             };
 
-            string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-            string directory = Path.Combine(appData, "SyncWatcher");
-
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            string settingsPath = Path.Combine(appData, "settings.xml");
-            string recordsPath = Path.Combine(appData, "amclog.txt");
+            string settingsPath = Path.Combine(_appDataDirectory, "settings.xml");
+            string recordsPath = Path.Combine(_appDataDirectory, "amclog.txt");
 
             if (FilebotManagerViewModel.TryCreateFilebot(settingsPath, recordsPath, out Filebot filebot))
             {
+                Debug.Fail("unhandled filebot load failutre");
             }
 
             FilebotManagerViewModel filebotManager = new FilebotManagerViewModel(_paths, directories, filebot);
