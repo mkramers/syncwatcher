@@ -62,7 +62,7 @@ namespace SyncWatcherTray.ViewModel
             string settingsPath = Path.Combine(appData, "settings.xml");
             string recordsPath = Path.Combine(appData, "amclog.txt");
 
-            if (TryCreateFilebot(settingsPath, recordsPath, out Filebot filebot))
+            if (FilebotManagerViewModel.TryCreateFilebot(settingsPath, recordsPath, out Filebot filebot))
             {
             }
 
@@ -70,24 +70,6 @@ namespace SyncWatcherTray.ViewModel
             filebotManager.FilebotStarted += Operation_Started;
             filebotManager.FilebotStopped += OperationStopped;
             return filebotManager;
-        }
-
-        private static bool TryCreateFilebot(string _settingsPath, string _recordsPath, out Filebot _filebot)
-        {
-            _filebot = null;
-
-            bool success = false;
-
-            if (!File.Exists(_settingsPath))
-                FilebotSettings.CreateDefaultSettingsFile(_settingsPath);
-
-            if (FilebotSettings.TryLoad(_settingsPath, out FilebotSettings settings))
-            {
-                _filebot = new Filebot(settings, _recordsPath);
-                success = true;
-            }
-
-            return success;
         }
 
         private FtpManagerViewModel InitializeFtpManager(string _input)

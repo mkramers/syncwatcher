@@ -15,7 +15,6 @@ namespace FilebotApi
 
         public FilebotSettings Settings { get; }
         public FilebotRecords Records { get; }
-        public string RecordsFile { get; }
         public bool IsBusy
         {
             get => m_isBusy;
@@ -41,17 +40,15 @@ namespace FilebotApi
 
             Settings = _settings;
 
-            Records = new FilebotRecords();
+            Records = new FilebotRecords(_recordsPath);
             Records.RequestRefresh += Records_RequestRefresh;
 
-            RecordsFile = _recordsPath;
-
-            FilebotRecords.LoadRecords(_recordsPath, Records);
+            Records.Reload();
         }
 
         private void Records_RequestRefresh(object _sender, EventArgs _e)
         {
-            FilebotRecords.LoadRecords(RecordsFile, Records);
+            Records.Reload();
         }
         
         public void Organize(string _inputDir, string _outputDir)
@@ -94,9 +91,7 @@ namespace FilebotApi
             }
 
             //reparse records
-            string recordsPath = RecordsFile;
-            FilebotRecords records = Records;
-            FilebotRecords.LoadRecords(recordsPath, records);
+            Records.Reload();
 
             IsBusy = false;
 

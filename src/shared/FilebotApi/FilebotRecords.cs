@@ -17,9 +17,17 @@ namespace FilebotApi
 
         public ObservableRangeCollection<RenameResult> Renamed { get; }
         public ObservableRangeCollection<SkipResult> Skipped { get; }
+        public string RecordsFilePath { get; }
 
-        public FilebotRecords()
+        public event EventHandler<EventArgs> Updated;
+        public event EventHandler<EventArgs> RequestRefresh;
+
+        public FilebotRecords(string _recordsFilePath)
         {
+            Debug.Assert(!string.IsNullOrWhiteSpace(_recordsFilePath));
+
+            RecordsFilePath = _recordsFilePath;
+
             Renamed = new ObservableRangeCollection<RenameResult>();
             Skipped = new ObservableRangeCollection<SkipResult>();
         }
@@ -59,15 +67,16 @@ namespace FilebotApi
             }
         }
 
-        public static void LoadRecords(string _recordsPath, FilebotRecords _records)
+        public void Reload()
         {
-            Debug.Assert(!String.IsNullOrWhiteSpace(_recordsPath));
-            Debug.Assert(_records != null);
+            string recordsPath = RecordsFilePath;
 
-            if (!File.Exists(_recordsPath))
+            Debug.Assert(!String.IsNullOrWhiteSpace(recordsPath));
+
+            if (!File.Exists(recordsPath))
                 return;
 
-            string[] lines = File.ReadAllLines(_recordsPath);
+            string[] lines = File.ReadAllLines(recordsPath);
             List<RenameResult> renameResults = new List<RenameResult>();
             List<SkipResult> skipResults = new List<SkipResult>();
             foreach (string line in lines)
@@ -82,10 +91,10 @@ namespace FilebotApi
                             break;
                     }
 
-            _records.Update(renameResults, skipResults);
+            Update(renameResults, skipResults);
         }
 
-        internal void Update(IEnumerable<RenameResult> _renameResults, IEnumerable<SkipResult> _skipResults)
+        private void Update(IEnumerable<RenameResult> _renameResults, IEnumerable<SkipResult> _skipResults)
         {
             Update(_renameResults);
             Update(_skipResults);
@@ -124,8 +133,5 @@ namespace FilebotApi
                     current.Add(result);
             }
         }
-
-        public event EventHandler<EventArgs> Updated;
-        public event EventHandler<EventArgs> RequestRefresh;
     }
 }

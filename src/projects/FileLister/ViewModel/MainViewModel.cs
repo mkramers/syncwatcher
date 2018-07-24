@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.IO;
 using FilebotApi;
+using FilebotApi.ViewModel;
 using FileLister.Model;
 using GalaSoft.MvvmLight;
 
@@ -38,7 +39,8 @@ namespace FileLister.ViewModel
             if (!File.Exists(settingsPath))
                 FilebotSettings.CreateDefaultSettingsFile(settingsPath);
 
-            if (!Filebot.TryCreate(settingsPath, recordsPath, out var filebot))
+            
+            if (!FilebotManagerViewModel.TryCreateFilebot(settingsPath, recordsPath, out var filebot))
                 Debug.Fail($"error loading filebot {Path.GetFullPath(settingsPath)}");
 
             DirectoryModelCache.Instance.Initialize(Paths.AppData);
