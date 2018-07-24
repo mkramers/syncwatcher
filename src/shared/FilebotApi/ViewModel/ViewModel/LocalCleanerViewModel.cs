@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -12,6 +13,11 @@ namespace FilebotApi.ViewModel
 {
     public class LocalCleanerViewModel : ViewModelBase
     {
+        public DirectoryViewModel DirectoryViewModel { get; }
+        public Filebot Filebot { get; }
+        private string OutputDirectory { get; }
+        public FileWatcher FileWatcher { get; }
+
         public ICommand OrganizeCommand
         {
             get
@@ -32,10 +38,6 @@ namespace FilebotApi.ViewModel
             }
         }
 
-        public DirectoryViewModel DirectoryViewModel { get; }
-        public Filebot Filebot { get; }
-        public string OutputDirectory { get; }
-
         public LocalCleanerViewModel(SourceDestinationPaths _paths, Filebot _filebot)
         {
             Debug.Assert(_paths != null);
@@ -52,7 +54,11 @@ namespace FilebotApi.ViewModel
 
             Filebot = _filebot;
             Filebot.Stopped += Filebot_OnStopped;
-            Filebot.BusyChanged += Filebot_OnBusyChaned;
+            Filebot.BusyChanged += Filebot_OnBusyChanged;
+
+            FileWatcher = new FileWatcher(inputDir);
+            FileWatcher.WatchEvent += FileWatcher_WatchEvent;
+            FileWatcher.Start();
         }
 
         private void Filebot_OnStopped(object _sender, FileBotOrganizeEventArgs _e)
@@ -67,13 +73,18 @@ namespace FilebotApi.ViewModel
                 refreshCommand.Execute(null);
         }
 
-        private void Filebot_OnBusyChaned(object _sender, EventArgs _e)
+        private void Filebot_OnBusyChanged(object _sender, EventArgs _e)
         {
             Filebot filebot = _sender as Filebot;
             Debug.Assert(filebot != null);
 
             bool isBusy = filebot.IsBusy;
             DirectoryViewModel.IsBusy = isBusy;
+        }
+
+        private void FileWatcher_WatchEvent(object _sender, FileSystemEventArgs _e)
+        {
+            Application.Current.Dispatcher.Invoke(RefreshCompletedDirectory);
         }
     }
 }
