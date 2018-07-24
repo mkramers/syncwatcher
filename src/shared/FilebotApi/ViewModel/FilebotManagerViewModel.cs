@@ -30,7 +30,7 @@ namespace FilebotApi.ViewModel
 
             CompletedDirectory = new LocalCleanerViewModel(_paths, _filebot);
         }
-        
+
         public static bool TryCreateFilebot(string _settingsPath, string _recordsPath, out Filebot _filebot)
         {
             _filebot = null;
@@ -40,9 +40,12 @@ namespace FilebotApi.ViewModel
             if (!File.Exists(_settingsPath))
                 FilebotSettings.CreateDefaultSettingsFile(_settingsPath);
 
+            FilebotRecords records = new FilebotRecords(_recordsPath);
+            records.Reload();
+
             if (FilebotSettings.TryLoad(_settingsPath, out FilebotSettings settings))
             {
-                _filebot = new Filebot(settings, _recordsPath);
+                _filebot = new Filebot(settings, records);
                 success = true;
             }
 

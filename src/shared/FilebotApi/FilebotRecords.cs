@@ -13,14 +13,13 @@ namespace FilebotApi
 {
     public class FilebotRecords
     {
-        public ICommand RequestRefreshCommand => new RelayCommand(() => RequestRefresh?.Invoke(this, EventArgs.Empty));
+        public ICommand ReloadCommand => new RelayCommand(Reload);
 
         public ObservableRangeCollection<RenameResult> Renamed { get; }
         public ObservableRangeCollection<SkipResult> Skipped { get; }
-        public string RecordsFilePath { get; }
+        private string RecordsFilePath { get; }
 
         public event EventHandler<EventArgs> Updated;
-        public event EventHandler<EventArgs> RequestRefresh;
 
         public FilebotRecords(string _recordsFilePath)
         {

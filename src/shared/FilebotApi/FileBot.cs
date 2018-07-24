@@ -33,22 +33,14 @@ namespace FilebotApi
         public event EventHandler<FileBotOrganizeEventArgs> Stopped;
         public event EventHandler<EventArgs> BusyChanged;
 
-        public Filebot(FilebotSettings _settings, string _recordsPath)
+        public Filebot(FilebotSettings _settings, FilebotRecords _records)
         {
             Debug.Assert(_settings != null);
-            Debug.Assert(!string.IsNullOrWhiteSpace(_recordsPath));
+            Debug.Assert(_records != null);
 
             Settings = _settings;
 
-            Records = new FilebotRecords(_recordsPath);
-            Records.RequestRefresh += Records_RequestRefresh;
-
-            Records.Reload();
-        }
-
-        private void Records_RequestRefresh(object _sender, EventArgs _e)
-        {
-            Records.Reload();
+            Records = _records;
         }
         
         public void Organize(string _inputDir, string _outputDir)
