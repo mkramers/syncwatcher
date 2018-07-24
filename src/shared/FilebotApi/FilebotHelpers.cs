@@ -11,7 +11,7 @@ using Common.IO;
 
 namespace FilebotApi
 {
-    public class FilebotHelpers : ViewModelBase
+    public static class FilebotHelpers
     {
         public static bool TryCreateFilebot(string _settingsPath, string _recordsPath, out Filebot _filebot)
         {
