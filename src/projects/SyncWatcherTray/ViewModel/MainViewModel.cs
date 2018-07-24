@@ -22,6 +22,11 @@ namespace SyncWatcherTray.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
+        public FtpManagerViewModel FtpManagerViewModel { get; }
+        public FilebotManagerViewModel FilebotManager { get; }
+        public TaskbarIconViewModel TaskBarIcon { get; }
+        public IEnumerable<DirectoryViewModel> Directories { get; }
+
         public MainViewModel()
         {
             TaskBarIcon = new TaskbarIconViewModel();
@@ -44,6 +49,12 @@ namespace SyncWatcherTray.ViewModel
 
             FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
 
+            Directories = new[]
+            {
+                new DirectoryViewModel(settings.SeriesDirectory, "TV"),
+                new DirectoryViewModel(settings.MovieDirectory, "MOVIES")
+            };
+            
             RunPostOperations();
         }
 
@@ -51,24 +62,16 @@ namespace SyncWatcherTray.ViewModel
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_appDataDirectory));
             Debug.Assert(_paths != null);
-
-            Settings settings = Settings.Default;
             
-            DirectoryViewModel[] directories =
-            {
-                new DirectoryViewModel(settings.SeriesDirectory, "TV"),
-                new DirectoryViewModel(settings.MovieDirectory, "MOVIES")
-            };
-
             string settingsPath = Path.Combine(_appDataDirectory, "settings.xml");
             string recordsPath = Path.Combine(_appDataDirectory, "amclog.txt");
 
-            if (FilebotManagerViewModel.TryCreateFilebot(settingsPath, recordsPath, out Filebot filebot))
+            if (!FilebotManagerViewModel.TryCreateFilebot(settingsPath, recordsPath, out Filebot filebot))
             {
                 Debug.Fail("unhandled filebot load failutre");
             }
 
-            FilebotManagerViewModel filebotManager = new FilebotManagerViewModel(_paths, directories, filebot);
+            FilebotManagerViewModel filebotManager = new FilebotManagerViewModel(_paths, filebot);
             filebotManager.FilebotStarted += Operation_Started;
             filebotManager.FilebotStopped += OperationStopped;
             return filebotManager;
@@ -167,9 +170,5 @@ namespace SyncWatcherTray.ViewModel
         }
 
         public ICommand OrganizeCommand => FilebotManager.CompletedDirectory.OrganizeCommand;
-
-        public FtpManagerViewModel FtpManagerViewModel { get; }
-        public FilebotManagerViewModel FilebotManager { get; }
-        public TaskbarIconViewModel TaskBarIcon { get; }
     }
 }

@@ -15,7 +15,6 @@ namespace FilebotApi.ViewModel
     {
         public Filebot Filebot { get; }
         public LocalCleanerViewModel CompletedDirectory { get; }
-        public IEnumerable<DirectoryViewModel> Directories { get; }
         
         public event EventHandler FilebotStarted
         {
@@ -28,16 +27,13 @@ namespace FilebotApi.ViewModel
             remove => Filebot.Stopped -= value;
         }
 
-        public FilebotManagerViewModel(SourceDestinationPaths _paths, IEnumerable<DirectoryViewModel> _directories, Filebot _filebot)
+        public FilebotManagerViewModel(SourceDestinationPaths _paths, Filebot _filebot)
         {
             Debug.Assert(_paths != null);
-            Debug.Assert(_directories != null);
             Debug.Assert(_filebot != null);
 
             Filebot = _filebot;
             Filebot.Stopped += Filebot_OnStopped;
-
-            Directories = _directories;
 
             CompletedDirectory = new LocalCleanerViewModel(_paths, _filebot);
         }

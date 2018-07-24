@@ -110,12 +110,12 @@
                     <view:LocalCleanerView Margin="10,0" DataContext="{Binding FilebotManager}" />
                 </TabItem>
 
-                <TabItem Header="{Binding FilebotManager.Directories[0].ShortName}">
-                    <mvvmview:DirectoryView Margin="10,0" DataContext="{Binding FilebotManager.Directories[0]}" />
+                <TabItem Header="{Binding Directories[0].ShortName}">
+                    <mvvmview:DirectoryView Margin="10,0" DataContext="{Binding Directories[0]}" />
                 </TabItem>
 
-                <TabItem Header="{Binding FilebotManager.Directories[1].ShortName}">
-                    <mvvmview:DirectoryView Margin="10,0" DataContext="{Binding FilebotManager.Directories[1]}" />
+                <TabItem Header="{Binding Directories[1].ShortName}">
+                    <mvvmview:DirectoryView Margin="10,0" DataContext="{Binding Directories[1]}" />
                 </TabItem>
 
                 <TabItem Header="Log">
