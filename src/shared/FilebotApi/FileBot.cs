@@ -46,42 +46,14 @@ namespace FilebotApi
 
             RecordsFile = _recordsPath;
 
-            LoadRecords(_recordsPath, Records);
+            FilebotRecords.LoadRecords(_recordsPath, Records);
         }
 
         private void Records_RequestRefresh(object _sender, EventArgs _e)
         {
-            string path = RecordsFile;
-            FilebotRecords records = Records;
-            LoadRecords(path, records);
+            FilebotRecords.LoadRecords(RecordsFile, Records);
         }
-
-        private static void LoadRecords(string _recordsPath, FilebotRecords _records)
-        {
-            Debug.Assert(!string.IsNullOrWhiteSpace(_recordsPath));
-            Debug.Assert(_records != null);
-
-            if (!File.Exists(_recordsPath))
-                return;
-
-            string[] lines = File.ReadAllLines(_recordsPath);
-            List<RenameResult> renameResults = new List<RenameResult>();
-            List<SkipResult> skipResults = new List<SkipResult>();
-            foreach (string line in lines)
-                if (FileBotLogParser.TryParse(line, out FileBotResult result))
-                    switch (result)
-                    {
-                        case RenameResult renameResult:
-                            renameResults.Add(renameResult);
-                            break;
-                        case SkipResult skipResult:
-                            skipResults.Add(skipResult);
-                            break;
-                    }
-
-            _records.Update(renameResults, skipResults);
-        }
-
+        
         public void Organize(string _inputDir, string _outputDir)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputDir));
@@ -124,7 +96,7 @@ namespace FilebotApi
             //reparse records
             string recordsPath = RecordsFile;
             FilebotRecords records = Records;
-            LoadRecords(recordsPath, records);
+            FilebotRecords.LoadRecords(recordsPath, records);
 
             IsBusy = false;
 

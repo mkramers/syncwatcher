@@ -26,7 +26,7 @@ namespace FilebotApi
 
         public static bool TryLoad(string _fileName, out FilebotRecords _records)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(_fileName));
+            Debug.Assert(!String.IsNullOrWhiteSpace(_fileName));
 
             _records = null;
 
@@ -46,7 +46,7 @@ namespace FilebotApi
         public static void Save(FilebotRecords _records, string _path)
         {
             Debug.Assert(_records != null);
-            Debug.Assert(!string.IsNullOrWhiteSpace(_path));
+            Debug.Assert(!String.IsNullOrWhiteSpace(_path));
 
             try
             {
@@ -57,6 +57,32 @@ namespace FilebotApi
                 string message = $"Filebot records failed to save to {Path.GetFullPath(_path)}";
                 throw new XmlException(message, e);
             }
+        }
+
+        public static void LoadRecords(string _recordsPath, FilebotRecords _records)
+        {
+            Debug.Assert(!String.IsNullOrWhiteSpace(_recordsPath));
+            Debug.Assert(_records != null);
+
+            if (!File.Exists(_recordsPath))
+                return;
+
+            string[] lines = File.ReadAllLines(_recordsPath);
+            List<RenameResult> renameResults = new List<RenameResult>();
+            List<SkipResult> skipResults = new List<SkipResult>();
+            foreach (string line in lines)
+                if (FileBotLogParser.TryParse(line, out FileBotResult result))
+                    switch (result)
+                    {
+                        case RenameResult renameResult:
+                            renameResults.Add(renameResult);
+                            break;
+                        case SkipResult skipResult:
+                            skipResults.Add(skipResult);
+                            break;
+                    }
+
+            _records.Update(renameResults, skipResults);
         }
 
         internal void Update(IEnumerable<RenameResult> _renameResults, IEnumerable<SkipResult> _skipResults)
