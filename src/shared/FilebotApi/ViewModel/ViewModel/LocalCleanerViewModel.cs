@@ -58,6 +58,7 @@ namespace FilebotApi.ViewModel
 
             FileWatcher = new FileWatcher(inputDir);
             FileWatcher.WatchEvent += FileWatcher_WatchEvent;
+            FileWatcher.Start();
         }
 
         private void Filebot_OnStopped(object _sender, FileBotOrganizeEventArgs _e)
