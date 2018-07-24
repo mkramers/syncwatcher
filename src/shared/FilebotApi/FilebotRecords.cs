@@ -13,15 +13,27 @@ namespace FilebotApi
 {
     public class FilebotRecords
     {
-        public FilebotRecords()
+        public ICommand ReloadCommand => new RelayCommand(Reload);
+
+        public ObservableRangeCollection<RenameResult> Renamed { get; }
+        public ObservableRangeCollection<SkipResult> Skipped { get; }
+        private string RecordsFilePath { get; }
+
+        public event EventHandler<EventArgs> Updated;
+
+        public FilebotRecords(string _recordsFilePath)
         {
+            Debug.Assert(!string.IsNullOrWhiteSpace(_recordsFilePath));
+
+            RecordsFilePath = _recordsFilePath;
+
             Renamed = new ObservableRangeCollection<RenameResult>();
             Skipped = new ObservableRangeCollection<SkipResult>();
         }
 
         public static bool TryLoad(string _fileName, out FilebotRecords _records)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(_fileName));
+            Debug.Assert(!String.IsNullOrWhiteSpace(_fileName));
 
             _records = null;
 
@@ -31,7 +43,7 @@ namespace FilebotApi
             }
             catch (Exception)
             {
-                var message = $"Filebot records failed to load from {Path.GetFullPath(_fileName)}";
+                string message = $"Filebot records failed to load from {Path.GetFullPath(_fileName)}";
                 Console.WriteLine(message);
             }
 
@@ -41,7 +53,7 @@ namespace FilebotApi
         public static void Save(FilebotRecords _records, string _path)
         {
             Debug.Assert(_records != null);
-            Debug.Assert(!string.IsNullOrWhiteSpace(_path));
+            Debug.Assert(!String.IsNullOrWhiteSpace(_path));
 
             try
             {
@@ -49,12 +61,39 @@ namespace FilebotApi
             }
             catch (Exception e)
             {
-                var message = $"Filebot records failed to save to {Path.GetFullPath(_path)}";
+                string message = $"Filebot records failed to save to {Path.GetFullPath(_path)}";
                 throw new XmlException(message, e);
             }
         }
 
-        internal void Update(IEnumerable<RenameResult> _renameResults, IEnumerable<SkipResult> _skipResults)
+        public void Reload()
+        {
+            string recordsPath = RecordsFilePath;
+
+            Debug.Assert(!String.IsNullOrWhiteSpace(recordsPath));
+
+            if (!File.Exists(recordsPath))
+                return;
+
+            string[] lines = File.ReadAllLines(recordsPath);
+            List<RenameResult> renameResults = new List<RenameResult>();
+            List<SkipResult> skipResults = new List<SkipResult>();
+            foreach (string line in lines)
+                if (FileBotLogParser.TryParse(line, out FileBotResult result))
+                    switch (result)
+                    {
+                        case RenameResult renameResult:
+                            renameResults.Add(renameResult);
+                            break;
+                        case SkipResult skipResult:
+                            skipResults.Add(skipResult);
+                            break;
+                    }
+
+            Update(renameResults, skipResults);
+        }
+
+        private void Update(IEnumerable<RenameResult> _renameResults, IEnumerable<SkipResult> _skipResults)
         {
             Update(_renameResults);
             Update(_skipResults);
@@ -66,12 +105,12 @@ namespace FilebotApi
         {
             Debug.Assert(_results != null);
 
-            var current = Renamed;
-            foreach (var result in _results)
+            ObservableRangeCollection<RenameResult> current = Renamed;
+            foreach (RenameResult result in _results)
             {
-                var existing = current.Where(_complete => _complete.OriginalFile == result.OriginalFile).ToList();
+                List<RenameResult> existing = current.Where(_complete => _complete.OriginalFile == result.OriginalFile).ToList();
                 if (existing.Any())
-                    foreach (var existingResult in existing)
+                    foreach (RenameResult existingResult in existing)
                         existingResult.DateTime = result.DateTime;
                 else
                     current.Add(result);
@@ -82,24 +121,16 @@ namespace FilebotApi
         {
             Debug.Assert(_results != null);
 
-            var current = Skipped;
-            foreach (var result in _results)
+            ObservableRangeCollection<SkipResult> current = Skipped;
+            foreach (SkipResult result in _results)
             {
-                var existing = current.Where(_complete => _complete.OriginalFile == result.OriginalFile).ToList();
+                List<SkipResult> existing = current.Where(_complete => _complete.OriginalFile == result.OriginalFile).ToList();
                 if (existing.Any())
-                    foreach (var existingResult in existing)
+                    foreach (SkipResult existingResult in existing)
                         existingResult.DateTime = result.DateTime;
                 else
                     current.Add(result);
             }
         }
-
-        public ICommand RequestRefreshCommand => new RelayCommand(() => RequestRefresh?.Invoke(this, EventArgs.Empty));
-
-        public event EventHandler<EventArgs> Updated;
-        public event EventHandler<EventArgs> RequestRefresh;
-
-        public ObservableRangeCollection<RenameResult> Renamed { get; }
-        public ObservableRangeCollection<SkipResult> Skipped { get; }
     }
 }

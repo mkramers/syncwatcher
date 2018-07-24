@@ -1,19 +1,35 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Timers;
-using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using Common.Mvvm;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 
 namespace SyncWatcherTray.ViewModel
 {
     public class TaskbarIconViewModel : ViewModelBase
     {
+        private const int ICON_INTERVAL = 222;
+
+        private readonly Timer m_timer;
+        private BitmapImage m_green;
+        private BitmapImage m_greenBusy;
+        private bool m_iconAnimateState;
+        private ImageSource m_iconSource;
+        private BitmapImage m_idleIcon;
+
+        public ImageSource IconSource
+        {
+            get => m_iconSource;
+            set
+            {
+                m_iconSource = value;
+                RaisePropertyChanged();
+            }
+        }
+        public bool IsBusy { get; private set; }
+
         public TaskbarIconViewModel()
         {
             CreateIcons();
@@ -49,15 +65,15 @@ namespace SyncWatcherTray.ViewModel
 
         private void CreateIcons()
         {
-            var darkUri = new Uri("pack://application:,,,/Resources/coffeeDark.ico");
+            Uri darkUri = new Uri("pack://application:,,,/Resources/coffeeDark.ico");
             m_idleIcon = new BitmapImage(darkUri);
             m_idleIcon.Freeze();
 
-            var greenUri = new Uri("pack://application:,,,/Resources/coffeeGreen.ico");
+            Uri greenUri = new Uri("pack://application:,,,/Resources/coffeeGreen.ico");
             m_green = new BitmapImage(greenUri);
             m_green.Freeze();
 
-            var greenBusyUri = new Uri("pack://application:,,,/Resources/coffeeGreenBusy.ico");
+            Uri greenBusyUri = new Uri("pack://application:,,,/Resources/coffeeGreenBusy.ico");
             m_greenBusy = new BitmapImage(greenBusyUri);
             m_greenBusy.Freeze();
         }
@@ -66,7 +82,7 @@ namespace SyncWatcherTray.ViewModel
         {
             if (IsBusy)
             {
-                var uri = m_iconAnimateState ? m_green : m_greenBusy;
+                BitmapImage uri = m_iconAnimateState ? m_green : m_greenBusy;
 
                 UpdateIcon(uri);
 
@@ -80,26 +96,5 @@ namespace SyncWatcherTray.ViewModel
 
             Dispatcher.CurrentDispatcher.Invoke(() => IconSource = _image);
         }
-
-        public ImageSource IconSource
-        {
-            get => m_iconSource;
-            set
-            {
-                m_iconSource = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private BitmapImage m_idleIcon;
-        private BitmapImage m_green;
-        private BitmapImage m_greenBusy;
-        private bool m_iconAnimateState;
-        private ImageSource m_iconSource;
-
-        public bool IsBusy { get; private set; }
-        private readonly Timer m_timer;
-
-        private const int ICON_INTERVAL = 222;
     }
 }

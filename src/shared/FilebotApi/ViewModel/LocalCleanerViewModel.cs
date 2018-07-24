@@ -1,37 +1,17 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using Common.IO;
 using Common.Mvvm;
 using GalaSoft.MvvmLight;
-using MVVM;
 using MVVM.ViewModel;
 
 namespace FilebotApi.ViewModel
 {
     public class LocalCleanerViewModel : ViewModelBase
     {
-        public LocalCleanerViewModel(string _inputDir, string _outputDir, Filebot _filebot)
-        {
-            Debug.Assert(!string.IsNullOrWhiteSpace(_inputDir));
-            Debug.Assert(!string.IsNullOrWhiteSpace(_outputDir));
-            Debug.Assert(_filebot != null);
-
-            DirectoryViewModel = new DirectoryViewModel(_inputDir, "Complete");
-            OutputDirectory = _outputDir;
-            Filebot = _filebot;
-            Filebot.BusyChanged += Filebot_OnBusyChaned;
-        }
-
-        private void Filebot_OnBusyChaned(object _sender, EventArgs _e)
-        {
-            var filebot = _sender as Filebot;
-            Debug.Assert(filebot != null);
-
-            var isBusy = filebot.IsBusy;
-            DirectoryViewModel.IsBusy = isBusy;
-        }
-
         public ICommand OrganizeCommand
         {
             get
@@ -40,10 +20,10 @@ namespace FilebotApi.ViewModel
                 {
                     CommandAction = async () =>
                     {
-                        var input = DirectoryViewModel.Name;
-                        var output = OutputDirectory;
+                        string input = DirectoryViewModel.Name;
+                        string output = OutputDirectory;
 
-                        var fileBot = Filebot;
+                        Filebot fileBot = Filebot;
 
                         await Task.Run(() => fileBot.Organize(input, output));
                     },
@@ -55,5 +35,45 @@ namespace FilebotApi.ViewModel
         public DirectoryViewModel DirectoryViewModel { get; }
         public Filebot Filebot { get; }
         public string OutputDirectory { get; }
+
+        public LocalCleanerViewModel(SourceDestinationPaths _paths, Filebot _filebot)
+        {
+            Debug.Assert(_paths != null);
+
+            string inputDir = _paths.SourcePath;
+            string outputDir = _paths.DestinationPath;
+
+            Debug.Assert(!string.IsNullOrWhiteSpace(inputDir));
+            Debug.Assert(!string.IsNullOrWhiteSpace(outputDir));
+            Debug.Assert(_filebot != null);
+
+            DirectoryViewModel = new DirectoryViewModel(inputDir, "Complete");
+            OutputDirectory = outputDir;
+
+            Filebot = _filebot;
+            Filebot.Stopped += Filebot_OnStopped;
+            Filebot.BusyChanged += Filebot_OnBusyChaned;
+        }
+
+        private void Filebot_OnStopped(object _sender, FileBotOrganizeEventArgs _e)
+        {
+            Application.Current.Dispatcher.Invoke(RefreshCompletedDirectory);
+        }
+
+        private void RefreshCompletedDirectory()
+        {
+            ICommand refreshCommand = DirectoryViewModel.RefreshCommand;
+            if (refreshCommand.CanExecute(null))
+                refreshCommand.Execute(null);
+        }
+
+        private void Filebot_OnBusyChaned(object _sender, EventArgs _e)
+        {
+            Filebot filebot = _sender as Filebot;
+            Debug.Assert(filebot != null);
+
+            bool isBusy = filebot.IsBusy;
+            DirectoryViewModel.IsBusy = isBusy;
+        }
     }
 }

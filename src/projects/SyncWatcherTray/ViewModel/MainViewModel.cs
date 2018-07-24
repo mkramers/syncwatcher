@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Common.Framework.EventHelpers;
+using Common.IO;
 using Common.Mvvm;
 using Common.SFTP;
+using FilebotApi;
 using FilebotApi.ViewModel;
 using GalaSoft.MvvmLight;
 using MVVM.Popups;
+using MVVM.ViewModel;
 using SyncWatcherTray.Properties;
 using WinScpApi;
 using WinScpApi.ViewModel;
@@ -18,31 +22,72 @@ namespace SyncWatcherTray.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
+        public FtpManagerViewModel FtpManagerViewModel { get; }
+        public TaskbarIconViewModel TaskBarIcon { get; }
+        public IEnumerable<DirectoryViewModel> Directories { get; }
+        public LocalCleanerViewModel CompletedDirectory { get; }
+
         public MainViewModel()
         {
             TaskBarIcon = new TaskbarIconViewModel();
 
-            FilebotManager = new FilebotManagerViewModel();
-            FilebotManager.FilebotStarted += Operation_Started;
-            FilebotManager.FilebotCompleted += Operation_Completed;
+            Settings settings = Settings.Default;
 
+            string input = settings.CompletedDirectory;
+            string outputDir = settings.MediaRootDirectory;
+
+            SourceDestinationPaths paths = new SourceDestinationPaths(input, outputDir);
+
+            FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
+
+            Filebot filebot = InitializeFilebot();
+
+            CompletedDirectory = new LocalCleanerViewModel(paths, filebot);
+            
+            Directories = new[]
+            {
+                new DirectoryViewModel(settings.SeriesDirectory, "TV"),
+                new DirectoryViewModel(settings.MovieDirectory, "MOVIES")
+            };
+
+            RunPostOperations();
+        }
+
+        private Filebot InitializeFilebot()
+        {
+            string appDataRoot = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string appDataDirectory = Path.Combine(appDataRoot, "SyncWatcher");
+
+            if (!FilebotHelpers.TryCreateFilebot(appDataDirectory, out Filebot filebot))
+            {
+                Debug.Fail("unhandled filebot load failure");
+            }
+
+            filebot.Started += Operation_Started;
+            filebot.Stopped += OperationStopped;
+
+            return filebot;
+        }
+
+        private FtpManagerViewModel InitializeFtpManager(string _input)
+        {
             Settings defaultSettings = Settings.Default;
 
             defaultSettings.FtpSessionConfig = defaultSettings.FtpSessionConfig ?? FtpSessionConfig.Default;
             defaultSettings.Save();
 
-            const string completedDir = @"D:\Unsorted\completed";
-
-            FtpManager manager = new FtpManager(defaultSettings.FtpSessionConfig, new List<string> { completedDir });
+            FtpManager manager = new FtpManager(defaultSettings.FtpSessionConfig, new List<string>
+            {
+                _input
+            });
             manager.OperationStarted += Operation_Started;
-            manager.OperationCompleted += Operation_Completed;
+            manager.OperationCompleted += OperationStopped;
 
-            FtpManagerViewModel = new FtpManagerViewModel(manager);
-            FtpManagerViewModel.LocalRootChanged += FtpManagerViewModel_LocalRootChanged;
-            
-            RunPostOperations();
+            FtpManagerViewModel ftpManagerViewModel = new FtpManagerViewModel(manager);
+            ftpManagerViewModel.LocalRootChanged += FtpManagerViewModel_LocalRootChanged;
+            return ftpManagerViewModel;
         }
-        
+
         private void FtpManagerViewModel_LocalRootChanged(object _sender, StringEventArgs _e)
         {
             Settings.Default.LastRemotePath = FtpManagerViewModel.SelectedRemoteRoot;
@@ -53,7 +98,7 @@ namespace SyncWatcherTray.ViewModel
         {
             FtpManagerViewModel ftpManagerViewModel = FtpManagerViewModel;
             Debug.Assert(ftpManagerViewModel != null);
-            
+
             SelectLastLocalRoot(ftpManagerViewModel);
 
             bool autoConnectFtp = Settings.Default.AutoConnectFtp;
@@ -89,7 +134,7 @@ namespace SyncWatcherTray.ViewModel
         {
             var canExit = true;
             canExit &= FtpManagerViewModel.CanExit();
-            canExit &= !FilebotManager.Filebot.IsBusy;
+            canExit &= !CompletedDirectory.Filebot.IsBusy;
             return canExit;
         }
 
@@ -108,7 +153,7 @@ namespace SyncWatcherTray.ViewModel
             }
         }
 
-        private void Operation_Completed(object _sender, EventArgs _e)
+        private void OperationStopped(object _sender, EventArgs _e)
         {
             if (TaskBarIcon.IsBusy)
             {
@@ -116,10 +161,6 @@ namespace SyncWatcherTray.ViewModel
             }
         }
 
-        public ICommand OrganizeCommand => FilebotManager.CompletedDirectory.OrganizeCommand;
-
-        public FtpManagerViewModel FtpManagerViewModel { get; }
-        public FilebotManagerViewModel FilebotManager { get; }
-        public TaskbarIconViewModel TaskBarIcon { get; }
+        public ICommand OrganizeCommand => CompletedDirectory.OrganizeCommand;
     }
 }

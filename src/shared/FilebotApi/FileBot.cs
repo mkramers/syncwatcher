@@ -9,108 +9,45 @@ using GalaSoft.MvvmLight;
 
 namespace FilebotApi
 {
-    public class Filebot : ViewModelBase
+    public partial class Filebot : ViewModelBase
     {
-        private Filebot(FilebotSettings _settings, string _recordsPath)
+        private bool m_isBusy;
+
+        public FilebotSettings Settings { get; }
+        public FilebotRecords Records { get; }
+        public bool IsBusy
         {
-            Debug.Assert(_settings != null);
-            Debug.Assert(!string.IsNullOrWhiteSpace(_recordsPath));
-
-            Settings = _settings;
-            Records = new FilebotRecords();
-            Records.RequestRefresh += Records_RequestRefresh;
-
-            RecordsFile = _recordsPath;
-
-            LoadRecords(_recordsPath, Records);
-        }
-
-        public static bool TryCreate(string _settingsPath, string _recordsPath, out Filebot _filebot)
-        {
-            _filebot = null;
-
-            var success = false;
-
-            if (!File.Exists(_settingsPath))
+            get => m_isBusy;
+            set
             {
-                FilebotSettings.CreateDefaultSettingsFile(_settingsPath);
-            }
-
-            if (TryLoad(_settingsPath, _recordsPath, out _filebot))
-            {
-                success = true;
-            }
-
-            return success;
-        }
-
-        private static bool TryLoad(string _settingsPath, string _recordsPath, out Filebot _filebot)
-        {
-            Debug.Assert(!string.IsNullOrWhiteSpace(_settingsPath));
-            Debug.Assert(_recordsPath != null);
-
-            _filebot = null;
-
-            var success = false;
-
-            if (FilebotSettings.TryLoad(_settingsPath, out var settings))
-            {
-                _filebot = new Filebot(settings, _recordsPath)
+                if (m_isBusy != value)
                 {
-                    SettingsFile = _settingsPath,
-                };
-
-                success = true;
-            }
-
-            return success;
-        }
-
-        private void Records_RequestRefresh(object _sender, EventArgs _e)
-        {
-            var path = RecordsFile;
-            var records = Records;
-            LoadRecords(path, records);
-        }
-
-        private static void LoadRecords(string _recordsPath, FilebotRecords _records)
-        {
-            Debug.Assert(!string.IsNullOrWhiteSpace(_recordsPath));
-            Debug.Assert(_records != null);
-
-            if (!File.Exists(_recordsPath))
-            {
-                return;
-            }
-
-            var lines = File.ReadAllLines(_recordsPath);
-            var renameResults = new List<RenameResult>();
-            var skipResults = new List<SkipResult>();
-            foreach (var line in lines)
-            {
-                if (FileBotLogParser.TryParse(line, out var result))
-                {
-                    switch (result)
-                    {
-                        case RenameResult renameResult:
-                            renameResults.Add(renameResult);
-                            break;
-                        case SkipResult skipResult:
-                            skipResults.Add(skipResult);
-                            break;
-                    }
+                    m_isBusy = value;
+                    BusyChanged?.Invoke(this, EventArgs.Empty);
+                    RaisePropertyChanged();
                 }
             }
-
-            _records.Update(renameResults, skipResults);
         }
 
+        public event EventHandler Started;
+        public event EventHandler<FileBotOrganizeEventArgs> Stopped;
+        public event EventHandler<EventArgs> BusyChanged;
+
+        public Filebot(FilebotSettings _settings, FilebotRecords _records)
+        {
+            Debug.Assert(_settings != null);
+            Debug.Assert(_records != null);
+
+            Settings = _settings;
+            Records = _records;
+        }
+        
         public void Organize(string _inputDir, string _outputDir)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputDir));
             Debug.Assert(!string.IsNullOrWhiteSpace(_outputDir));
 
-            var message = $"Starting organize...\nSource: {_inputDir}\nTarget: {_outputDir}";
+            string message = $"Starting organize...\nSource: {_inputDir}\nTarget: {_outputDir}";
             Log.Write(LogLevel.Info, message);
 
             OrganizeResult organizeResult;
@@ -121,21 +58,17 @@ namespace FilebotApi
 
             try
             {
-                var settings = Settings;
-                var startInfo = GetFileBotProcessInfo(_inputDir, _outputDir, settings);
+                FilebotSettings settings = Settings;
+                ProcessStartInfo startInfo = GetFileBotProcessInfo(_inputDir, _outputDir, settings);
 
-                using (var exeProcess = Process.Start(startInfo))
+                using (Process exeProcess = Process.Start(startInfo))
                 {
                     Debug.Assert(exeProcess != null);
 
                     string line;
                     while ((line = exeProcess.StandardOutput.ReadLine()) != null)
-                    {
-                        if (FileBotLogParser.TryParse(line, out var result))
-                        {
+                        if (FileBotLogParser.TryParse(line, out FileBotResult result))
                             LogResult(result);
-                        }
-                    }
 
                     exeProcess.WaitForExit();
                 }
@@ -149,13 +82,11 @@ namespace FilebotApi
             }
 
             //reparse records
-            var recordsPath = RecordsFile;
-            var records = Records;
-            LoadRecords(recordsPath, records);
+            Records.Reload();
 
             IsBusy = false;
 
-            var args = new FileBotOrganizeEventArgs(organizeResult);
+            FileBotOrganizeEventArgs args = new FileBotOrganizeEventArgs(organizeResult);
             Stopped?.Invoke(this, args);
 
             Log.Write(LogLevel.Info, "Completed");
@@ -165,13 +96,13 @@ namespace FilebotApi
         {
             Debug.Assert(_result != null);
 
-            var rename = _result as RenameResult;
-            var result = _result;
+            RenameResult rename = _result as RenameResult;
+            FileBotResult result = _result;
 
             string message;
             if (rename != null)
             {
-                var dest = rename.ProposedFile;
+                string dest = rename.ProposedFile;
                 message = $"[Rename]: {Path.GetFileName(dest)}?";
             }
             else
@@ -181,14 +112,14 @@ namespace FilebotApi
 
             Log.Write(LogLevel.Info, message);
         }
-        
+
         private static string GetArguments(string _inputPath, string _outputPath, FilebotSettings _settings)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputPath));
             Debug.Assert(!string.IsNullOrWhiteSpace(_outputPath));
             Debug.Assert(_settings != null);
 
-            var argument = new StringBuilder();
+            StringBuilder argument = new StringBuilder();
 
             const string scriptPath = "filebot\\scripts\\amc.groovy";
             argument.Append($"-script {scriptPath}"); //todo fix path
@@ -199,9 +130,8 @@ namespace FilebotApi
 
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputPath));
             Debug.Assert(Directory.Exists(_inputPath));
-            var isNonStrict = _settings.IsNonStrict ? " -non-strict" : "";
-            argument.AppendFormat(" --action {0}{1} \"{2}\"", _settings.Action.ToString().ToLower(), isNonStrict,
-                _inputPath);
+            string isNonStrict = _settings.IsNonStrict ? " -non-strict" : "";
+            argument.AppendFormat(" --action {0}{1} \"{2}\"", _settings.Action.ToString().ToLower(), isNonStrict, _inputPath);
 
             if (_settings.Clean)
                 argument.AppendFormat(" --def clean=y");
@@ -224,25 +154,23 @@ namespace FilebotApi
             return argument.ToString();
         }
 
-        private static ProcessStartInfo GetFileBotProcessInfo(string _inputDir, string _outputDir,
-            FilebotSettings _settings)
+        private static ProcessStartInfo GetFileBotProcessInfo(string _inputDir, string _outputDir, FilebotSettings _settings)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputDir));
             Debug.Assert(!string.IsNullOrWhiteSpace(_outputDir));
             Debug.Assert(_settings != null);
 
-            var fileBotExecutable = _settings.FilebotExe;
-            var fileBotJar = _settings.FilebotJar;
+            string fileBotExecutable = _settings.FilebotExe;
+            string fileBotJar = _settings.FilebotJar;
             if (!File.Exists(fileBotExecutable) || !File.Exists(fileBotJar))
             {
-                var message =
-                    $"Filebot executable <{Path.GetFullPath(fileBotExecutable)}> or jar <{fileBotJar}> not found!";
+                string message = $"Filebot executable <{Path.GetFullPath(fileBotExecutable)}> or jar <{fileBotJar}> not found!";
                 throw new FileNotFoundException(message);
             }
 
-            var fileBotArgument = GetArguments(_inputDir, _outputDir, _settings);
+            string fileBotArgument = GetArguments(_inputDir, _outputDir, _settings);
 
-            var startInfo = new ProcessStartInfo
+            ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 CreateNoWindow = true,
                 UseShellExecute = false,
@@ -252,55 +180,6 @@ namespace FilebotApi
                 Arguments = fileBotArgument
             };
             return startInfo;
-        }
-        
-        public event EventHandler Started;
-        public event EventHandler<FileBotOrganizeEventArgs> Stopped;
-        public event EventHandler<EventArgs> BusyChanged;
-
-        public FilebotSettings Settings { get; }
-        public string SettingsFile { get; private set; }
-        public FilebotRecords Records { get; }
-        public string RecordsFile { get; }
-
-        public bool IsBusy
-        {
-            get => m_isBusy;
-            set
-            {
-                if (m_isBusy != value)
-                {
-                    m_isBusy = value;
-                    BusyChanged?.Invoke(this, EventArgs.Empty);
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private bool m_isBusy;
-
-        public enum ActionType
-        {
-            MOVE,
-            COPY,
-            TEST
-        }
-
-        public enum OrganizeResult
-        {
-            SUCCESS,
-            FAIL
-        }
-
-
-        public class FileBotOrganizeEventArgs : EventArgs
-        {
-            public FileBotOrganizeEventArgs(OrganizeResult _result)
-            {
-                Result = _result;
-            }
-
-            public OrganizeResult Result { get; }
         }
     }
 }
