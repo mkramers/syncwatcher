@@ -7,6 +7,11 @@ namespace Common.IO
 {
     public class SyncthingWatcher : FileWatcher
     {
+        private readonly List<string> m_syncKeywords = new List<string>
+        {
+            "~syncthing~"
+        };
+
         public SyncthingWatcher(string _directory) : base(_directory)
         {
         }
@@ -18,9 +23,9 @@ namespace Common.IO
             //get all files and check for any that indicate sync in progress
             try
             {
-                var files = Directory.GetFiles(m_directory, "*.*", SearchOption.AllDirectories).ToList();
-                var directories = Directory.GetDirectories(m_directory, "*", SearchOption.AllDirectories).ToList();
-                var allPaths = files.Concat(directories).ToList();
+                List<string> files = Directory.GetFiles(m_directory, "*.*", SearchOption.AllDirectories).ToList();
+                List<string> directories = Directory.GetDirectories(m_directory, "*", SearchOption.AllDirectories).ToList();
+                List<string> allPaths = files.Concat(directories).ToList();
 
                 inProgress = allPaths.Any(_file => m_syncKeywords.Any(_file.Contains));
             }
@@ -30,14 +35,13 @@ namespace Common.IO
             }
 
             if (!inProgress)
+            {
                 OnWatchEvent(this, _e);
+            }
             else
+            {
                 Log.Debug("syncing...");
+            }
         }
-
-        private readonly List<string> m_syncKeywords = new List<string>
-        {
-            "~syncthing~"
-        };
     }
 }

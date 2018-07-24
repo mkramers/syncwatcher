@@ -8,19 +8,30 @@ namespace Common.IO
 {
     public class FileWatcher : IDisposable
     {
-        protected FileWatcher(string _directory)
+        private const int CHECK_INTERVAL = 250;
+
+        protected static readonly ILog Log = LogManager.GetLogger(typeof(FileWatcher));
+
+        private readonly Timer m_changedTimer = new Timer(CHECK_INTERVAL);
+        protected readonly string m_directory;
+        private bool m_changeFlag;
+        private bool m_disposed;
+        private FileSystemEventArgs m_lastChange;
+
+        public event EventHandler<FileSystemEventArgs> WatchEvent;
+
+        public FileWatcher(string _directory)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_directory));
             Debug.Assert(Directory.Exists(_directory));
 
             m_directory = _directory;
 
-            var watcher = new FileSystemWatcher(m_directory)
+            FileSystemWatcher watcher = new FileSystemWatcher(m_directory)
             {
                 IncludeSubdirectories = true,
                 EnableRaisingEvents = true,
-                NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName |
-                               NotifyFilters.DirectoryName
+                NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName
             };
             watcher.Changed += Watcher_Changed;
             watcher.Created += OnWatchEvent;
@@ -44,6 +55,7 @@ namespace Common.IO
             //  if it is, the flag is lowered
             //  if it is not, we trigger the changed event the currentchange is cleared
             if (m_lastChange != null)
+            {
                 if (m_changeFlag)
                 {
                     Console.WriteLine("\tChange acknowledged");
@@ -55,6 +67,7 @@ namespace Common.IO
                     OnWatchEvent(_sender, m_lastChange);
                     m_lastChange = null;
                 }
+            }
         }
 
         private void Watcher_Changed(object _sender, FileSystemEventArgs _e)
@@ -68,7 +81,6 @@ namespace Common.IO
         protected virtual void WatchEventCallback(object _sender, FileSystemEventArgs _e)
         {
             Console.WriteLine($"watch event: {_e.ChangeType}");
-            OnWatchEvent(_sender, _e);
         }
 
         protected void OnWatchEvent(object _sender, FileSystemEventArgs _e)
@@ -82,25 +94,16 @@ namespace Common.IO
         private void Dispose(bool _disposing)
         {
             if (m_disposed)
+            {
                 return;
+            }
 
             if (_disposing)
+            {
                 m_changedTimer.Dispose();
+            }
 
             m_disposed = true;
         }
-
-        public event EventHandler<FileSystemEventArgs> WatchEvent;
-        private readonly Timer m_changedTimer = new Timer(CHECK_INTERVAL);
-
-        protected readonly string m_directory;
-        private bool m_changeFlag;
-
-
-        private bool m_disposed;
-        private FileSystemEventArgs m_lastChange;
-
-        private const int CHECK_INTERVAL = 250;
-        protected static readonly ILog Log = LogManager.GetLogger(typeof(FileWatcher));
     }
 }
