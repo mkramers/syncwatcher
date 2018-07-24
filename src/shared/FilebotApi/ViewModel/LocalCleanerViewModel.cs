@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Common.IO;
 using Common.Mvvm;
@@ -48,8 +49,22 @@ namespace FilebotApi.ViewModel
 
             DirectoryViewModel = new DirectoryViewModel(inputDir, "Complete");
             OutputDirectory = outputDir;
+
             Filebot = _filebot;
+            Filebot.Stopped += Filebot_OnStopped;
             Filebot.BusyChanged += Filebot_OnBusyChaned;
+        }
+
+        private void Filebot_OnStopped(object _sender, FileBotOrganizeEventArgs _e)
+        {
+            Application.Current.Dispatcher.Invoke(RefreshCompletedDirectory);
+        }
+
+        private void RefreshCompletedDirectory()
+        {
+            ICommand refreshCommand = DirectoryViewModel.RefreshCommand;
+            if (refreshCommand.CanExecute(null))
+                refreshCommand.Execute(null);
         }
 
         private void Filebot_OnBusyChaned(object _sender, EventArgs _e)

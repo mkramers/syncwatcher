@@ -103,7 +103,7 @@
                 Grid.ColumnSpan="2"
                 SelectionChanged="TabControl_OnSelectionChanged">
                 <TabItem Header="Server">
-                    <winscp:FtpManagerView DataContext="{Binding FtpManagerViewModel}" />
+                    <winscp:FtpManagerView DataContext="{Binding CompletedDirectory}" />
                 </TabItem>
 
                 <TabItem Header="Completed">

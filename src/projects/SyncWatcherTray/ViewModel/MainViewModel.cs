@@ -26,6 +26,7 @@ namespace SyncWatcherTray.ViewModel
         public FilebotManagerViewModel FilebotManager { get; }
         public TaskbarIconViewModel TaskBarIcon { get; }
         public IEnumerable<DirectoryViewModel> Directories { get; }
+        public LocalCleanerViewModel CompletedDirectory { get; }
 
         public MainViewModel()
         {
@@ -44,8 +45,10 @@ namespace SyncWatcherTray.ViewModel
             {
                 Directory.CreateDirectory(appDataDirectory);
             }
+            
+            Filebot filebot = CreateFilebot(appDataDirectory);
 
-            FilebotManager = InitializeFilebotManager(appDataDirectory, paths);
+            FilebotManager = InitializeFilebotManager(appDataDirectory, paths, filebot);
 
             FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
 
@@ -54,15 +57,26 @@ namespace SyncWatcherTray.ViewModel
                 new DirectoryViewModel(settings.SeriesDirectory, "TV"),
                 new DirectoryViewModel(settings.MovieDirectory, "MOVIES")
             };
-            
+
+            CompletedDirectory = new LocalCleanerViewModel(paths, filebot);
+
             RunPostOperations();
         }
 
-        private FilebotManagerViewModel InitializeFilebotManager(string _appDataDirectory, SourceDestinationPaths _paths)
+        private FilebotManagerViewModel InitializeFilebotManager(string _appDataDirectory, SourceDestinationPaths _paths, Filebot _filebot)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_appDataDirectory));
             Debug.Assert(_paths != null);
+            Debug.Assert(_filebot != null);
             
+            FilebotManagerViewModel filebotManager = new FilebotManagerViewModel(_paths, _filebot);
+            filebotManager.FilebotStarted += Operation_Started;
+            filebotManager.FilebotStopped += OperationStopped;
+            return filebotManager;
+        }
+
+        private static Filebot CreateFilebot(string _appDataDirectory)
+        {
             string settingsPath = Path.Combine(_appDataDirectory, "settings.xml");
             string recordsPath = Path.Combine(_appDataDirectory, "amclog.txt");
 
@@ -71,10 +85,7 @@ namespace SyncWatcherTray.ViewModel
                 Debug.Fail("unhandled filebot load failutre");
             }
 
-            FilebotManagerViewModel filebotManager = new FilebotManagerViewModel(_paths, filebot);
-            filebotManager.FilebotStarted += Operation_Started;
-            filebotManager.FilebotStopped += OperationStopped;
-            return filebotManager;
+            return filebot;
         }
 
         private FtpManagerViewModel InitializeFtpManager(string _input)
@@ -169,6 +180,6 @@ namespace SyncWatcherTray.ViewModel
             }
         }
 
-        public ICommand OrganizeCommand => FilebotManager.CompletedDirectory.OrganizeCommand;
+        public ICommand OrganizeCommand => CompletedDirectory.OrganizeCommand;
     }
 }

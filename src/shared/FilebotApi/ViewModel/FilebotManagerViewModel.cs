@@ -14,7 +14,6 @@ namespace FilebotApi.ViewModel
     public class FilebotManagerViewModel : ViewModelBase
     {
         public Filebot Filebot { get; }
-        public LocalCleanerViewModel CompletedDirectory { get; }
         
         public event EventHandler FilebotStarted
         {
@@ -33,9 +32,6 @@ namespace FilebotApi.ViewModel
             Debug.Assert(_filebot != null);
 
             Filebot = _filebot;
-            Filebot.Stopped += Filebot_OnStopped;
-
-            CompletedDirectory = new LocalCleanerViewModel(_paths, _filebot);
         }
 
         public static bool TryCreateFilebot(string _settingsPath, string _recordsPath, out Filebot _filebot)
@@ -57,18 +53,6 @@ namespace FilebotApi.ViewModel
             }
 
             return success;
-        }
-
-        private void Filebot_OnStopped(object _sender, FileBotOrganizeEventArgs _e)
-        {
-            Application.Current.Dispatcher.Invoke(RefreshCompletedDirectory);
-        }
-
-        private void RefreshCompletedDirectory()
-        {
-            ICommand refreshCommand = CompletedDirectory.DirectoryViewModel.RefreshCommand;
-            if (refreshCommand.CanExecute(null))
-                refreshCommand.Execute(null);
         }
     }
 }

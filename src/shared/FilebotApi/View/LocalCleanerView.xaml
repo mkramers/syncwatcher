@@ -7,7 +7,7 @@
     xmlns:view="clr-namespace:FilebotApi.View"
     xmlns:view1="clr-namespace:MVVM.View;assembly=MVVM"
     xmlns:viewModel="clr-namespace:FilebotApi.ViewModel"
-    d:DataContext="{d:DesignInstance viewModel:FilebotManagerViewModel}"
+    d:DataContext="{d:DesignInstance viewModel:LocalCleanerViewModel}"
     d:DesignHeight="800"
     d:DesignWidth="600"
     mc:Ignorable="d">
@@ -23,7 +23,7 @@
         <view1:DirectoryView
             Grid.Row="0"
             Margin="0,0,0,8"
-            DataContext="{Binding CompletedDirectory.DirectoryViewModel}" />
+            DataContext="{Binding DirectoryViewModel}" />
 
         <view:RenameResultView
             Grid.Row="1"
@@ -39,7 +39,7 @@
             Height="32"
             Margin="5"
             HorizontalAlignment="Center"
-            Command="{Binding CompletedDirectory.OrganizeCommand}"
+            Command="{Binding OrganizeCommand}"
             Content="SORT" />
     </Grid>
 </UserControl>
