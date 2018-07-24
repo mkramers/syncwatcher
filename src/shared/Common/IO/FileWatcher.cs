@@ -8,7 +8,7 @@ namespace Common.IO
 {
     public class FileWatcher : IDisposable
     {
-        private const int CHECK_INTERVAL = 500;
+        private const int CHECK_INTERVAL = 1000;
 
         protected static readonly ILog Log = LogManager.GetLogger(typeof(FileWatcher));
 

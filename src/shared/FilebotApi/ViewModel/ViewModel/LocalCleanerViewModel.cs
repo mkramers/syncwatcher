@@ -84,6 +84,7 @@ namespace FilebotApi.ViewModel
 
         private void FileWatcher_WatchEvent(object _sender, FileSystemEventArgs _e)
         {
+            Application.Current.Dispatcher.Invoke(RefreshCompletedDirectory);
         }
     }
 }
