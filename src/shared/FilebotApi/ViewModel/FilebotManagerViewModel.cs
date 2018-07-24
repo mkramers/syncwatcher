@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using MVVM.ViewModel;
+using System.Collections.Generic;
 
 namespace FilebotApi.ViewModel
 {
@@ -11,30 +14,25 @@ namespace FilebotApi.ViewModel
     {
         public Filebot Filebot { get; }
         public LocalCleanerViewModel CompletedDirectory { get; }
-        public DirectoryViewModel[] Directories { get; }
+        public IEnumerable<DirectoryViewModel> Directories { get; }
 
-        public FilebotManagerViewModel()
+        public FilebotManagerViewModel(IEnumerable<DirectoryViewModel> _directories)
         {
-            const string input = @"D:\Unsorted\completed";
-            const string outputDir = @"F:\Videos";
-            const string tvDir = @"F:\videos\TV Shows";
-            const string moviesDir = @"F:\videos\Movies";
+            Debug.Assert(_directories != null);
+            
+            Directories = _directories;
 
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-            string directory = Path.Combine(appData, "SyncWatcher", "Settings");
+            string directory = Path.Combine(appData, "SyncWatcher");
 
             if (!Directory.Exists(directory))
+            {
                 Directory.CreateDirectory(directory);
+            }
 
             string settingsPath = Path.Combine(directory, "settings.xml");
             string recordsPath = Path.Combine(directory, "amclog.txt");
-
-            Directories = new[]
-            {
-                new DirectoryViewModel(tvDir, "TV"),
-                new DirectoryViewModel(moviesDir, "MOVIES")
-            };
 
             if (Filebot.TryCreate(settingsPath, recordsPath, out Filebot filebot))
             {
@@ -42,6 +40,9 @@ namespace FilebotApi.ViewModel
 
                 Filebot = filebot;
             }
+
+            const string input = @"D:\Unsorted\completed";
+            const string outputDir = @"F:\Videos";
 
             CompletedDirectory = new LocalCleanerViewModel(input, outputDir, filebot);
         }

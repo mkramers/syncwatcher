@@ -10,6 +10,7 @@ using Common.SFTP;
 using FilebotApi.ViewModel;
 using GalaSoft.MvvmLight;
 using MVVM.Popups;
+using MVVM.ViewModel;
 using SyncWatcherTray.Properties;
 using WinScpApi;
 using WinScpApi.ViewModel;
@@ -22,7 +23,15 @@ namespace SyncWatcherTray.ViewModel
         {
             TaskBarIcon = new TaskbarIconViewModel();
 
-            FilebotManager = new FilebotManagerViewModel();
+            const string tvDir = @"F:\videos\TV Shows";
+            const string moviesDir = @"F:\videos\Movies";
+
+            DirectoryViewModel[] directories = {
+                new DirectoryViewModel(tvDir, "TV"),
+                new DirectoryViewModel(moviesDir, "MOVIES")
+            };
+
+            FilebotManager = new FilebotManagerViewModel(directories);
             FilebotManager.FilebotStarted += Operation_Started;
             FilebotManager.FilebotCompleted += Operation_Completed;
 
