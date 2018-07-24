@@ -34,7 +34,7 @@ namespace FilebotApi
         public event EventHandler<FileBotOrganizeEventArgs> Stopped;
         public event EventHandler<EventArgs> BusyChanged;
 
-        private Filebot(FilebotSettings _settings, string _recordsPath)
+        public Filebot(FilebotSettings _settings, string _recordsPath)
         {
             Debug.Assert(_settings != null);
             Debug.Assert(!string.IsNullOrWhiteSpace(_recordsPath));
@@ -47,24 +47,6 @@ namespace FilebotApi
             RecordsFile = _recordsPath;
 
             LoadRecords(_recordsPath, Records);
-        }
-
-        public static bool TryCreate(string _settingsPath, string _recordsPath, out Filebot _filebot)
-        {
-            _filebot = null;
-
-            bool success = false;
-
-            if (!File.Exists(_settingsPath))
-                FilebotSettings.CreateDefaultSettingsFile(_settingsPath);
-
-            if (FilebotSettings.TryLoad(_settingsPath, out FilebotSettings settings))
-            {
-                _filebot = new Filebot(settings, _recordsPath);
-                success = true;
-            }
-
-            return success;
         }
 
         private void Records_RequestRefresh(object _sender, EventArgs _e)
