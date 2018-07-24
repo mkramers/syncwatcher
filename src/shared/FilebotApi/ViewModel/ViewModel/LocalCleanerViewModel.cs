@@ -52,7 +52,7 @@ namespace FilebotApi.ViewModel
 
             Filebot = _filebot;
             Filebot.Stopped += Filebot_OnStopped;
-            Filebot.BusyChanged += Filebot_OnBusyChaned;
+            Filebot.BusyChanged += Filebot_OnBusyChanged;
         }
 
         private void Filebot_OnStopped(object _sender, FileBotOrganizeEventArgs _e)
@@ -67,7 +67,7 @@ namespace FilebotApi.ViewModel
                 refreshCommand.Execute(null);
         }
 
-        private void Filebot_OnBusyChaned(object _sender, EventArgs _e)
+        private void Filebot_OnBusyChanged(object _sender, EventArgs _e)
         {
             Filebot filebot = _sender as Filebot;
             Debug.Assert(filebot != null);
