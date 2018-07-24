@@ -41,9 +41,6 @@ namespace FilebotApi.ViewModel
                 filebot.Stopped += Filebot_Completed;
 
                 Filebot = filebot;
-
-                //var watcher = new SyncthingWatcher(input);
-                //watcher.WatchEvent += Watcher_WatchEvent;
             }
 
             CompletedDirectory = new LocalCleanerViewModel(input, outputDir, filebot);
