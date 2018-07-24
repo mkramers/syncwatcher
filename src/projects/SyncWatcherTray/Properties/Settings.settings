@@ -23,5 +23,17 @@
     <Setting Name="LastSelectedTabIndex" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="SeriesDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F:\videos\TV Shows</Value>
+    </Setting>
+    <Setting Name="MovieDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F:\videos\Movies</Value>
+    </Setting>
+    <Setting Name="CompletedDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Unsorted\completed</Value>
+    </Setting>
+    <Setting Name="MediaRootDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F:\Videos</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

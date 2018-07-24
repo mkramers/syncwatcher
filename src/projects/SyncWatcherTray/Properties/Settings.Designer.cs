@@ -105,5 +105,53 @@ namespace SyncWatcherTray.Properties {
                 this["LastSelectedTabIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("F:\\videos\\TV Shows")]
+        public string SeriesDirectory {
+            get {
+                return ((string)(this["SeriesDirectory"]));
+            }
+            set {
+                this["SeriesDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("F:\\videos\\Movies")]
+        public string MovieDirectory {
+            get {
+                return ((string)(this["MovieDirectory"]));
+            }
+            set {
+                this["MovieDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\Unsorted\\completed")]
+        public string CompletedDirectory {
+            get {
+                return ((string)(this["CompletedDirectory"]));
+            }
+            set {
+                this["CompletedDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("F:\\Videos")]
+        public string MediaRootDirectory {
+            get {
+                return ((string)(this["MediaRootDirectory"]));
+            }
+            set {
+                this["MediaRootDirectory"] = value;
+            }
+        }
     }
 }

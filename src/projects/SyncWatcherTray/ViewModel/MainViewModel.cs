@@ -26,8 +26,11 @@ namespace SyncWatcherTray.ViewModel
         {
             TaskBarIcon = new TaskbarIconViewModel();
 
-            const string input = @"D:\Unsorted\completed";
-            const string outputDir = @"F:\Videos";
+            Settings settings = Settings.Default;
+
+            string input = settings.CompletedDirectory;
+            string outputDir = settings.MediaRootDirectory;
+
             SourceDestinationPaths paths = new SourceDestinationPaths(input, outputDir);
 
             string appDataRoot = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -49,13 +52,12 @@ namespace SyncWatcherTray.ViewModel
             Debug.Assert(!string.IsNullOrWhiteSpace(_appDataDirectory));
             Debug.Assert(_paths != null);
 
-            const string tvDir = @"F:\videos\TV Shows";
-            const string moviesDir = @"F:\videos\Movies";
-
+            Settings settings = Settings.Default;
+            
             DirectoryViewModel[] directories =
             {
-                new DirectoryViewModel(tvDir, "TV"),
-                new DirectoryViewModel(moviesDir, "MOVIES")
+                new DirectoryViewModel(settings.SeriesDirectory, "TV"),
+                new DirectoryViewModel(settings.MovieDirectory, "MOVIES")
             };
 
             string settingsPath = Path.Combine(_appDataDirectory, "settings.xml");
