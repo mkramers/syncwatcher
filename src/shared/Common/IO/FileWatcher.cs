@@ -72,12 +72,12 @@ namespace Common.IO
             {
                 if (m_changeFlag)
                 {
-                    Console.WriteLine("\tChange acknowledged");
+                    //Console.WriteLine("\tChange acknowledged");
                     m_changeFlag = false;
                 }
                 else
                 {
-                    Console.WriteLine("Change ended!");
+                    //Console.WriteLine("Change ended!");
                     OnWatchEvent(_sender, m_lastChange);
                     m_lastChange = null;
                 }
@@ -86,7 +86,7 @@ namespace Common.IO
 
         private void Watcher_Changed(object _sender, FileSystemEventArgs _e)
         {
-            Console.WriteLine(m_lastChange == null ? "Change occured!" : "Change continues...");
+            //Console.WriteLine(m_lastChange == null ? "Change occured!" : "Change continues...");
 
             m_lastChange = _e;
             m_changeFlag = true;
