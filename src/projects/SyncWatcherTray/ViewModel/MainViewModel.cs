@@ -45,10 +45,10 @@ namespace SyncWatcherTray.ViewModel
             {
                 Directory.CreateDirectory(appDataDirectory);
             }
-            
+
             Filebot filebot = CreateFilebot(appDataDirectory);
 
-            FilebotManager = InitializeFilebotManager(appDataDirectory, paths, filebot);
+            FilebotManager = InitializeFilebotManager(paths, filebot);
 
             FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
 
@@ -63,12 +63,11 @@ namespace SyncWatcherTray.ViewModel
             RunPostOperations();
         }
 
-        private FilebotManagerViewModel InitializeFilebotManager(string _appDataDirectory, SourceDestinationPaths _paths, Filebot _filebot)
+        private FilebotManagerViewModel InitializeFilebotManager(SourceDestinationPaths _paths, Filebot _filebot)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(_appDataDirectory));
             Debug.Assert(_paths != null);
             Debug.Assert(_filebot != null);
-            
+
             FilebotManagerViewModel filebotManager = new FilebotManagerViewModel(_paths, _filebot);
             filebotManager.FilebotStarted += Operation_Started;
             filebotManager.FilebotStopped += OperationStopped;

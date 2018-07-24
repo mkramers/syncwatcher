@@ -103,11 +103,11 @@
                 Grid.ColumnSpan="2"
                 SelectionChanged="TabControl_OnSelectionChanged">
                 <TabItem Header="Server">
-                    <winscp:FtpManagerView DataContext="{Binding CompletedDirectory}" />
+                    <winscp:FtpManagerView DataContext="{Binding FtpManagerViewModel}" />
                 </TabItem>
 
                 <TabItem Header="Completed">
-                    <view:LocalCleanerView Margin="10,0" DataContext="{Binding FilebotManager}" />
+                    <view:LocalCleanerView Margin="10,0" DataContext="{Binding CompletedDirectory}" />
                 </TabItem>
 
                 <TabItem Header="{Binding Directories[0].ShortName}">
