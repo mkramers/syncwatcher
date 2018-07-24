@@ -66,7 +66,7 @@ namespace SyncWatcherTray.ViewModel
             {
             }
 
-            FilebotManagerViewModel filebotManager = new FilebotManagerViewModel(directory, _paths, directories, filebot);
+            FilebotManagerViewModel filebotManager = new FilebotManagerViewModel(_paths, directories, filebot);
             filebotManager.FilebotStarted += Operation_Started;
             filebotManager.FilebotCompleted += Operation_Completed;
             return filebotManager;

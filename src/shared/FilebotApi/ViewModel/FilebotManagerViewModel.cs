@@ -17,9 +17,8 @@ namespace FilebotApi.ViewModel
         public LocalCleanerViewModel CompletedDirectory { get; }
         public IEnumerable<DirectoryViewModel> Directories { get; }
 
-        public FilebotManagerViewModel(string _appDataDirectory, SourceDestinationPaths _paths, IEnumerable<DirectoryViewModel> _directories, Filebot _filebot)
+        public FilebotManagerViewModel(SourceDestinationPaths _paths, IEnumerable<DirectoryViewModel> _directories, Filebot _filebot)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(_appDataDirectory));
             Debug.Assert(_paths != null);
             Debug.Assert(_directories != null);
             Debug.Assert(_filebot != null);
