@@ -18,6 +18,11 @@ namespace Common.IO
 
         protected override bool RequestIsChangeCompleted()
         {
+            if (!base.RequestIsChangeCompleted())
+            {
+                return false;
+            }
+
             bool isCompleted;
 
             //get all files and check for any that indicate sync in progress
@@ -34,12 +39,7 @@ namespace Common.IO
                 isCompleted = false;
             }
 
-            if (!isCompleted)
-            {
-                Log.Debug("syncing...");
-            }
-
-            return !isCompleted;
+            return isCompleted;
         }
     }
 }

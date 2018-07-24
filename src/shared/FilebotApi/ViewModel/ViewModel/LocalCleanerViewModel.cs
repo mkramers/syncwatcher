@@ -84,7 +84,6 @@ namespace FilebotApi.ViewModel
 
         private void FileWatcher_WatchEvent(object _sender, FileSystemEventArgs _e)
         {
-
         }
     }
 }

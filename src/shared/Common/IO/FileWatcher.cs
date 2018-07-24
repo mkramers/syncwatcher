@@ -8,7 +8,7 @@ namespace Common.IO
 {
     public class FileWatcher : IDisposable
     {
-        private const int CHECK_INTERVAL = 250;
+        private const int CHECK_INTERVAL = 500;
 
         protected static readonly ILog Log = LogManager.GetLogger(typeof(FileWatcher));
 
@@ -34,9 +34,9 @@ namespace Common.IO
                 NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName
             };
             watcher.Changed += Watcher_Changed;
-            watcher.Created += OnWatchEvent;
-            watcher.Renamed += OnWatchEvent;
-            watcher.Deleted += OnWatchEvent;
+            watcher.Created += Watcher_Changed;
+            watcher.Renamed += Watcher_Changed;
+            watcher.Deleted += Watcher_Changed;
 
             m_changedTimer.Elapsed += ChangedTimer_Elapsed;
         }
