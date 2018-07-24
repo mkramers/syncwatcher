@@ -16,6 +16,17 @@ namespace FilebotApi.ViewModel
         public Filebot Filebot { get; }
         public LocalCleanerViewModel CompletedDirectory { get; }
         public IEnumerable<DirectoryViewModel> Directories { get; }
+        
+        public event EventHandler FilebotStarted
+        {
+            add => Filebot.Started += value;
+            remove => Filebot.Started -= value;
+        }
+        public event EventHandler<FileBotOrganizeEventArgs> FilebotStopped
+        {
+            add => Filebot.Stopped += value;
+            remove => Filebot.Stopped -= value;
+        }
 
         public FilebotManagerViewModel(SourceDestinationPaths _paths, IEnumerable<DirectoryViewModel> _directories, Filebot _filebot)
         {
@@ -62,17 +73,6 @@ namespace FilebotApi.ViewModel
             ICommand refreshCommand = CompletedDirectory.DirectoryViewModel.RefreshCommand;
             if (refreshCommand.CanExecute(null))
                 refreshCommand.Execute(null);
-        }
-
-        public event EventHandler FilebotStarted
-        {
-            add => Filebot.Started += value;
-            remove => Filebot.Started -= value;
-        }
-        public event EventHandler<FileBotOrganizeEventArgs> FilebotStopped
-        {
-            add => Filebot.Stopped += value;
-            remove => Filebot.Stopped -= value;
         }
     }
 }

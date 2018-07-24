@@ -39,7 +39,6 @@ namespace FilebotApi
             Debug.Assert(_records != null);
 
             Settings = _settings;
-
             Records = _records;
         }
         
