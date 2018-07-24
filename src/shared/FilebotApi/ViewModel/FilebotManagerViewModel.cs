@@ -16,23 +16,15 @@ namespace FilebotApi.ViewModel
         public LocalCleanerViewModel CompletedDirectory { get; }
         public IEnumerable<DirectoryViewModel> Directories { get; }
 
-        public FilebotManagerViewModel(IEnumerable<DirectoryViewModel> _directories)
+        public FilebotManagerViewModel(string _appDataDirectory, IEnumerable<DirectoryViewModel> _directories)
         {
+            Debug.Assert(!string.IsNullOrWhiteSpace(_appDataDirectory));
             Debug.Assert(_directories != null);
-            
+
             Directories = _directories;
 
-            string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-            string directory = Path.Combine(appData, "SyncWatcher");
-
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            string settingsPath = Path.Combine(directory, "settings.xml");
-            string recordsPath = Path.Combine(directory, "amclog.txt");
+            string settingsPath = Path.Combine(_appDataDirectory, "settings.xml");
+            string recordsPath = Path.Combine(_appDataDirectory, "amclog.txt");
 
             if (Filebot.TryCreate(settingsPath, recordsPath, out Filebot filebot))
             {

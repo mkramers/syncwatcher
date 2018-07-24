@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -31,7 +32,17 @@ namespace SyncWatcherTray.ViewModel
                 new DirectoryViewModel(moviesDir, "MOVIES")
             };
 
-            FilebotManager = new FilebotManagerViewModel(directories);
+
+            string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+            string directory = Path.Combine(appData, "SyncWatcher");
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            FilebotManager = new FilebotManagerViewModel(directory, directories);
             FilebotManager.FilebotStarted += Operation_Started;
             FilebotManager.FilebotCompleted += Operation_Completed;
 
