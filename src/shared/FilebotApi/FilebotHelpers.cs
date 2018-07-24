@@ -9,31 +9,10 @@ using MVVM.ViewModel;
 using System.Collections.Generic;
 using Common.IO;
 
-namespace FilebotApi.ViewModel
+namespace FilebotApi
 {
-    public class FilebotManagerViewModel : ViewModelBase
+    public class FilebotHelpers : ViewModelBase
     {
-        public Filebot Filebot { get; }
-        
-        public event EventHandler FilebotStarted
-        {
-            add => Filebot.Started += value;
-            remove => Filebot.Started -= value;
-        }
-        public event EventHandler<FileBotOrganizeEventArgs> FilebotStopped
-        {
-            add => Filebot.Stopped += value;
-            remove => Filebot.Stopped -= value;
-        }
-
-        public FilebotManagerViewModel(SourceDestinationPaths _paths, Filebot _filebot)
-        {
-            Debug.Assert(_paths != null);
-            Debug.Assert(_filebot != null);
-
-            Filebot = _filebot;
-        }
-
         public static bool TryCreateFilebot(string _settingsPath, string _recordsPath, out Filebot _filebot)
         {
             _filebot = null;

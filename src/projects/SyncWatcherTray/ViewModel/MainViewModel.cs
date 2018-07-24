@@ -23,7 +23,6 @@ namespace SyncWatcherTray.ViewModel
     public class MainViewModel : ViewModelBase
     {
         public FtpManagerViewModel FtpManagerViewModel { get; }
-        public FilebotManagerViewModel FilebotManager { get; }
         public TaskbarIconViewModel TaskBarIcon { get; }
         public IEnumerable<DirectoryViewModel> Directories { get; }
         public LocalCleanerViewModel CompletedDirectory { get; }
@@ -47,8 +46,8 @@ namespace SyncWatcherTray.ViewModel
             }
 
             Filebot filebot = CreateFilebot(appDataDirectory);
-
-            FilebotManager = InitializeFilebotManager(paths, filebot);
+            filebot.Started += Operation_Started;
+            filebot.Stopped += OperationStopped;
 
             FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
 
@@ -63,23 +62,12 @@ namespace SyncWatcherTray.ViewModel
             RunPostOperations();
         }
 
-        private FilebotManagerViewModel InitializeFilebotManager(SourceDestinationPaths _paths, Filebot _filebot)
-        {
-            Debug.Assert(_paths != null);
-            Debug.Assert(_filebot != null);
-
-            FilebotManagerViewModel filebotManager = new FilebotManagerViewModel(_paths, _filebot);
-            filebotManager.FilebotStarted += Operation_Started;
-            filebotManager.FilebotStopped += OperationStopped;
-            return filebotManager;
-        }
-
         private static Filebot CreateFilebot(string _appDataDirectory)
         {
             string settingsPath = Path.Combine(_appDataDirectory, "settings.xml");
             string recordsPath = Path.Combine(_appDataDirectory, "amclog.txt");
 
-            if (!FilebotManagerViewModel.TryCreateFilebot(settingsPath, recordsPath, out Filebot filebot))
+            if (!FilebotHelpers.TryCreateFilebot(settingsPath, recordsPath, out Filebot filebot))
             {
                 Debug.Fail("unhandled filebot load failutre");
             }
@@ -152,7 +140,7 @@ namespace SyncWatcherTray.ViewModel
         {
             var canExit = true;
             canExit &= FtpManagerViewModel.CanExit();
-            canExit &= !FilebotManager.Filebot.IsBusy;
+            canExit &= !CompletedDirectory.Filebot.IsBusy;
             return canExit;
         }
 

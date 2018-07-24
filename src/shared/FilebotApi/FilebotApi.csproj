@@ -81,7 +81,7 @@
     <Compile Include="Result\FilebotFileResult.cs" />
     <Compile Include="Result\RenameResult.cs" />
     <Compile Include="Result\SkipResult.cs" />
-    <Compile Include="ViewModel\FilebotManagerViewModel.cs" />
+    <Compile Include="FilebotHelpers.cs" />
     <Compile Include="ViewModel\LocalCleanerViewModel.cs" />
     <Compile Include="View\FilebotSkippedView.xaml.cs">
       <DependentUpon>FilebotSkippedView.xaml</DependentUpon>

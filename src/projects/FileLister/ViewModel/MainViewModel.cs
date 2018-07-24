@@ -40,7 +40,7 @@ namespace FileLister.ViewModel
                 FilebotSettings.CreateDefaultSettingsFile(settingsPath);
 
             
-            if (!FilebotManagerViewModel.TryCreateFilebot(settingsPath, recordsPath, out var filebot))
+            if (!FilebotHelpers.TryCreateFilebot(settingsPath, recordsPath, out var filebot))
                 Debug.Fail($"error loading filebot {Path.GetFullPath(settingsPath)}");
 
             DirectoryModelCache.Instance.Initialize(Paths.AppData);
