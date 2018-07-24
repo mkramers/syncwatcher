@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Common.Framework.EventHelpers;
 using Common.Mvvm;
 using Common.SFTP;
 using FilebotApi.ViewModel;
@@ -21,67 +22,58 @@ namespace SyncWatcherTray.ViewModel
         {
             TaskBarIcon = new TaskbarIconViewModel();
 
-            const string input = @"D:\Unsorted\completed";
+            FilebotManager = new FilebotManagerViewModel();
+            FilebotManager.FilebotStarted += Operation_Started;
+            FilebotManager.FilebotCompleted += Operation_Completed;
 
-            if (!FilebotManagerViewModel.TryCreateFilebotManager(out var filebotManager))
-            {
-                var message = $"Failed to create FilebotManager! See log for details.";
-                PopupManager.Instance.ShowError(message, "Invalid path!");
-                return;
-            }
+            Settings defaultSettings = Settings.Default;
 
-            filebotManager.FilebotStarted += Operation_Started;
-            filebotManager.FilebotCompleted += Operation_Completed;
+            defaultSettings.FtpSessionConfig = defaultSettings.FtpSessionConfig ?? FtpSessionConfig.Default;
+            defaultSettings.Save();
 
-            FilebotManager = filebotManager;
+            const string completedDir = @"D:\Unsorted\completed";
 
-            if (!TryCreateFtpManager(input, out var ftpManagerViewModel))
-            {
-                var message = $"Failed to create FtpManager! See log for details.";
-                PopupManager.Instance.ShowError(message, "Error");
-                return;
-            }
+            FtpManager manager = new FtpManager(defaultSettings.FtpSessionConfig, new List<string> { completedDir });
+            manager.OperationStarted += Operation_Started;
+            manager.OperationCompleted += Operation_Completed;
 
-            ftpManagerViewModel.PropertyChanged += FtpManagerViewModel_PropertyChanged;
-
-            var ftpManager = ftpManagerViewModel.Manager;
-            ftpManager.OperationStarted += Operation_Started;
-            ftpManager.OperationCompleted += Operation_Completed;
-
-            FtpManagerViewModel = ftpManagerViewModel;
-
-            RunPostOperations(ftpManagerViewModel);
+            FtpManagerViewModel = new FtpManagerViewModel(manager);
+            FtpManagerViewModel.LocalRootChanged += FtpManagerViewModel_LocalRootChanged;
+            
+            RunPostOperations();
+        }
+        
+        private void FtpManagerViewModel_LocalRootChanged(object _sender, StringEventArgs _e)
+        {
+            Settings.Default.LastRemotePath = FtpManagerViewModel.SelectedRemoteRoot;
+            Settings.Default.Save();
         }
 
-        private static bool TryCreateFtpManager(string _inputDirectory, out FtpManagerViewModel _managerViewModel)
+        private void RunPostOperations()
         {
-            _managerViewModel = null;
+            FtpManagerViewModel ftpManagerViewModel = FtpManagerViewModel;
+            Debug.Assert(ftpManagerViewModel != null);
+            
+            SelectLastLocalRoot(ftpManagerViewModel);
 
-            var sessionConfig = Settings.Default.FtpSessionConfig;
-            if (sessionConfig == null)
+            bool autoConnectFtp = Settings.Default.AutoConnectFtp;
+            if (autoConnectFtp)
             {
-                Settings.Default.FtpSessionConfig = FtpSessionConfig.Default;
-                Settings.Default.Save();
+                FtpClient client = ftpManagerViewModel.Manager?.Client;
+                Debug.Assert(client != null);
 
-                sessionConfig = Settings.Default.FtpSessionConfig;
-                Debug.Assert(sessionConfig != null);
+                ICommand connect = client.InvertConnectionCommand;
+                if (connect.CanExecute(null))
+                {
+                    connect.Execute(null);
+                }
             }
+        }
 
-            FtpManager manager;
+        private static void SelectLastLocalRoot(FtpManagerViewModel _managerViewModel)
+        {
+            string lastRemotePath = Settings.Default.LastRemotePath;
 
-            try
-            {
-                manager = new FtpManager(sessionConfig, new List<string> { _inputDirectory });
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return false;
-            }
-
-            _managerViewModel = new FtpManagerViewModel(manager);
-
-            var lastRemotePath = Settings.Default.LastRemotePath;
             if (!string.IsNullOrWhiteSpace(lastRemotePath))
             {
                 _managerViewModel.SelectedRemoteRoot = lastRemotePath;
@@ -90,26 +82,6 @@ namespace SyncWatcherTray.ViewModel
             {
                 Settings.Default.LastRemotePath = _managerViewModel.SelectedLocalRoot;
                 Settings.Default.Save();
-            }
-
-            return _managerViewModel != null;
-        }
-
-        private static void RunPostOperations(FtpManagerViewModel _ftpManagerViewModel)
-        {
-            Debug.Assert(_ftpManagerViewModel != null);
-
-            var autoConnectFtp = Settings.Default.AutoConnectFtp;
-            if (autoConnectFtp)
-            {
-                var client = _ftpManagerViewModel.Manager?.Client;
-                Debug.Assert(client != null);
-
-                var connect = client.InvertConnectionCommand;
-                if (connect.CanExecute(null))
-                {
-                    connect.Execute(null);
-                }
             }
         }
 
@@ -128,28 +100,20 @@ namespace SyncWatcherTray.ViewModel
             Cleanup();
         }
 
-        private void FtpManagerViewModel_PropertyChanged(object _sender, System.ComponentModel.PropertyChangedEventArgs _e)
-        {
-            var propertyName = _e.PropertyName;
-            var correct = nameof(FtpManagerViewModel.SelectedLocalRoot);
-            if (propertyName == correct)
-            {
-            }
-            else if (propertyName == nameof(FtpManagerViewModel.SelectedRemoteRoot))
-            {
-                Settings.Default.LastRemotePath = FtpManagerViewModel.SelectedRemoteRoot;
-                Settings.Default.Save();
-            }
-        }
-
         private void Operation_Started(object _sender, EventArgs _e)
         {
-            TaskBarIcon.SetIsBusy(true);
+            if (!TaskBarIcon.IsBusy)
+            {
+                TaskBarIcon.SetIsBusy();
+            }
         }
 
         private void Operation_Completed(object _sender, EventArgs _e)
         {
-            TaskBarIcon.SetIsBusy(false);
+            if (TaskBarIcon.IsBusy)
+            {
+                TaskBarIcon.SetIsNotBusy();
+            }
         }
 
         public ICommand OrganizeCommand => FilebotManager.CompletedDirectory.OrganizeCommand;

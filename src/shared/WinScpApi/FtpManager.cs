@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
@@ -20,6 +21,30 @@ namespace WinScpApi
 {
     public class FtpManager : ViewModelBase
     {
+        private readonly FtpSessionConfig m_config;
+        private FtpDirectoryViewModel m_remoteRootViewModel;
+
+        public FileHistory Cache { get; }
+        public FtpClient Client { get; set; }
+        public List<string> RemoteRoots { get; set; }
+        public List<string> LocalRoots { get; set; }
+        public string CurrentRemoteRoot { get; private set; }
+        public string CurrentLocalRoot { get; set; }
+        public ObservableRangeCollection<FileObject> Downloads { get; } = new ObservableRangeCollection<FileObject>();
+        public bool IsDownloading => Downloads.Any();
+
+        public FtpDirectoryViewModel RemoteRootViewModel
+        {
+            get => m_remoteRootViewModel;
+            private set
+            {
+                m_remoteRootViewModel = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private static ILog Log { get; } = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         public FtpManager(FtpSessionConfig _sessionConfig, List<string> _localRoots)
         {
             Debug.Assert(_sessionConfig != null);
@@ -27,12 +52,12 @@ namespace WinScpApi
 
             m_config = _sessionConfig;
 
-            var remoteRoots = _sessionConfig.RemoteRoots.ToList();
+            List<string> remoteRoots = _sessionConfig.RemoteRoots.ToList();
             Debug.Assert(remoteRoots.Any()); //must contain roots!
-            var remoteRoot = remoteRoots.First();
+            string remoteRoot = remoteRoots.First();
 
             Debug.Assert(_localRoots.Any()); //must contain roots!
-            var localRoot = _localRoots.First();
+            string localRoot = _localRoots.First();
 
             Cache = FileHistory.LoadOrCreate(m_config.HistoryFilePath);
 
@@ -43,20 +68,17 @@ namespace WinScpApi
             CurrentLocalRoot = localRoot;
 
             //get username/password securely
-            var appSettings = ConfigurationManager.AppSettings;
-            var username = appSettings["Username"];
-            var hex = ConfigurationManager.AppSettings["Password"];
-            var bytes = Enumerable.Range(0, hex.Length / 2).Select(_x => Convert.ToByte(hex.Substring(_x * 2, 2), 16))
-                .ToArray();
-            var decrypted = ProtectedData.Unprotect(bytes, null, DataProtectionScope.CurrentUser);
+            NameValueCollection appSettings = ConfigurationManager.AppSettings;
+            string username = appSettings["Username"];
+            string hex = ConfigurationManager.AppSettings["Password"];
 
             // Setup session options
-            var sessionOptions = new SessionOptions
+            SessionOptions sessionOptions = new SessionOptions
             {
                 Protocol = Protocol.Sftp,
                 HostName = m_config.Host,
                 UserName = username,
-                Password = Encoding.Unicode.GetString(decrypted),
+                Password = hex != null ? GetPasswordFromHex(hex) : "",
                 SshHostKeyFingerprint = m_config.SshHostKeyFingerprint
             };
             sessionOptions.AddRawSettings("AuthGSSAPI", "1");
@@ -73,9 +95,21 @@ namespace WinScpApi
             m_remoteRootViewModel = new FtpDirectoryViewModel(CurrentRemoteRoot, this, true);
         }
 
+        private static string GetPasswordFromHex(string hex)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(hex));
+
+            byte[] bytes = Enumerable.Range(0, hex.Length / 2)
+                .Select(_x => Convert.ToByte(hex.Substring(_x * 2, 2), 16))
+                .ToArray();
+            byte[] decrypted = ProtectedData.Unprotect(bytes, null, DataProtectionScope.CurrentUser);
+            string password = Encoding.Unicode.GetString(decrypted);
+            return password;
+        }
+
         private async void Client_ConnectionChanged(object _sender, ConnectionChangedEventArgs _e)
         {
-            var isConnected = _e.IsConnected;
+            bool isConnected = _e.IsConnected;
 
             if (!isConnected)
                 Application.Current.Dispatcher.Invoke(() => { RemoteRootViewModel = null; });
@@ -87,13 +121,14 @@ namespace WinScpApi
 
         private void Client_DownloadComplete(object _sender, TransferEventArgs _e)
         {
-            var fileName = _e.FileName;
-            var matchViewModel = RemoteRootViewModel.Find(_file => _file.FullName == fileName) as FtpFileViewModel;
+            string fileName = _e.FileName;
+            FtpFileViewModel matchViewModel =
+                RemoteRootViewModel.Find(_file => _file.FullName == fileName) as FtpFileViewModel;
 
-            var match = matchViewModel?.File;
+            FileObject match = matchViewModel?.File;
             if (match != null)
             {
-                var newState = !match.Cancel ? FileObjectState.COMPLETED : FileObjectState.CANCELLED;
+                FileObjectState newState = !match.Cancel ? FileObjectState.COMPLETED : FileObjectState.CANCELLED;
                 match.State = newState;
 
                 Cache.AddItem(matchViewModel);
@@ -103,7 +138,7 @@ namespace WinScpApi
                 {
                     lock (Downloads)
                     {
-                        var matchingDownload = Downloads.Find(_file => _file.FullName == fileName);
+                        FileObject matchingDownload = Downloads.Find(_file => _file.FullName == fileName);
                         Debug.Assert(matchingDownload != null);
 
                         Downloads.Remove(matchingDownload);
@@ -114,12 +149,12 @@ namespace WinScpApi
 
         private void Client_DownloadProgress(object _sender, FileTransferProgressEventArgs _e)
         {
-            var fileName = _e.FileName;
+            string fileName = _e.FileName;
 
-            var match = Downloads.Find(_file => _file.FullName == fileName);
+            FileObject match = Downloads.Find(_file => _file.FullName == fileName);
             if (match != null)
             {
-                var percent = _e.FileProgress * 100.0f;
+                double percent = _e.FileProgress * 100.0f;
                 match.UpdateProgress(percent, _e.CPS);
 
                 if (match.Cancel)
@@ -148,8 +183,8 @@ namespace WinScpApi
 
             OperationStarted?.Invoke(this, EventArgs.Empty);
 
-            var client = Client;
-            var root = CurrentRemoteRoot;
+            FtpClient client = Client;
+            string root = CurrentRemoteRoot;
 
             Debug.Assert(client != null);
             Debug.Assert(!string.IsNullOrWhiteSpace(root));
@@ -157,8 +192,8 @@ namespace WinScpApi
             Log.Info("Requesting file list...");
 
             //update tree
-            var selectedRemoteRoot = CurrentRemoteRoot;
-            var remoteRootViewModel = new FtpDirectoryViewModel(selectedRemoteRoot, this, false);
+            string selectedRemoteRoot = CurrentRemoteRoot;
+            FtpDirectoryViewModel remoteRootViewModel = new FtpDirectoryViewModel(selectedRemoteRoot, this, false);
             await remoteRootViewModel.LazyLoad();
 
             RemoteRootViewModel = remoteRootViewModel;
@@ -170,9 +205,9 @@ namespace WinScpApi
         {
             Debug.Assert(_results != null);
 
-            var ftpFileViewModels = _results as FtpFileViewModel[] ?? _results.ToArray();
+            FtpFileViewModel[] ftpFileViewModels = _results as FtpFileViewModel[] ?? _results.ToArray();
 
-            var newDownloads = ftpFileViewModels.Select(_result => _result.File).ToList();
+            List<FileObject> newDownloads = ftpFileViewModels.Select(_result => _result.File).ToList();
             if (!newDownloads.Any())
                 return;
 
@@ -181,7 +216,7 @@ namespace WinScpApi
             OperationStarted?.Invoke(this, EventArgs.Empty);
 
             //update file states
-            foreach (var file in newDownloads)
+            foreach (FileObject file in newDownloads)
             {
                 file.State = FileObjectState.PENDING;
                 file.Cancel = false;
@@ -211,7 +246,7 @@ namespace WinScpApi
             if (Client.IsOpened && Client.IsBusy)
                 Client.Abort();
 
-            foreach (var pending in Downloads)
+            foreach (FileObject pending in Downloads)
             {
                 pending.Cancel = true;
                 pending.State = FileObjectState.CANCELLED;
@@ -231,7 +266,7 @@ namespace WinScpApi
         {
             Debug.Assert(_selected != null);
 
-            foreach (var item in _selected)
+            foreach (FtpFileViewModel item in _selected)
                 Cache.AddItem(item);
 
             Cache.Save(m_config.HistoryFilePath);
@@ -246,7 +281,7 @@ namespace WinScpApi
             //cancel downloads
             CancelTransfers();
 
-            var counter = 0;
+            int counter = 0;
             const int maxCounter = 10;
             while (true)
             {
@@ -264,29 +299,5 @@ namespace WinScpApi
         public event EventHandler OperationStarted;
         public event EventHandler OperationCompleted;
         public event EventHandler<ConnectionChangedEventArgs> ClientConnectionChanged;
-
-        public FileHistory Cache { get; }
-        public FtpClient Client { get; set; }
-        public List<string> RemoteRoots { get; set; }
-        public List<string> LocalRoots { get; set; }
-        public string CurrentRemoteRoot { get; private set; }
-        public string CurrentLocalRoot { get; set; }
-        public ObservableRangeCollection<FileObject> Downloads { get; } = new ObservableRangeCollection<FileObject>();
-        public bool IsDownloading => Downloads.Any();
-
-        public FtpDirectoryViewModel RemoteRootViewModel
-        {
-            get => m_remoteRootViewModel;
-            private set
-            {
-                m_remoteRootViewModel = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private static ILog Log { get; } = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly FtpSessionConfig m_config;
-
-        private FtpDirectoryViewModel m_remoteRootViewModel;
     }
 }

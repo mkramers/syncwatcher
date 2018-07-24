@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Common.Framework.EventHelpers;
 using Common.Mvvm;
 using Common.SFTP;
 using GalaSoft.MvvmLight;
@@ -12,31 +14,8 @@ namespace WinScpApi.ViewModel
 {
     public class FtpManagerViewModel : ViewModelBase
     {
-        public FtpManagerViewModel(FtpManager _manager)
-        {
-            Debug.Assert(_manager != null);
-
-            Manager = _manager;
-            Manager.ClientConnectionChanged += Manager_OnClientConnectionChanged;
-        }
-
-        public bool CanExit()
-        {
-            var canExit = !Manager.Client.IsBusy;
-            return canExit;
-        }
-
-        public async Task Dispose()
-        {
-            await Manager.Dispose();
-        }
-
-        private void Manager_OnClientConnectionChanged(object _sender, ConnectionChangedEventArgs _e)
-        {
-            var message = _e.Message;
-
-            DisconnectedMessage = message;
-        }
+        private string m_disconnectedMessage;
+        private IList m_selectedDownloads;
 
         public ICommand SyncSelectedCommand
         {
@@ -46,9 +25,9 @@ namespace WinScpApi.ViewModel
                 {
                     CommandAction = async () =>
                     {
-                        var remoteDirectoryViewModel = Manager.RemoteRootViewModel;
+                        FtpDirectoryViewModel remoteDirectoryViewModel = Manager.RemoteRootViewModel;
 
-                        var selectedFiles = await remoteDirectoryViewModel.GetSelectedFiles();
+                        IEnumerable<FtpFileViewModel> selectedFiles = await remoteDirectoryViewModel.GetSelectedFiles();
                         if (selectedFiles != null)
                             Manager.Sync(selectedFiles);
                     },
@@ -56,7 +35,6 @@ namespace WinScpApi.ViewModel
                 };
             }
         }
-
         public ICommand SyncAllCommand
         {
             get
@@ -68,7 +46,6 @@ namespace WinScpApi.ViewModel
                 };
             }
         }
-
         public ICommand RefreshCommand
         {
             get
@@ -80,7 +57,6 @@ namespace WinScpApi.ViewModel
                 };
             }
         }
-
         public ICommand CancelCommand
         {
             get
@@ -92,7 +68,6 @@ namespace WinScpApi.ViewModel
                 };
             }
         }
-
         public ICommand DeleteHistoryCommand
         {
             get
@@ -104,7 +79,6 @@ namespace WinScpApi.ViewModel
                 };
             }
         }
-
         public ICommand TestCommand
         {
             get
@@ -113,7 +87,7 @@ namespace WinScpApi.ViewModel
                 {
                     CommandAction = () =>
                     {
-                        var text =
+                        string text =
                             @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mi neque, accumsan vel magna ut, elementum molestie ligula. Mauris dignissim gravida ornare. Sed at laoreet turpis. Sed sodales vel felis et congue. Maecenas feugiat odio nunc, eu viverra ante interdum sit amet. Proin fringilla elit a libero pellentesque, varius lacinia arcu efficitur. Aliquam venenatis sagittis imperdiet. Donec ac eros sit amet magna semper rhoncus eu ac justo. Integer rhoncus felis ut ipsum porttitor laoreet. Nam nulla orci, auctor sit amet sem eu, vestibulum dictum arcu. Proin porttitor orci et felis sollicitudin mollis. Etiam ac libero ac lacus tincidunt sollicitudin. Aenean eu libero ultricies, molestie dolor at, varius libero. Ut ullamcorper tellus a lacus blandit blandit. Ut quis mi at nisl aliquam lacinia.
 
 Praesent sagittis metus vitae iaculis luctus. Etiam pretium nunc dui, ut fringilla turpis vestibulum fringilla. Integer viverra magna leo, ac aliquam sapien interdum eget. Suspendisse potenti. Vivamus aliquam consequat interdum. Aliquam tincidunt est nec orci varius, et pellentesque odio convallis. Integer tempor velit non ex imperdiet tristique. Duis risus lectus, consectetur rhoncus velit nec, aliquam iaculis risus. In consectetur arcu sed neque aliquam, at scelerisque sem dapibus. Nulla at lacus tristique, malesuada dolor ut, cursus risus. Nulla placerat tortor eget purus euismod vehicula. Integer gravida sollicitudin aliquam. Pellentesque pretium venenatis suscipit. Sed vel ex quis eros viverra posuere luctus et turpis. Donec suscipit dictum neque, et mattis ipsum malesuada nec. Mauris pharetra convallis sapien, ac maximus augue mollis eu.
@@ -131,9 +105,7 @@ Quisque vel nisi porta, porta mi vitae, vulputate augue. Sed ac vehicula nibh. S
             }
         }
 
-
         public FtpManager Manager { get; }
-
         public IList SelectedDownloads
         {
             get => m_selectedDownloads;
@@ -143,13 +115,11 @@ Quisque vel nisi porta, porta mi vitae, vulputate augue. Sed ac vehicula nibh. S
                 RaisePropertyChanged();
             }
         }
-
         public string SelectedRemoteRoot
         {
             get => Manager.CurrentRemoteRoot;
             set => Manager.SetRemoteHost(value);
         }
-
         public string SelectedLocalRoot
         {
             get => Manager.CurrentLocalRoot;
@@ -159,10 +129,11 @@ Quisque vel nisi porta, porta mi vitae, vulputate augue. Sed ac vehicula nibh. S
                 {
                     Manager.CurrentLocalRoot = value;
                     RaisePropertyChanged();
+
+                    LocalRootChanged?.Invoke(this, new StringEventArgs(value));
                 }
             }
         }
-
         public string DisconnectedMessage
         {
             get => m_disconnectedMessage;
@@ -173,8 +144,32 @@ Quisque vel nisi porta, porta mi vitae, vulputate augue. Sed ac vehicula nibh. S
             }
         }
 
-        private string m_disconnectedMessage;
+        public FtpManagerViewModel(FtpManager _manager)
+        {
+            Debug.Assert(_manager != null);
 
-        private IList m_selectedDownloads;
+            Manager = _manager;
+            Manager.ClientConnectionChanged += Manager_OnClientConnectionChanged;
+        }
+
+        public event EventHandler<StringEventArgs> LocalRootChanged;
+
+        public bool CanExit()
+        {
+            bool canExit = !Manager.Client.IsBusy;
+            return canExit;
+        }
+
+        public async Task Dispose()
+        {
+            await Manager.Dispose();
+        }
+
+        private void Manager_OnClientConnectionChanged(object _sender, ConnectionChangedEventArgs _e)
+        {
+            string message = _e.Message;
+
+            DisconnectedMessage = message;
+        }
     }
 }

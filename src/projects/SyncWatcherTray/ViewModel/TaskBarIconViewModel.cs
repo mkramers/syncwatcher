@@ -25,25 +25,26 @@ namespace SyncWatcherTray.ViewModel
             m_timer.Elapsed += Timer_Elapsed;
         }
 
-        public void SetIsBusy(bool _isBusy)
+        public void SetIsBusy()
         {
-            if (m_isBusy != _isBusy)
-            {
-                var timer = m_timer;
+            Debug.Assert(!IsBusy);
 
-                if (_isBusy)
-                {
-                    UpdateIcon(m_green);
-                    timer.Start();
-                }
-                else
-                {
-                    timer.Stop();
-                    UpdateIcon(m_idleIcon);
-                }
+            UpdateIcon(m_green);
 
-                m_isBusy = _isBusy;
-            }
+            m_timer.Start();
+
+            IsBusy = true;
+        }
+
+        public void SetIsNotBusy()
+        {
+            Debug.Assert(IsBusy);
+
+            m_timer.Stop();
+
+            UpdateIcon(m_idleIcon);
+
+            IsBusy = false;
         }
 
         private void CreateIcons()
@@ -63,7 +64,7 @@ namespace SyncWatcherTray.ViewModel
 
         private void Timer_Elapsed(object _sender, ElapsedEventArgs _e)
         {
-            if (m_isBusy)
+            if (IsBusy)
             {
                 var uri = m_iconAnimateState ? m_green : m_greenBusy;
 
@@ -96,7 +97,7 @@ namespace SyncWatcherTray.ViewModel
         private bool m_iconAnimateState;
         private ImageSource m_iconSource;
 
-        private bool m_isBusy;
+        public bool IsBusy { get; private set; }
         private readonly Timer m_timer;
 
         private const int ICON_INTERVAL = 222;

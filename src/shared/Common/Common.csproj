@@ -81,6 +81,7 @@
     <Compile Include="Framework\DeferredAction.cs" />
     <Compile Include="Framework\DelegateCommand.cs" />
     <Compile Include="Framework\CustomDataGrid.cs" />
+    <Compile Include="Framework\EventHelpers\StringEventArgs.cs" />
     <Compile Include="Framework\GridHelpers.cs" />
     <Compile Include="Framework\Popup.xaml.cs">
       <DependentUpon>Popup.xaml</DependentUpon>
