@@ -123,7 +123,7 @@
                 </TabItem>
 
                 <TabItem Header="Skipped">
-                    <filebot:FilebotSkippedView Margin="10,0" DataContext="{Binding FilebotManager.Filebot.Records}" />
+                    <filebot:FilebotSkippedView Margin="10,0" DataContext="{Binding CompletedDirectory.Filebot.Records}" />
                 </TabItem>
             </controls:TabControlEx>
         </Grid>
