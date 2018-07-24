@@ -40,17 +40,14 @@ namespace FilebotApi.ViewModel
 
         private void Filebot_Completed(object _sender, FileBotOrganizeEventArgs _e)
         {
-            RefreshCompletedDirectory();
+            Application.Current.Dispatcher.Invoke(RefreshCompletedDirectory);
         }
 
         private void RefreshCompletedDirectory()
         {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                ICommand refreshCommand = CompletedDirectory.DirectoryViewModel.RefreshCommand;
-                if (refreshCommand.CanExecute(null))
-                    refreshCommand.Execute(null);
-            });
+            ICommand refreshCommand = CompletedDirectory.DirectoryViewModel.RefreshCommand;
+            if (refreshCommand.CanExecute(null))
+                refreshCommand.Execute(null);
         }
 
         public event EventHandler FilebotStarted
