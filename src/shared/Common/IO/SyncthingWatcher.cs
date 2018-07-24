@@ -16,9 +16,9 @@ namespace Common.IO
         {
         }
 
-        protected override void WatchEventCallback(object _sender, FileSystemEventArgs _e)
+        protected override bool RequestIsChangeCompleted()
         {
-            bool inProgress;
+            bool isCompleted;
 
             //get all files and check for any that indicate sync in progress
             try
@@ -27,21 +27,19 @@ namespace Common.IO
                 List<string> directories = Directory.GetDirectories(m_directory, "*", SearchOption.AllDirectories).ToList();
                 List<string> allPaths = files.Concat(directories).ToList();
 
-                inProgress = allPaths.Any(_file => m_syncKeywords.Any(_file.Contains));
+                isCompleted = !allPaths.Any(_file => m_syncKeywords.Any(_file.Contains));
             }
             catch (Exception)
             {
-                inProgress = false;
+                isCompleted = false;
             }
 
-            if (!inProgress)
-            {
-                OnWatchEvent(this, _e);
-            }
-            else
+            if (!isCompleted)
             {
                 Log.Debug("syncing...");
             }
+
+            return !isCompleted;
         }
     }
 }

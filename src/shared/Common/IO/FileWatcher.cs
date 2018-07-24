@@ -41,6 +41,20 @@ namespace Common.IO
             m_changedTimer.Elapsed += ChangedTimer_Elapsed;
         }
 
+        public void Start()
+        {
+            Debug.Assert(!m_changedTimer.Enabled);
+
+            m_changedTimer.Start();
+        }
+
+        public void Stop()
+        {
+            Debug.Assert(m_changedTimer.Enabled);
+
+            m_changedTimer.Stop();
+        }
+
         // Public implementation of Dispose pattern callable by consumers.
         public void Dispose()
         {
@@ -78,16 +92,19 @@ namespace Common.IO
             m_changeFlag = true;
         }
 
-        protected virtual void WatchEventCallback(object _sender, FileSystemEventArgs _e)
+        protected virtual bool RequestIsChangeCompleted()
         {
-            Console.WriteLine($"watch event: {_e.ChangeType}");
+            return true;
         }
 
-        protected void OnWatchEvent(object _sender, FileSystemEventArgs _e)
+        private void OnWatchEvent(object _sender, FileSystemEventArgs _e)
         {
             Debug.Assert(_e != null);
 
-            WatchEvent?.Invoke(_sender, _e);
+            if (RequestIsChangeCompleted())
+            {
+                WatchEvent?.Invoke(_sender, _e);
+            }
         }
 
         // Protected implementation of Dispose pattern.
