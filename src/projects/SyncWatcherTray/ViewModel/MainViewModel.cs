@@ -68,7 +68,7 @@ namespace SyncWatcherTray.ViewModel
 
             FilebotManagerViewModel filebotManager = new FilebotManagerViewModel(_paths, directories, filebot);
             filebotManager.FilebotStarted += Operation_Started;
-            filebotManager.FilebotCompleted += Operation_Completed;
+            filebotManager.FilebotStopped += OperationStopped;
             return filebotManager;
         }
 
@@ -84,7 +84,7 @@ namespace SyncWatcherTray.ViewModel
                 _input
             });
             manager.OperationStarted += Operation_Started;
-            manager.OperationCompleted += Operation_Completed;
+            manager.OperationCompleted += OperationStopped;
 
             FtpManagerViewModel ftpManagerViewModel = new FtpManagerViewModel(manager);
             ftpManagerViewModel.LocalRootChanged += FtpManagerViewModel_LocalRootChanged;
@@ -156,7 +156,7 @@ namespace SyncWatcherTray.ViewModel
             }
         }
 
-        private void Operation_Completed(object _sender, EventArgs _e)
+        private void OperationStopped(object _sender, EventArgs _e)
         {
             if (TaskBarIcon.IsBusy)
             {

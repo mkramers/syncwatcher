@@ -22,8 +22,9 @@ namespace FilebotApi.ViewModel
             Debug.Assert(_paths != null);
             Debug.Assert(_directories != null);
             Debug.Assert(_filebot != null);
-            
-            _filebot.Stopped += Filebot_OnStopped;
+
+            Filebot = _filebot;
+            Filebot.Stopped += Filebot_OnStopped;
 
             Directories = _directories;
 
@@ -47,7 +48,7 @@ namespace FilebotApi.ViewModel
             add => Filebot.Started += value;
             remove => Filebot.Started -= value;
         }
-        public event EventHandler<FileBotOrganizeEventArgs> FilebotCompleted
+        public event EventHandler<FileBotOrganizeEventArgs> FilebotStopped
         {
             add => Filebot.Stopped += value;
             remove => Filebot.Stopped -= value;
