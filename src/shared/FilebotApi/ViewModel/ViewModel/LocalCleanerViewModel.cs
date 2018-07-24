@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -15,6 +16,7 @@ namespace FilebotApi.ViewModel
         public DirectoryViewModel DirectoryViewModel { get; }
         public Filebot Filebot { get; }
         private string OutputDirectory { get; }
+        public FileWatcher FileWatcher { get; }
 
         public ICommand OrganizeCommand
         {
@@ -53,6 +55,9 @@ namespace FilebotApi.ViewModel
             Filebot = _filebot;
             Filebot.Stopped += Filebot_OnStopped;
             Filebot.BusyChanged += Filebot_OnBusyChanged;
+
+            FileWatcher = new FileWatcher(inputDir);
+            FileWatcher.WatchEvent += FileWatcher_WatchEvent;
         }
 
         private void Filebot_OnStopped(object _sender, FileBotOrganizeEventArgs _e)
@@ -74,6 +79,11 @@ namespace FilebotApi.ViewModel
 
             bool isBusy = filebot.IsBusy;
             DirectoryViewModel.IsBusy = isBusy;
+        }
+
+        private void FileWatcher_WatchEvent(object _sender, FileSystemEventArgs _e)
+        {
+
         }
     }
 }
