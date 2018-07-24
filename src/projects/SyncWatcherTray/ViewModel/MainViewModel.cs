@@ -38,6 +38,8 @@ namespace SyncWatcherTray.ViewModel
 
             SourceDestinationPaths paths = new SourceDestinationPaths(input, outputDir);
 
+            FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
+
             string appDataRoot = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string appDataDirectory = Path.Combine(appDataRoot, "SyncWatcher");
             if (!Directory.Exists(appDataDirectory))
@@ -45,34 +47,23 @@ namespace SyncWatcherTray.ViewModel
                 Directory.CreateDirectory(appDataDirectory);
             }
 
-            Filebot filebot = CreateFilebot(appDataDirectory);
+            if (!FilebotHelpers.TryCreateFilebot(appDataDirectory, out Filebot filebot))
+            {
+                Debug.Fail("unhandled filebot load failure");
+            }
+
             filebot.Started += Operation_Started;
             filebot.Stopped += OperationStopped;
-
-            FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
-
+            
+            CompletedDirectory = new LocalCleanerViewModel(paths, filebot);
+            
             Directories = new[]
             {
                 new DirectoryViewModel(settings.SeriesDirectory, "TV"),
                 new DirectoryViewModel(settings.MovieDirectory, "MOVIES")
             };
 
-            CompletedDirectory = new LocalCleanerViewModel(paths, filebot);
-
             RunPostOperations();
-        }
-
-        private static Filebot CreateFilebot(string _appDataDirectory)
-        {
-            string settingsPath = Path.Combine(_appDataDirectory, "settings.xml");
-            string recordsPath = Path.Combine(_appDataDirectory, "amclog.txt");
-
-            if (!FilebotHelpers.TryCreateFilebot(settingsPath, recordsPath, out Filebot filebot))
-            {
-                Debug.Fail("unhandled filebot load failutre");
-            }
-
-            return filebot;
         }
 
         private FtpManagerViewModel InitializeFtpManager(string _input)

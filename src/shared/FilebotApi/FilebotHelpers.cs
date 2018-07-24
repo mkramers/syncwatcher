@@ -13,6 +13,25 @@ namespace FilebotApi
 {
     public static class FilebotHelpers
     {
+        public static bool TryCreateFilebot(string _appDataDirectory, out Filebot _filebot)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(_appDataDirectory));
+
+            _filebot = null;
+
+            bool success = false;
+
+            string settingsPath = Path.Combine(_appDataDirectory, "settings.xml");
+            string recordsPath = Path.Combine(_appDataDirectory, "amclog.txt");
+
+            if (TryCreateFilebot(settingsPath, recordsPath, out _filebot))
+            {
+                success = true;
+            }
+
+            return success;
+        }
+
         public static bool TryCreateFilebot(string _settingsPath, string _recordsPath, out Filebot _filebot)
         {
             _filebot = null;
