@@ -12,6 +12,10 @@ namespace FilebotApi.ViewModel
 {
     public class LocalCleanerViewModel : ViewModelBase
     {
+        public DirectoryViewModel DirectoryViewModel { get; }
+        public Filebot Filebot { get; }
+        private string OutputDirectory { get; }
+
         public ICommand OrganizeCommand
         {
             get
@@ -31,10 +35,6 @@ namespace FilebotApi.ViewModel
                 };
             }
         }
-
-        public DirectoryViewModel DirectoryViewModel { get; }
-        public Filebot Filebot { get; }
-        public string OutputDirectory { get; }
 
         public LocalCleanerViewModel(SourceDestinationPaths _paths, Filebot _filebot)
         {

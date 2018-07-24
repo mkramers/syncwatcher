@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using System.IO;
 using FilebotApi;
-using FilebotApi.ViewModel;
 using FileLister.Model;
 using GalaSoft.MvvmLight;
 
