@@ -13,6 +13,11 @@ namespace FilebotApi
 {
     public class FilebotRecords
     {
+        public ICommand RequestRefreshCommand => new RelayCommand(() => RequestRefresh?.Invoke(this, EventArgs.Empty));
+
+        public ObservableRangeCollection<RenameResult> Renamed { get; }
+        public ObservableRangeCollection<SkipResult> Skipped { get; }
+
         public FilebotRecords()
         {
             Renamed = new ObservableRangeCollection<RenameResult>();
@@ -31,7 +36,7 @@ namespace FilebotApi
             }
             catch (Exception)
             {
-                var message = $"Filebot records failed to load from {Path.GetFullPath(_fileName)}";
+                string message = $"Filebot records failed to load from {Path.GetFullPath(_fileName)}";
                 Console.WriteLine(message);
             }
 
@@ -49,7 +54,7 @@ namespace FilebotApi
             }
             catch (Exception e)
             {
-                var message = $"Filebot records failed to save to {Path.GetFullPath(_path)}";
+                string message = $"Filebot records failed to save to {Path.GetFullPath(_path)}";
                 throw new XmlException(message, e);
             }
         }
@@ -66,12 +71,12 @@ namespace FilebotApi
         {
             Debug.Assert(_results != null);
 
-            var current = Renamed;
-            foreach (var result in _results)
+            ObservableRangeCollection<RenameResult> current = Renamed;
+            foreach (RenameResult result in _results)
             {
-                var existing = current.Where(_complete => _complete.OriginalFile == result.OriginalFile).ToList();
+                List<RenameResult> existing = current.Where(_complete => _complete.OriginalFile == result.OriginalFile).ToList();
                 if (existing.Any())
-                    foreach (var existingResult in existing)
+                    foreach (RenameResult existingResult in existing)
                         existingResult.DateTime = result.DateTime;
                 else
                     current.Add(result);
@@ -82,24 +87,19 @@ namespace FilebotApi
         {
             Debug.Assert(_results != null);
 
-            var current = Skipped;
-            foreach (var result in _results)
+            ObservableRangeCollection<SkipResult> current = Skipped;
+            foreach (SkipResult result in _results)
             {
-                var existing = current.Where(_complete => _complete.OriginalFile == result.OriginalFile).ToList();
+                List<SkipResult> existing = current.Where(_complete => _complete.OriginalFile == result.OriginalFile).ToList();
                 if (existing.Any())
-                    foreach (var existingResult in existing)
+                    foreach (SkipResult existingResult in existing)
                         existingResult.DateTime = result.DateTime;
                 else
                     current.Add(result);
             }
         }
 
-        public ICommand RequestRefreshCommand => new RelayCommand(() => RequestRefresh?.Invoke(this, EventArgs.Empty));
-
         public event EventHandler<EventArgs> Updated;
         public event EventHandler<EventArgs> RequestRefresh;
-
-        public ObservableRangeCollection<RenameResult> Renamed { get; }
-        public ObservableRangeCollection<SkipResult> Skipped { get; }
     }
 }
