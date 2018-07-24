@@ -40,21 +40,8 @@ namespace SyncWatcherTray.ViewModel
 
             FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
 
-            string appDataRoot = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string appDataDirectory = Path.Combine(appDataRoot, "SyncWatcher");
-            if (!Directory.Exists(appDataDirectory))
-            {
-                Directory.CreateDirectory(appDataDirectory);
-            }
+            Filebot filebot = InitializeFilebot();
 
-            if (!FilebotHelpers.TryCreateFilebot(appDataDirectory, out Filebot filebot))
-            {
-                Debug.Fail("unhandled filebot load failure");
-            }
-
-            filebot.Started += Operation_Started;
-            filebot.Stopped += OperationStopped;
-            
             CompletedDirectory = new LocalCleanerViewModel(paths, filebot);
             
             Directories = new[]
@@ -64,6 +51,22 @@ namespace SyncWatcherTray.ViewModel
             };
 
             RunPostOperations();
+        }
+
+        private Filebot InitializeFilebot()
+        {
+            string appDataRoot = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string appDataDirectory = Path.Combine(appDataRoot, "SyncWatcher");
+
+            if (!FilebotHelpers.TryCreateFilebot(appDataDirectory, out Filebot filebot))
+            {
+                Debug.Fail("unhandled filebot load failure");
+            }
+
+            filebot.Started += Operation_Started;
+            filebot.Stopped += OperationStopped;
+
+            return filebot;
         }
 
         private FtpManagerViewModel InitializeFtpManager(string _input)

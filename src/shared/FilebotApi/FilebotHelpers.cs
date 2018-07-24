@@ -21,6 +21,11 @@ namespace FilebotApi
 
             bool success = false;
 
+            if (!Directory.Exists(_appDataDirectory))
+            {
+                Directory.CreateDirectory(_appDataDirectory);
+            }
+
             string settingsPath = Path.Combine(_appDataDirectory, "settings.xml");
             string recordsPath = Path.Combine(_appDataDirectory, "amclog.txt");
 
