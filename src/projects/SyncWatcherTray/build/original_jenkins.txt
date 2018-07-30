@@ -1,9 +1,0 @@
-@echo off
-d:
-cd d:\p4_build\trunk\build\%JOB_NAME%
-
-echo %P4_CHANGELIST%
-echo Executing Jenkins build
-echo Output dir: %WORKSPACE%
-echo ................................................................
-call ..\scripts\buildNew.bat %JOB_NAME% %BUILD_NUMBER% "%WORKSPACE%" d:\archive\build\%JOB_NAME%
