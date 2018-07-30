@@ -1,5 +1,5 @@
 !define CONFIGURATION "Release"
-!define BIN "..\..\projects\SyncWatcherTray\bin\${CONFIGURATION}"
+!define BIN "..\bin\${CONFIGURATION}"
 
 RequestExecutionLevel admin ;Require admin rights (When UAC is turned on)
 
