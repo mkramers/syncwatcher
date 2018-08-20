@@ -150,6 +150,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Resource Include="Settings\settings.xml" />
+    <Resource Include="build\assemblies.txt" />
+    <Content Include="build\Extensions\CakeExtensions.dll" />
     <Content Include="WinSCP.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -159,8 +161,9 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="build\build.cake" />
+    <None Include="build\build.nsi" />
     <None Include="build\build.ps1" />
-    <None Include="build\buildInstaller.nsi" />
+    <None Include="build\test.bat" />
     <None Include="Config\log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
