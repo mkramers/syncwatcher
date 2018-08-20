@@ -1,13 +1,17 @@
+!define PRODUCT "SyncWatcherTray"
 !define CONFIGURATION "Release"
 !define BIN "..\bin\${CONFIGURATION}"
 
 RequestExecutionLevel admin ;Require admin rights (When UAC is turned on)
 
-# define name of installer
-OutFile "syncwatcher.exe"
+Name "${PRODUCT}" 
+
+!system 'md "${PUBLISH_DIR}"'
+
+OutFile "${PUBLISH_DIR}\syncwatchertray_${SHORTVERSION}.exe"
  
 # define installation directory
-InstallDir $PROGRAMFILES64\SyncWatcherTray
+InstallDir "$PROGRAMFILES64\${PRODUCT}"
  
 # start default section
 Section

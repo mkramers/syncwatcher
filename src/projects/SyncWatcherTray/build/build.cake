@@ -8,7 +8,6 @@ string buildNumber = Argument<string>("buildNumber", "666");
 string gitVersion = Argument<string>("gitVersion", "v1.1-80-gdb791cd"); //may be db791cd if no tags present
 string gitBranch = Argument<string>("gitBranch", "develop");
 bool isMultiStage = Argument<bool>("multistage", false);
-string fpsInstallerPath = Argument<string>("fpspath", "");
 string buildConfiguration = Argument<string>("buildconfig", "All_Release");
 
 //make outputdir absolute
