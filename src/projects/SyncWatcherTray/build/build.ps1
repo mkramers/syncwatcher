@@ -231,8 +231,4 @@ $cakeArguments += $ScriptArgs
 Write-Host "Running build script..."
 &$CAKE_EXE $cakeArguments
 
-#clean up cake extensions
-Write-Host "Removing CAKE extensions from $EXTENSIONS_DIR..."
-Remove-Item -Recurse -Force $EXTENSIONS_DIR
-
 exit $LASTEXITCODE
