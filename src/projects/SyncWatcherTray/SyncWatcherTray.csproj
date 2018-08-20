@@ -150,9 +150,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Resource Include="Settings\settings.xml" />
-    <Resource Include="build\assemblyInfoFileList.txt" />
-    <Resource Include="build\currentVersion.txt" />
-    <Resource Include="build\original_jenkins.txt" />
     <Content Include="WinSCP.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
