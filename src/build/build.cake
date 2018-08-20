@@ -16,14 +16,13 @@ outputDir = System.IO.Path.GetFullPath(outputDir);
 
 List<(string, string, PlatformTarget)> solutions = new List<(string, string, PlatformTarget)>
 {
-	(@"..\..\..\Solutions\Projects.sln", buildConfiguration, PlatformTarget.x64),
+	(@"..\solutions\Projects.sln", buildConfiguration, PlatformTarget.x64),
 };
 
 const string ASSEMBLIES_FILE = "assemblies.txt";
 string[] assemblyInfoFiles = System.IO.File.ReadAllLines(ASSEMBLIES_FILE);
 
-string nsiScript = @".\buildInstaller.nsi";
-const string fpsNsiScript = @"..\..\..\Shared\PacsWindowsService\build\pacsServiceInstaller.nsi";
+string nsiScript = @".\build.nsi";
 
 //used for storing assemblyinfo files in memory throughout the script
 Dictionary<string, MemoryStream> fileMemory = null;
@@ -47,7 +46,7 @@ Task("Update-Version")
     .WithCriteria(!isMultiStage)
 	.Does(() =>
 {			
-	fileMemory = UpdateAssemblyInfoFiles(assemblyInfoFiles, shortVersion, longVersion);
+	//fileMemory = UpdateAssemblyInfoFiles(assemblyInfoFiles, shortVersion, longVersion);
 });
 
 Task("Inspect")
@@ -115,45 +114,20 @@ Task("Build-Installer")
 	defines.Add("SHORTVERSION", shortVersion);
 	defines.Add("LONGVERSION", cleanLongVersion);
 
-	//build pacs installer first if running standalone
-	if (!isMultiStage)
-	{		
-		if (!string.IsNullOrWhiteSpace(fpsInstallerPath))
-		{
-			throw new Exception("fpspath should not be defined in standalone!");
-		}
-				
-		//use the default installer path
-		fpsInstallerPath = $@"{outputDir}\fps_{cleanLongVersion}.exe";
-
-		Dictionary<string, string> fpsInstallerDefines = new Dictionary<string, string>(defines);
-		fpsInstallerDefines.Add("OUT_FILE", fpsInstallerPath);
-
-		MakeNSISSettings pacsInstallerSettings = new MakeNSISSettings
-		{
-			NoConfig = true,
-			Defines = fpsInstallerDefines,
-		};
-		
-		MakeNSIS(fpsNsiScript, pacsInstallerSettings);
-	}
-	
-	defines.Add("FPS_INSTALLER_PATH", fpsInstallerPath);
-
-	MakeNSISSettings bxInstallerSettings = new MakeNSISSettings
+	MakeNSISSettings nsisSettings = new MakeNSISSettings
 	{
 		NoConfig = true,
 		Defines = defines,
 	};
 	
-	MakeNSIS(nsiScript, bxInstallerSettings);
+	MakeNSIS(nsiScript, nsisSettings);
 });
 
 Task("Restore-Version")
     .WithCriteria(!isMultiStage)
 	.Does(() =>
 {
-	RestoreAssemblyInfoFiles(fileMemory);
+	//RestoreAssemblyInfoFiles(fileMemory);
 });
 
 //////////////////////////////////////////////////////////////////////

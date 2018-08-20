@@ -216,12 +216,6 @@ if (!(Test-Path $CAKE_EXE)) {
     Throw "Could not find Cake.exe at $CAKE_EXE"
 }
 
-# Copy cake extensions
-$EXTENSIONS_DIR = Join-Path $TOOLS_DIR "..\Extensions" 
-New-Item -ItemType Directory -Force -Path "$EXTENSIONS_DIR"
-Write-Host "Copying CAKE extensions to $EXTENSIONS_DIR..."
-Copy-Item "..\..\Shared\build\Extensions\*.dll" -Destination "$EXTENSIONS_DIR\"
-
 # Build Cake arguments
 $cakeArguments = @("$Script");
 if ($Target) { $cakeArguments += "-target=$Target" }
