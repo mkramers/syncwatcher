@@ -10,7 +10,6 @@ using Common.IO;
 using Common.Mvvm;
 using Common.SFTP;
 using FilebotApi;
-using FilebotApi.ViewModel;
 using GalaSoft.MvvmLight;
 using MVVM.Popups;
 using MVVM.ViewModel;
@@ -43,7 +42,9 @@ namespace SyncWatcherTray.ViewModel
             Filebot filebot = InitializeFilebot();
 
             CompletedDirectory = new LocalCleanerViewModel(paths, filebot);
-            
+            CompletedDirectory.Started += Operation_Started;
+            CompletedDirectory.Stopped += OperationStopped;
+
             Directories = new[]
             {
                 new DirectoryViewModel(settings.SeriesDirectory, "TV"),
@@ -62,9 +63,6 @@ namespace SyncWatcherTray.ViewModel
             {
                 Debug.Fail("unhandled filebot load failure");
             }
-
-            filebot.Started += Operation_Started;
-            filebot.Stopped += OperationStopped;
 
             return filebot;
         }

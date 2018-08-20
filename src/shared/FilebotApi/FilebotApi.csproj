@@ -82,12 +82,8 @@
     <Compile Include="Result\RenameResult.cs" />
     <Compile Include="Result\SkipResult.cs" />
     <Compile Include="FilebotHelpers.cs" />
-    <Compile Include="ViewModel\ViewModel\LocalCleanerViewModel.cs" />
     <Compile Include="View\FilebotSkippedView.xaml.cs">
       <DependentUpon>FilebotSkippedView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\LocalCleanerView.xaml.cs">
-      <DependentUpon>LocalCleanerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RenameResultView.xaml.cs">
       <DependentUpon>RenameResultView.xaml</DependentUpon>
@@ -108,10 +104,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\FilebotSkippedView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\LocalCleanerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

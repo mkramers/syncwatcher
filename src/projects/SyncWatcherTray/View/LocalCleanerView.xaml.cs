@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace MVVM.View
+namespace SyncWatcherTray.View
 {
     /// <summary>
     ///     Interaction logic for DirectoryView.xaml

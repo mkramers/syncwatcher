@@ -113,11 +113,19 @@
     <Compile Include="..\..\solutions\VersionInfo.cs">
       <Link>VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="ViewModel\LocalCleanerViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\TaskBarIconViewModel.cs" />
+    <Compile Include="View\LocalCleanerView.xaml.cs">
+      <DependentUpon>LocalCleanerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SyncWatcherSettingsView.xaml.cs">
       <DependentUpon>SyncWatcherSettingsView.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\LocalCleanerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -227,6 +235,10 @@
     <ProjectReference Include="..\..\shared\MVVM\MVVM.csproj">
       <Project>{64a1148e-1007-430f-b76d-a4115e276dae}</Project>
       <Name>MVVM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\shared\PlexTools\PlexTools.csproj">
+      <Project>{146060E7-A360-43FF-BA78-D4303F012103}</Project>
+      <Name>PlexTools</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\shared\Themes\Themes.csproj">
       <Project>{0bb7d14c-be2d-402f-b1ae-d4d5f3b6737e}</Project>

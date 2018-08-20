@@ -6,10 +6,13 @@ using System.Windows;
 using System.Windows.Input;
 using Common.IO;
 using Common.Mvvm;
+using FilebotApi;
+using Common.Logging;
 using GalaSoft.MvvmLight;
 using MVVM.ViewModel;
+using PlexTools;
 
-namespace FilebotApi.ViewModel
+namespace SyncWatcherTray.ViewModel
 {
     public class LocalCleanerViewModel : ViewModelBase
     {
@@ -26,17 +29,20 @@ namespace FilebotApi.ViewModel
                 {
                     CommandAction = async () =>
                     {
-                        string input = DirectoryViewModel.Name;
-                        string output = OutputDirectory;
+                        Started?.Invoke(this, EventArgs.Empty);
 
-                        Filebot fileBot = Filebot;
+                        await Organize();
+                        await ScanPlex();
 
-                        await Task.Run(() => fileBot.Organize(input, output));
+                        Stopped?.Invoke(this, EventArgs.Empty);
                     },
                     CanExecuteFunc = () => Filebot != null && !Filebot.IsBusy
                 };
             }
         }
+
+        public event EventHandler<EventArgs> Started;
+        public event EventHandler<EventArgs> Stopped;
 
         public LocalCleanerViewModel(SourceDestinationPaths _paths, Filebot _filebot)
         {
@@ -59,6 +65,30 @@ namespace FilebotApi.ViewModel
             FileWatcher = new FileWatcher(inputDir);
             FileWatcher.WatchEvent += FileWatcher_WatchEvent;
             FileWatcher.Start();
+        }
+
+        private async Task Organize()
+        {
+            string input = DirectoryViewModel.Name;
+            string output = OutputDirectory;
+
+            Filebot fileBot = Filebot;
+
+            await Task.Run(() => fileBot.Organize(input, output));
+        }
+
+        private static async Task ScanPlex()
+        {
+            uint[] sections = { 4, 5, 6 };
+
+            try
+            {
+                await Task.Factory.StartNew(() => PlexScanner.ScanSections(sections));
+            }
+            catch (Exception e)
+            {
+                Log.Write(LogLevel.Info, $"Error scanning plex: {e.Message}");
+            }
         }
 
         private void Filebot_OnStopped(object _sender, FileBotOrganizeEventArgs _e)
