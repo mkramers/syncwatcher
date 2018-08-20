@@ -25,14 +25,7 @@ pipeline {
 				{
 					archiveArtifacts artifacts: 'publish/*', fingerprint: true
 				}				
-				dir("./Projects/FusionBx/build")
-				{
-					archiveArtifacts artifacts: 'publish/*', fingerprint: true
-				}				
-				dir("./Projects/FusionMrPro/build")
-				{
-					archiveArtifacts artifacts: 'publish/*', fingerprint: true
-				}
+
 				cleanWs()
 												
 				echo 'Scanning logs....'
