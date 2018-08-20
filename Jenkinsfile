@@ -11,7 +11,7 @@ pipeline {
 						returnStdout: true
 					).trim()
 									
-					dir("./Solutions/build")
+					dir("./projects/syncwatchertray/build")
 					{
 						bat "powershell -ExecutionPolicy Bypass -File ./build.ps1 -buildNumber=${env.BUILD_NUMBER} -gitVersion=${result} -gitBranch=${env.BRANCH_NAME}"
 					}
@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'				
-				dir("./Solutions/build")
+				dir("./projects/syncwatchertray/build")
 				{
 					archiveArtifacts artifacts: 'publish/*', fingerprint: true
 				}				
