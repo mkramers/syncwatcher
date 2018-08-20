@@ -8,7 +8,7 @@ string buildNumber = Argument<string>("buildNumber", "666");
 string gitVersion = Argument<string>("gitVersion", "v1.1-80-gdb791cd"); //may be db791cd if no tags present
 string gitBranch = Argument<string>("gitBranch", "develop");
 bool isMultiStage = Argument<bool>("multistage", false);
-string buildConfiguration = Argument<string>("buildconfig", "All_Release");
+string buildConfiguration = Argument<string>("buildconfig", "Release");
 
 //make outputdir absolute
 outputDir = System.IO.Path.GetFullPath(outputDir);
