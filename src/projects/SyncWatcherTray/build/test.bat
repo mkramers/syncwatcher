@@ -2,7 +2,7 @@
 
 cls
 
-set buildConfig=Release
+set buildConfig=Install
 
 REM get git describe label
 set tmpFile=gitdescribe.tmp
