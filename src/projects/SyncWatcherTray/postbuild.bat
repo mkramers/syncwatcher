@@ -1,9 +1,9 @@
 @echo off
 
-set targetDir=%1
+set targetDir=%~1
 
 set filebot=..\..\..\..\external\filebot
-set destination=%targetDir%filebot
+set destination="%targetDir%filebot"
 
 echo.
 echo -----post build
@@ -16,7 +16,7 @@ echo Copying %filebot% to %destination%...
 (robocopy %filebot% %destination% /s /njh /njs /ndl /nfl /nc /ns /np /is ) ^& IF %ERRORLEVEL% GTR 3 exit %ERRORLEVEL%
 
 set settings=..\..\settings
-set settingsDestination=%targetDir%settings
+set settingsDestination="%targetDir%settings"
 
 echo Cleaning %settingsDestination%...
 if exist %settingsDestination%, rmdir /s /q %settingsDestination%
