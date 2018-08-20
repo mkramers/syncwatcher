@@ -13,7 +13,7 @@ pipeline {
 									
 					dir("./src/projects/syncwatchertray/build")
 					{
-						bat "powershell -ExecutionPolicy Bypass -File ./build.ps1 -buildNumber=${env.BUILD_NUMBER} -gitVersion=${result} -gitBranch=${env.BRANCH_NAME}"
+						bat "powershell -ExecutionPolicy Bypass -File ./build.ps1 -buildNumber=${env.BUILD_NUMBER} -gitVersion=${result} -gitBranch=${env.BRANCH_NAME} --buildconfig=Install"
 					}
 				}
             }
