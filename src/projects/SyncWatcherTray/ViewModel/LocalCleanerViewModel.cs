@@ -81,9 +81,13 @@ namespace SyncWatcherTray.ViewModel
         {
             uint[] sections = { 4, 5, 6 };
 
+            Log.Write(LogLevel.Info, "Starting Plex scan...");
+
             try
             {
                 await Task.Factory.StartNew(() => PlexScanner.ScanSections(sections));
+
+                Log.Write(LogLevel.Info, "Plex scan completed.");
             }
             catch (Exception e)
             {

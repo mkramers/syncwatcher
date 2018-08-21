@@ -37,12 +37,6 @@ namespace PlexTools
             {
                 Debug.Assert(exeProcess != null);
 
-                string line;
-                while ((line = exeProcess.StandardOutput.ReadLine()) != null)
-                {
-                    Log.Write(LogLevel.Info, line);
-                }
-
                 exeProcess.WaitForExit();
             }
         }
