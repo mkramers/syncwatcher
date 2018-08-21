@@ -106,6 +106,8 @@ namespace FilebotApi
             if (_settings.DeleteAfterExtract)
                 argument.AppendFormat(" --def deleteAfterExtract=y");
 
+            argument.AppendFormat(" --def minFileSize=30000000");
+
             if (_settings.UseLogFile)
             {
                 Debug.Assert(!string.IsNullOrWhiteSpace(_settings.LogFilePath));
