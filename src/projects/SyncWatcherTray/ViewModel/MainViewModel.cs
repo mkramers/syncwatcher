@@ -132,7 +132,7 @@ namespace SyncWatcherTray.ViewModel
         {
             var canExit = true;
             canExit &= FtpManagerViewModel.CanExit();
-            canExit &= !CompletedDirectory.Filebot.IsBusy;
+            canExit &= !CompletedDirectory.IsBusy;
             return canExit;
         }
 

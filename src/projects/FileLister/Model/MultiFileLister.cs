@@ -17,7 +17,6 @@ namespace FileLister.Model
             Debug.Assert(Directory.Exists(_appDataDirectory));
 
             FileBot = _fileBot;
-            FileBot.Stopped += FileBot_Event;
 
             Settings = _settings;
 

@@ -11,28 +11,9 @@ namespace FilebotApi
 {
     public partial class Filebot : ViewModelBase
     {
-        private bool m_isBusy;
-
         public FilebotSettings Settings { get; }
         public FilebotRecords Records { get; }
-        public bool IsBusy
-        {
-            get => m_isBusy;
-            set
-            {
-                if (m_isBusy != value)
-                {
-                    m_isBusy = value;
-                    BusyChanged?.Invoke(this, EventArgs.Empty);
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        public event EventHandler Started;
-        public event EventHandler<FileBotOrganizeEventArgs> Stopped;
-        public event EventHandler<EventArgs> BusyChanged;
-
+        
         public Filebot(FilebotSettings _settings, FilebotRecords _records)
         {
             Debug.Assert(_settings != null);
@@ -50,12 +31,6 @@ namespace FilebotApi
             string message = $"Starting organize...\nSource: {_inputDir}\nTarget: {_outputDir}";
             Log.Write(LogLevel.Info, message);
 
-            OrganizeResult organizeResult;
-
-            IsBusy = true;
-
-            Started?.Invoke(this, EventArgs.Empty);
-
             try
             {
                 FilebotSettings settings = Settings;
@@ -72,22 +47,14 @@ namespace FilebotApi
 
                     exeProcess.WaitForExit();
                 }
-
-                organizeResult = OrganizeResult.SUCCESS;
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Error running filebot: {e}");
-                organizeResult = OrganizeResult.FAIL;
             }
 
             //reparse records
             Records.Reload();
-
-            IsBusy = false;
-
-            FileBotOrganizeEventArgs args = new FileBotOrganizeEventArgs(organizeResult);
-            Stopped?.Invoke(this, args);
 
             Log.Write(LogLevel.Info, "Completed");
         }

@@ -20,6 +20,7 @@ namespace SyncWatcherTray.ViewModel
         public Filebot Filebot { get; }
         private string OutputDirectory { get; }
         public FileWatcher FileWatcher { get; }
+        public bool IsBusy { get; private set; }
 
         public ICommand OrganizeCommand
         {
@@ -29,14 +30,14 @@ namespace SyncWatcherTray.ViewModel
                 {
                     CommandAction = async () =>
                     {
-                        Started?.Invoke(this, EventArgs.Empty);
+                        OnStarted();
 
                         await Organize();
                         await ScanPlex();
 
-                        Stopped?.Invoke(this, EventArgs.Empty);
+                        OnStopped();
                     },
-                    CanExecuteFunc = () => Filebot != null && !Filebot.IsBusy
+                    CanExecuteFunc = () => Filebot != null && !IsBusy
                 };
             }
         }
@@ -59,8 +60,6 @@ namespace SyncWatcherTray.ViewModel
             OutputDirectory = outputDir;
 
             Filebot = _filebot;
-            Filebot.Stopped += Filebot_OnStopped;
-            Filebot.BusyChanged += Filebot_OnBusyChanged;
 
             FileWatcher = new FileWatcher(inputDir);
             FileWatcher.WatchEvent += FileWatcher_WatchEvent;
@@ -95,11 +94,6 @@ namespace SyncWatcherTray.ViewModel
             }
         }
 
-        private void Filebot_OnStopped(object _sender, FileBotOrganizeEventArgs _e)
-        {
-            Application.Current.Dispatcher.Invoke(RefreshCompletedDirectory);
-        }
-
         private void RefreshCompletedDirectory()
         {
             ICommand refreshCommand = DirectoryViewModel.RefreshCommand;
@@ -107,13 +101,24 @@ namespace SyncWatcherTray.ViewModel
                 refreshCommand.Execute(null);
         }
 
-        private void Filebot_OnBusyChanged(object _sender, EventArgs _e)
+        private void OnStarted()
         {
-            Filebot filebot = _sender as Filebot;
-            Debug.Assert(filebot != null);
+            IsBusy = true;
 
-            bool isBusy = filebot.IsBusy;
-            DirectoryViewModel.IsBusy = isBusy;
+            DirectoryViewModel.IsBusy = true;
+
+            Started?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnStopped()
+        {
+            IsBusy = false;
+
+            DirectoryViewModel.IsBusy = false;
+            
+            Application.Current.Dispatcher.Invoke(RefreshCompletedDirectory);
+
+            Stopped?.Invoke(this, EventArgs.Empty);
         }
 
         private void FileWatcher_WatchEvent(object _sender, FileSystemEventArgs _e)
