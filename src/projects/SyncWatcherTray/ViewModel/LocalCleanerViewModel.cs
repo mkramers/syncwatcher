@@ -20,6 +20,7 @@ namespace SyncWatcherTray.ViewModel
         public Filebot Filebot { get; }
         private string OutputDirectory { get; }
         public FileWatcher FileWatcher { get; }
+        public SyncthingWatcher SyncthingWatcher { get; }
         public bool IsBusy { get; private set; }
 
         public ICommand OrganizeCommand
@@ -64,6 +65,10 @@ namespace SyncWatcherTray.ViewModel
             FileWatcher = new FileWatcher(inputDir);
             FileWatcher.WatchEvent += FileWatcher_WatchEvent;
             FileWatcher.Start();
+
+            SyncthingWatcher = new SyncthingWatcher(inputDir);
+            SyncthingWatcher.WatchEvent += SyncthingWatcher_OnChanged;
+            SyncthingWatcher.Start();
         }
 
         private async Task Organize()
@@ -115,7 +120,7 @@ namespace SyncWatcherTray.ViewModel
             IsBusy = false;
 
             DirectoryViewModel.IsBusy = false;
-            
+
             Application.Current.Dispatcher.Invoke(RefreshCompletedDirectory);
 
             Stopped?.Invoke(this, EventArgs.Empty);
@@ -124,6 +129,16 @@ namespace SyncWatcherTray.ViewModel
         private void FileWatcher_WatchEvent(object _sender, FileSystemEventArgs _e)
         {
             Application.Current.Dispatcher.Invoke(RefreshCompletedDirectory);
+        }
+
+        private void SyncthingWatcher_OnChanged(object _sender, FileSystemEventArgs _e)
+        {
+            //perform orangize on changes
+            ICommand organizeCommand = OrganizeCommand;
+            if (organizeCommand.CanExecute(null))
+            {
+                organizeCommand.Execute(null);
+            }
         }
     }
 }
