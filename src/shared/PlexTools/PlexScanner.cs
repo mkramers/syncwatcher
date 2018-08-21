@@ -2,13 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using Common.Logging;
 
 namespace PlexTools
 {
     public class PlexScanner
     {
-        private const string PLEX_SCANNER_EXE = @"C:\Program Files (x86)\Plex\Plex Media Server\Plex Media Scanner.exe";
+        private const string PLEX_EXE_DIRECTORY = @"C:\Program Files (x86)\Plex\Plex Media Server";
+        private static readonly string PlexScannerExe = Path.Combine(PLEX_EXE_DIRECTORY, "Plex Media Scanner.exe");
 
         public static void ScanSections(IEnumerable<uint> _sections)
         {
@@ -27,7 +29,8 @@ namespace PlexTools
             {
                 CreateNoWindow = true,
                 UseShellExecute = false,
-                FileName = PLEX_SCANNER_EXE,
+                WorkingDirectory = PLEX_EXE_DIRECTORY,
+                FileName = PlexScannerExe,
                 WindowStyle = ProcessWindowStyle.Hidden,
                 RedirectStandardOutput = true,
                 Arguments = $"--scan --section {_section}"
