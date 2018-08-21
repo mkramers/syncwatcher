@@ -34,8 +34,10 @@ namespace Common.IO
 
                 isCompleted = !allPaths.Any(_file => m_syncKeywords.Any(_file.Contains));
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine($"Error getting files: {e.Message}");
+
                 isCompleted = false;
             }
 

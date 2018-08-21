@@ -11,15 +11,18 @@ using Common.Logging;
 using GalaSoft.MvvmLight;
 using MVVM.ViewModel;
 using PlexTools;
+using SyncWatcherTray.Properties;
 
 namespace SyncWatcherTray.ViewModel
 {
     public class LocalCleanerViewModel : ViewModelBase
     {
+        private bool m_isAutoCleanEnabled;
         public DirectoryViewModel DirectoryViewModel { get; }
         public Filebot Filebot { get; }
         private string OutputDirectory { get; }
         public FileWatcher FileWatcher { get; }
+        public SyncthingWatcher SyncthingWatcher { get; }
         public bool IsBusy { get; private set; }
 
         public ICommand OrganizeCommand
@@ -39,6 +42,22 @@ namespace SyncWatcherTray.ViewModel
                     },
                     CanExecuteFunc = () => Filebot != null && !IsBusy
                 };
+            }
+        }
+        public bool IsAutoCleanEnabled
+        {
+            get => m_isAutoCleanEnabled;
+            set
+            {
+                if (m_isAutoCleanEnabled != value)
+                {
+                    m_isAutoCleanEnabled = value;
+                    RaisePropertyChanged();
+
+                    //save setting
+                    Settings.Default.IsAutoCleanEnabled = value;
+                    Settings.Default.Save();
+                }
             }
         }
 
@@ -64,6 +83,13 @@ namespace SyncWatcherTray.ViewModel
             FileWatcher = new FileWatcher(inputDir);
             FileWatcher.WatchEvent += FileWatcher_WatchEvent;
             FileWatcher.Start();
+
+            SyncthingWatcher = new SyncthingWatcher(inputDir);
+            SyncthingWatcher.WatchEvent += SyncthingWatcher_OnChanged;
+            SyncthingWatcher.Start();
+
+            //restore sticky setting
+            IsAutoCleanEnabled = Settings.Default.IsAutoCleanEnabled;
         }
 
         private async Task Organize()
@@ -115,7 +141,7 @@ namespace SyncWatcherTray.ViewModel
             IsBusy = false;
 
             DirectoryViewModel.IsBusy = false;
-            
+
             Application.Current.Dispatcher.Invoke(RefreshCompletedDirectory);
 
             Stopped?.Invoke(this, EventArgs.Empty);
@@ -124,6 +150,21 @@ namespace SyncWatcherTray.ViewModel
         private void FileWatcher_WatchEvent(object _sender, FileSystemEventArgs _e)
         {
             Application.Current.Dispatcher.Invoke(RefreshCompletedDirectory);
+        }
+
+        private void SyncthingWatcher_OnChanged(object _sender, FileSystemEventArgs _e)
+        {
+            if (!IsAutoCleanEnabled)
+            {
+                return;
+            }
+
+            //perform orangize on changes
+            ICommand organizeCommand = OrganizeCommand;
+            if (organizeCommand.CanExecute(null))
+            {
+                organizeCommand.Execute(null);
+            }
         }
     }
 }

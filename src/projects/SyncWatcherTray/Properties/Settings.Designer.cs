@@ -153,5 +153,17 @@ namespace SyncWatcherTray.Properties {
                 this["MediaRootDirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsAutoCleanEnabled {
+            get {
+                return ((bool)(this["IsAutoCleanEnabled"]));
+            }
+            set {
+                this["IsAutoCleanEnabled"] = value;
+            }
+        }
     }
 }
