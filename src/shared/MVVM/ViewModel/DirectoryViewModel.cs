@@ -16,10 +16,11 @@ namespace MVVM.ViewModel
         public FileWatcher FileWatcher { get; }
         
         /// <summary>
-        /// used by desginer
+        /// used only by desginer
         /// </summary>
         public DirectoryViewModel()
         {
+            Debug.Assert(IsInDesignMode);
         }
 
         public DirectoryViewModel(string _directory, string _shortName)
