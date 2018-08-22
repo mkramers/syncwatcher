@@ -62,15 +62,10 @@
             </Button>
         </Grid>
 
-        <Grid Grid.Row="1" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1139*" />
-                <ColumnDefinition Width="41*" />
-            </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.RowSpan="2" Margin="3">
 
             <controls:TabControlEx
                 x:Name="TabControl"
-                Grid.ColumnSpan="2"
                 SelectionChanged="TabControl_OnSelectionChanged">
                 <TabItem Header="Server">
                     <winscp:FtpManagerView DataContext="{Binding FtpManagerViewModel}" />
