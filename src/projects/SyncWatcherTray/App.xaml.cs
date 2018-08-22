@@ -35,7 +35,9 @@ namespace SyncWatcherTray
 
             MainWindow = m_mainWindow;
 
+#if !DEBUG
             m_mainWindow.ShowWindow();
+#endif
         }
 
         protected override void OnExit(ExitEventArgs _e)
