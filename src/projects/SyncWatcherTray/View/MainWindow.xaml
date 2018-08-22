@@ -37,11 +37,6 @@
 
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Command="{Binding OrganizeCommand}" Header="Organize" />
-                    <Separator />
-                    <MenuItem Click="OnShowWindow" Header="Show Window" />
-                    <MenuItem Click="OnHideWindow" Header="Hide Window" />
-                    <Separator />
                     <MenuItem Click="ExitApplication_OnClick" Header="Exit" />
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
@@ -51,38 +46,12 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Button
                 Grid.Column="1"
                 Margin="4"
-                Click="OpenSettingsButton_OnClick">
-                <Button.Content>
-                    <fa:ImageAwesome
-                        Width="18"
-                        Height="18"
-                        Icon="Cog" />
-                </Button.Content>
-            </Button>
-
-            <Button
-                Grid.Column="2"
-                Margin="4"
                 Click="OnClickMinimize">
-                <Button.Content>
-                    <fa:ImageAwesome
-                        Width="18"
-                        Height="18"
-                        Icon="WindowMinimize" />
-                </Button.Content>
-            </Button>
-
-            <Button
-                Grid.Column="3"
-                Margin="4"
-                Click="ExitApplication_OnClick">
                 <Button.Content>
                     <fa:ImageAwesome
                         Width="18"
@@ -122,9 +91,6 @@
                     <mvvmview:LogView />
                 </TabItem>
 
-                <TabItem Header="Skipped">
-                    <filebot:FilebotSkippedView Margin="10,0" DataContext="{Binding CompletedDirectory.Filebot.Records}" />
-                </TabItem>
             </controls:TabControlEx>
         </Grid>
     </Grid>
