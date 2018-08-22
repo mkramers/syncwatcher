@@ -9,7 +9,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="ButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="{DynamicResource NormalBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource AltHighlightedBackgroundBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource NormalForegroundBrush}" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="BorderBrush" Value="{DynamicResource NormalForegroundBrush}" />
