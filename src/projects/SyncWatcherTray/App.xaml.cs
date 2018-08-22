@@ -35,7 +35,7 @@ namespace SyncWatcherTray
 
             MainWindow = m_mainWindow;
 
-#if !DEBUG
+#if DEBUG
             m_mainWindow.ShowWindow();
 #endif
         }
