@@ -131,16 +131,12 @@ namespace SyncWatcherTray.ViewModel
         {
             IsBusy = true;
 
-            DirectoryViewModel.IsBusy = true;
-
             Started?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnStopped()
         {
             IsBusy = false;
-
-            DirectoryViewModel.IsBusy = false;
 
             Stopped?.Invoke(this, EventArgs.Empty);
         }

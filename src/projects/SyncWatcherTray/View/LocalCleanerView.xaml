@@ -63,9 +63,9 @@
                 <view1:LogView />
 
                 <fa:ImageAwesome
-                    Width="30"
-                    Height="30"
-                    Margin="12"
+                    Width="18"
+                    Height="18"
+                    Margin="12,12,24,12"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Icon="Spinner"
