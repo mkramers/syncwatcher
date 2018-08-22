@@ -72,15 +72,15 @@
                 </TabItem>
 
                 <TabItem Header="Completed">
-                    <view:LocalCleanerView Margin="10,0" DataContext="{Binding CompletedDirectory}" />
+                    <view:LocalCleanerView DataContext="{Binding CompletedDirectory}" />
                 </TabItem>
 
                 <TabItem Header="{Binding Directories[0].ShortName}">
-                    <mvvmview:DirectoryView Margin="10,0" DataContext="{Binding Directories[0]}" />
+                    <mvvmview:DirectoryView DataContext="{Binding Directories[0]}" />
                 </TabItem>
 
                 <TabItem Header="{Binding Directories[1].ShortName}">
-                    <mvvmview:DirectoryView Margin="10,0" DataContext="{Binding Directories[1]}" />
+                    <mvvmview:DirectoryView DataContext="{Binding Directories[1]}" />
                 </TabItem>
 
                 <TabItem Header="Log">
