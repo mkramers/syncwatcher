@@ -120,11 +120,6 @@ namespace SyncWatcherTray.View
             Settings.Default.Save();
         }
 
-        private void OpenSettingsButton_OnClick(object _sender, RoutedEventArgs _e)
-        {
-            
-        }
-
         private bool m_isShown;
 
         //global hotkey
