@@ -17,12 +17,24 @@ namespace SyncWatcherTray.ViewModel
 {
     public class LocalCleanerViewModel : ViewModelBase
     {
+        private bool m_isBusy;
         private bool m_isAutoCleanEnabled;
         public DirectoryViewModel DirectoryViewModel { get; }
         public Filebot Filebot { get; }
         private string OutputDirectory { get; }
         public SyncthingWatcher SyncthingWatcher { get; }
-        public bool IsBusy { get; private set; }
+        public bool IsBusy
+        {
+            get => m_isBusy;
+            set
+            {
+                if (m_isBusy != value)
+                {
+                    m_isBusy = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         public ICommand OrganizeCommand
         {
