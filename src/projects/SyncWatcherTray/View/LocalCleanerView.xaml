@@ -6,7 +6,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view1="clr-namespace:MVVM.View;assembly=MVVM"
     xmlns:viewModel1="clr-namespace:SyncWatcherTray.ViewModel"
-    xmlns:view="clr-namespace:FilebotApi.View;assembly=FilebotApi"
     xmlns:fa="http://schemas.fontawesome.io/icons/"
     d:DataContext="{d:DesignInstance viewModel1:LocalCleanerViewModel, IsDesignTimeCreatable=True}"
     d:DesignHeight="800"
@@ -24,7 +23,6 @@
             Grid.Row="0"
             Margin="0,0,0,8"
             DataContext="{Binding DirectoryViewModel}" />
-
 
         <Grid
             Grid.Row="1">
