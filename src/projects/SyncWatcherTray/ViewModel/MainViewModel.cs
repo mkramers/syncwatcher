@@ -158,7 +158,5 @@ namespace SyncWatcherTray.ViewModel
                 TaskBarIcon.SetIsNotBusy();
             }
         }
-
-        public ICommand OrganizeCommand => CompletedDirectory.OrganizeCommand;
     }
 }

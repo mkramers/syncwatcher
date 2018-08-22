@@ -37,7 +37,7 @@
 
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Command="{Binding OrganizeCommand}" Header="Organize" />
+                    <MenuItem Command="{Binding CompletedDirectory.OrganizeCommand}" Header="Organize" />
                     <Separator />
                     <MenuItem Click="OnShowWindow" Header="Show Window" />
                     <MenuItem Click="OnHideWindow" Header="Hide Window" />
