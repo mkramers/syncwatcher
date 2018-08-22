@@ -14,6 +14,13 @@ namespace MVVM.ViewModel
     public class DirectoryViewModel : ViewModelBase
     {
         public FileWatcher FileWatcher { get; }
+        
+        /// <summary>
+        /// used by desginer
+        /// </summary>
+        public DirectoryViewModel()
+        {
+        }
 
         public DirectoryViewModel(string _directory, string _shortName)
         {
