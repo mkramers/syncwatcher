@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -74,6 +75,14 @@ namespace SyncWatcherTray.ViewModel
 
         public event EventHandler<EventArgs> Started;
         public event EventHandler<EventArgs> Stopped;
+
+        /// <summary>
+        /// used by designer only
+        /// </summary>
+        public LocalCleanerViewModel()
+        {
+            Debug.Assert(IsInDesignMode);
+        }
 
         public LocalCleanerViewModel(SourceDestinationPaths _paths, Filebot _filebot)
         {

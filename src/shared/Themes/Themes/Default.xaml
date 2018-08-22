@@ -7,7 +7,7 @@
 
     <Color x:Key="NormalBackground">#ffffff</Color>
     <Color x:Key="AltNormalBackground">#ffffff</Color>
-    <Color x:Key="HighlightedBackground">Gray</Color>
-    <Color x:Key="AltHighlightedBackground">#add8e6</Color>
+    <Color x:Key="HighlightedBackground">#a7c0cd</Color>
+    <Color x:Key="AltHighlightedBackground">#78909c</Color>
     <Color x:Key="NormalForeground">#000000</Color>
 </ResourceDictionary>

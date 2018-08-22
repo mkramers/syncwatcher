@@ -10,7 +10,7 @@
     xmlns:mvvm="clr-namespace:MVVM"
     xmlns:themes="clr-namespace:Themes;assembly=Themes"
     xmlns:viewModel="clr-namespace:MVVM.ViewModel"
-    d:DataContext="{d:DesignInstance viewModel:DirectoryViewModel}"
+    d:DataContext="{d:DesignInstance viewModel:DirectoryViewModel, IsDesignTimeCreatable=True}"
     d:DesignHeight="300"
     d:DesignWidth="300"
     DataContextChanged="OnDataContextChanged"

@@ -12,6 +12,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/MVVM;component/DataTemplates.xaml" />
+                <ResourceDictionary Source="/Themes;component/Themes/Default.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <converters:FileSizeToStringConverter x:Key="FileSizeToStringConverter" />
