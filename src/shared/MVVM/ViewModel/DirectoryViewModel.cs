@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Common.IO;
 using Common.Mvvm;
@@ -36,11 +37,14 @@ namespace MVVM.ViewModel
 
         private void FileWatcher_OnWatchEvent(object _sender, FileSystemEventArgs _e)
         {
-            ICommand refresh = RefreshCommand;
-            if (refresh.CanExecute(null))
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                refresh.Execute(null);
-            }
+                ICommand refresh = RefreshCommand;
+                if (refresh.CanExecute(null))
+                {
+                    refresh.Execute(null);
+                }
+            });
         }
 
         private async Task Update()
