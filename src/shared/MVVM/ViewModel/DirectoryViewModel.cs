@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Common.IO;
 using Common.Mvvm;
 using GalaSoft.MvvmLight;
 
@@ -11,6 +12,8 @@ namespace MVVM.ViewModel
 {
     public class DirectoryViewModel : ViewModelBase
     {
+        public FileWatcher FileWatcher { get; }
+
         public DirectoryViewModel(string _directory, string _shortName)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_directory));
@@ -20,7 +23,20 @@ namespace MVVM.ViewModel
 
             FileNames = new ObservableRangeCollection<FileInfo>();
 
-            var refresh = RefreshCommand;
+            FileWatcher= new FileWatcher(_directory);
+            FileWatcher.WatchEvent += FileWatcher_OnWatchEvent;
+            FileWatcher.Start();
+
+            ICommand refresh = RefreshCommand;
+            if (refresh.CanExecute(null))
+            {
+                refresh.Execute(null);
+            }
+        }
+
+        private void FileWatcher_OnWatchEvent(object _sender, FileSystemEventArgs _e)
+        {
+            ICommand refresh = RefreshCommand;
             if (refresh.CanExecute(null))
             {
                 refresh.Execute(null);
