@@ -21,7 +21,7 @@
     Icon="../Resources/coffeeDark.ico"
     ResizeMode="CanResize"
     WindowStyle="None"
-    Background="White"
+    Background="#dfdfdfdf"
     mc:Ignorable="d">
 
     <Grid>

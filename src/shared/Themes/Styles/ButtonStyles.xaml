@@ -11,7 +11,7 @@
     <Style x:Key="ButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource NormalBackgroundBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource NormalForegroundBrush}" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderThickness" Value="2" />
         <Setter Property="BorderBrush" Value="{DynamicResource NormalForegroundBrush}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">

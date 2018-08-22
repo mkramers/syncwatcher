@@ -38,6 +38,8 @@
                 Width="200"
                 Height="32"
                 Margin="5"
+                BorderThickness="2"
+                BorderBrush="Red"
                 HorizontalAlignment="Center"
                 Command="{Binding OrganizeCommand}"
                 Content="SORT" />
@@ -52,13 +54,13 @@
 
         <Border
             BorderBrush="Black"
+            Background="{StaticResource NormalBackgroundBrush}"
             BorderThickness="1"
-            Padding="3"
             Margin="4"
             CornerRadius="2"
             Grid.Row="2">
             <Grid>
-                <view1:LogView />
+                <view1:LogView Focusable="False"/>
 
                 <fa:ImageAwesome
                     Width="18"

@@ -23,7 +23,6 @@
 
     <!--  Default Styles  -->
     <Style BasedOn="{StaticResource WindowStyle}" TargetType="Window" />
-    <Style BasedOn="{StaticResource ButtonStyle}" TargetType="Button" />
     <Style BasedOn="{StaticResource CheckBoxStyle}" TargetType="CheckBox" />
     <!--<Style BasedOn="{StaticResource ContextMenuStyle}" TargetType="ContextMenu" />-->
     <Style BasedOn="{StaticResource TextBlockStyle}" TargetType="TextBlock" />
@@ -33,6 +32,7 @@
     <Style BasedOn="{StaticResource TabControlStyle}" TargetType="controls:TabControlEx" />
     <Style BasedOn="{StaticResource AltScrollbarStyle}" TargetType="ScrollBar" />
     <Style BasedOn="{StaticResource FlatComboBoxStyle}" TargetType="ComboBox" />
+    <Style BasedOn="{StaticResource ButtonStyle}" TargetType="Button" />
 
     <!--  Default Converters  -->
     <converters:FileSizeToStringConverter x:Key="FileSizeToStringConverter" />

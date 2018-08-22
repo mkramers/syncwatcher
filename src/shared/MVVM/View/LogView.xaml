@@ -16,7 +16,7 @@
 
     <Grid Margin="0,5" DataContext="{StaticResource Log}">
         <ScrollViewer extensions:ScrollViewerExtensions.AlwaysScrollToEnd="True">
-            <TextBlock Text="{Binding Appender.Notification, Mode=Default}" TextWrapping="Wrap" />
+            <TextBlock Text="{Binding Appender.Notification, Mode=Default}" TextWrapping="Wrap" Padding="3"/>
         </ScrollViewer>
     </Grid>
 </UserControl>
