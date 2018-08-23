@@ -157,7 +157,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Resource Include="Settings\settings.xml" />
     <Resource Include="build\assemblies.txt" />
     <Content Include="build\Extensions\CakeExtensions.dll" />
     <Content Include="WinSCP.exe">

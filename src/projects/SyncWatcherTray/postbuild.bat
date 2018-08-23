@@ -15,15 +15,6 @@ if exist %destination%, rmdir /s /q %destination%
 echo Copying %filebot% to %destination%...
 (robocopy %filebot% %destination% /s /njh /njs /ndl /nfl /nc /ns /np /is ) ^& IF %ERRORLEVEL% GTR 3 exit %ERRORLEVEL%
 
-set settings=..\..\settings
-set settingsDestination="%targetDir%settings"
-
-echo Cleaning %settingsDestination%...
-if exist %settingsDestination%, rmdir /s /q %settingsDestination%
-
-echo Copying %settings% to %settingsDestination%...
-(robocopy %settings% %settingsDestination% /s /njh /njs /ndl /nfl /nc /ns /np /is) ^& IF %ERRORLEVEL% GTR 3 exit %ERRORLEVEL%
-
 echo.
 echo -----end post build
 echo.
