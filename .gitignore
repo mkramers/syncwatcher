@@ -330,3 +330,4 @@ ASALocalRun/
 .mfractor/
 src/build/tools/
 src/projects/SyncWatcherTray/build/tools/
+/src/external/packages
