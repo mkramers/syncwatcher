@@ -157,7 +157,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Resource Include="Settings\settings.xml" />
     <Resource Include="build\assemblies.txt" />
     <Content Include="build\Extensions\CakeExtensions.dll" />
     <Content Include="WinSCP.exe">
@@ -176,7 +175,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <None Include="postbuild.bat" />
     <Content Include="Config\ProtectedConfig.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -188,12 +186,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Red.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\loading.gif" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\coffeeBlue.png" />
@@ -252,7 +244,8 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)postbuild.bat $(TargetDir)</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

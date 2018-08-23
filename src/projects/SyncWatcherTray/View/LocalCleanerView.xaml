@@ -44,12 +44,28 @@
                 Command="{Binding OrganizeCommand}"
                 Content="SORT" />
 
-            <CheckBox
-                VerticalAlignment="Center"
-                HorizontalAlignment="Right"
+            <Grid
                 Grid.Column="2"
-                Content="Auto"
-                IsChecked="{Binding IsAutoCleanEnabled}"></CheckBox>
+                HorizontalAlignment="Right">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <CheckBox
+                    Grid.Row="0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Content="Scan Plex"
+                    IsChecked="{Binding IsPlexScanEnabled}"/>
+                
+                <CheckBox
+                    Grid.Row="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Content="Auto-Clean"
+                    IsChecked="{Binding IsAutoCleanEnabled}"/>
+            </Grid>
         </Grid>
 
         <Border

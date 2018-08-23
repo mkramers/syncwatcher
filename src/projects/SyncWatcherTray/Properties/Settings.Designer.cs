@@ -165,5 +165,17 @@ namespace SyncWatcherTray.Properties {
                 this["IsAutoCleanEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsPlexScanEnabled {
+            get {
+                return ((bool)(this["IsPlexScanEnabled"]));
+            }
+            set {
+                this["IsPlexScanEnabled"] = value;
+            }
+        }
     }
 }

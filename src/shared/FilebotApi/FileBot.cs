@@ -88,8 +88,8 @@ namespace FilebotApi
 
             StringBuilder argument = new StringBuilder();
 
-            const string scriptPath = "filebot\\scripts\\amc.groovy";
-            argument.Append($"-script {scriptPath}"); //todo fix path
+            string scriptPath = Path.Combine(_settings.FilebotScriptsDirectory, "amc.groovy");
+            argument.Append($"-script \"{scriptPath}\""); //todo fix path
 
             Debug.Assert(!string.IsNullOrWhiteSpace(_outputPath));
             Debug.Assert(Directory.Exists(_outputPath));
