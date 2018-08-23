@@ -18,6 +18,7 @@ namespace SyncWatcherTray.ViewModel
 {
     public class LocalCleanerViewModel : ViewModelBase
     {
+        private bool m_isPlexScanEnabled;
         private bool m_isBusy;
         private bool m_isAutoCleanEnabled;
         public DirectoryViewModel DirectoryViewModel { get; }
@@ -48,7 +49,11 @@ namespace SyncWatcherTray.ViewModel
                         OnStarted();
 
                         await Organize();
-                        await ScanPlex();
+
+                        if (IsPlexScanEnabled)
+                        {
+                            await ScanPlex();
+                        }
 
                         OnStopped();
                     },
@@ -68,6 +73,22 @@ namespace SyncWatcherTray.ViewModel
 
                     //save setting
                     Settings.Default.IsAutoCleanEnabled = value;
+                    Settings.Default.Save();
+                }
+            }
+        }
+        public bool IsPlexScanEnabled
+        {
+            get { return m_isPlexScanEnabled; }
+            set
+            {
+                if (m_isPlexScanEnabled != value)
+                {
+                    m_isPlexScanEnabled = value;
+                    RaisePropertyChanged();
+
+                    //save settings
+                    Settings.Default.IsPlexScanEnabled = value;
                     Settings.Default.Save();
                 }
             }
@@ -106,6 +127,7 @@ namespace SyncWatcherTray.ViewModel
 
             //restore sticky setting
             IsAutoCleanEnabled = Settings.Default.IsAutoCleanEnabled;
+            IsPlexScanEnabled = Settings.Default.IsPlexScanEnabled;
         }
 
         private async Task Organize()
@@ -118,8 +140,10 @@ namespace SyncWatcherTray.ViewModel
             await Task.Run(() => fileBot.Organize(input, output));
         }
 
-        private static async Task ScanPlex()
+        private async Task ScanPlex()
         {
+            Debug.Assert(IsPlexScanEnabled);
+
             uint[] sections = { 4, 5, 6 };
 
             Log.Write(LogLevel.Info, "Starting Plex scan...");
