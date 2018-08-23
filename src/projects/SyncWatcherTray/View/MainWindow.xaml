@@ -43,25 +43,6 @@
             </tb:TaskbarIcon.ContextMenu>
         </tb:TaskbarIcon>
 
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <Button
-                Grid.Column="1"
-                Margin="4"
-                Click="OnClickMinimize">
-                <Button.Content>
-                    <fa:ImageAwesome
-                        Width="18"
-                        Height="18"
-                        Icon="WindowClose" />
-                </Button.Content>
-            </Button>
-        </Grid>
-
         <Grid Grid.Row="0" Grid.RowSpan="2" Margin="3">
 
             <controls:TabControlEx
@@ -88,6 +69,27 @@
                 </TabItem>
 
             </controls:TabControlEx>
+        </Grid>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="1"
+                Margin="4"
+                Style="{StaticResource PathButtonStyle}"
+                Click="OnClickMinimize">
+                <Button.Content>
+                    <fa:ImageAwesome
+                        Width="18"
+                        Height="18"
+                        Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}"
+                        Icon="MinusCircle" />
+                </Button.Content>
+            </Button>
         </Grid>
     </Grid>
 </Window>

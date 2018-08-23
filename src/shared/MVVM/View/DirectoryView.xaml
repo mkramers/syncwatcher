@@ -45,12 +45,14 @@
                 Width="24"
                 Height="24"
                 Margin="6"
+                Style="{StaticResource PathButtonStyle}"
                 Command="{Binding RefreshCommand}">
                 <Button.Content>
                     <fa:ImageAwesome
                         Width="18"
                         Height="18"
-                        Icon="Refresh" />
+                        Icon="Refresh" 
+                        Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}"/>
                 </Button.Content>
             </Button>
         </Grid>

@@ -9,5 +9,5 @@
     <Color x:Key="AltNormalBackground">#ffffff</Color>
     <Color x:Key="HighlightedBackground">#a7c0cd</Color>
     <Color x:Key="AltHighlightedBackground">#78909c</Color>
-    <Color x:Key="NormalForeground">#000000</Color>
+    <Color x:Key="NormalForeground">#222222</Color>
 </ResourceDictionary>

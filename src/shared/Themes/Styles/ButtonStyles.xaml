@@ -33,11 +33,12 @@
     <Style
         x:Key="PathButtonStyle"
         BasedOn="{StaticResource ButtonStyle}"
-        TargetType="themes:PathButton">
-        <Setter Property="Fill" Value="{DynamicResource NormalForegroundBrush}" />
+        TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Fill" Value="{DynamicResource HighlightedBackgroundBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource AltHighlightedBackgroundBrush}" />
+                <Setter Property="Background" Value="Transparent" />
             </Trigger>
         </Style.Triggers>
     </Style>

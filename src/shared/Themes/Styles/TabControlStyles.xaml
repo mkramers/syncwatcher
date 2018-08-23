@@ -33,7 +33,7 @@
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="Panel" Property="Background"
-                                    Value="{DynamicResource HighlightedBackgroundBrush}" />
+                                    Value="{DynamicResource AltHighlightedBackgroundBrush}" />
                             <Setter TargetName="ContentSite" Property="TextElement.Foreground"
                                     Value="{DynamicResource NormalForegroundBrush}" />
                         </Trigger>
