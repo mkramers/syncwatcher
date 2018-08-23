@@ -11,6 +11,12 @@
     d:DesignHeight="800"
     d:DesignWidth="600"
     mc:Ignorable="d">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <BitmapImage x:Key="SyncWatcherTrayImage" UriSource="\Resources/coffeeGreen.png" />
+        </ResourceDictionary>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -89,5 +95,10 @@
                     Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}" />
             </Grid>
         </Border>
+
+        <Image Source="{StaticResource SyncWatcherTrayImage}" 
+               Grid.Row="2"
+               Width="80" Height="80" HorizontalAlignment="Right"
+               VerticalAlignment="Bottom" Margin="14,4" Opacity="0.25"/>
     </Grid>
 </UserControl>
