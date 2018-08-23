@@ -41,13 +41,7 @@ Section
 	
     SetOutPath "$INSTDIR\Config"
 	File /r "${BIN}\Config\*.*"
-	
-    SetOutPath "$INSTDIR\filebot"
-	File /r "${BIN}\filebot\*.*"
-	
-    SetOutPath "$INSTDIR\settings"
-	File /r "${BIN}\settings\*.*"
-				
+					
 	#create startup shortcut
 	SetOutPath $INSTDIR
 	CreateShortCut "$SMPROGRAMS\Startup\SyncWatcherTray.lnk" "$INSTDIR\SyncWatcherTray.exe" \
@@ -67,8 +61,6 @@ Section "uninstall"
 	Delete "$SMPROGRAMS\Startup\SyncWatcherTray.lnk"
 		
 	RMDir /r "$INSTDIR\Config"
-	RMDir /r "$INSTDIR\filebot"
-	RMDir /r "$INSTDIR\settings"	
 				
 	Delete "$INSTDIR\Common.dll"
 	Delete "$INSTDIR\FilebotApi.dll"
