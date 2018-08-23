@@ -64,7 +64,8 @@ namespace FilebotApi
                     UseLogFile = true,
                     IsNonStrict = true,
                     LogFilePath = Path.GetFullPath("amc.log.txt"),
-                    FilebotBinaries = @"D:\Unsorted\filebot"
+                    FilebotBinaries = @"C:\Program Files\FileBot",
+                    FilebotScriptsDirectory = @"C:\Program Files\FileBot\scripts"
                 };
                 return settings;
             }
@@ -79,6 +80,7 @@ namespace FilebotApi
         public string LogFilePath { get; set; }
         public bool IsNonStrict { get; set; }
         public string FilebotBinaries { get; set; }
+        public string FilebotScriptsDirectory { get; set; }
         public string FilebotExe => Path.Combine(FilebotBinaries, "filebot.exe");
         public string FilebotJar => Path.Combine(FilebotBinaries, "FileBot.jar");
     }
