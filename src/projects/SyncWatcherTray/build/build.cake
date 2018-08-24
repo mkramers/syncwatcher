@@ -1,4 +1,5 @@
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
+#addin nuget:?package=Cake.Git
 #r ".\Extensions\CakeExtensions.dll"
 
 string target = Argument<string>("target", "Default");
@@ -23,14 +24,11 @@ string[] assemblyInfoFiles = System.IO.File.ReadAllLines(ASSEMBLIES_FILE);
 
 string nsiScript = @".\build.nsi";
 
-//used for storing assemblyinfo files in memory throughout the script
-Dictionary<string, MemoryStream> fileMemory = null;
-
 //get version number
 GetVersionNumber(gitVersion, gitBranch, buildNumber, out string shortVersion, out string longVersion);
 
 //////////////////////////////////////////////////////////////////////
-// TASKS	
+// TASKS
 //////////////////////////////////////////////////////////////////////
 
 Task("Restore-NuGet-Packages")
@@ -43,9 +41,14 @@ Task("Restore-NuGet-Packages")
 
 Task("Update-Version")
     .WithCriteria(!isMultiStage)
-	.Does(() =>
-{			
-	//fileMemory = UpdateAssemblyInfoFiles(assemblyInfoFiles, shortVersion, longVersion);
+	.DoesForEach(assemblyInfoFiles, (_assemblyInfoFile) =>
+{
+	CreateAssemblyInfo(_assemblyInfoFile, new AssemblyInfoSettings {
+		Version = shortVersion,
+		FileVersion = shortVersion,
+		InformationalVersion = longVersion,
+		Copyright = string.Format("Copyright (c) mkramers 2017 - {0}", DateTime.Now.Year)
+	});
 });
 
 Task("Inspect")
@@ -57,7 +60,7 @@ Task("Inspect")
 		Information("Skipping inspect...");
 		return;
 	}
-	
+
 	string solutionFile = _solution.Item1;
 	string configuration = _solution.Item2;
 	string platform = _solution.Item3.ToString();
@@ -80,22 +83,22 @@ Task("Inspect")
 Task("Build")
     .WithCriteria(!isMultiStage)
     .DoesForEach(solutions, (_solution) =>
-{	
+{
 	string solutionFile = _solution.Item1;
 	string configuration = _solution.Item2;
 	PlatformTarget platform = _solution.Item3;
 
 	Information($"Solution: {solutionFile} with Configuration: {configuration}");
-	
+
 	MSBuildSettings settings = new MSBuildSettings
 	{
 		Verbosity = Verbosity.Minimal,
 		Configuration = configuration,
-		MaxCpuCount = 0,		
+		MaxCpuCount = 0,
 		PlatformTarget = platform,
 	};
 	settings.WithTarget("Build");
-		
+
     MSBuild(solutionFile, settings);
 });
 
@@ -104,7 +107,7 @@ Task("Build-Installer")
 {
 	//make sure this exists before we start creating artifacts
 	EnsureDirectoryExists(outputDir);
-	
+
 	//our long version will be used in the installer file output, so make it filesystem-safe
 	string cleanLongVersion = ReplaceIllegalChars(longVersion, ".");
 
@@ -118,7 +121,7 @@ Task("Build-Installer")
 		NoConfig = true,
 		Defines = defines,
 	};
-	
+
 	MakeNSIS(nsiScript, nsisSettings);
 });
 
@@ -126,7 +129,8 @@ Task("Restore-Version")
     .WithCriteria(!isMultiStage)
 	.Does(() =>
 {
-	//RestoreAssemblyInfoFiles(fileMemory);
+	var filePaths = assemblyInfoFiles.Select(_assemblyInfoFile => new FilePath(_assemblyInfoFile)).ToArray();
+	GitCheckout(@"..\..\..\..\", filePaths);
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -137,7 +141,7 @@ Task("Default")
     .IsDependentOn("Restore-NuGet-Packages")
     .IsDependentOn("Update-Version")
     .IsDependentOn("Inspect")
-    .IsDependentOn("Build")    
+    .IsDependentOn("Build")
     .IsDependentOn("Build-Installer")
     .IsDependentOn("Restore-Version");
 
