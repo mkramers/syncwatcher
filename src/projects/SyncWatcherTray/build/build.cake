@@ -1,6 +1,6 @@
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
 #addin nuget:?package=Cake.Git
-#r ".\Extensions\CakeExtensions.dll"
+#r "..\..\tools\CakeExtensions\build\Extensions\CakeExtensions.dll"
 
 string target = Argument<string>("target", "Default");
 string outputDir = Argument<string>("output", @".\publish");
