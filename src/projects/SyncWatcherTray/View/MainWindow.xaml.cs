@@ -151,16 +151,22 @@ namespace SyncWatcherTray.View
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
+
             var helper = new WindowInteropHelper(this);
             _source = HwndSource.FromHwnd(helper.Handle);
             _source.AddHook(HwndHook);
+                
             RegisterHotKey();
         }
 
         protected override void OnClosed(EventArgs e)
         {
-            _source.RemoveHook(HwndHook);
-            _source = null;
+            if (_source != null)
+            {
+                _source.RemoveHook(HwndHook);
+                _source = null;
+            }
+
             UnregisterHotKey();
             base.OnClosed(e);
         }

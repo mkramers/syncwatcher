@@ -16,6 +16,7 @@ using MVVM.ViewModel;
 using SyncWatcherTray.Properties;
 using WinScpApi;
 using WinScpApi.ViewModel;
+using Application = System.Windows.Application;
 
 namespace SyncWatcherTray.ViewModel
 {
@@ -40,6 +41,12 @@ namespace SyncWatcherTray.ViewModel
             FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
 
             Filebot filebot = InitializeFilebot();
+
+            if (!ValidateSettings(paths))
+            {
+                Application.Current.Shutdown(1);
+                return;
+            }
 
             CompletedDirectory = new LocalCleanerViewModel(paths, filebot);
             CompletedDirectory.Started += Operation_Started;
@@ -84,6 +91,24 @@ namespace SyncWatcherTray.ViewModel
             FtpManagerViewModel ftpManagerViewModel = new FtpManagerViewModel(manager);
             ftpManagerViewModel.LocalRootChanged += FtpManagerViewModel_LocalRootChanged;
             return ftpManagerViewModel;
+        }
+
+        private bool ValidateSettings(SourceDestinationPaths _paths)
+        {
+            Debug.Assert(_paths != null);
+
+            if (!Directory.Exists(_paths.SourcePath))
+            {
+                MessageBox.Show($"Error: directory {_paths.SourcePath} does not exist.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            else if (!Directory.Exists(_paths.DestinationPath))
+            {
+                MessageBox.Show($"Error: directory {_paths.DestinationPath} does not exist.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            return true;
         }
 
         private void FtpManagerViewModel_LocalRootChanged(object _sender, StringEventArgs _e)
