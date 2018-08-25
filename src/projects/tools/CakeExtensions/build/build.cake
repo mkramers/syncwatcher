@@ -127,8 +127,8 @@ Task("Default")
     .IsDependentOn("Update-Version")
     .IsDependentOn("Inspect")
     .IsDependentOn("Build")
-    .IsDependentOn("Publish");
-    //.IsDependentOn("Restore-Version");
+    .IsDependentOn("Publish")
+    .IsDependentOn("Restore-Version");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
