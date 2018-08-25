@@ -331,3 +331,4 @@ ASALocalRun/
 src/build/tools/
 src/projects/SyncWatcherTray/build/tools/
 /src/external/packages
+src/projects/tools/CakeExtensions/build/tools/

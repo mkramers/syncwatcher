@@ -5,7 +5,8 @@
 //------------------------------------------------------------------------------
 using System.Reflection;
 
-[assembly: AssemblyVersion("1.0.0")]
-[assembly: AssemblyFileVersion("1.0.0")]
-[assembly: AssemblyInformationalVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.1.0.666")]
+[assembly: AssemblyFileVersion("0.1.0.666")]
+[assembly: AssemblyInformationalVersion("0.1.0.666.62-g2a55586-dirty!-feature/cleanup")]
+[assembly: AssemblyCopyright("Copyright (c) mkramers 2017 - 2018")]
 
