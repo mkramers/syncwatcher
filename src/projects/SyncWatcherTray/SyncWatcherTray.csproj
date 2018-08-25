@@ -157,7 +157,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Resource Include="build\assemblies.txt" />
-    <Content Include="build\Extensions\CakeExtensions.dll" />
     <Resource Include="coffeeGreenBusy.ico" />
     <Content Include="WinSCP.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

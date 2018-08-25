@@ -1,28 +1,26 @@
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
 #addin nuget:?package=Cake.Git
-#r "..\..\tools\CakeExtensions\build\Extensions\CakeExtensions.dll"
+#r ".\Extensions\CakeExtensions.dll"
 
 string target = Argument<string>("target", "Default");
 string outputDir = Argument<string>("output", @".\publish");
-bool isQuickMode = Argument<bool>("quick", true);
 string buildNumber = Argument<string>("buildNumber", "666");
 string gitVersion = Argument<string>("gitVersion", "v1.1-80-gdb791cd"); //may be db791cd if no tags present
 string gitBranch = Argument<string>("gitBranch", "develop");
-bool isMultiStage = Argument<bool>("multistage", false);
-string buildConfiguration = Argument<string>("buildconfig", "Release");
+string buildConfiguration = Argument<string>("buildconfig", "CakeExtensionsRelease");
+
+PlatformTarget platformTarget = PlatformTarget.MSIL;
 
 //make outputdir absolute
 outputDir = System.IO.Path.GetFullPath(outputDir);
 
-List<(string, string, PlatformTarget)> solutions = new List<(string, string, PlatformTarget)>
+List<(string, string)> solutions = new List<(string, string)>
 {
-	(@"..\..\..\solutions\Projects.sln", buildConfiguration, PlatformTarget.x64),
+	(@"..\..\..\..\solutions\Projects.sln", buildConfiguration),
 };
 
 const string ASSEMBLIES_FILE = "assemblies.txt";
 string[] assemblyInfoFiles = System.IO.File.ReadAllLines(ASSEMBLIES_FILE);
-
-string nsiScript = @".\build.nsi";
 
 //get version number
 GetVersionNumber(gitVersion, gitBranch, buildNumber, out string shortVersion, out string longVersion);
@@ -32,7 +30,6 @@ GetVersionNumber(gitVersion, gitBranch, buildNumber, out string shortVersion, ou
 //////////////////////////////////////////////////////////////////////
 
 Task("Restore-NuGet-Packages")
-    .WithCriteria(!isMultiStage)
     .DoesForEach(solutions, (_solution) =>
 {
 	string solutionFile = _solution.Item1;
@@ -40,9 +37,9 @@ Task("Restore-NuGet-Packages")
 });
 
 Task("Update-Version")
-    .WithCriteria(!isMultiStage)
 	.DoesForEach(assemblyInfoFiles, (_assemblyInfoFile) =>
 {
+	Information($"Updating {_assemblyInfoFile} to v{shortVersion} ({longVersion})");
 	CreateAssemblyInfo(_assemblyInfoFile, new AssemblyInfoSettings {
 		Version = shortVersion,
 		FileVersion = shortVersion,
@@ -52,25 +49,20 @@ Task("Update-Version")
 });
 
 Task("Inspect")
-    .WithCriteria(!isMultiStage)
     .DoesForEach(solutions, (_solution) =>
 {
-	if (isQuickMode)
-	{
-		Information("Skipping inspect...");
-		return;
-	}
-
+	//temp skip
+	return;
+	
 	string solutionFile = _solution.Item1;
 	string configuration = _solution.Item2;
-	string platform = _solution.Item3.ToString();
 	string shortname= System.IO.Path.GetFileNameWithoutExtension(solutionFile);
 
-	Information($"Inspecting sln: {solutionFile} configuration: {configuration} platform= {platform}");
+	Information($"Inspecting sln: {solutionFile} configuration: {configuration} platform= {platformTarget}");
 
 	Dictionary<string, string> msBuildProperties = new Dictionary<string, string>();
 	msBuildProperties.Add("configuration", configuration);
-	msBuildProperties.Add("platform", platform);
+	msBuildProperties.Add("platform", platformTarget.ToString());
 
 	InspectCode(solutionFile, new InspectCodeSettings {
 		SolutionWideAnalysis = true,
@@ -81,12 +73,10 @@ Task("Inspect")
 });
 
 Task("Build")
-    .WithCriteria(!isMultiStage)
     .DoesForEach(solutions, (_solution) =>
 {
 	string solutionFile = _solution.Item1;
 	string configuration = _solution.Item2;
-	PlatformTarget platform = _solution.Item3;
 
 	Information($"Solution: {solutionFile} with Configuration: {configuration}");
 
@@ -95,42 +85,37 @@ Task("Build")
 		Verbosity = Verbosity.Minimal,
 		Configuration = configuration,
 		MaxCpuCount = 0,
-		PlatformTarget = platform,
+		PlatformTarget = platformTarget,
 	};
-	settings.WithTarget("Build");
+	settings.WithTarget("Clean,Rebuild");
 
     MSBuild(solutionFile, settings);
 });
 
-Task("Build-Installer")
-    .Does(() =>
+Task("Publish")
+	.Does(() =>
 {
-	//make sure this exists before we start creating artifacts
+	//hardcoded for any cpu Release!
+	
+	const string cakeExtensionsFileName = "CakeExtensions.dll";
+	
+	string inputFilePath = System.IO.Path.Combine(@"..\bin\Release", cakeExtensionsFileName);
+	
+	string outputFilePath = System.IO.Path.Combine(outputDir, cakeExtensionsFileName);
+	
+	Information($"Copying {inputFilePath} to {outputFilePath}...");
+	
 	EnsureDirectoryExists(outputDir);
-
-	//our long version will be used in the installer file output, so make it filesystem-safe
-	string cleanLongVersion = ReplaceIllegalChars(longVersion, ".");
-
-	Dictionary<string, string> defines = new Dictionary<string, string>();
-	defines.Add("PUBLISH_DIR", outputDir);
-	defines.Add("SHORTVERSION", shortVersion);
-	defines.Add("LONGVERSION", cleanLongVersion);
-
-	MakeNSISSettings nsisSettings = new MakeNSISSettings
-	{
-		NoConfig = true,
-		Defines = defines,
-	};
-
-	MakeNSIS(nsiScript, nsisSettings);
+	
+	CopyFile(inputFilePath, outputFilePath);
 });
 
+
 Task("Restore-Version")
-    .WithCriteria(!isMultiStage)
 	.Does(() =>
 {
 	var filePaths = assemblyInfoFiles.Select(_assemblyInfoFile => new FilePath(_assemblyInfoFile)).ToArray();
-	GitCheckout(@"..\..\..\..\", filePaths);
+	GitCheckout(@"..\..\..\..\..\", filePaths);
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -142,7 +127,7 @@ Task("Default")
     .IsDependentOn("Update-Version")
     .IsDependentOn("Inspect")
     .IsDependentOn("Build")
-    .IsDependentOn("Build-Installer")
+    .IsDependentOn("Publish")
     .IsDependentOn("Restore-Version");
 
 //////////////////////////////////////////////////////////////////////
