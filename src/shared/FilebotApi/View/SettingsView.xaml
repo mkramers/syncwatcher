@@ -29,12 +29,6 @@
                            ShowHorizontalScrollBar="False"
                            SelectedObject="{Binding Settings}">
 
-            <!-- Only the following properties will be displayed in the PropertyGrid --><!--
-            <xctk:PropertyGrid.PropertyDefinitions>
-                <xctk:PropertyDefinition TargetProperties="FirstName" />
-                <xctk:PropertyDefinition TargetProperties="FavoriteColor" />
-                <xctk:PropertyDefinition TargetProperties="PetNames" />
-            </xctk:PropertyGrid.PropertyDefinitions>-->
         </xctk:PropertyGrid>
     </Grid>
 </UserControl>
