@@ -10,6 +10,7 @@
              xmlns:sftp="clr-namespace:Common.SFTP;assembly=WinScpApi"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:properties="clr-namespace:SyncWatcherTray.Properties"
+             xmlns:view3="clr-namespace:SyncWatcherTray.View"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance viewModel:MainViewModel}">
@@ -23,25 +24,7 @@
 
         <TabControl TabStripPlacement="Left">
             <TabItem Header="Application">
-                <xctk:PropertyGrid 
-d:DataContext="{d:DesignInstance properties:Settings}"                    PropertyValueChanged="PropertyGrid_OnPropertyValueChanged"
-                                   IsCategorized="False"
-                                   ShowAdvancedOptions="False"
-                                   ShowSummary="False"
-                                   ShowSearchBox="False"
-                                   ShowTitle="True"
-                                   IsReadOnly="False"
-                                   IsVirtualizing="False"
-                                   UpdateTextBoxSourceOnEnterKey="True"
-                                   IsMiscCategoryLabelHidden="False"
-                                   ShowPreview="False"
-                                   ShowSortOptions="False"
-                                   HideInheritedProperties="True"
-                                   AutoGenerateProperties="True"
-                                   ShowHorizontalScrollBar="False"
-                                   SelectedObject="{Binding Source={StaticResource ApplicationSettings}}">
-
-                </xctk:PropertyGrid>
+                <view3:ApplicationSettingsView DataContext="{Binding Source={StaticResource ApplicationSettings}}"/>
             </TabItem>
             <TabItem Header="FTP">
                 <view:SettingsView DataContext="{Binding Source={StaticResource SessionConfig}}"/>

@@ -1,17 +1,17 @@
 ﻿using System.Diagnostics;
 using System.Windows.Controls;
+using Common.SFTP;
 using SyncWatcherTray.Properties;
-using SyncWatcherTray.ViewModel;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace SyncWatcherTray.View
 {
     /// <summary>
-    /// Interaction logic for SettingsView.xaml
+    /// Interaction logic for ApplicationSettingsView.xaml
     /// </summary>
-    public partial class SettingsView : UserControl
+    public partial class ApplicationSettingsView : UserControl
     {
-        public SettingsView()
+        public ApplicationSettingsView()
         {
             InitializeComponent();
         }

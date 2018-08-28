@@ -133,6 +133,9 @@
     <Compile Include="ViewModel\LocalCleanerViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\TaskBarIconViewModel.cs" />
+    <Compile Include="View\ApplicationSettingsView.xaml.cs" >
+      <DependentUpon>ApplicationSettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LocalCleanerView.xaml.cs">
       <DependentUpon>LocalCleanerView.xaml</DependentUpon>
     </Compile>
@@ -142,6 +145,10 @@
     <Compile Include="View\SyncWatcherSettingsView.xaml.cs">
       <DependentUpon>SyncWatcherSettingsView.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\ApplicationSettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\LocalCleanerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
