@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Xml;
 using Common;
+using Newtonsoft.Json;
 
 namespace FilebotApi
 {
@@ -17,6 +18,7 @@ namespace FilebotApi
             try
             {
                 _settings = Utilities.XmlDeserializeObject<FilebotSettings>(_fileName);
+                _settings.SettingsFilePath = _fileName;
             }
             catch (Exception e)
             {
@@ -41,6 +43,11 @@ namespace FilebotApi
                 var message = $"Filebot settings failed to save to {Path.GetFullPath(_fileName)}";
                 throw new XmlException(message, e);
             }
+        }
+
+        public void Save()
+        {
+            Save(this, SettingsFilePath);
         }
 
         public static void CreateDefaultSettingsFile(string _fileName)
@@ -81,6 +88,9 @@ namespace FilebotApi
         public bool IsNonStrict { get; set; }
         public string FilebotBinaries { get; set; }
         public string FilebotScriptsDirectory { get; set; }
+
+        [JsonIgnore]
+        public string SettingsFilePath { get;  set; }
         public string FilebotExe => Path.Combine(FilebotBinaries, "filebot.exe");
         public string FilebotJar => Path.Combine(FilebotBinaries, "FileBot.jar");
     }

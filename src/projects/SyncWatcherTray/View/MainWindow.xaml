@@ -68,6 +68,10 @@
                     <mvvmview:LogView />
                 </TabItem>
 
+                <TabItem Header="Settings">
+                    <filebot:SettingsView DataContext="{Binding CompletedDirectory.Filebot}"/>
+                </TabItem>
+
             </controls:TabControlEx>
         </Grid>
 

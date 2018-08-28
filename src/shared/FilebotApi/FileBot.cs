@@ -23,6 +23,11 @@ namespace FilebotApi
             Records = _records;
         }
         
+        public void SaveSettings()
+        {
+            Settings.Save();
+        }
+
         public void Organize(string _inputDir, string _outputDir)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputDir));
