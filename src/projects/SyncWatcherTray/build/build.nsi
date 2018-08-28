@@ -38,6 +38,7 @@ Section
 	File "${BIN}\WinSCP.exe"
 	File "${BIN}\WinScpApi.dll"
 	File "${BIN}\WinSCPnet.dll"
+	File "${BIN}\Xceed.Wpf.Toolkit.dll"
 	
     SetOutPath "$INSTDIR\Config"
 	File /r "${BIN}\Config\*.*"
@@ -81,6 +82,7 @@ Section "uninstall"
 	Delete "$INSTDIR\WinSCP.exe"
 	Delete "$INSTDIR\WinScpApi.dll"
 	Delete "$INSTDIR\WinSCPnet.dll"
+	Delete "$INSTDIR\Xceed.Wpf.Toolkit.dll"
 		
 	RMDir $INSTDIR
 	  
