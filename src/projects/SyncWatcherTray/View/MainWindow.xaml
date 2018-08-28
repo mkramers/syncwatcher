@@ -25,10 +25,6 @@
     Background="#dfdfdfdf"
     mc:Ignorable="d">
 
-    <Window.Resources>
-        <properties:Settings x:Key="Settings"/>
-    </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -70,18 +66,7 @@
                 </TabItem>
 
                 <TabItem Header="Settings">
-                    <TabControl TabStripPlacement="Left">
-                        <TabItem Header="FTP">
-                            <winscp:SettingsView DataContext="{Binding Source={StaticResource Settings}, Path=FtpSessionConfig}"/>
-                        </TabItem>
-                        <TabItem Header="Filebot">
-                            <filebot:SettingsView DataContext="{Binding CompletedDirectory.Filebot}"/>
-                        </TabItem>
-                        <TabItem Header="Log">
-                            <mvvmview:LogView />
-                        </TabItem>
-                    </TabControl>
-
+                    <view:SettingsView DataContext="{Binding}"/>
                 </TabItem>
 
             </controls:TabControlEx>
