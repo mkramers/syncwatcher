@@ -97,16 +97,10 @@
     <Compile Include="FileObjectState.cs" />
     <Compile Include="FtpClient.cs" />
     <Compile Include="FtpManager.cs" />
-    <Compile Include="FtpSessionConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\SessionConfig.cs" />
     <Compile Include="Properties\SessionConfig.Designer.cs">
       <DependentUpon>SessionConfig.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\SessionConfig1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>SessionConfig.settings</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\FtpDirectoryViewModel.cs" />
     <Compile Include="ViewModel\FtpFilesystemItemViewModel.cs" />

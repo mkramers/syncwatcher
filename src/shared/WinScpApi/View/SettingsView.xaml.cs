@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WinScpApi.Properties;
+using Common.SFTP;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace WinScpApi.View
@@ -31,7 +31,10 @@ namespace WinScpApi.View
 
         private void PropertyGrid_OnPropertyValueChanged(object _sender, PropertyValueChangedEventArgs _e)
         {
-            SessionConfig.Default.Save();
+            SessionConfig sessionConfig = DataContext as SessionConfig;
+            Debug.Assert(sessionConfig != null);
+
+            sessionConfig.Save();
         }
     }
 }

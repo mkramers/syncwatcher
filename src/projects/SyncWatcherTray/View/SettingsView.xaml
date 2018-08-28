@@ -7,19 +7,23 @@
              xmlns:view1="clr-namespace:FilebotApi.View;assembly=FilebotApi"
              xmlns:view2="clr-namespace:MVVM.View;assembly=MVVM"
              xmlns:viewModel="clr-namespace:SyncWatcherTray.ViewModel"
-             xmlns:properties="clr-namespace:SyncWatcherTray.Properties"
+             xmlns:sftp="clr-namespace:Common.SFTP;assembly=WinScpApi"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance viewModel:MainViewModel}">
 
     <UserControl.Resources>
-        <properties:Settings x:Key="Settings"/>
+        <sftp:SessionConfig x:Key="SessionConfig"/>
     </UserControl.Resources>
 
     <Grid>
+
         <TabControl TabStripPlacement="Left">
+            <!--<TabItem Header="Application">
+                <view:SettingsView DataContext="{Binding Source={StaticResource Settings}}"/>
+            </TabItem>-->
             <TabItem Header="FTP">
-                <view:SettingsView DataContext="{Binding Source={StaticResource Settings}, Path=FtpSessionConfig}"/>
+                <view:SettingsView DataContext="{Binding Source={StaticResource SessionConfig}}"/>
             </TabItem>
             <TabItem Header="Filebot">
                 <view1:SettingsView DataContext="{Binding CompletedDirectory.Filebot}"/>

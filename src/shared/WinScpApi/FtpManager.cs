@@ -21,7 +21,7 @@ namespace WinScpApi
 {
     public class FtpManager : ViewModelBase
     {
-        private readonly FtpSessionConfig m_config;
+        private readonly SessionConfig m_config;
         private FtpDirectoryViewModel m_remoteRootViewModel;
 
         public FileHistory Cache { get; }
@@ -45,14 +45,14 @@ namespace WinScpApi
 
         private static ILog Log { get; } = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public FtpManager(FtpSessionConfig _sessionConfig, List<string> _localRoots)
+        public FtpManager(SessionConfig _sessionConfig, List<string> _localRoots)
         {
             Debug.Assert(_sessionConfig != null);
             Debug.Assert(_localRoots != null);
 
             m_config = _sessionConfig;
 
-            List<string> remoteRoots = _sessionConfig.RemoteRoots.ToList();
+            List<string> remoteRoots = _sessionConfig.RemoteRoots.Cast<string>().ToList();
             Debug.Assert(remoteRoots.Any()); //must contain roots!
             string remoteRoot = remoteRoots.First();
 

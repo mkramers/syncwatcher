@@ -78,7 +78,7 @@ namespace SyncWatcherTray.ViewModel
         {
             Settings defaultSettings = Settings.Default;
 
-            defaultSettings.FtpSessionConfig = defaultSettings.FtpSessionConfig ?? FtpSessionConfig.Default;
+            defaultSettings.FtpSessionConfig = defaultSettings.FtpSessionConfig ?? SessionConfig.Default;
             defaultSettings.Save();
 
             FtpManager manager = new FtpManager(defaultSettings.FtpSessionConfig, new List<string>

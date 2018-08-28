@@ -49,9 +49,9 @@ namespace SyncWatcherTray.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::Common.SFTP.FtpSessionConfig FtpSessionConfig {
+        public global::Common.SFTP.SessionConfig FtpSessionConfig {
             get {
-                return ((global::Common.SFTP.FtpSessionConfig)(this["FtpSessionConfig"]));
+                return ((global::Common.SFTP.SessionConfig)(this["FtpSessionConfig"]));
             }
             set {
                 this["FtpSessionConfig"] = value;

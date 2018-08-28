@@ -212,7 +212,7 @@ namespace Common.SFTP
         }
 
         public bool DownloadFiles(List<FileObject> _files, string _destinationRoot, string _remoteRoot,
-            FtpSessionConfig _sessionConfig)
+            SessionConfig _sessionConfig)
         {
             Debug.Assert(_files != null);
             Debug.Assert(!string.IsNullOrWhiteSpace(_destinationRoot));
