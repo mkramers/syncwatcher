@@ -13,6 +13,7 @@
     xmlns:viewModel="clr-namespace:SyncWatcherTray.ViewModel"
     xmlns:winscp="clr-namespace:WinScpApi.View;assembly=WinScpApi"
     xmlns:view="clr-namespace:SyncWatcherTray.View"
+    xmlns:properties="clr-namespace:SyncWatcherTray.Properties"
     Title="MainWindow"
     Width="800"
     Height="650"
@@ -23,6 +24,10 @@
     WindowStyle="None"
     Background="#dfdfdfdf"
     mc:Ignorable="d">
+
+    <Window.Resources>
+        <properties:Settings x:Key="Settings"/>
+    </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -64,12 +69,19 @@
                     <mvvmview:DirectoryView DataContext="{Binding Directories[1]}" />
                 </TabItem>
 
-                <TabItem Header="Log">
-                    <mvvmview:LogView />
-                </TabItem>
-
                 <TabItem Header="Settings">
-                    <filebot:SettingsView DataContext="{Binding CompletedDirectory.Filebot}"/>
+                    <TabControl TabStripPlacement="Left">
+                        <TabItem Header="FTP">
+                            <winscp:SettingsView DataContext="{Binding Source={StaticResource Settings}, Path=FtpSessionConfig}"/>
+                        </TabItem>
+                        <TabItem Header="Filebot">
+                            <filebot:SettingsView DataContext="{Binding CompletedDirectory.Filebot}"/>
+                        </TabItem>
+                        <TabItem Header="Log">
+                            <mvvmview:LogView />
+                        </TabItem>
+                    </TabControl>
+
                 </TabItem>
 
             </controls:TabControlEx>
