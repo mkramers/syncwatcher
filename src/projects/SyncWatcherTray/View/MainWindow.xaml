@@ -13,6 +13,7 @@
     xmlns:viewModel="clr-namespace:SyncWatcherTray.ViewModel"
     xmlns:winscp="clr-namespace:WinScpApi.View;assembly=WinScpApi"
     xmlns:view="clr-namespace:SyncWatcherTray.View"
+    xmlns:properties="clr-namespace:SyncWatcherTray.Properties"
     Title="MainWindow"
     Width="800"
     Height="650"
@@ -64,8 +65,8 @@
                     <mvvmview:DirectoryView DataContext="{Binding Directories[1]}" />
                 </TabItem>
 
-                <TabItem Header="Log">
-                    <mvvmview:LogView />
+                <TabItem Header="Settings">
+                    <view:SettingsView DataContext="{Binding}"/>
                 </TabItem>
 
             </controls:TabControlEx>
