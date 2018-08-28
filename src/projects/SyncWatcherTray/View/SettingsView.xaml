@@ -8,20 +8,41 @@
              xmlns:view2="clr-namespace:MVVM.View;assembly=MVVM"
              xmlns:viewModel="clr-namespace:SyncWatcherTray.ViewModel"
              xmlns:sftp="clr-namespace:Common.SFTP;assembly=WinScpApi"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:properties="clr-namespace:SyncWatcherTray.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance viewModel:MainViewModel}">
 
     <UserControl.Resources>
+        <properties:Settings x:Key="ApplicationSettings"/>
         <sftp:SessionConfig x:Key="SessionConfig"/>
     </UserControl.Resources>
 
     <Grid>
 
         <TabControl TabStripPlacement="Left">
-            <!--<TabItem Header="Application">
-                <view:SettingsView DataContext="{Binding Source={StaticResource Settings}}"/>
-            </TabItem>-->
+            <TabItem Header="Application">
+                <xctk:PropertyGrid 
+d:DataContext="{d:DesignInstance properties:Settings}"                    PropertyValueChanged="PropertyGrid_OnPropertyValueChanged"
+                                   IsCategorized="False"
+                                   ShowAdvancedOptions="False"
+                                   ShowSummary="False"
+                                   ShowSearchBox="False"
+                                   ShowTitle="True"
+                                   IsReadOnly="False"
+                                   IsVirtualizing="False"
+                                   UpdateTextBoxSourceOnEnterKey="True"
+                                   IsMiscCategoryLabelHidden="False"
+                                   ShowPreview="False"
+                                   ShowSortOptions="False"
+                                   HideInheritedProperties="True"
+                                   AutoGenerateProperties="True"
+                                   ShowHorizontalScrollBar="False"
+                                   SelectedObject="{Binding Source={StaticResource ApplicationSettings}}">
+
+                </xctk:PropertyGrid>
+            </TabItem>
             <TabItem Header="FTP">
                 <view:SettingsView DataContext="{Binding Source={StaticResource SessionConfig}}"/>
             </TabItem>
