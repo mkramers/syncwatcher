@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FilebotApi.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Action" Type="FilebotApi.Filebot.ActionType" Scope="User">
+      <Value Profile="(Default)">MOVE</Value>
+    </Setting>
+    <Setting Name="Clean" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DeleteAfterExtract" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="UseExcludeList" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ExcludeListPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\filebotexcludes.txt</Value>
+    </Setting>
+    <Setting Name="UseLogFile" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="LogFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\filebotlog.txt</Value>
+    </Setting>
+    <Setting Name="IsNonStrict" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FilebotBinaries" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Program Files\FileBot</Value>
+    </Setting>
+    <Setting Name="FilebotScriptsDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Program Files\FileBot\scripts</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

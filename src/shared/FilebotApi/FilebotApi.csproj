@@ -95,16 +95,20 @@
     <Compile Include="Filebot.ActionType.cs" />
     <Compile Include="FileBot.cs" />
     <Compile Include="FileBotOrganizeEventArgs.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Result\OrganizeResult.cs" />
     <Compile Include="FileBotLogParser.cs" />
     <Compile Include="FilebotLog.cs" />
     <Compile Include="Result\FileBotResult.cs" />
-    <Compile Include="FilebotSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result\FilebotFileResult.cs" />
     <Compile Include="Result\RenameResult.cs" />
     <Compile Include="Result\SkipResult.cs" />
-    <Compile Include="FilebotHelpers.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="View\FilebotSkippedView.xaml.cs">
       <DependentUpon>FilebotSkippedView.xaml</DependentUpon>
     </Compile>
@@ -126,7 +130,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\FilebotSkippedView.xaml">

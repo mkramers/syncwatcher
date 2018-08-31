@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Common.Logging;
+using FilebotApi.Properties;
 using FilebotApi.Result;
 using GalaSoft.MvvmLight;
 
@@ -11,23 +12,19 @@ namespace FilebotApi
 {
     public partial class Filebot : ViewModelBase
     {
-        public FilebotSettings Settings { get; }
+        private readonly Settings m_settings;
+
         public FilebotLog Log { get; }
         
-        public Filebot(FilebotSettings _settings, FilebotLog _log)
+        public Filebot(Settings _settings, FilebotLog _log)
         {
             Debug.Assert(_settings != null);
             Debug.Assert(_log != null);
 
-            Settings = _settings;
+            m_settings = _settings;
             Log = _log;
         }
         
-        public void SaveSettings()
-        {
-            Settings.Save();
-        }
-
         public void Organize(string _inputDir, string _outputDir)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputDir));
@@ -38,7 +35,7 @@ namespace FilebotApi
 
             try
             {
-                FilebotSettings settings = Settings;
+                Settings settings = m_settings;
                 ProcessStartInfo startInfo = GetFileBotProcessInfo(_inputDir, _outputDir, settings);
 
                 using (Process exeProcess = Process.Start(startInfo))
@@ -85,7 +82,7 @@ namespace FilebotApi
             Common.Logging.Log.Write(LogLevel.Info, message);
         }
 
-        private static string GetArguments(string _inputPath, string _outputPath, FilebotSettings _settings)
+        private static string GetArguments(string _inputPath, string _outputPath, Settings _settings)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputPath));
             Debug.Assert(!string.IsNullOrWhiteSpace(_outputPath));
@@ -128,7 +125,7 @@ namespace FilebotApi
             return argument.ToString();
         }
 
-        private static ProcessStartInfo GetFileBotProcessInfo(string _inputDir, string _outputDir, FilebotSettings _settings)
+        private static ProcessStartInfo GetFileBotProcessInfo(string _inputDir, string _outputDir, Settings _settings)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputDir));
             Debug.Assert(!string.IsNullOrWhiteSpace(_outputDir));

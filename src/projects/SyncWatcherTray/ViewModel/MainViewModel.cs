@@ -51,6 +51,9 @@ namespace SyncWatcherTray.ViewModel
             string appDataRoot = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string appDataDirectory = Path.Combine(appDataRoot, "SyncWatcherTray");
 
+            //create app data dir
+            Directory.CreateDirectory(appDataDirectory);
+
             CompletedDirectory = new LocalCleanerViewModel(paths, appDataDirectory);
             CompletedDirectory.Started += Operation_Started;
             CompletedDirectory.Stopped += OperationStopped;

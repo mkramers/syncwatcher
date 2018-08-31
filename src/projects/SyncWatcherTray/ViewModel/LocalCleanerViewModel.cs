@@ -13,6 +13,7 @@ using GalaSoft.MvvmLight;
 using MVVM.ViewModel;
 using PlexTools;
 using SyncWatcherTray.Properties;
+using FilebotSettings = FilebotApi.Properties.Settings;
 
 namespace SyncWatcherTray.ViewModel
 {
@@ -119,7 +120,12 @@ namespace SyncWatcherTray.ViewModel
             DirectoryViewModel = new DirectoryViewModel(inputDir, "Complete");
             OutputDirectory = outputDir;
 
-            Filebot = FilebotHelpers.InitializeFilebot(_appDataDirectory);
+            FilebotSettings settings = FilebotSettings.Default;
+
+            string logPath = Path.Combine(_appDataDirectory, "amclog.txt");
+            FilebotLog log = new FilebotLog(logPath);
+
+            Filebot = new Filebot(settings, log);
 
             SyncthingWatcher = new SyncthingWatcher(inputDir);
             SyncthingWatcher.WatchEvent += SyncthingWatcher_OnChanged;

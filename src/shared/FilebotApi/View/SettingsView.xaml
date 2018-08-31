@@ -4,11 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:filebotApi="clr-namespace:FilebotApi"
+             xmlns:properties="clr-namespace:FilebotApi.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance filebotApi:Filebot}">
-
+             d:DataContext="{d:DesignInstance properties:Settings}">
 
     <Grid>
 
@@ -27,7 +26,7 @@
                            HideInheritedProperties="True"
                            AutoGenerateProperties="True"
                            ShowHorizontalScrollBar="False"
-                           SelectedObject="{Binding Settings}">
+                           SelectedObject="{Binding}">
 
         </xctk:PropertyGrid>
     </Grid>
