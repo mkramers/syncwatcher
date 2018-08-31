@@ -13,7 +13,7 @@ namespace FilebotApi
 {
     public static class FilebotHelpers
     {
-        public static Filebot CreateFilebot(string _appDataDirectory)
+        public static Filebot InitializeFilebot(string _appDataDirectory)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_appDataDirectory));
 
@@ -23,12 +23,10 @@ namespace FilebotApi
             }
 
             string settingsPath = Path.Combine(_appDataDirectory, "settings.xml");
-            string recordsPath = Path.Combine(_appDataDirectory, "amclog.txt");
-
-            FilebotRecords records = new FilebotRecords(recordsPath);
-
             FilebotSettings settings = LoadSettingsSafely(settingsPath);
-            Debug.Assert(settings != null);
+
+            string recordsPath = Path.Combine(_appDataDirectory, "amclog.txt");
+            FilebotRecords records = new FilebotRecords(recordsPath);
 
             Filebot filebot = new Filebot(settings, records);
             return filebot;
@@ -36,18 +34,20 @@ namespace FilebotApi
 
         private static FilebotSettings LoadSettingsSafely(string _settingsPath)
         {
-            FilebotSettings settings = null;
+            FilebotSettings settings;
 
             try
             {
                 settings = FilebotSettings.Load(_settingsPath);
             }
-            catch (FileLoadException)
+            catch (IOException)
             {
                 //if we fail to load, try saving the default and retrying
                 try
                 {
                     FilebotSettings.Save(FilebotSettings.Default, _settingsPath);
+
+                    settings = FilebotSettings.Load(_settingsPath);
                 }
                 catch (IOException)
                 {
@@ -55,6 +55,7 @@ namespace FilebotApi
                     settings = FilebotSettings.Default;
                 }
             }
+
             return settings;
         }
     }

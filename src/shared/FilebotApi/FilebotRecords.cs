@@ -33,41 +33,6 @@ namespace FilebotApi
             Reload();
         }
 
-        public static bool TryLoad(string _fileName, out FilebotRecords _records)
-        {
-            Debug.Assert(!String.IsNullOrWhiteSpace(_fileName));
-
-            _records = null;
-
-            try
-            {
-                _records = Utilities.XmlDeserializeObject<FilebotRecords>(_fileName);
-            }
-            catch (Exception)
-            {
-                string message = $"Filebot records failed to load from {Path.GetFullPath(_fileName)}";
-                Console.WriteLine(message);
-            }
-
-            return _records != null;
-        }
-
-        public static void Save(FilebotRecords _records, string _path)
-        {
-            Debug.Assert(_records != null);
-            Debug.Assert(!String.IsNullOrWhiteSpace(_path));
-
-            try
-            {
-                Utilities.XmlSerializeObject(_records, _path);
-            }
-            catch (Exception e)
-            {
-                string message = $"Filebot records failed to save to {Path.GetFullPath(_path)}";
-                throw new XmlException(message, e);
-            }
-        }
-
         public void Reload()
         {
             string recordsPath = RecordsFilePath;
