@@ -22,10 +22,12 @@ namespace FilebotApi.View
 
         private void OnDataContextChanged(object _sender, DependencyPropertyChangedEventArgs _e)
         {
-            if (_e.OldValue is FilebotRecords oldRecords)
+            if (_e.OldValue is FilebotLog oldRecords)
+            {
                 oldRecords.Updated -= OnRecordsUpdated;
+            }
 
-            if (_e.NewValue is FilebotRecords records)
+            if (_e.NewValue is FilebotLog records)
             {
                 records.Updated += OnRecordsUpdated;
 
