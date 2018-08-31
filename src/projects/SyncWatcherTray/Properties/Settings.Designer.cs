@@ -26,53 +26,6 @@ namespace SyncWatcherTray.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FilebotRecordsFileName {
-            get {
-                return ((string)(this["FilebotRecordsFileName"]));
-            }
-            set {
-                this["FilebotRecordsFileName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FilebotSettingsFilename {
-            get {
-                return ((string)(this["FilebotSettingsFilename"]));
-            }
-            set {
-                this["FilebotSettingsFilename"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::Common.SFTP.SessionConfig FtpSessionConfig {
-            get {
-                return ((global::Common.SFTP.SessionConfig)(this["FtpSessionConfig"]));
-            }
-            set {
-                this["FtpSessionConfig"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Setting {
-            get {
-                return ((string)(this["Setting"]));
-            }
-            set {
-                this["Setting"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string LastRemotePath {
             get {
                 return ((string)(this["LastRemotePath"]));

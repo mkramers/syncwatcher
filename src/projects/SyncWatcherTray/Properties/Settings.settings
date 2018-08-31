@@ -2,18 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SyncWatcherTray.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="FilebotRecordsFileName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="FilebotSettingsFilename" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="FtpSessionConfig" Type="Common.SFTP.FtpSessionConfig" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="Setting" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="LastRemotePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
