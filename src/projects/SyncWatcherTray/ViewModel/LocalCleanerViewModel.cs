@@ -105,21 +105,21 @@ namespace SyncWatcherTray.ViewModel
             Debug.Assert(IsInDesignMode);
         }
 
-        public LocalCleanerViewModel(SourceDestinationPaths _paths, Filebot _filebot)
+        public LocalCleanerViewModel(SourceDestinationPaths _paths, string _appDataDirectory)
         {
             Debug.Assert(_paths != null);
+            Debug.Assert(!string.IsNullOrWhiteSpace(_appDataDirectory));
 
             string inputDir = _paths.SourcePath;
             string outputDir = _paths.DestinationPath;
 
             Debug.Assert(!string.IsNullOrWhiteSpace(inputDir));
             Debug.Assert(!string.IsNullOrWhiteSpace(outputDir));
-            Debug.Assert(_filebot != null);
 
             DirectoryViewModel = new DirectoryViewModel(inputDir, "Complete");
             OutputDirectory = outputDir;
 
-            Filebot = _filebot;
+            Filebot = FilebotHelpers.InitializeFilebot(_appDataDirectory);
 
             SyncthingWatcher = new SyncthingWatcher(inputDir);
             SyncthingWatcher.WatchEvent += SyncthingWatcher_OnChanged;

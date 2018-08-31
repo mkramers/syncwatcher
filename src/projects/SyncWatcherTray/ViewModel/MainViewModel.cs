@@ -48,10 +48,8 @@ namespace SyncWatcherTray.ViewModel
             }
 
             FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
-
-            Filebot filebot = FilebotHelpers.InitializeFilebot(appDataDirectory);
-
-            CompletedDirectory = new LocalCleanerViewModel(paths, filebot);
+            
+            CompletedDirectory = new LocalCleanerViewModel(paths, appDataDirectory);
             CompletedDirectory.Started += Operation_Started;
             CompletedDirectory.Stopped += OperationStopped;
 
