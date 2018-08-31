@@ -25,10 +25,10 @@ namespace FilebotApi
             string settingsPath = Path.Combine(_appDataDirectory, "settings.xml");
             FilebotSettings settings = LoadSettingsSafely(settingsPath);
 
-            string recordsPath = Path.Combine(_appDataDirectory, "amclog.txt");
-            FilebotRecords records = new FilebotRecords(recordsPath);
+            string logPath = Path.Combine(_appDataDirectory, "amclog.txt");
+            FilebotLog log = new FilebotLog(logPath);
 
-            Filebot filebot = new Filebot(settings, records);
+            Filebot filebot = new Filebot(settings, log);
             return filebot;
         }
 

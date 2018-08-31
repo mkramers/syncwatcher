@@ -12,15 +12,15 @@ namespace FilebotApi
     public partial class Filebot : ViewModelBase
     {
         public FilebotSettings Settings { get; }
-        public FilebotRecords Records { get; }
+        public FilebotLog Log { get; }
         
-        public Filebot(FilebotSettings _settings, FilebotRecords _records)
+        public Filebot(FilebotSettings _settings, FilebotLog _log)
         {
             Debug.Assert(_settings != null);
-            Debug.Assert(_records != null);
+            Debug.Assert(_log != null);
 
             Settings = _settings;
-            Records = _records;
+            Log = _log;
         }
         
         public void SaveSettings()
@@ -34,7 +34,7 @@ namespace FilebotApi
             Debug.Assert(!string.IsNullOrWhiteSpace(_outputDir));
 
             string message = $"Starting organize...\nSource: {_inputDir}\nTarget: {_outputDir}";
-            Log.Write(LogLevel.Info, message);
+            Common.Logging.Log.Write(LogLevel.Info, message);
 
             try
             {
@@ -59,9 +59,9 @@ namespace FilebotApi
             }
 
             //reparse records
-            Records.Reload();
+            Log.Reload();
 
-            Log.Write(LogLevel.Info, "Completed");
+            Common.Logging.Log.Write(LogLevel.Info, "Completed");
         }
 
         private void LogResult(FileBotResult _result)
@@ -82,7 +82,7 @@ namespace FilebotApi
                 message = $"[Log]: {result.RawLine}";
             }
 
-            Log.Write(LogLevel.Info, message);
+            Common.Logging.Log.Write(LogLevel.Info, message);
         }
 
         private static string GetArguments(string _inputPath, string _outputPath, FilebotSettings _settings)

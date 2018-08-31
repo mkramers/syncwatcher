@@ -11,7 +11,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 namespace FilebotApi
 {
-    public class FilebotRecords
+    public class FilebotLog
     {
         public ICommand ReloadCommand => new RelayCommand(Reload);
 
@@ -21,7 +21,7 @@ namespace FilebotApi
 
         public event EventHandler<EventArgs> Updated;
 
-        public FilebotRecords(string _recordsFilePath)
+        public FilebotLog(string _recordsFilePath)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_recordsFilePath));
 

@@ -97,7 +97,7 @@
     <Compile Include="FileBotOrganizeEventArgs.cs" />
     <Compile Include="Result\OrganizeResult.cs" />
     <Compile Include="FileBotLogParser.cs" />
-    <Compile Include="FilebotRecords.cs" />
+    <Compile Include="FilebotLog.cs" />
     <Compile Include="Result\FileBotResult.cs" />
     <Compile Include="FilebotSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
