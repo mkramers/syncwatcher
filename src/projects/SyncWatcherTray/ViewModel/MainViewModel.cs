@@ -35,9 +35,8 @@ namespace SyncWatcherTray.ViewModel
 
             string input = settings.CompletedDirectory;
             string outputDir = settings.MediaRootDirectory;
-
-            string appDataRoot = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string appDataDirectory = Path.Combine(appDataRoot, "SyncWatcherTray");
+            string seriesDir = settings.SeriesDirectory;
+            string moviesDir = settings.MovieDirectory;
 
             SourceDestinationPaths paths = new SourceDestinationPaths(input, outputDir);
 
@@ -48,15 +47,18 @@ namespace SyncWatcherTray.ViewModel
             }
 
             FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
-            
+
+            string appDataRoot = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string appDataDirectory = Path.Combine(appDataRoot, "SyncWatcherTray");
+
             CompletedDirectory = new LocalCleanerViewModel(paths, appDataDirectory);
             CompletedDirectory.Started += Operation_Started;
             CompletedDirectory.Stopped += OperationStopped;
 
             Directories = new[]
             {
-                new DirectoryViewModel(settings.SeriesDirectory, "TV"),
-                new DirectoryViewModel(settings.MovieDirectory, "MOVIES")
+                new DirectoryViewModel(seriesDir, "TV"),
+                new DirectoryViewModel(moviesDir, "MOVIES")
             };
 
             RunPostOperations();
