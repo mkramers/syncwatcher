@@ -29,6 +29,8 @@ namespace FilebotApi
 
             Renamed = new ObservableRangeCollection<RenameResult>();
             Skipped = new ObservableRangeCollection<SkipResult>();
+
+            Reload();
         }
 
         public static bool TryLoad(string _fileName, out FilebotRecords _records)
@@ -70,25 +72,30 @@ namespace FilebotApi
         {
             string recordsPath = RecordsFilePath;
 
-            Debug.Assert(!String.IsNullOrWhiteSpace(recordsPath));
+            Debug.Assert(!string.IsNullOrWhiteSpace(recordsPath));
 
-            if (!File.Exists(recordsPath))
-                return;
-
-            string[] lines = File.ReadAllLines(recordsPath);
             List<RenameResult> renameResults = new List<RenameResult>();
             List<SkipResult> skipResults = new List<SkipResult>();
-            foreach (string line in lines)
-                if (FileBotLogParser.TryParse(line, out FileBotResult result))
-                    switch (result)
+
+            if (File.Exists(recordsPath))
+            {
+                string[] lines = File.ReadAllLines(recordsPath);
+                foreach (string line in lines)
+                {
+                    if (FileBotLogParser.TryParse(line, out FileBotResult result))
                     {
-                        case RenameResult renameResult:
-                            renameResults.Add(renameResult);
-                            break;
-                        case SkipResult skipResult:
-                            skipResults.Add(skipResult);
-                            break;
+                        switch (result)
+                        {
+                            case RenameResult renameResult:
+                                renameResults.Add(renameResult);
+                                break;
+                            case SkipResult skipResult:
+                                skipResults.Add(skipResult);
+                                break;
+                        }
                     }
+                }
+            }
 
             Update(renameResults, skipResults);
         }

@@ -9,24 +9,24 @@ namespace FilebotApi
 {
     public class FilebotSettings
     {
-        public static bool TryLoad(string _fileName, out FilebotSettings _settings)
+        public static FilebotSettings Load(string _fileName)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_fileName));
 
-            _settings = null;
+            FilebotSettings settings;
 
             try
             {
-                _settings = Utilities.XmlDeserializeObject<FilebotSettings>(_fileName);
-                _settings.SettingsFilePath = _fileName;
+                settings = Utilities.XmlDeserializeObject<FilebotSettings>(_fileName);
+                settings.SettingsFilePath = _fileName;
             }
             catch (Exception e)
             {
-                var message = $"Filebot settings failed to load from {Path.GetFullPath(_fileName)}\n\n{e}";
-                Console.WriteLine(message);
+                string message = $"Filebot settings failed to load from {Path.GetFullPath(_fileName)}\n\n{e}";
+                throw new FileLoadException(message, e);
             }
 
-            return _settings != null;
+            return settings;
         }
 
         public static void Save(FilebotSettings _settings, string _fileName)
@@ -40,21 +40,14 @@ namespace FilebotApi
             }
             catch (Exception e)
             {
-                var message = $"Filebot settings failed to save to {Path.GetFullPath(_fileName)}";
-                throw new XmlException(message, e);
+                string message = $"Filebot settings failed to save to {Path.GetFullPath(_fileName)}";
+                throw new IOException(message, e);
             }
         }
 
         public void Save()
         {
             Save(this, SettingsFilePath);
-        }
-
-        public static void CreateDefaultSettingsFile(string _fileName)
-        {
-            Debug.Assert(_fileName != null);
-
-            Save(Default, _fileName);
         }
 
         public static FilebotSettings Default
@@ -90,7 +83,7 @@ namespace FilebotApi
         public string FilebotScriptsDirectory { get; set; }
 
         [JsonIgnore]
-        public string SettingsFilePath { get;  set; }
+        public string SettingsFilePath { get; set; }
         public string FilebotExe => Path.Combine(FilebotBinaries, "filebot.exe");
         public string FilebotJar => Path.Combine(FilebotBinaries, "FileBot.jar");
     }

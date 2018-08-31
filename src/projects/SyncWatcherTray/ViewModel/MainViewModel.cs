@@ -66,10 +66,8 @@ namespace SyncWatcherTray.ViewModel
             string appDataRoot = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string appDataDirectory = Path.Combine(appDataRoot, "SyncWatcher");
 
-            if (!FilebotHelpers.TryCreateFilebot(appDataDirectory, out Filebot filebot))
-            {
-                Debug.Fail("unhandled filebot load failure");
-            }
+            Filebot filebot = FilebotHelpers.CreateFilebot(appDataDirectory);
+            Debug.Assert(filebot != null);
 
             return filebot;
         }

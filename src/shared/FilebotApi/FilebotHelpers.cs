@@ -13,13 +13,9 @@ namespace FilebotApi
 {
     public static class FilebotHelpers
     {
-        public static bool TryCreateFilebot(string _appDataDirectory, out Filebot _filebot)
+        public static Filebot CreateFilebot(string _appDataDirectory)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_appDataDirectory));
-
-            _filebot = null;
-
-            bool success = false;
 
             if (!Directory.Exists(_appDataDirectory))
             {
@@ -29,33 +25,37 @@ namespace FilebotApi
             string settingsPath = Path.Combine(_appDataDirectory, "settings.xml");
             string recordsPath = Path.Combine(_appDataDirectory, "amclog.txt");
 
-            if (TryCreateFilebot(settingsPath, recordsPath, out _filebot))
-            {
-                success = true;
-            }
+            FilebotRecords records = new FilebotRecords(recordsPath);
 
-            return success;
+            FilebotSettings settings = LoadSettingsSafely(settingsPath);
+            Debug.Assert(settings != null);
+
+            Filebot filebot = new Filebot(settings, records);
+            return filebot;
         }
 
-        public static bool TryCreateFilebot(string _settingsPath, string _recordsPath, out Filebot _filebot)
+        private static FilebotSettings LoadSettingsSafely(string _settingsPath)
         {
-            _filebot = null;
+            FilebotSettings settings = null;
 
-            bool success = false;
-
-            if (!File.Exists(_settingsPath))
-                FilebotSettings.CreateDefaultSettingsFile(_settingsPath);
-
-            FilebotRecords records = new FilebotRecords(_recordsPath);
-            records.Reload();
-
-            if (FilebotSettings.TryLoad(_settingsPath, out FilebotSettings settings))
+            try
             {
-                _filebot = new Filebot(settings, records);
-                success = true;
+                settings = FilebotSettings.Load(_settingsPath);
             }
-
-            return success;
+            catch (FileLoadException)
+            {
+                //if we fail to load, try saving the default and retrying
+                try
+                {
+                    FilebotSettings.Save(FilebotSettings.Default, _settingsPath);
+                }
+                catch (IOException)
+                {
+                    //if all else failes, load the default settings to memory
+                    settings = FilebotSettings.Default;
+                }
+            }
+            return settings;
         }
     }
 }
