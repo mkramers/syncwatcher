@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FilebotApi.Properties;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace FilebotApi.View
@@ -30,10 +31,10 @@ namespace FilebotApi.View
 
         private void PropertyGrid_OnPropertyValueChanged(object _sender, PropertyValueChangedEventArgs _e)
         {
-            Filebot filebot = DataContext as Filebot;
+            Settings filebot = DataContext as Settings;
             Debug.Assert(filebot != null);
 
-            filebot.SaveSettings();
+            filebot.Save();
         }
     }
 }

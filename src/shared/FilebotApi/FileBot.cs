@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Common.Logging;
+using FilebotApi.Properties;
 using FilebotApi.Result;
 using GalaSoft.MvvmLight;
 
@@ -11,21 +12,17 @@ namespace FilebotApi
 {
     public partial class Filebot : ViewModelBase
     {
-        public FilebotSettings Settings { get; }
-        public FilebotRecords Records { get; }
-        
-        public Filebot(FilebotSettings _settings, FilebotRecords _records)
+        private readonly Settings m_settings;
+
+        public FilebotLog Log { get; }
+
+        public Filebot(Settings _settings, FilebotLog _log)
         {
             Debug.Assert(_settings != null);
-            Debug.Assert(_records != null);
+            Debug.Assert(_log != null);
 
-            Settings = _settings;
-            Records = _records;
-        }
-        
-        public void SaveSettings()
-        {
-            Settings.Save();
+            m_settings = _settings;
+            Log = _log;
         }
 
         public void Organize(string _inputDir, string _outputDir)
@@ -34,11 +31,11 @@ namespace FilebotApi
             Debug.Assert(!string.IsNullOrWhiteSpace(_outputDir));
 
             string message = $"Starting organize...\nSource: {_inputDir}\nTarget: {_outputDir}";
-            Log.Write(LogLevel.Info, message);
+            Common.Logging.Log.Write(LogLevel.Info, message);
 
             try
             {
-                FilebotSettings settings = Settings;
+                Settings settings = m_settings;
                 ProcessStartInfo startInfo = GetFileBotProcessInfo(_inputDir, _outputDir, settings);
 
                 using (Process exeProcess = Process.Start(startInfo))
@@ -59,9 +56,9 @@ namespace FilebotApi
             }
 
             //reparse records
-            Records.Reload();
+            Log.Reload();
 
-            Log.Write(LogLevel.Info, "Completed");
+            Common.Logging.Log.Write(LogLevel.Info, "Completed");
         }
 
         private void LogResult(FileBotResult _result)
@@ -82,10 +79,10 @@ namespace FilebotApi
                 message = $"[Log]: {result.RawLine}";
             }
 
-            Log.Write(LogLevel.Info, message);
+            Common.Logging.Log.Write(LogLevel.Info, message);
         }
 
-        private static string GetArguments(string _inputPath, string _outputPath, FilebotSettings _settings)
+        private static string GetArguments(string _inputPath, string _outputPath, Settings _settings)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputPath));
             Debug.Assert(!string.IsNullOrWhiteSpace(_outputPath));
@@ -102,8 +99,11 @@ namespace FilebotApi
 
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputPath));
             Debug.Assert(Directory.Exists(_inputPath));
+
+            ActionType action = GetActionType(_settings.ActionTypeString);
+
             string isNonStrict = _settings.IsNonStrict ? " -non-strict" : "";
-            argument.AppendFormat(" --action {0}{1} \"{2}\"", _settings.Action.ToString().ToLower(), isNonStrict, _inputPath);
+            argument.AppendFormat(" --action {0}{1} \"{2}\"", action.ToString().ToLower(), isNonStrict, _inputPath);
 
             if (_settings.Clean)
                 argument.AppendFormat(" --def clean=y");
@@ -116,19 +116,48 @@ namespace FilebotApi
             if (_settings.UseLogFile)
             {
                 Debug.Assert(!string.IsNullOrWhiteSpace(_settings.LogFilePath));
-                argument.AppendFormat(" --log-file \"{0}\"", _settings.LogFilePath);
+
+                string cleanedLogFilePath = Path.GetFullPath(_settings.LogFilePath);
+                argument.AppendFormat(" --log-file \"{0}\"", cleanedLogFilePath);
             }
 
             if (_settings.UseExcludeList)
             {
                 Debug.Assert(!string.IsNullOrWhiteSpace(_settings.ExcludeListPath));
-                argument.AppendFormat(" --def excludeList=\"{0}\"", _settings.ExcludeListPath);
+
+                string cleanedExludeFilePath = Path.GetFullPath(_settings.ExcludeListPath);
+                argument.AppendFormat(" --def excludeList=\"{0}\"", cleanedExludeFilePath);
             }
 
             return argument.ToString();
         }
 
-        private static ProcessStartInfo GetFileBotProcessInfo(string _inputDir, string _outputDir, FilebotSettings _settings)
+        private static ActionType GetActionType(string _actionTypeString)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(_actionTypeString));
+
+            ActionType type;
+
+            var cleaned = _actionTypeString.ToLower();
+            switch (cleaned)
+            {
+                case "move":
+                    type = ActionType.MOVE;
+                    break;
+                case "test":
+                    type = ActionType.TEST;
+                    break;
+                case "copy":
+                    type = ActionType.COPY;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return type;
+        }
+
+        private static ProcessStartInfo GetFileBotProcessInfo(string _inputDir, string _outputDir, Settings _settings)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputDir));
             Debug.Assert(!string.IsNullOrWhiteSpace(_outputDir));

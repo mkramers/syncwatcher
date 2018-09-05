@@ -35,12 +35,10 @@ namespace SyncWatcherTray.ViewModel
 
             string input = settings.CompletedDirectory;
             string outputDir = settings.MediaRootDirectory;
+            string seriesDir = settings.SeriesDirectory;
+            string moviesDir = settings.MovieDirectory;
 
             SourceDestinationPaths paths = new SourceDestinationPaths(input, outputDir);
-
-            FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
-
-            Filebot filebot = InitializeFilebot();
 
             if (!ValidateSettings(paths))
             {
@@ -48,30 +46,25 @@ namespace SyncWatcherTray.ViewModel
                 return;
             }
 
-            CompletedDirectory = new LocalCleanerViewModel(paths, filebot);
+            FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
+
+            string appDataRoot = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string appDataDirectory = Path.Combine(appDataRoot, "SyncWatcherTray");
+
+            //create app data dir
+            Directory.CreateDirectory(appDataDirectory);
+
+            CompletedDirectory = new LocalCleanerViewModel(paths, appDataDirectory);
             CompletedDirectory.Started += Operation_Started;
             CompletedDirectory.Stopped += OperationStopped;
 
             Directories = new[]
             {
-                new DirectoryViewModel(settings.SeriesDirectory, "TV"),
-                new DirectoryViewModel(settings.MovieDirectory, "MOVIES")
+                new DirectoryViewModel(seriesDir, "TV"),
+                new DirectoryViewModel(moviesDir, "MOVIES")
             };
 
             RunPostOperations();
-        }
-
-        private Filebot InitializeFilebot()
-        {
-            string appDataRoot = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string appDataDirectory = Path.Combine(appDataRoot, "SyncWatcher");
-
-            if (!FilebotHelpers.TryCreateFilebot(appDataDirectory, out Filebot filebot))
-            {
-                Debug.Fail("unhandled filebot load failure");
-            }
-
-            return filebot;
         }
 
         private FtpManagerViewModel InitializeFtpManager(string _input)

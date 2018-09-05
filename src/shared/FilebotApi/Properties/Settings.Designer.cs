@@ -8,12 +8,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SyncWatcherTray.Properties {
+namespace FilebotApi.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
@@ -25,109 +25,115 @@ namespace SyncWatcherTray.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastRemotePath {
+        [global::System.Configuration.DefaultSettingValueAttribute("MOVE")]
+        public string ActionTypeString {
             get {
-                return ((string)(this["LastRemotePath"]));
+                return ((string)(this["ActionTypeString"]));
             }
             set {
-                this["LastRemotePath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AutoConnectFtp {
-            get {
-                return ((bool)(this["AutoConnectFtp"]));
-            }
-            set {
-                this["AutoConnectFtp"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int LastSelectedTabIndex {
-            get {
-                return ((int)(this["LastSelectedTabIndex"]));
-            }
-            set {
-                this["LastSelectedTabIndex"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("F:\\videos\\TV Shows")]
-        public string SeriesDirectory {
-            get {
-                return ((string)(this["SeriesDirectory"]));
-            }
-            set {
-                this["SeriesDirectory"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("F:\\videos\\Movies")]
-        public string MovieDirectory {
-            get {
-                return ((string)(this["MovieDirectory"]));
-            }
-            set {
-                this["MovieDirectory"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\Unsorted\\completed")]
-        public string CompletedDirectory {
-            get {
-                return ((string)(this["CompletedDirectory"]));
-            }
-            set {
-                this["CompletedDirectory"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("F:\\Videos")]
-        public string MediaRootDirectory {
-            get {
-                return ((string)(this["MediaRootDirectory"]));
-            }
-            set {
-                this["MediaRootDirectory"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IsAutoCleanEnabled {
-            get {
-                return ((bool)(this["IsAutoCleanEnabled"]));
-            }
-            set {
-                this["IsAutoCleanEnabled"] = value;
+                this["ActionTypeString"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool IsPlexScanEnabled {
+        public bool Clean {
             get {
-                return ((bool)(this["IsPlexScanEnabled"]));
+                return ((bool)(this["Clean"]));
             }
             set {
-                this["IsPlexScanEnabled"] = value;
+                this["Clean"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool DeleteAfterExtract {
+            get {
+                return ((bool)(this["DeleteAfterExtract"]));
+            }
+            set {
+                this["DeleteAfterExtract"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseExcludeList {
+            get {
+                return ((bool)(this["UseExcludeList"]));
+            }
+            set {
+                this["UseExcludeList"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\filebotexcludes.txt")]
+        public string ExcludeListPath {
+            get {
+                return ((string)(this["ExcludeListPath"]));
+            }
+            set {
+                this["ExcludeListPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseLogFile {
+            get {
+                return ((bool)(this["UseLogFile"]));
+            }
+            set {
+                this["UseLogFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\filebotlog.txt")]
+        public string LogFilePath {
+            get {
+                return ((string)(this["LogFilePath"]));
+            }
+            set {
+                this["LogFilePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsNonStrict {
+            get {
+                return ((bool)(this["IsNonStrict"]));
+            }
+            set {
+                this["IsNonStrict"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\FileBot")]
+        public string FilebotBinaries {
+            get {
+                return ((string)(this["FilebotBinaries"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\FileBot\\scripts")]
+        public string FilebotScriptsDirectory {
+            get {
+                return ((string)(this["FilebotScriptsDirectory"]));
             }
         }
     }

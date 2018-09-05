@@ -11,7 +11,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 namespace FilebotApi
 {
-    public class FilebotRecords
+    public class FilebotLog
     {
         public ICommand ReloadCommand => new RelayCommand(Reload);
 
@@ -21,7 +21,7 @@ namespace FilebotApi
 
         public event EventHandler<EventArgs> Updated;
 
-        public FilebotRecords(string _recordsFilePath)
+        public FilebotLog(string _recordsFilePath)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_recordsFilePath));
 
@@ -29,66 +29,38 @@ namespace FilebotApi
 
             Renamed = new ObservableRangeCollection<RenameResult>();
             Skipped = new ObservableRangeCollection<SkipResult>();
-        }
 
-        public static bool TryLoad(string _fileName, out FilebotRecords _records)
-        {
-            Debug.Assert(!String.IsNullOrWhiteSpace(_fileName));
-
-            _records = null;
-
-            try
-            {
-                _records = Utilities.XmlDeserializeObject<FilebotRecords>(_fileName);
-            }
-            catch (Exception)
-            {
-                string message = $"Filebot records failed to load from {Path.GetFullPath(_fileName)}";
-                Console.WriteLine(message);
-            }
-
-            return _records != null;
-        }
-
-        public static void Save(FilebotRecords _records, string _path)
-        {
-            Debug.Assert(_records != null);
-            Debug.Assert(!String.IsNullOrWhiteSpace(_path));
-
-            try
-            {
-                Utilities.XmlSerializeObject(_records, _path);
-            }
-            catch (Exception e)
-            {
-                string message = $"Filebot records failed to save to {Path.GetFullPath(_path)}";
-                throw new XmlException(message, e);
-            }
+            Reload();
         }
 
         public void Reload()
         {
             string recordsPath = RecordsFilePath;
 
-            Debug.Assert(!String.IsNullOrWhiteSpace(recordsPath));
+            Debug.Assert(!string.IsNullOrWhiteSpace(recordsPath));
 
-            if (!File.Exists(recordsPath))
-                return;
-
-            string[] lines = File.ReadAllLines(recordsPath);
             List<RenameResult> renameResults = new List<RenameResult>();
             List<SkipResult> skipResults = new List<SkipResult>();
-            foreach (string line in lines)
-                if (FileBotLogParser.TryParse(line, out FileBotResult result))
-                    switch (result)
+
+            if (File.Exists(recordsPath))
+            {
+                string[] lines = File.ReadAllLines(recordsPath);
+                foreach (string line in lines)
+                {
+                    if (FileBotLogParser.TryParse(line, out FileBotResult result))
                     {
-                        case RenameResult renameResult:
-                            renameResults.Add(renameResult);
-                            break;
-                        case SkipResult skipResult:
-                            skipResults.Add(skipResult);
-                            break;
+                        switch (result)
+                        {
+                            case RenameResult renameResult:
+                                renameResults.Add(renameResult);
+                                break;
+                            case SkipResult skipResult:
+                                skipResults.Add(skipResult);
+                                break;
+                        }
                     }
+                }
+            }
 
             Update(renameResults, skipResults);
         }
