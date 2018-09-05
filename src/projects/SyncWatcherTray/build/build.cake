@@ -4,12 +4,13 @@
 
 string target = Argument<string>("target", "Default");
 string outputDir = Argument<string>("output", @".\publish");
-bool isQuickMode = Argument<bool>("quick", true);
+bool isQuickMode = Argument<bool>("quick", false);
 string buildNumber = Argument<string>("buildNumber", "666");
 string gitVersion = Argument<string>("gitVersion", "v1.1-80-gdb791cd"); //may be db791cd if no tags present
 string gitBranch = Argument<string>("gitBranch", "develop");
 bool isMultiStage = Argument<bool>("multistage", false);
 string buildConfiguration = Argument<string>("buildconfig", "Release");
+bool failOnInspect = Argument<bool>("failoninspect", false);
 
 //make outputdir absolute
 outputDir = System.IO.Path.GetFullPath(outputDir);
@@ -62,21 +63,14 @@ Task("Inspect")
 	}
 
 	string solutionFile = _solution.Item1;
-	string configuration = _solution.Item2;
-	string platform = _solution.Item3.ToString();
 	string shortname= System.IO.Path.GetFileNameWithoutExtension(solutionFile);
 
-	Information($"Inspecting sln: {solutionFile} configuration: {configuration} platform= {platform}");
-
-	Dictionary<string, string> msBuildProperties = new Dictionary<string, string>();
-	msBuildProperties.Add("configuration", configuration);
-	msBuildProperties.Add("platform", platform);
+	Information($"Inspecting sln: {solutionFile}");
 
 	InspectCode(solutionFile, new InspectCodeSettings {
 		SolutionWideAnalysis = true,
-		MsBuildProperties = msBuildProperties,
-		OutputFile = Directory(outputDir) + File($"{shortname}_inspectcode-output.xml"),
-		ThrowExceptionOnFindingViolations = true
+		OutputFile = Directory(outputDir) + File($"{shortname.ToLower()}.inspect.xml"),
+		ThrowExceptionOnFindingViolations = failOnInspect
 	});
 });
 
