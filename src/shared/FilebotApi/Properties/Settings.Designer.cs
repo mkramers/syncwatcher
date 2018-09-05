@@ -25,6 +25,18 @@ namespace FilebotApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("MOVE")]
+        public string ActionTypeString {
+            get {
+                return ((string)(this["ActionTypeString"]));
+            }
+            set {
+                this["ActionTypeString"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Clean {
             get {
@@ -122,18 +134,6 @@ namespace FilebotApi.Properties {
         public string FilebotScriptsDirectory {
             get {
                 return ((string)(this["FilebotScriptsDirectory"]));
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Action {
-            get {
-                return ((string)(this["Action"]));
-            }
-            set {
-                this["Action"] = value;
             }
         }
     }

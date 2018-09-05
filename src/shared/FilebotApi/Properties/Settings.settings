@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FilebotApi.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Action" Type="FilebotApi.Filebot.ActionType" Scope="User">
+    <Setting Name="ActionTypeString" Type="System.String" Scope="User">
       <Value Profile="(Default)">MOVE</Value>
     </Setting>
     <Setting Name="Clean" Type="System.Boolean" Scope="User">

@@ -15,7 +15,7 @@ namespace FilebotApi
         private readonly Settings m_settings;
 
         public FilebotLog Log { get; }
-        
+
         public Filebot(Settings _settings, FilebotLog _log)
         {
             Debug.Assert(_settings != null);
@@ -24,7 +24,7 @@ namespace FilebotApi
             m_settings = _settings;
             Log = _log;
         }
-        
+
         public void Organize(string _inputDir, string _outputDir)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputDir));
@@ -99,8 +99,11 @@ namespace FilebotApi
 
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputPath));
             Debug.Assert(Directory.Exists(_inputPath));
+
+            ActionType action = GetActionType(_settings.ActionTypeString);
+
             string isNonStrict = _settings.IsNonStrict ? " -non-strict" : "";
-            argument.AppendFormat(" --action {0}{1} \"{2}\"", _settings.Action.ToString().ToLower(), isNonStrict, _inputPath);
+            argument.AppendFormat(" --action {0}{1} \"{2}\"", action.ToString().ToLower(), isNonStrict, _inputPath);
 
             if (_settings.Clean)
                 argument.AppendFormat(" --def clean=y");
@@ -127,6 +130,31 @@ namespace FilebotApi
             }
 
             return argument.ToString();
+        }
+
+        private static ActionType GetActionType(string _actionTypeString)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(_actionTypeString));
+
+            ActionType type;
+
+            var cleaned = _actionTypeString.ToLower();
+            switch (cleaned)
+            {
+                case "move":
+                    type = ActionType.MOVE;
+                    break;
+                case "test":
+                    type = ActionType.TEST;
+                    break;
+                case "copy":
+                    type = ActionType.COPY;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return type;
         }
 
         private static ProcessStartInfo GetFileBotProcessInfo(string _inputDir, string _outputDir, Settings _settings)
