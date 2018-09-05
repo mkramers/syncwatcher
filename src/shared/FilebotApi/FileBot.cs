@@ -113,13 +113,17 @@ namespace FilebotApi
             if (_settings.UseLogFile)
             {
                 Debug.Assert(!string.IsNullOrWhiteSpace(_settings.LogFilePath));
-                argument.AppendFormat(" --log-file \"{0}\"", _settings.LogFilePath);
+
+                string cleanedLogFilePath = Path.GetFullPath(_settings.LogFilePath);
+                argument.AppendFormat(" --log-file \"{0}\"", cleanedLogFilePath);
             }
 
             if (_settings.UseExcludeList)
             {
                 Debug.Assert(!string.IsNullOrWhiteSpace(_settings.ExcludeListPath));
-                argument.AppendFormat(" --def excludeList=\"{0}\"", _settings.ExcludeListPath);
+
+                string cleanedExludeFilePath = Path.GetFullPath(_settings.ExcludeListPath);
+                argument.AppendFormat(" --def excludeList=\"{0}\"", cleanedExludeFilePath);
             }
 
             return argument.ToString();
