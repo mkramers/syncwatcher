@@ -56,7 +56,7 @@ namespace SyncWatcherTray.ViewModel
 
                         OnStopped();
                     },
-                    CanExecuteFunc = () => Filebot != null && !IsBusy
+                    CanExecuteFunc = CanOrganize
                 };
             }
         }
@@ -155,6 +155,18 @@ namespace SyncWatcherTray.ViewModel
             }
 
             DirectoryViewModel = null;
+        }
+
+        private bool CanOrganize()
+        {
+            bool canOrganize = false;
+
+            if (Filebot != null && !IsBusy && DirectoryViewModel != null)
+            {
+                canOrganize = true;
+            }
+
+            return canOrganize;
         }
 
         private async Task Organize()

@@ -109,6 +109,12 @@ namespace MVVM.View
 
         private void ApplySearchCriteria()
         {
+            //early out if datacontext is null
+            if (m_view == null)
+            {
+                return;
+            }
+
             var view = m_view as ListCollectionView;
             Debug.Assert(view != null);
 
