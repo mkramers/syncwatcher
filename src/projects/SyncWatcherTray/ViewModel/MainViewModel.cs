@@ -86,18 +86,21 @@ namespace SyncWatcherTray.ViewModel
         {
             Debug.Assert(_paths != null);
 
+            bool isValid = true;
+
             if (!Directory.Exists(_paths.SourcePath))
             {
                 MessageBox.Show($"Error: directory {_paths.SourcePath} does not exist.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            else if (!Directory.Exists(_paths.DestinationPath))
-            {
-                MessageBox.Show($"Error: directory {_paths.DestinationPath} does not exist.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
+                isValid = false;
             }
 
-            return true;
+            if (!Directory.Exists(_paths.DestinationPath))
+            {
+                MessageBox.Show($"Error: directory {_paths.DestinationPath} does not exist.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                isValid = false;
+            }
+
+            return isValid;
         }
 
         private void FtpManagerViewModel_LocalRootChanged(object _sender, StringEventArgs _e)
