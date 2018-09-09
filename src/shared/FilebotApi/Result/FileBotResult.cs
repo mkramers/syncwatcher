@@ -5,6 +5,9 @@ namespace FilebotApi
 {
     public class FileBotResult
     {
+        public string RawLine { get; set; }
+        public DateTime DateTime { get; set; }
+
         public FileBotResult()
         {
         }
@@ -16,8 +19,5 @@ namespace FilebotApi
             RawLine = _rawLine;
             DateTime = _dateTime;
         }
-
-        public string RawLine { get; set; }
-        public DateTime DateTime { get; set; }
     }
 }

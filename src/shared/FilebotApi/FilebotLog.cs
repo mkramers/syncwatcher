@@ -4,8 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
-using System.Xml;
-using Common;
 using FilebotApi.Result;
 using GalaSoft.MvvmLight.CommandWpf;
 
@@ -19,8 +17,6 @@ namespace FilebotApi
         public ObservableRangeCollection<SkipResult> Skipped { get; }
         private string RecordsFilePath { get; }
 
-        public event EventHandler<EventArgs> Updated;
-
         public FilebotLog(string _recordsFilePath)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_recordsFilePath));
@@ -32,6 +28,8 @@ namespace FilebotApi
 
             Reload();
         }
+
+        public event EventHandler<EventArgs> Updated;
 
         public void Reload()
         {
@@ -82,10 +80,16 @@ namespace FilebotApi
             {
                 List<RenameResult> existing = current.Where(_complete => _complete.OriginalFile == result.OriginalFile).ToList();
                 if (existing.Any())
+                {
                     foreach (RenameResult existingResult in existing)
+                    {
                         existingResult.DateTime = result.DateTime;
+                    }
+                }
                 else
+                {
                     current.Add(result);
+                }
             }
         }
 
@@ -98,10 +102,16 @@ namespace FilebotApi
             {
                 List<SkipResult> existing = current.Where(_complete => _complete.OriginalFile == result.OriginalFile).ToList();
                 if (existing.Any())
+                {
                     foreach (SkipResult existingResult in existing)
+                    {
                         existingResult.DateTime = result.DateTime;
+                    }
+                }
                 else
+                {
                     current.Add(result);
+                }
             }
         }
     }

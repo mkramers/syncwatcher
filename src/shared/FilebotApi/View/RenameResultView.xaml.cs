@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Threading;
 using FilebotApi.Result;
 
 namespace FilebotApi.View
@@ -15,6 +16,8 @@ namespace FilebotApi.View
     /// </summary>
     public partial class RenameResultView : UserControl
     {
+        private ICollectionView m_renamedView;
+
         public RenameResultView()
         {
             InitializeComponent();
@@ -32,7 +35,7 @@ namespace FilebotApi.View
                 records.Updated += OnRecordsUpdated;
 
                 // Collection which will take your Filter
-                var renamed = records.Renamed;
+                ObservableRangeCollection<RenameResult> renamed = records.Renamed;
 
                 m_renamedView = CollectionViewSource.GetDefaultView(renamed);
                 m_renamedView.Filter = Filter;
@@ -41,18 +44,18 @@ namespace FilebotApi.View
 
         private void SearchTextbox_OnTextChanged(object _sender, TextChangedEventArgs _e)
         {
-            var current = ResultsDataGrid.SelectedItem;
+            object current = ResultsDataGrid.SelectedItem;
 
             m_renamedView.Refresh();
 
-            var results = m_renamedView.Cast<RenameResult>().ToArray();
+            RenameResult[] results = m_renamedView.Cast<RenameResult>().ToArray();
 
             ResultsDataGrid.SelectedItem = results.Contains(current) ? current : results.FirstOrDefault();
         }
 
         private void SearchTextBox_OnKeyDown(object _sender, KeyEventArgs _e)
         {
-            var key = _e.Key;
+            Key key = _e.Key;
             switch (key)
             {
                 case Key.Escape:
@@ -63,36 +66,35 @@ namespace FilebotApi.View
 
         private void OnRecordsUpdated(object _sender, EventArgs _e)
         {
-            var view = m_renamedView;
+            ICollectionView view = m_renamedView;
             Debug.Assert(view != null);
 
-            var dispatcher = Dispatcher;
-            dispatcher.Invoke(() =>
-            {
-                if (view.CanSort)
+            Dispatcher dispatcher = Dispatcher;
+            dispatcher.Invoke(
+                () =>
                 {
-                    view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription("DateTime", ListSortDirection.Descending));
-                }
-            });
+                    if (view.CanSort)
+                    {
+                        view.SortDescriptions.Clear();
+                        view.SortDescriptions.Add(new SortDescription("DateTime", ListSortDirection.Descending));
+                    }
+                });
         }
 
         private bool Filter(object _item)
         {
-            var accepted = false;
+            bool accepted = false;
 
             if (_item is RenameResult result)
             {
-                var search = SearchTextBox.Text.ToLowerInvariant();
+                string search = SearchTextBox.Text.ToLowerInvariant();
 
-                var name = result.ProposedFileName.ToLowerInvariant();
+                string name = result.ProposedFileName.ToLowerInvariant();
 
                 accepted = name.Contains(search);
             }
 
             return accepted;
         }
-
-        private ICollectionView m_renamedView;
     }
 }

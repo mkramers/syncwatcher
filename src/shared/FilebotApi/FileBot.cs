@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -44,8 +43,12 @@ namespace FilebotApi
 
                     string line;
                     while ((line = exeProcess.StandardOutput.ReadLine()) != null)
+                    {
                         if (FileBotLogParser.TryParse(line, out FileBotResult result))
+                        {
                             LogResult(result);
+                        }
+                    }
 
                     exeProcess.WaitForExit();
                 }
@@ -106,10 +109,14 @@ namespace FilebotApi
             argument.AppendFormat(" --action {0}{1} \"{2}\"", action.ToString().ToLower(), isNonStrict, _inputPath);
 
             if (_settings.Clean)
+            {
                 argument.AppendFormat(" --def clean=y");
+            }
 
             if (_settings.DeleteAfterExtract)
+            {
                 argument.AppendFormat(" --def deleteAfterExtract=y");
+            }
 
             argument.AppendFormat(" --def minFileSize=30000000");
 
@@ -138,7 +145,7 @@ namespace FilebotApi
 
             ActionType type;
 
-            var cleaned = _actionTypeString.ToLower();
+            string cleaned = _actionTypeString.ToLower();
             switch (cleaned)
             {
                 case "move":

@@ -17,6 +17,11 @@ namespace MVVM.View
     /// </summary>
     public partial class DirectoryView
     {
+        private readonly DeferredAction m_deferredAction;
+        private readonly TimeSpan m_delay;
+
+        private ICollectionView m_view;
+
         public DirectoryView()
         {
             InitializeComponent();
@@ -42,7 +47,7 @@ namespace MVVM.View
 
         private void Directory_OnUpdated(object _sender, EventArgs _eventArgs)
         {
-            var viewModel = _sender as DirectoryViewModel;
+            DirectoryViewModel viewModel = _sender as DirectoryViewModel;
             Debug.Assert(viewModel != null);
 
             UpdateFiles(viewModel);
@@ -52,9 +57,9 @@ namespace MVVM.View
         {
             Debug.Assert(_directory != null);
 
-            var files = _directory.FileNames;
+            ObservableRangeCollection<FileInfo> files = _directory.FileNames;
 
-            var view = CollectionViewSource.GetDefaultView(files) as ListCollectionView;
+            ListCollectionView view = CollectionViewSource.GetDefaultView(files) as ListCollectionView;
             Debug.Assert(view != null);
 
             m_view = view;
@@ -66,27 +71,27 @@ namespace MVVM.View
         {
             Debug.Assert(_directory != null);
 
-            var files = _directory.FileNames.Count;
+            int files = _directory.FileNames.Count;
 
-            var selected = FilesDataGrid.SelectedItemsList?.Count ?? 0;
+            int selected = FilesDataGrid.SelectedItemsList?.Count ?? 0;
 
-            var dir = _directory.Name;
-            var count = m_view?.Cast<object>().Count() ?? 0;
+            string dir = _directory.Name;
+            int count = m_view?.Cast<object>().Count() ?? 0;
             StatusTextBlock.Text = GetUpdateString(dir, count, files, selected);
         }
 
         private void DataGrid_OnDoubleClickRow(object _sender, MouseButtonEventArgs _e)
         {
-            var row = _sender as DataGridRow;
+            DataGridRow row = _sender as DataGridRow;
             Debug.Assert(row != null);
 
-            var fileInfo = row.DataContext as FileInfo;
+            FileInfo fileInfo = row.DataContext as FileInfo;
             Debug.Assert(fileInfo != null);
 
-            var fullName = fileInfo.FullName;
+            string fullName = fileInfo.FullName;
             Debug.Assert(!string.IsNullOrWhiteSpace(fullName));
 
-            var argument = "/select, \"" + fullName + "\"";
+            string argument = "/select, \"" + fullName + "\"";
 
             Process.Start("explorer.exe", argument);
         }
@@ -98,7 +103,7 @@ namespace MVVM.View
 
         private void SearchTextBox_OnKeyDown(object _sender, KeyEventArgs _e)
         {
-            var key = _e.Key;
+            Key key = _e.Key;
             switch (key)
             {
                 case Key.Escape:
@@ -115,14 +120,14 @@ namespace MVVM.View
                 return;
             }
 
-            var view = m_view as ListCollectionView;
+            ListCollectionView view = m_view as ListCollectionView;
             Debug.Assert(view != null);
 
-            var text = SearchTextBox.Text.ToLowerInvariant();
+            string text = SearchTextBox.Text.ToLowerInvariant();
 
             view.Filter = _obj => _obj is FileInfo entry && entry.Name.ToLowerInvariant().Contains(text);
 
-            var directory = DataContext as DirectoryViewModel;
+            DirectoryViewModel directory = DataContext as DirectoryViewModel;
             Debug.Assert(directory != null);
 
             UpdateStatusBar(directory);
@@ -132,20 +137,16 @@ namespace MVVM.View
 
         private static string GetUpdateString(string _root, int _currentCount, int _totalCount, int _selectedCount)
         {
-            var resultsMessage = $"{_currentCount} of {_totalCount} files";
-            var selectedMessage = $"{_selectedCount} selected";
+            string resultsMessage = $"{_currentCount} of {_totalCount} files";
+            string selectedMessage = $"{_selectedCount} selected";
 
-            var message = $"{_root}\t{resultsMessage}: {selectedMessage}";
+            string message = $"{_root}\t{resultsMessage}: {selectedMessage}";
             return message;
         }
 
-        private ICollectionView m_view;
-        private readonly DeferredAction m_deferredAction;
-        private readonly TimeSpan m_delay;
-
         private void FilesDataGrid_OnSelectedCellsChanged(object _sender, SelectedCellsChangedEventArgs _e)
         {
-            var directory = DataContext as DirectoryViewModel;
+            DirectoryViewModel directory = DataContext as DirectoryViewModel;
             Debug.Assert(directory != null);
 
             UpdateStatusBar(directory);
