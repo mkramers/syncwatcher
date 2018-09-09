@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -11,7 +12,7 @@ using GalaSoft.MvvmLight;
 
 namespace MVVM.ViewModel
 {
-    public class FilteredDirectoryViewModel : DirectoryViewModel
+    public class SyncthingDirectoryViewModel : DirectoryViewModel
     {
         public FilteredFileWatcher FilteredFileWatcher { get; }
 
@@ -20,17 +21,22 @@ namespace MVVM.ViewModel
         /// <summary>
         /// used only by desginer
         /// </summary>
-        public FilteredDirectoryViewModel()
+        public SyncthingDirectoryViewModel()
         {
         }
         
-        public FilteredDirectoryViewModel(string _directory, string _shortName) : base(_directory, _shortName)
+        public SyncthingDirectoryViewModel(string _directory, string _shortName) : base(_directory, _shortName)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_directory));
             Debug.Assert(!string.IsNullOrWhiteSpace(_shortName));
             Debug.Assert(Directory.Exists(_directory));
 
-            FilteredFileWatcher = new FilteredFileWatcher(_directory);
+            List<string> ignoredFileNames = new List<string>
+            {
+                "~syncthing~"
+            };
+
+            FilteredFileWatcher = new FilteredFileWatcher(_directory, ignoredFileNames);
             FilteredFileWatcher.WatchEvent += SyncthingWatcher_OnChanged;
             FilteredFileWatcher.Start();
         }

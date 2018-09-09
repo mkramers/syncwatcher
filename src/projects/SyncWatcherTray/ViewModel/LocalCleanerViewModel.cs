@@ -22,7 +22,7 @@ namespace SyncWatcherTray.ViewModel
         private bool m_isPlexScanEnabled;
         private bool m_isBusy;
         private bool m_isAutoCleanEnabled;
-        public FilteredDirectoryViewModel DirectoryViewModel { get; private set; }
+        public SyncthingDirectoryViewModel DirectoryViewModel { get; private set; }
         public Filebot Filebot { get; }
         private string OutputDirectory { get; }
         public bool IsBusy
@@ -143,13 +143,13 @@ namespace SyncWatcherTray.ViewModel
             Debug.Assert(_directoryPath != null);
             Debug.Assert(Directory.Exists(_directoryPath));
 
-            DirectoryViewModel = new FilteredDirectoryViewModel(_directoryPath, "Complete");
+            DirectoryViewModel = new SyncthingDirectoryViewModel(_directoryPath, "Complete");
             DirectoryViewModel.SyncthingCompleted += SyncthingWatcher_OnChanged;
         }
 
         public void ClearDirectory()
         {
-            FilteredDirectoryViewModel currentViewModel = DirectoryViewModel;
+            SyncthingDirectoryViewModel currentViewModel = DirectoryViewModel;
             if (currentViewModel != null)
             {
                 currentViewModel.SyncthingCompleted -= SyncthingWatcher_OnChanged;
