@@ -11,28 +11,28 @@ using GalaSoft.MvvmLight;
 
 namespace MVVM.ViewModel
 {
-    public class SyncthingDirectoryViewModel : DirectoryViewModel
+    public class FilteredDirectoryViewModel : DirectoryViewModel
     {
-        public FileNameFileWatcher FileNameFileWatcher { get; }
+        public FilteredFileWatcher FilteredFileWatcher { get; }
 
         public event EventHandler<FileSystemEventArgs> SyncthingCompleted;
 
         /// <summary>
         /// used only by desginer
         /// </summary>
-        public SyncthingDirectoryViewModel()
+        public FilteredDirectoryViewModel()
         {
         }
         
-        public SyncthingDirectoryViewModel(string _directory, string _shortName) : base(_directory, _shortName)
+        public FilteredDirectoryViewModel(string _directory, string _shortName) : base(_directory, _shortName)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_directory));
             Debug.Assert(!string.IsNullOrWhiteSpace(_shortName));
             Debug.Assert(Directory.Exists(_directory));
 
-            FileNameFileWatcher = new FileNameFileWatcher(_directory);
-            FileNameFileWatcher.WatchEvent += SyncthingWatcher_OnChanged;
-            FileNameFileWatcher.Start();
+            FilteredFileWatcher = new FilteredFileWatcher(_directory);
+            FilteredFileWatcher.WatchEvent += SyncthingWatcher_OnChanged;
+            FilteredFileWatcher.Start();
         }
 
         private void SyncthingWatcher_OnChanged(object _sender, FileSystemEventArgs _e)
