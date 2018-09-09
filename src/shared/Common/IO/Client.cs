@@ -14,15 +14,15 @@ namespace Common.IO
                 // Note, for this client to work you need to have a TcpServer 
                 // connected to the same address as specified by the server, port
                 // combination.
-                var client = new TcpClient(_hostname, _port);
+                TcpClient client = new TcpClient(_hostname, _port);
 
                 // Translate the passed message into ASCII and store it as a Byte array.
-                var data = Encoding.ASCII.GetBytes(_message);
+                byte[] data = Encoding.ASCII.GetBytes(_message);
 
                 // Get a client stream for reading and writing.
                 //  Stream stream = client.GetStream();
 
-                var stream = client.GetStream();
+                NetworkStream stream = client.GetStream();
 
                 // Send the message to the connected TcpServer. 
                 stream.Write(data, 0, data.Length);
@@ -35,10 +35,10 @@ namespace Common.IO
                 data = new byte[256];
 
                 // String to store the response ASCII representation.
-                var responseData = string.Empty;
+                string responseData = string.Empty;
 
                 // Read the first batch of the TcpServer response bytes.
-                var bytes = stream.Read(data, 0, data.Length);
+                int bytes = stream.Read(data, 0, data.Length);
                 responseData = Encoding.ASCII.GetString(data, 0, bytes);
                 Console.WriteLine("Received: {0}", responseData);
 

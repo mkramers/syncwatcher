@@ -26,8 +26,7 @@ namespace DemoApp
         ///     Creates a new command that can always execute.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
-        public RelayCommand(Action<object> execute)
-            : this(execute, null)
+        public RelayCommand(Action<object> execute) : this(execute, null)
         {
         }
 
@@ -39,7 +38,9 @@ namespace DemoApp
         public RelayCommand(Action<object> execute, Predicate<object> canExecute)
         {
             if (execute == null)
+            {
                 throw new ArgumentNullException(nameof(execute));
+            }
 
             _execute = execute;
             _canExecute = canExecute;

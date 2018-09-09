@@ -11,41 +11,12 @@ namespace Common.Framework
     /// </summary>
     internal class WatermarkAdorner : Adorner
     {
-        #region Constructor
+        #region Private Fields
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="WatermarkAdorner" /> class
+        ///     <see cref="ContentPresenter" /> that holds the watermark
         /// </summary>
-        /// <param name="_adornedElement"><see cref="UIElement" /> to be adorned</param>
-        /// <param name="_watermark">The watermark</param>
-        public WatermarkAdorner(UIElement _adornedElement, object _watermark) :
-            base(_adornedElement)
-        {
-            IsHitTestVisible = false;
-
-            m_contentPresenter = new ContentPresenter
-            {
-                Content = _watermark,
-                Opacity = 0.5,
-                Margin =
-                    new Thickness(Control.Margin.Left + Control.Padding.Left, Control.Margin.Top + Control.Padding.Top,
-                        0, 0)
-            };
-
-            if (Control is ItemsControl && !(Control is ComboBox))
-            {
-                m_contentPresenter.VerticalAlignment = VerticalAlignment.Center;
-                m_contentPresenter.HorizontalAlignment = HorizontalAlignment.Center;
-            }
-
-            // Hide the control adorner when the adorned element is hidden
-            var binding = new Binding("IsVisible")
-            {
-                Source = _adornedElement,
-                Converter = new BooleanToVisibilityConverter()
-            };
-            SetBinding(VisibilityProperty, binding);
-        }
+        private readonly ContentPresenter m_contentPresenter;
 
         #endregion
 
@@ -67,12 +38,38 @@ namespace Common.Framework
 
         #endregion
 
-        #region Private Fields
+        #region Constructor
 
         /// <summary>
-        ///     <see cref="ContentPresenter" /> that holds the watermark
+        ///     Initializes a new instance of the <see cref="WatermarkAdorner" /> class
         /// </summary>
-        private readonly ContentPresenter m_contentPresenter;
+        /// <param name="_adornedElement"><see cref="UIElement" /> to be adorned</param>
+        /// <param name="_watermark">The watermark</param>
+        public WatermarkAdorner(UIElement _adornedElement, object _watermark) : base(_adornedElement)
+        {
+            IsHitTestVisible = false;
+
+            m_contentPresenter = new ContentPresenter
+            {
+                Content = _watermark,
+                Opacity = 0.5,
+                Margin = new Thickness(Control.Margin.Left + Control.Padding.Left, Control.Margin.Top + Control.Padding.Top, 0, 0)
+            };
+
+            if (Control is ItemsControl && !(Control is ComboBox))
+            {
+                m_contentPresenter.VerticalAlignment = VerticalAlignment.Center;
+                m_contentPresenter.HorizontalAlignment = HorizontalAlignment.Center;
+            }
+
+            // Hide the control adorner when the adorned element is hidden
+            Binding binding = new Binding("IsVisible")
+            {
+                Source = _adornedElement,
+                Converter = new BooleanToVisibilityConverter()
+            };
+            SetBinding(VisibilityProperty, binding);
+        }
 
         #endregion
 

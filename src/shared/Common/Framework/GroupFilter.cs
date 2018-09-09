@@ -5,6 +5,10 @@ namespace Common
 {
     public class GroupFilter
     {
+        private readonly List<Predicate<object>> m_filters = new List<Predicate<object>>();
+
+        public Predicate<object> Filter { get; }
+
         public GroupFilter()
         {
             m_filters = new List<Predicate<object>>();
@@ -13,9 +17,13 @@ namespace Common
 
         private bool InternalFilter(object o)
         {
-            foreach (var filter in m_filters)
+            foreach (Predicate<object> filter in m_filters)
+            {
                 if (!filter(o))
+                {
                     return false;
+                }
+            }
 
             return true;
         }
@@ -50,19 +58,16 @@ namespace Common
         }
 
         public event EventHandler<GroupFilterEventArgs> Event;
-
-        public Predicate<object> Filter { get; }
-        private readonly List<Predicate<object>> m_filters = new List<Predicate<object>>();
     }
 
     public class GroupFilterEventArgs : EventArgs
     {
+        public GroupFilterEvent Type { get; set; }
+
         public GroupFilterEventArgs(GroupFilterEvent _type)
         {
             Type = _type;
         }
-
-        public GroupFilterEvent Type { get; set; }
     }
 
     public enum GroupFilterEvent

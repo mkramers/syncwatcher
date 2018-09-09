@@ -15,6 +15,16 @@ namespace Common.Controls
     public static class WatermarkService
     {
         /// <summary>
+        ///     Watermark Attached Dependency Property
+        /// </summary>
+        public static readonly DependencyProperty WatermarkProperty = DependencyProperty.RegisterAttached("Watermark", typeof(object), typeof(WatermarkService), new FrameworkPropertyMetadata(null, OnWatermarkChanged));
+
+        /// <summary>
+        ///     Dictionary of ItemsControls
+        /// </summary>
+        private static readonly Dictionary<object, ItemsControl> itemsControls = new Dictionary<object, ItemsControl>();
+
+        /// <summary>
         ///     Gets the Watermark property.  This dependency property indicates the watermark for the control.
         /// </summary>
         /// <param name="d"><see cref="DependencyObject" /> to get the property from</param>
@@ -41,7 +51,7 @@ namespace Common.Controls
         /// <param name="e">A <see cref="DependencyPropertyChangedEventArgs" /> that contains the event data.</param>
         private static void OnWatermarkChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var control = (Control) d;
+            Control control = (Control) d;
             control.Loaded += Control_Loaded;
 
             if (d is ComboBox || d is TextBox)
@@ -52,14 +62,14 @@ namespace Common.Controls
 
             if (d is ItemsControl && !(d is ComboBox))
             {
-                var i = (ItemsControl) d;
+                ItemsControl i = (ItemsControl) d;
 
                 // for Items property  
                 i.ItemContainerGenerator.ItemsChanged += ItemsChanged;
                 itemsControls.Add(i.ItemContainerGenerator, i);
 
                 // for ItemsSource property  
-                var prop = DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, i.GetType());
+                DependencyPropertyDescriptor prop = DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, i.GetType());
                 prop.AddValueChanged(i, ItemsSourceChanged);
             }
         }
@@ -71,9 +81,11 @@ namespace Common.Controls
         /// <param name="e">A <see cref="RoutedEventArgs" /> that contains the event data.</param>
         private static void Control_GotKeyboardFocus(object sender, RoutedEventArgs e)
         {
-            var c = (Control) sender;
+            Control c = (Control) sender;
             if (ShouldShowWatermark(c))
+            {
                 RemoveWatermark(c);
+            }
         }
 
         /// <summary>
@@ -83,9 +95,11 @@ namespace Common.Controls
         /// <param name="e">A <see cref="RoutedEventArgs" /> that contains the event data.</param>
         private static void Control_Loaded(object sender, RoutedEventArgs e)
         {
-            var control = (Control) sender;
+            Control control = (Control) sender;
             if (ShouldShowWatermark(control))
+            {
                 ShowWatermark(control);
+            }
         }
 
         /// <summary>
@@ -95,14 +109,22 @@ namespace Common.Controls
         /// <param name="e">A <see cref="EventArgs" /> that contains the event data.</param>
         private static void ItemsSourceChanged(object sender, EventArgs e)
         {
-            var c = (ItemsControl) sender;
+            ItemsControl c = (ItemsControl) sender;
             if (c.ItemsSource != null)
+            {
                 if (ShouldShowWatermark(c))
+                {
                     ShowWatermark(c);
+                }
                 else
+                {
                     RemoveWatermark(c);
+                }
+            }
             else
+            {
                 ShowWatermark(c);
+            }
         }
 
         /// <summary>
@@ -114,10 +136,16 @@ namespace Common.Controls
         {
             ItemsControl control;
             if (itemsControls.TryGetValue(sender, out control))
+            {
                 if (ShouldShowWatermark(control))
+                {
                     ShowWatermark(control);
+                }
                 else
+                {
                     RemoveWatermark(control);
+                }
+            }
         }
 
         /// <summary>
@@ -126,21 +154,25 @@ namespace Common.Controls
         /// <param name="control">Element to remove the watermark from</param>
         private static void RemoveWatermark(UIElement control)
         {
-            var layer = AdornerLayer.GetAdornerLayer(control);
+            AdornerLayer layer = AdornerLayer.GetAdornerLayer(control);
 
             // layer could be null if control is no longer in the visual tree
             if (layer != null)
             {
-                var adorners = layer.GetAdorners(control);
+                Adorner[] adorners = layer.GetAdorners(control);
                 if (adorners == null)
+                {
                     return;
+                }
 
-                foreach (var adorner in adorners)
+                foreach (Adorner adorner in adorners)
+                {
                     if (adorner is WatermarkAdorner)
                     {
                         adorner.Visibility = Visibility.Hidden;
                         layer.Remove(adorner);
                     }
+                }
             }
         }
 
@@ -150,7 +182,7 @@ namespace Common.Controls
         /// <param name="control">Control to show the watermark on</param>
         private static void ShowWatermark(Control control)
         {
-            var layer = AdornerLayer.GetAdornerLayer(control);
+            AdornerLayer layer = AdornerLayer.GetAdornerLayer(control);
 
             // layer could be null if control is no longer in the visual tree
             layer?.Add(new WatermarkAdorner(control, GetWatermark(control)));
@@ -164,24 +196,14 @@ namespace Common.Controls
         private static bool ShouldShowWatermark(Control c)
         {
             if (c is ComboBox)
+            {
                 return (c as ComboBox).Text == string.Empty;
+            }
             if (c is TextBoxBase)
+            {
                 return (c as TextBox).Text == string.Empty;
+            }
             return (c as ItemsControl)?.Items.Count == 0;
         }
-
-        /// <summary>
-        ///     Watermark Attached Dependency Property
-        /// </summary>
-        public static readonly DependencyProperty WatermarkProperty = DependencyProperty.RegisterAttached(
-            "Watermark",
-            typeof(object),
-            typeof(WatermarkService),
-            new FrameworkPropertyMetadata(null, OnWatermarkChanged));
-
-        /// <summary>
-        ///     Dictionary of ItemsControls
-        /// </summary>
-        private static readonly Dictionary<object, ItemsControl> itemsControls = new Dictionary<object, ItemsControl>();
     }
 }

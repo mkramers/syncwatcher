@@ -12,27 +12,6 @@ namespace Common.Logging
     public class NotifyAppender : AppenderSkeleton, INotifyPropertyChanged
     {
         /// <summary>
-        ///     Raise the change notification.
-        /// </summary>
-        private void OnChange()
-        {
-            var handler = _propertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(string.Empty));
-        }
-
-        /// <summary>
-        ///     Append the log information to the notification.
-        /// </summary>
-        /// <param name="loggingEvent">The log event.</param>
-        protected override void Append(LoggingEvent loggingEvent)
-        {
-            var writer = new StringWriter(CultureInfo.InvariantCulture);
-            Layout.Format(writer, loggingEvent);
-            Notification += writer.ToString();
-        }
-
-        /// <summary>
         ///     Get or set the notification message.
         /// </summary>
         public string Notification
@@ -52,6 +31,29 @@ namespace Common.Logging
         ///     Get a reference to the log instance.
         /// </summary>
         public NotifyAppender Appender => Log.NotifyAppender;
+
+        /// <summary>
+        ///     Raise the change notification.
+        /// </summary>
+        private void OnChange()
+        {
+            PropertyChangedEventHandler handler = _propertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(string.Empty));
+            }
+        }
+
+        /// <summary>
+        ///     Append the log information to the notification.
+        /// </summary>
+        /// <param name="loggingEvent">The log event.</param>
+        protected override void Append(LoggingEvent loggingEvent)
+        {
+            StringWriter writer = new StringWriter(CultureInfo.InvariantCulture);
+            Layout.Format(writer, loggingEvent);
+            Notification += writer.ToString();
+        }
 
         #region Members and events
 

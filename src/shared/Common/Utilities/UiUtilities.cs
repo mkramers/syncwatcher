@@ -10,10 +10,14 @@ namespace Common
             Debug.Assert(_window != null);
 
             if (!_window.IsVisible)
+            {
                 _window.Show();
+            }
 
             if (_window.WindowState == WindowState.Minimized)
+            {
                 _window.WindowState = WindowState.Normal;
+            }
         }
     }
 }

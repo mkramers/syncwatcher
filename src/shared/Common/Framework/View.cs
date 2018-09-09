@@ -22,32 +22,32 @@ namespace Common.Framework
 
     public class FileViewEventArgs : ViewEventArgs
     {
+        public FileViewEvents Type { get; }
+
         public FileViewEventArgs(FileViewEvents _type)
         {
             Type = _type;
         }
-
-        public FileViewEvents Type { get; }
     }
 
     public class Search_FileViewEventArgs : FileViewEventArgs
     {
+        public string Search { get; set; }
+
         public Search_FileViewEventArgs(FileViewEvents _type, string _search) : base(_type)
         {
             Search = _search;
         }
-
-        public string Search { get; set; }
     }
 
     public class ListBoxSelectionChanged_FileViewEventArgs : FileViewEventArgs
     {
+        public IList Selected { get; set; }
+
         public ListBoxSelectionChanged_FileViewEventArgs(FileViewEvents _type, IList _selected) : base(_type)
         {
             Selected = _selected;
         }
-
-        public IList Selected { get; set; }
     }
 
     public enum FileViewEvents

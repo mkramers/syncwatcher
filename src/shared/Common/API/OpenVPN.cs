@@ -11,7 +11,7 @@ namespace Common
     {
         public static bool StartOpenVPN(string _config, string _serviceName, string _userName, SecureString _password)
         {
-            var command = $"openvpn --config {_config} --service {_serviceName} 0";
+            string command = $"openvpn --config {_config} --service {_serviceName} 0";
 
             Process process = null;
             ProcessStartInfo processInfo = null;
@@ -27,7 +27,7 @@ namespace Common
             Console.WriteLine();
             Console.Write("Trying...");
 
-            var success = false;
+            bool success = false;
             try
             {
                 processInfo = new ProcessStartInfo("cmd.exe", "/C " + command)
@@ -37,7 +37,10 @@ namespace Common
                     RedirectStandardOutput = true
                 };
 
-                process = new Process {StartInfo = processInfo};
+                process = new Process
+                {
+                    StartInfo = processInfo
+                };
                 process.Start();
 
                 process.StandardInput.WriteLine(_userName);
@@ -46,15 +49,17 @@ namespace Common
                 process.StandardInput.WriteLine(_password.ToString());
                 Thread.Sleep(20);
 
-                var ticks = 0;
+                int ticks = 0;
                 while (!success && !process.HasExited && ticks < 100)
                 {
-                    var line = process.StandardOutput.ReadLine();
+                    string line = process.StandardOutput.ReadLine();
 
                     Debug.WriteLine($">>{line}");
 
                     if (line.Contains("Initialization Sequence Completed"))
+                    {
                         success = true;
+                    }
 
                     ticks++;
                 }
