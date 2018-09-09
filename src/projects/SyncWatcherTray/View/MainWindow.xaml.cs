@@ -15,6 +15,8 @@ namespace SyncWatcherTray.View
     /// </summary>
     public partial class MainWindow : IDisposable
     {
+        private readonly SafeNativeMethods m_safeNativeMethods;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -25,6 +27,28 @@ namespace SyncWatcherTray.View
             //remember last tab
             var lastTab = Settings.Default.LastSelectedTabIndex;
             TabControl.SelectedIndex = lastTab;
+
+            m_safeNativeMethods = new SafeNativeMethods();
+            m_safeNativeMethods.HotKeyPressed += SafeNativeMethods_OnHotKeyPressed;
+        }
+
+        private void SafeNativeMethods_OnHotKeyPressed(object _sender, EventArgs _e)
+        {
+            ShowWindow();
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            m_safeNativeMethods.Initialize(this);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            m_safeNativeMethods.Stop(this);
+
+            base.OnClosed(e);
         }
 
         private void MoveToBottomCorner()
@@ -124,6 +148,28 @@ namespace SyncWatcherTray.View
 
         //global hotkey
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool _isDisposing)
+        {
+            if (_isDisposing)
+            {
+                MainViewModel viewModel = DataContext as MainViewModel;
+                Debug.Assert(viewModel != null);
+
+                viewModel.Dispose();
+
+                m_safeNativeMethods?.Dispose();
+            }
+        }
+    }
+
+    public class SafeNativeMethods : IDisposable
+    {
         [DllImport("User32.dll")]
         private static extern bool RegisterHotKey(
             [In] IntPtr hWnd,
@@ -148,32 +194,13 @@ namespace SyncWatcherTray.View
         private const uint ZKEY = 0x5A;
         private const uint EKEY = 0x45;
 
-        protected override void OnSourceInitialized(EventArgs e)
+        public event EventHandler<EventArgs> HotKeyPressed;
+
+        private void RegisterHotKey(Window _window)
         {
-            base.OnSourceInitialized(e);
+            Debug.Assert(_window != null);
 
-            var helper = new WindowInteropHelper(this);
-            _source = HwndSource.FromHwnd(helper.Handle);
-            _source.AddHook(HwndHook);
-
-            RegisterHotKey();
-        }
-
-        protected override void OnClosed(EventArgs e)
-        {
-            if (_source != null)
-            {
-                _source.RemoveHook(HwndHook);
-                _source = null;
-            }
-
-            UnregisterHotKey();
-            base.OnClosed(e);
-        }
-
-        private void RegisterHotKey()
-        {
-            var helper = new WindowInteropHelper(this);
+            WindowInteropHelper helper = new WindowInteropHelper(_window);
 
             if (!RegisterHotKey(helper.Handle, HOTKEY_ID, MOD_ALT, EKEY))
             {
@@ -181,9 +208,11 @@ namespace SyncWatcherTray.View
             }
         }
 
-        private void UnregisterHotKey()
+        private void UnregisterHotKey(Window _window)
         {
-            var helper = new WindowInteropHelper(this);
+            Debug.Assert(_window != null);
+
+            WindowInteropHelper helper = new WindowInteropHelper(_window);
             UnregisterHotKey(helper.Handle, HOTKEY_ID);
         }
 
@@ -207,7 +236,32 @@ namespace SyncWatcherTray.View
 
         private void OnHotKeyPressed()
         {
-            ShowWindow();
+            HotKeyPressed?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void Stop(Window _window)
+        {
+            Debug.Assert(_window != null);
+
+            if (_source != null)
+            {
+                _source.RemoveHook(HwndHook);
+                _source = null;
+            }
+
+            UnregisterHotKey(_window);
+        }
+
+        public void Initialize(Window _window)
+        {
+            Debug.Assert(_window != null);
+
+            WindowInteropHelper helper = new WindowInteropHelper(_window);
+
+            _source = HwndSource.FromHwnd(helper.Handle);
+            _source.AddHook(HwndHook);
+
+            RegisterHotKey(_window);
         }
 
         public void Dispose()
@@ -216,15 +270,10 @@ namespace SyncWatcherTray.View
             GC.SuppressFinalize(this);
         }
 
-        private void Dispose(bool _isDisposing)
+        protected virtual void Dispose(bool _disposing)
         {
-            if (_isDisposing)
+            if (_disposing)
             {
-                MainViewModel viewModel = DataContext as MainViewModel;
-                Debug.Assert(viewModel != null);
-
-                viewModel.Dispose();
-
                 _source?.Dispose();
             }
         }
