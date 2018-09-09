@@ -163,7 +163,7 @@ namespace SyncWatcherTray.View
 
                 viewModel.Dispose();
 
-                m_safeNativeMethods?.Dispose();
+                m_safeNativeMethods.Dispose();
             }
         }
     }
