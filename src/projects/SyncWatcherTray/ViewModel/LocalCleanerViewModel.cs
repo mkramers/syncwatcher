@@ -21,7 +21,8 @@ namespace SyncWatcherTray.ViewModel
         private bool m_isPlexScanEnabled;
         private bool m_isBusy;
         private bool m_isAutoCleanEnabled;
-        public SyncthingDirectoryViewModel DirectoryViewModel { get; private set; }
+        private SyncthingDirectoryViewModel m_directoryViewModel;
+
         public Filebot Filebot { get; }
         private string OutputDirectory { get; }
         public bool IsBusy
@@ -90,6 +91,15 @@ namespace SyncWatcherTray.ViewModel
                     Settings.Default.IsPlexScanEnabled = value;
                     Settings.Default.Save();
                 }
+            }
+        }
+        public SyncthingDirectoryViewModel DirectoryViewModel
+        {
+            get => m_directoryViewModel;
+            set
+            {
+                m_directoryViewModel = value;
+                RaisePropertyChanged();
             }
         }
 

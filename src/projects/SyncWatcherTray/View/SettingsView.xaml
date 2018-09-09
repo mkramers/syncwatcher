@@ -25,7 +25,7 @@
 
         <TabControl TabStripPlacement="Left">
             <TabItem Header="Application">
-                <view3:ApplicationSettingsView DataContext="{Binding Source={StaticResource ApplicationSettings}}"/>
+                <view3:ApplicationSettingsView DataContext="{Binding Source={x:Static properties:Settings.Default}}"/>
             </TabItem>
             <TabItem Header="FTP">
                 <view:SettingsView DataContext="{Binding Source={StaticResource SessionConfig}}"/>
