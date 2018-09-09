@@ -40,11 +40,7 @@ namespace SyncWatcherTray.ViewModel
 
             SourceDestinationPaths paths = new SourceDestinationPaths(input, outputDir);
 
-            if (!ValidateSettings(paths))
-            {
-                Application.Current.Shutdown(1);
-                return;
-            }
+            ValidateSettings(paths);
 
             FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
 
