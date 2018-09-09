@@ -221,12 +221,6 @@
                 Content="Del.Histroy" />
 
             <Button
-                Grid.Column="2"
-                Margin="7"
-                Command="{Binding TestCommand}"
-                Content="test" />
-
-            <Button
                 Grid.Column="4"
                 Margin="7"
                 Command="{Binding CancelCommand}"
