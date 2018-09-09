@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Common.IO;
 using Common.Logging;
-using Common.Mvvm;
 using FilebotApi;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using PlexTools;
 using SyncWatcherTray.Properties;
 using FilebotSettings = FilebotApi.Properties.Settings;
@@ -40,23 +40,21 @@ namespace SyncWatcherTray.ViewModel
         {
             get
             {
-                return new DelegateCommand
+                async void Execute()
                 {
-                    CommandAction = async () =>
+                    OnStarted();
+
+                    await Organize();
+
+                    if (IsPlexScanEnabled)
                     {
-                        OnStarted();
+                        await ScanPlex();
+                    }
 
-                        await Organize();
+                    OnStopped();
+                }
 
-                        if (IsPlexScanEnabled)
-                        {
-                            await ScanPlex();
-                        }
-
-                        OnStopped();
-                    },
-                    CanExecuteFunc = CanAutoClean
-                };
+                return new RelayCommand(Execute, CanAutoClean);
             }
         }
         public bool IsAutoCleanEnabled

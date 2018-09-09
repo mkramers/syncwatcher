@@ -5,10 +5,9 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Common.Framework.EventHelpers;
-using Common.Mvvm;
 using Common.SFTP;
 using GalaSoft.MvvmLight;
-using MVVM.Popups;
+using GalaSoft.MvvmLight.Command;
 
 namespace WinScpApi.ViewModel
 {
@@ -21,64 +20,74 @@ namespace WinScpApi.ViewModel
         {
             get
             {
-                return new DelegateCommand
+                async void Execute()
                 {
-                    CommandAction = async () =>
-                    {
-                        FtpDirectoryViewModel remoteDirectoryViewModel = Manager.RemoteRootViewModel;
+                    FtpDirectoryViewModel remoteDirectoryViewModel = Manager.RemoteRootViewModel;
 
-                        IEnumerable<FtpFileViewModel> selectedFiles = await remoteDirectoryViewModel.GetSelectedFiles();
-                        if (selectedFiles != null)
-                        {
-                            Manager.Sync(selectedFiles);
-                        }
-                    },
-                    CanExecuteFunc = () => Manager != null
-                };
-            }
-        }
-        public ICommand SyncAllCommand
-        {
-            get
-            {
-                return new DelegateCommand
+                    IEnumerable<FtpFileViewModel> selectedFiles = await remoteDirectoryViewModel.GetSelectedFiles();
+                    if (selectedFiles != null)
+                    {
+                        Manager.Sync(selectedFiles);
+                    }
+                }
+
+                bool CanExecute()
                 {
-                    CommandAction = () => throw new NotImplementedException(),
-                    CanExecuteFunc = () => false
-                };
+                    return Manager != null;
+                }
+
+                return new RelayCommand(Execute, CanExecute);
             }
         }
         public ICommand RefreshCommand
         {
             get
             {
-                return new DelegateCommand
+                async void Execute()
                 {
-                    CommandAction = async () => await Manager.Refresh(),
-                    CanExecuteFunc = () => Manager.Client.IsOpened
-                };
+                    await Manager.Refresh();
+                }
+
+                bool CanExecute()
+                {
+                    return Manager.Client.IsOpened;
+                }
+
+                return new RelayCommand(Execute, CanExecute);
             }
         }
         public ICommand CancelCommand
         {
             get
             {
-                return new DelegateCommand
+                void Execute()
                 {
-                    CommandAction = () => Manager.CancelTransfers(),
-                    CanExecuteFunc = () => Manager != null
-                };
+                    Manager.CancelTransfers();
+                }
+
+                bool CanExecute()
+                {
+                    return Manager != null;
+                }
+
+                return new RelayCommand(Execute, CanExecute);
             }
         }
         public ICommand DeleteHistoryCommand
         {
             get
             {
-                return new DelegateCommand
+                void Execute()
                 {
-                    CommandAction = () => Manager.DeleteHistory(),
-                    CanExecuteFunc = () => Manager != null
-                };
+                    Manager.DeleteHistory();
+                }
+
+                bool CanExecute()
+                {
+                    return Manager != null;
+                }
+
+                return new RelayCommand(Execute, CanExecute);
             }
         }
 

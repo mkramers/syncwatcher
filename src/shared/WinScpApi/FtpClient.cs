@@ -6,9 +6,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Common.Mvvm;
 using FileGetter;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using log4net;
 using WinSCP;
 
@@ -26,20 +26,19 @@ namespace Common.SFTP
         {
             get
             {
-                return new DelegateCommand
+                async void Execute()
                 {
-                    CommandAction = async () =>
+                    if (!IsOpened)
                     {
-                        if (!IsOpened)
-                        {
-                            await Connect();
-                        }
-                        else
-                        {
-                            await Disconnect();
-                        }
+                        await Connect();
                     }
-                };
+                    else
+                    {
+                        await Disconnect();
+                    }
+                }
+
+                return new RelayCommand(Execute);
             }
         }
 
