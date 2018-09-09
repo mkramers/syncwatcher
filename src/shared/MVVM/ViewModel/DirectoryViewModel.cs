@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -26,6 +27,8 @@ namespace MVVM.ViewModel
         public DirectoryViewModel(string _directory, string _shortName)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_directory));
+            Debug.Assert(!string.IsNullOrWhiteSpace(_shortName));
+            Debug.Assert(Directory.Exists(_directory));
 
             Name = _directory;
             ShortName = _shortName;

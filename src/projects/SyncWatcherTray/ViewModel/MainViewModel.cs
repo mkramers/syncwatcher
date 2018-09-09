@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -22,29 +25,44 @@ namespace SyncWatcherTray.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
+        private DirectoryViewModel m_seriesDirectoryViewModel;
+        private DirectoryViewModel m_moviesDirectoryViewModel;
+
         public FtpManagerViewModel FtpManagerViewModel { get; }
         public TaskbarIconViewModel TaskBarIcon { get; }
-        public IEnumerable<DirectoryViewModel> Directories { get; }
         public LocalCleanerViewModel CompletedDirectory { get; }
+        public DirectoryViewModel SeriesDirectoryViewModel
+        {
+            get => m_seriesDirectoryViewModel;
+            set
+            {
+                m_seriesDirectoryViewModel = value;
+                RaisePropertyChanged();
+            }
+        }
+        public DirectoryViewModel MoviesDirectoryViewModel
+        {
+            get => m_moviesDirectoryViewModel;
+            set
+            {
+                m_moviesDirectoryViewModel = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public MainViewModel()
         {
             TaskBarIcon = new TaskbarIconViewModel();
 
             Settings settings = Settings.Default;
+            settings.SettingChanging += Settings_OnSettingChanging;
 
             string input = settings.CompletedDirectory;
             string outputDir = settings.MediaRootDirectory;
-            string seriesDir = settings.SeriesDirectory;
-            string moviesDir = settings.MovieDirectory;
 
             SourceDestinationPaths paths = new SourceDestinationPaths(input, outputDir);
 
-            if (!ValidateSettings(paths))
-            {
-                Application.Current.Shutdown(1);
-                return;
-            }
+            ValidateSettings(paths);
 
             FtpManagerViewModel = InitializeFtpManager(paths.SourcePath);
 
@@ -58,13 +76,61 @@ namespace SyncWatcherTray.ViewModel
             CompletedDirectory.Started += Operation_Started;
             CompletedDirectory.Stopped += OperationStopped;
 
-            Directories = new[]
+            if (Directory.Exists(outputDir))
             {
-                new DirectoryViewModel(seriesDir, "TV"),
-                new DirectoryViewModel(moviesDir, "MOVIES")
-            };
+                SetDirectory(outputDir);
+            }
+            else
+            {
+                ClearDirectory();
+            }
 
             RunPostOperations();
+        }
+
+        private void Settings_OnSettingChanging(object _sender, SettingChangingEventArgs _settingChangingEventArgs)
+        {
+            Settings settings = _sender as Settings;
+            Debug.Assert(settings != null);
+
+            string changedSettingName = _settingChangingEventArgs.SettingName;
+
+            const string completeddirectory = "CompletedDirectory";
+            const string mediarootdirectory = "MediaRootDirectory";
+
+            //make sure the settings names havent changed!
+            Debug.Assert(settings.Properties.Cast<SettingsProperty>().Any(_prop => _prop.Name == completeddirectory));
+            Debug.Assert(settings.Properties.Cast<SettingsProperty>().Any(_prop => _prop.Name == mediarootdirectory));
+
+            switch (changedSettingName)
+            {
+                case completeddirectory:
+                    string input = _settingChangingEventArgs.NewValue as string;
+                    Debug.Assert(input != null);
+
+                    if (Directory.Exists(input))
+                    {
+                        CompletedDirectory.SetDirectory(input);
+                    }
+                    else
+                    {
+                        CompletedDirectory.ClearDirectory();
+                    }
+                    break;
+                case mediarootdirectory:
+                    string outputDir = _settingChangingEventArgs.NewValue as string;
+                    Debug.Assert(outputDir != null);
+
+                    if (Directory.Exists(outputDir))
+                    {
+                        SetDirectory(outputDir);
+                    }
+                    else
+                    {
+                        ClearDirectory();
+                    }
+                    break;
+            }
         }
 
         private FtpManagerViewModel InitializeFtpManager(string _input)
@@ -87,18 +153,21 @@ namespace SyncWatcherTray.ViewModel
         {
             Debug.Assert(_paths != null);
 
+            bool isValid = true;
+
             if (!Directory.Exists(_paths.SourcePath))
             {
                 MessageBox.Show($"Error: directory {_paths.SourcePath} does not exist.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            else if (!Directory.Exists(_paths.DestinationPath))
-            {
-                MessageBox.Show($"Error: directory {_paths.DestinationPath} does not exist.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
+                isValid = false;
             }
 
-            return true;
+            if (!Directory.Exists(_paths.DestinationPath))
+            {
+                MessageBox.Show($"Error: directory {_paths.DestinationPath} does not exist.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                isValid = false;
+            }
+
+            return isValid;
         }
 
         private void FtpManagerViewModel_LocalRootChanged(object _sender, StringEventArgs _e)
@@ -141,6 +210,21 @@ namespace SyncWatcherTray.ViewModel
                 Settings.Default.LastRemotePath = _managerViewModel.SelectedLocalRoot;
                 Settings.Default.Save();
             }
+        }
+
+        private void SetDirectory(string _directoryPath)
+        {
+            Debug.Assert(_directoryPath != null);
+            Debug.Assert(Directory.Exists(_directoryPath));
+
+            SeriesDirectoryViewModel = new DirectoryViewModel(Path.Combine(_directoryPath, "TV Shows"), "TV");
+            MoviesDirectoryViewModel = new DirectoryViewModel(Path.Combine(_directoryPath, "Movies"), "MOVIES");
+        }
+
+        private void ClearDirectory()
+        {
+            SeriesDirectoryViewModel = null;
+            MoviesDirectoryViewModel = null;
         }
 
         public bool CanExit()

@@ -16,7 +16,6 @@
              d:DataContext="{d:DesignInstance viewModel:MainViewModel}">
 
     <UserControl.Resources>
-        <properties:Settings x:Key="ApplicationSettings"/>
         <sftp:SessionConfig x:Key="SessionConfig"/>
         <filebot:Settings x:Key="FilebotSettings"/>
     </UserControl.Resources>
@@ -25,7 +24,7 @@
 
         <TabControl TabStripPlacement="Left">
             <TabItem Header="Application">
-                <view3:ApplicationSettingsView DataContext="{Binding Source={StaticResource ApplicationSettings}}"/>
+                <view3:ApplicationSettingsView DataContext="{Binding Source={x:Static properties:Settings.Default}}"/>
             </TabItem>
             <TabItem Header="FTP">
                 <view:SettingsView DataContext="{Binding Source={StaticResource SessionConfig}}"/>

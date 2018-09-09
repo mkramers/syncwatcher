@@ -10,7 +10,6 @@ using Common.Mvvm;
 using FilebotApi;
 using Common.Logging;
 using GalaSoft.MvvmLight;
-using MVVM.ViewModel;
 using PlexTools;
 using SyncWatcherTray.Properties;
 using FilebotSettings = FilebotApi.Properties.Settings;
@@ -22,10 +21,10 @@ namespace SyncWatcherTray.ViewModel
         private bool m_isPlexScanEnabled;
         private bool m_isBusy;
         private bool m_isAutoCleanEnabled;
-        public DirectoryViewModel DirectoryViewModel { get; }
+        private SyncthingDirectoryViewModel m_directoryViewModel;
+
         public Filebot Filebot { get; }
         private string OutputDirectory { get; }
-        public SyncthingWatcher SyncthingWatcher { get; }
         public bool IsBusy
         {
             get => m_isBusy;
@@ -39,7 +38,7 @@ namespace SyncWatcherTray.ViewModel
             }
         }
 
-        public ICommand OrganizeCommand
+        public ICommand AutoCleanCommand
         {
             get
             {
@@ -58,7 +57,7 @@ namespace SyncWatcherTray.ViewModel
 
                         OnStopped();
                     },
-                    CanExecuteFunc = () => Filebot != null && !IsBusy
+                    CanExecuteFunc = CanAutoClean
                 };
             }
         }
@@ -94,6 +93,15 @@ namespace SyncWatcherTray.ViewModel
                 }
             }
         }
+        public SyncthingDirectoryViewModel DirectoryViewModel
+        {
+            get => m_directoryViewModel;
+            set
+            {
+                m_directoryViewModel = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public event EventHandler<EventArgs> Started;
         public event EventHandler<EventArgs> Stopped;
@@ -114,10 +122,17 @@ namespace SyncWatcherTray.ViewModel
             string inputDir = _paths.SourcePath;
             string outputDir = _paths.DestinationPath;
 
-            Debug.Assert(!string.IsNullOrWhiteSpace(inputDir));
+            if (string.IsNullOrWhiteSpace(inputDir) || !Directory.Exists(inputDir))
+            {
+                ClearDirectory();
+            }
+            else
+            {
+                SetDirectory(inputDir);
+            }
+
             Debug.Assert(!string.IsNullOrWhiteSpace(outputDir));
 
-            DirectoryViewModel = new DirectoryViewModel(inputDir, "Complete");
             OutputDirectory = outputDir;
 
             FilebotSettings settings = FilebotSettings.Default;
@@ -127,13 +142,36 @@ namespace SyncWatcherTray.ViewModel
 
             Filebot = new Filebot(settings, log);
 
-            SyncthingWatcher = new SyncthingWatcher(inputDir);
-            SyncthingWatcher.WatchEvent += SyncthingWatcher_OnChanged;
-            SyncthingWatcher.Start();
-
             //restore sticky setting
             IsAutoCleanEnabled = Settings.Default.IsAutoCleanEnabled;
             IsPlexScanEnabled = Settings.Default.IsPlexScanEnabled;
+        }
+
+        public void SetDirectory(string _directoryPath)
+        {
+            Debug.Assert(_directoryPath != null);
+            Debug.Assert(Directory.Exists(_directoryPath));
+
+            DirectoryViewModel = new SyncthingDirectoryViewModel(_directoryPath, "Complete");
+            DirectoryViewModel.SyncthingCompleted += SyncthingWatcher_OnChanged;
+        }
+
+        public void ClearDirectory()
+        {
+            SyncthingDirectoryViewModel currentViewModel = DirectoryViewModel;
+            if (currentViewModel != null)
+            {
+                currentViewModel.SyncthingCompleted -= SyncthingWatcher_OnChanged;
+            }
+
+            DirectoryViewModel = null;
+        }
+
+        private bool CanAutoClean()
+        {
+            bool canOrganize = Filebot != null && !IsBusy && DirectoryViewModel != null;
+
+            return canOrganize;
         }
 
         private async Task Organize()
@@ -188,10 +226,10 @@ namespace SyncWatcherTray.ViewModel
             }
 
             //perform orangize on changes
-            ICommand organizeCommand = OrganizeCommand;
-            if (organizeCommand.CanExecute(null))
+            ICommand autoCleanCommand = AutoCleanCommand;
+            if (autoCleanCommand.CanExecute(null))
             {
-                organizeCommand.Execute(null);
+                autoCleanCommand.Execute(null);
             }
         }
     }
