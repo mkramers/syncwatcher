@@ -48,17 +48,22 @@ namespace Common.Framework
             this.timer.Change(delay, TimeSpan.FromMilliseconds(-1));
         }
 
-        #region IDisposable Members
-
         public void Dispose()
         {
-            if (this.timer != null)
-            {
-                this.timer.Dispose();
-                this.timer = null;
-            }
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
-        #endregion
+        protected virtual void Dispose(bool _disposing)
+        {
+            if (_disposing)
+            {
+                if (timer != null)
+                {
+                    timer.Dispose();
+                    timer = null;
+                }
+            }
+        }
     }
 }
