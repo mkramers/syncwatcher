@@ -150,8 +150,8 @@ namespace SyncWatcherTray.ViewModel
             Debug.Assert(_directoryPath != null);
             Debug.Assert(Directory.Exists(_directoryPath));
 
-            Directories[0] = new DirectoryViewModel(_directoryPath, "TV");
-            Directories[1] = new DirectoryViewModel(_directoryPath, "MOVIES");
+            Directories[0] = new DirectoryViewModel(Path.Combine(_directoryPath, "TV Shows"), "TV");
+            Directories[1] = new DirectoryViewModel(Path.Combine(_directoryPath, "Movies"), "MOVIES");
         }
 
         private void ClearDirectory()
