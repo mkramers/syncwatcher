@@ -24,7 +24,7 @@ namespace SyncWatcherTray.ViewModel
     {
         public FtpManagerViewModel FtpManagerViewModel { get; }
         public TaskbarIconViewModel TaskBarIcon { get; }
-        public IEnumerable<DirectoryViewModel> Directories { get; }
+        public DirectoryViewModel[] Directories { get; }
         public LocalCleanerViewModel CompletedDirectory { get; }
 
         public MainViewModel()
@@ -35,8 +35,6 @@ namespace SyncWatcherTray.ViewModel
 
             string input = settings.CompletedDirectory;
             string outputDir = settings.MediaRootDirectory;
-            string seriesDir = settings.SeriesDirectory;
-            string moviesDir = settings.MovieDirectory;
 
             SourceDestinationPaths paths = new SourceDestinationPaths(input, outputDir);
 
@@ -54,11 +52,16 @@ namespace SyncWatcherTray.ViewModel
             CompletedDirectory.Started += Operation_Started;
             CompletedDirectory.Stopped += OperationStopped;
 
-            Directories = new[]
+            Directories = new DirectoryViewModel[2];
+
+            if (Directory.Exists(outputDir))
             {
-                new DirectoryViewModel(seriesDir, "TV"),
-                new DirectoryViewModel(moviesDir, "MOVIES")
-            };
+                SetDirectory(outputDir);
+            }
+            else
+            {
+                ClearDirectory();
+            }
 
             RunPostOperations();
         }
@@ -136,6 +139,23 @@ namespace SyncWatcherTray.ViewModel
             {
                 Settings.Default.LastRemotePath = _managerViewModel.SelectedLocalRoot;
                 Settings.Default.Save();
+            }
+        }
+
+        private void SetDirectory(string _directoryPath)
+        {
+            Debug.Assert(_directoryPath != null);
+            Debug.Assert(Directory.Exists(_directoryPath));
+
+            Directories[0] = new DirectoryViewModel(_directoryPath, "TV");
+            Directories[1] = new DirectoryViewModel(_directoryPath, "MOVIES");
+        }
+
+        private void ClearDirectory()
+        {
+            for (int i = 0; i < Directories.Length; i++)
+            {
+                Directories[i] = null;
             }
         }
 
