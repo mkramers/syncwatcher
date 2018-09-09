@@ -56,7 +56,7 @@ namespace SyncWatcherTray.ViewModel
 
                         OnStopped();
                     },
-                    CanExecuteFunc = CanOrganize
+                    CanExecuteFunc = CanAutoClean
                 };
             }
         }
@@ -157,7 +157,7 @@ namespace SyncWatcherTray.ViewModel
             DirectoryViewModel = null;
         }
 
-        private bool CanOrganize()
+        private bool CanAutoClean()
         {
             bool canOrganize = Filebot != null && !IsBusy && DirectoryViewModel != null;
 
