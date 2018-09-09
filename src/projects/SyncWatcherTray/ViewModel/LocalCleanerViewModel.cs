@@ -37,7 +37,7 @@ namespace SyncWatcherTray.ViewModel
             }
         }
 
-        public ICommand OrganizeCommand
+        public ICommand AutoCleanCommand
         {
             get
             {
@@ -216,10 +216,10 @@ namespace SyncWatcherTray.ViewModel
             }
 
             //perform orangize on changes
-            ICommand organizeCommand = OrganizeCommand;
-            if (organizeCommand.CanExecute(null))
+            ICommand autoCleanCommand = AutoCleanCommand;
+            if (autoCleanCommand.CanExecute(null))
             {
-                organizeCommand.Execute(null);
+                autoCleanCommand.Execute(null);
             }
         }
     }

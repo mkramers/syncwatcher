@@ -47,7 +47,7 @@
                 BorderThickness="2"
                 BorderBrush="Red"
                 HorizontalAlignment="Center"
-                Command="{Binding OrganizeCommand}"
+                Command="{Binding AutoCleanCommand}"
                 Content="SORT" />
 
             <Grid
