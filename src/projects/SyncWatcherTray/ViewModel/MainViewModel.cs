@@ -73,19 +73,9 @@ namespace SyncWatcherTray.ViewModel
             Directory.CreateDirectory(appDataDirectory);
 
             CompletedDirectory = new LocalCleanerViewModel(paths, appDataDirectory);
+            CompletedDirectory.Initialize(paths);
             CompletedDirectory.Started += Operation_Started;
             CompletedDirectory.Stopped += OperationStopped;
-
-            if (Directory.Exists(outputDir))
-            {
-                SetDirectory(outputDir);
-            }
-            else
-            {
-                ClearDirectory();
-            }
-
-            RunPostOperations();
         }
 
         private void Settings_OnSettingChanging(object _sender, SettingChangingEventArgs _settingChangingEventArgs)
@@ -265,6 +255,24 @@ namespace SyncWatcherTray.ViewModel
 
                 TaskBarIcon.Dispose();
             }
+        }
+
+        public void Initialize()
+        {
+            Settings settings = Settings.Default;
+
+            string outputDir = settings.MediaRootDirectory;
+
+            if (Directory.Exists(outputDir))
+            {
+                SetDirectory(outputDir);
+            }
+            else
+            {
+                ClearDirectory();
+            }
+
+            RunPostOperations();
         }
     }
 }

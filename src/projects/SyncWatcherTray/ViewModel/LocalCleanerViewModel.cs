@@ -113,23 +113,13 @@ namespace SyncWatcherTray.ViewModel
         {
             Debug.Assert(IsInDesignMode);
         }
-
+         
         public LocalCleanerViewModel(SourceDestinationPaths _paths, string _appDataDirectory)
         {
             Debug.Assert(_paths != null);
             Debug.Assert(!string.IsNullOrWhiteSpace(_appDataDirectory));
 
-            string inputDir = _paths.SourcePath;
             string outputDir = _paths.DestinationPath;
-
-            if (string.IsNullOrWhiteSpace(inputDir) || !Directory.Exists(inputDir))
-            {
-                ClearDirectory();
-            }
-            else
-            {
-                SetDirectory(inputDir);
-            }
 
             Debug.Assert(!string.IsNullOrWhiteSpace(outputDir));
 
@@ -143,8 +133,8 @@ namespace SyncWatcherTray.ViewModel
             Filebot = new Filebot(settings, log);
 
             //restore sticky setting
-            IsAutoCleanEnabled = Settings.Default.IsAutoCleanEnabled;
-            IsPlexScanEnabled = Settings.Default.IsPlexScanEnabled;
+            m_isAutoCleanEnabled = Settings.Default.IsAutoCleanEnabled;
+            m_isPlexScanEnabled = Settings.Default.IsPlexScanEnabled;
         }
 
         public void SetDirectory(string _directoryPath)
@@ -244,6 +234,22 @@ namespace SyncWatcherTray.ViewModel
             if (_disposing)
             {
                 DirectoryViewModel?.Dispose();
+            }
+        }
+
+        public void Initialize(SourceDestinationPaths _paths)
+        {
+            Debug.Assert(_paths!=null);
+
+            string inputDir = _paths.SourcePath;
+
+            if (string.IsNullOrWhiteSpace(inputDir) || !Directory.Exists(inputDir))
+            {
+                ClearDirectory();
+            }
+            else
+            {
+                SetDirectory(inputDir);
             }
         }
     }

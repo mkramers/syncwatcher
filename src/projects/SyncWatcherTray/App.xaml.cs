@@ -29,6 +29,7 @@ namespace SyncWatcherTray
             Log.Info("Starting SyncWatcherTray");
 
             m_viewModel = new MainViewModel();
+            m_viewModel.Initialize();
 
             m_mainWindow = new View.MainWindow();
             m_mainWindow.InitializeComponent();
