@@ -159,12 +159,7 @@ namespace SyncWatcherTray.ViewModel
 
         private bool CanOrganize()
         {
-            bool canOrganize = false;
-
-            if (Filebot != null && !IsBusy && DirectoryViewModel != null)
-            {
-                canOrganize = true;
-            }
+            bool canOrganize = Filebot != null && !IsBusy && DirectoryViewModel != null;
 
             return canOrganize;
         }
