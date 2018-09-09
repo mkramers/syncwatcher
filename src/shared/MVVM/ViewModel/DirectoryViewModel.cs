@@ -13,7 +13,7 @@ namespace MVVM.ViewModel
 {
     public class SyncthingDirectoryViewModel : DirectoryViewModel
     {
-        public SyncthingWatcher SyncthingWatcher { get; }
+        public FileNameFileWatcher FileNameFileWatcher { get; }
 
         public event EventHandler<FileSystemEventArgs> SyncthingCompleted;
 
@@ -30,9 +30,9 @@ namespace MVVM.ViewModel
             Debug.Assert(!string.IsNullOrWhiteSpace(_shortName));
             Debug.Assert(Directory.Exists(_directory));
 
-            SyncthingWatcher = new SyncthingWatcher(_directory);
-            SyncthingWatcher.WatchEvent += SyncthingWatcher_OnChanged;
-            SyncthingWatcher.Start();
+            FileNameFileWatcher = new FileNameFileWatcher(_directory);
+            FileNameFileWatcher.WatchEvent += SyncthingWatcher_OnChanged;
+            FileNameFileWatcher.Start();
         }
 
         private void SyncthingWatcher_OnChanged(object _sender, FileSystemEventArgs _e)

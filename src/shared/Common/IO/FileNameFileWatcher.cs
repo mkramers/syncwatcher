@@ -5,14 +5,14 @@ using System.Linq;
 
 namespace Common.IO
 {
-    public class SyncthingWatcher : FileWatcher
+    public class FileNameFileWatcher : FileWatcher
     {
         private readonly List<string> m_syncKeywords = new List<string>
         {
             "~syncthing~"
         };
 
-        public SyncthingWatcher(string _directory) : base(_directory)
+        public FileNameFileWatcher(string _directory) : base(_directory)
         {
         }
 
