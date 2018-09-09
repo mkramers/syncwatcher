@@ -64,6 +64,7 @@ namespace SyncWatcherTray
             if (_disposing)
             {
                 m_mainWindow.Dispose();
+                m_viewModel.Dispose();
             }
         }
 
