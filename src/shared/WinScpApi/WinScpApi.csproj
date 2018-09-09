@@ -119,7 +119,7 @@
     <None Include="packages.config" />
     <None Include="Properties\SessionConfig.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>SessionConfig1.Designer.cs</LastGenOutput>
+      <LastGenOutput>SessionConfig.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
