@@ -4,6 +4,9 @@ namespace Common.Framework
 {
     public abstract class Controller
     {
+        public Model Model { get; set; }
+        public View View { get; set; }
+
         public Controller(Model _model, View _view)
         {
             Debug.Assert(_model != null);
@@ -16,8 +19,5 @@ namespace Common.Framework
         }
 
         protected abstract void OnViewEvent(object sender, ViewEventArgs e);
-
-        public Model Model { get; set; }
-        public View View { get; set; }
     }
 }

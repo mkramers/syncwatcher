@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using log4net;
+using log4net.Appender;
 
 namespace Common.Logging
 {
@@ -18,6 +19,29 @@ namespace Common.Logging
     /// </summary>
     public static class Log
     {
+        /// <summary>
+        ///     Get the <see cref="Logging.NotifyAppender" /> log.
+        /// </summary>
+        /// <returns>
+        ///     The instance of the <see cref="Logging.NotifyAppender" /> log, if configured.
+        ///     Null otherwise.
+        /// </returns>
+        public static NotifyAppender NotifyAppender
+        {
+            get
+            {
+                foreach (ILog log in LogManager.GetCurrentLoggers())
+                foreach (IAppender appender in log.Logger.Repository.GetAppenders())
+                {
+                    if (appender is NotifyAppender)
+                    {
+                        return appender as NotifyAppender;
+                    }
+                }
+                return null;
+            }
+        }
+
         /// <summary>
         ///     Static instance of the log manager.
         /// </summary>
@@ -43,29 +67,12 @@ namespace Common.Logging
             if (!string.IsNullOrEmpty(message))
             {
                 if (level > LogLevel.Warning || level < LogLevel.Debug)
+                {
                     throw new ArgumentOutOfRangeException("level");
+                }
 
                 // Now call the appropriate log level message.
                 _actions[level](message);
-            }
-        }
-
-        /// <summary>
-        ///     Get the <see cref="Logging.NotifyAppender" /> log.
-        /// </summary>
-        /// <returns>
-        ///     The instance of the <see cref="Logging.NotifyAppender" /> log, if configured.
-        ///     Null otherwise.
-        /// </returns>
-        public static NotifyAppender NotifyAppender
-        {
-            get
-            {
-                foreach (var log in LogManager.GetCurrentLoggers())
-                foreach (var appender in log.Logger.Repository.GetAppenders())
-                    if (appender is NotifyAppender)
-                        return appender as NotifyAppender;
-                return null;
             }
         }
 
@@ -81,31 +88,41 @@ namespace Common.Logging
         private static void WriteDebug(string message)
         {
             if (_logger.IsDebugEnabled)
+            {
                 _logger.Debug(message);
+            }
         }
 
         private static void WriteError(string message)
         {
             if (_logger.IsErrorEnabled)
+            {
                 _logger.Error(message);
+            }
         }
 
         private static void WriteFatal(string message)
         {
             if (_logger.IsFatalEnabled)
+            {
                 _logger.Fatal(message);
+            }
         }
 
         private static void WriteInfo(string message)
         {
             if (_logger.IsInfoEnabled)
+            {
                 _logger.Info(message);
+            }
         }
 
         private static void WriteWarning(string message)
         {
             if (_logger.IsWarnEnabled)
+            {
                 _logger.Warn(message);
+            }
         }
 
         #endregion

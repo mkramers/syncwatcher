@@ -29,7 +29,9 @@ namespace WinScpApi.ViewModel
 
                         IEnumerable<FtpFileViewModel> selectedFiles = await remoteDirectoryViewModel.GetSelectedFiles();
                         if (selectedFiles != null)
+                        {
                             Manager.Sync(selectedFiles);
+                        }
                     },
                     CanExecuteFunc = () => Manager != null
                 };
@@ -87,8 +89,7 @@ namespace WinScpApi.ViewModel
                 {
                     CommandAction = () =>
                     {
-                        string text =
-                            @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mi neque, accumsan vel magna ut, elementum molestie ligula. Mauris dignissim gravida ornare. Sed at laoreet turpis. Sed sodales vel felis et congue. Maecenas feugiat odio nunc, eu viverra ante interdum sit amet. Proin fringilla elit a libero pellentesque, varius lacinia arcu efficitur. Aliquam venenatis sagittis imperdiet. Donec ac eros sit amet magna semper rhoncus eu ac justo. Integer rhoncus felis ut ipsum porttitor laoreet. Nam nulla orci, auctor sit amet sem eu, vestibulum dictum arcu. Proin porttitor orci et felis sollicitudin mollis. Etiam ac libero ac lacus tincidunt sollicitudin. Aenean eu libero ultricies, molestie dolor at, varius libero. Ut ullamcorper tellus a lacus blandit blandit. Ut quis mi at nisl aliquam lacinia.
+                        string text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mi neque, accumsan vel magna ut, elementum molestie ligula. Mauris dignissim gravida ornare. Sed at laoreet turpis. Sed sodales vel felis et congue. Maecenas feugiat odio nunc, eu viverra ante interdum sit amet. Proin fringilla elit a libero pellentesque, varius lacinia arcu efficitur. Aliquam venenatis sagittis imperdiet. Donec ac eros sit amet magna semper rhoncus eu ac justo. Integer rhoncus felis ut ipsum porttitor laoreet. Nam nulla orci, auctor sit amet sem eu, vestibulum dictum arcu. Proin porttitor orci et felis sollicitudin mollis. Etiam ac libero ac lacus tincidunt sollicitudin. Aenean eu libero ultricies, molestie dolor at, varius libero. Ut ullamcorper tellus a lacus blandit blandit. Ut quis mi at nisl aliquam lacinia.
 
 Praesent sagittis metus vitae iaculis luctus. Etiam pretium nunc dui, ut fringilla turpis vestibulum fringilla. Integer viverra magna leo, ac aliquam sapien interdum eget. Suspendisse potenti. Vivamus aliquam consequat interdum. Aliquam tincidunt est nec orci varius, et pellentesque odio convallis. Integer tempor velit non ex imperdiet tristique. Duis risus lectus, consectetur rhoncus velit nec, aliquam iaculis risus. In consectetur arcu sed neque aliquam, at scelerisque sem dapibus. Nulla at lacus tristique, malesuada dolor ut, cursus risus. Nulla placerat tortor eget purus euismod vehicula. Integer gravida sollicitudin aliquam. Pellentesque pretium venenatis suscipit. Sed vel ex quis eros viverra posuere luctus et turpis. Donec suscipit dictum neque, et mattis ipsum malesuada nec. Mauris pharetra convallis sapien, ac maximus augue mollis eu.
 

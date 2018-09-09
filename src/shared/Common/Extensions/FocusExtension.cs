@@ -6,6 +6,8 @@ namespace Common.Controls
 
     public static class FocusExtension
     {
+        public static readonly DependencyProperty IsFocusedProperty = DependencyProperty.RegisterAttached("IsFocused", typeof(bool), typeof(FocusExtension), new UIPropertyMetadata(false, OnIsFocusedPropertyChanged));
+
         public static bool GetIsFocused(DependencyObject obj)
         {
             return (bool) obj.GetValue(IsFocusedProperty);
@@ -18,12 +20,11 @@ namespace Common.Controls
 
         private static void OnIsFocusedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var uie = (UIElement) d;
+            UIElement uie = (UIElement) d;
             if ((bool) e.NewValue)
+            {
                 uie.Focus(); // Don't care about false values.
+            }
         }
-
-        public static readonly DependencyProperty IsFocusedProperty = DependencyProperty.RegisterAttached("IsFocused",
-            typeof(bool), typeof(FocusExtension), new UIPropertyMetadata(false, OnIsFocusedPropertyChanged));
     }
 }

@@ -1,13 +1,12 @@
 ﻿using System.Diagnostics;
 using System.Windows.Controls;
 using SyncWatcherTray.Properties;
-using SyncWatcherTray.ViewModel;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace SyncWatcherTray.View
 {
     /// <summary>
-    /// Interaction logic for SettingsView.xaml
+    ///     Interaction logic for SettingsView.xaml
     /// </summary>
     public partial class SettingsView : UserControl
     {

@@ -18,7 +18,7 @@ namespace Common.IO
             TcpListener server = null;
             try
             {
-                var localAddr = IPAddress.Parse(_ipAdress);
+                IPAddress localAddr = IPAddress.Parse(_ipAdress);
 
                 // TcpListener server = new TcpListener(port);
                 server = new TcpListener(localAddr, _port);
@@ -27,7 +27,7 @@ namespace Common.IO
                 server.Start();
 
                 // Buffer for reading data
-                var bytes = new byte[256];
+                byte[] bytes = new byte[256];
                 string data = null;
 
                 // Enter the listening loop.
@@ -37,11 +37,11 @@ namespace Common.IO
 
                     // Perform a blocking call to accept requests.
                     // You could also user server.AcceptSocket() here.
-                    var client = server.AcceptTcpClient();
+                    TcpClient client = server.AcceptTcpClient();
                     Console.WriteLine("Connected!");
 
                     // Get a stream object for reading and writing
-                    var stream = client.GetStream();
+                    NetworkStream stream = client.GetStream();
 
                     int i;
 
@@ -54,7 +54,7 @@ namespace Common.IO
 
                         _onReceivedMessage?.Invoke(new ListenerEventArgs(data));
 
-                        var msg = Encoding.ASCII.GetBytes(data);
+                        byte[] msg = Encoding.ASCII.GetBytes(data);
 
                         // Send back a response.
                         stream.Write(msg, 0, msg.Length);
@@ -75,7 +75,6 @@ namespace Common.IO
                 server.Stop();
             }
 
-
             Console.WriteLine("\nHit enter to continue...");
             Console.Read();
         }
@@ -83,13 +82,13 @@ namespace Common.IO
 
     public class ListenerEventArgs : EventArgs
     {
+        public string Message { get; set; }
+
         public ListenerEventArgs(string _message)
         {
             Debug.Assert(_message != null);
 
             Message = _message;
         }
-
-        public string Message { get; set; }
     }
 }

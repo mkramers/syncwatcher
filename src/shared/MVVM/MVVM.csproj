@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\InvertableBooleanToVisibilityConverter.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Popups\Popup.cs" />
     <Compile Include="Popups\PopupBehavior.cs" />
     <Compile Include="Popups\PopupManager.cs" />

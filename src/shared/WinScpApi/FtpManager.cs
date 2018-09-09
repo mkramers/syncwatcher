@@ -84,8 +84,7 @@ namespace WinScpApi
             sessionOptions.AddRawSettings("AuthGSSAPI", "1");
             sessionOptions.AddRawSettings("TcpNoDelay", "1");
 
-            Log.Info(
-                $"---\nStarting FtpManager\n===\n\tUser: {sessionOptions.UserName}\n\tHost: {sessionOptions}\n\tPath: {remoteRoot}\n");
+            Log.Info($"---\nStarting FtpManager\n===\n\tUser: {sessionOptions.UserName}\n\tHost: {sessionOptions}\n\tPath: {remoteRoot}\n");
 
             Client = new FtpClient(remoteRoot, sessionOptions);
             Client.ConnectionChanged += Client_ConnectionChanged;
@@ -99,9 +98,7 @@ namespace WinScpApi
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(hex));
 
-            byte[] bytes = Enumerable.Range(0, hex.Length / 2)
-                .Select(_x => Convert.ToByte(hex.Substring(_x * 2, 2), 16))
-                .ToArray();
+            byte[] bytes = Enumerable.Range(0, hex.Length / 2).Select(_x => Convert.ToByte(hex.Substring(_x * 2, 2), 16)).ToArray();
             byte[] decrypted = ProtectedData.Unprotect(bytes, null, DataProtectionScope.CurrentUser);
             string password = Encoding.Unicode.GetString(decrypted);
             return password;
@@ -112,9 +109,13 @@ namespace WinScpApi
             bool isConnected = _e.IsConnected;
 
             if (!isConnected)
+            {
                 Application.Current.Dispatcher.Invoke(() => { RemoteRootViewModel = null; });
+            }
             else
+            {
                 await Refresh();
+            }
 
             ClientConnectionChanged?.Invoke(_sender, _e);
         }
@@ -122,8 +123,7 @@ namespace WinScpApi
         private void Client_DownloadComplete(object _sender, TransferEventArgs _e)
         {
             string fileName = _e.FileName;
-            FtpFileViewModel matchViewModel =
-                RemoteRootViewModel.Find(_file => _file.FullName == fileName) as FtpFileViewModel;
+            FtpFileViewModel matchViewModel = RemoteRootViewModel.Find(_file => _file.FullName == fileName) as FtpFileViewModel;
 
             FileObject match = matchViewModel?.File;
             if (match != null)
@@ -134,16 +134,17 @@ namespace WinScpApi
                 Cache.AddItem(matchViewModel);
                 Cache.Save(m_config.HistoryFilePath);
 
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    lock (Downloads)
+                Application.Current.Dispatcher.Invoke(
+                    () =>
                     {
-                        FileObject matchingDownload = Downloads.Find(_file => _file.FullName == fileName);
-                        Debug.Assert(matchingDownload != null);
+                        lock (Downloads)
+                        {
+                            FileObject matchingDownload = Downloads.Find(_file => _file.FullName == fileName);
+                            Debug.Assert(matchingDownload != null);
 
-                        Downloads.Remove(matchingDownload);
-                    }
-                });
+                            Downloads.Remove(matchingDownload);
+                        }
+                    });
             }
         }
 
@@ -158,7 +159,9 @@ namespace WinScpApi
                 match.UpdateProgress(percent, _e.CPS);
 
                 if (match.Cancel)
+                {
                     _e.Cancel = true;
+                }
             }
         }
 
@@ -179,7 +182,9 @@ namespace WinScpApi
         public async Task Refresh()
         {
             if (!Client.IsOpened)
+            {
                 return;
+            }
 
             OperationStarted?.Invoke(this, EventArgs.Empty);
 
@@ -209,7 +214,9 @@ namespace WinScpApi
 
             List<FileObject> newDownloads = ftpFileViewModels.Select(_result => _result.File).ToList();
             if (!newDownloads.Any())
+            {
                 return;
+            }
 
             Log.Info("Starting download.");
 
@@ -228,13 +235,12 @@ namespace WinScpApi
                 Downloads.AddRange(newDownloads);
             }
 
-            await Task.Factory.StartNew(() =>
-            {
-                Client.DownloadFiles(newDownloads, CurrentLocalRoot, CurrentRemoteRoot, m_config);
-            });
+            await Task.Factory.StartNew(() => { Client.DownloadFiles(newDownloads, CurrentLocalRoot, CurrentRemoteRoot, m_config); });
 
             if (Downloads.All(_download => _download.IsCompleted || _download.Cancel))
+            {
                 Downloads.Clear();
+            }
 
             Cache.Save(m_config.HistoryFilePath);
 
@@ -244,7 +250,9 @@ namespace WinScpApi
         public void CancelTransfers()
         {
             if (Client.IsOpened && Client.IsBusy)
+            {
                 Client.Abort();
+            }
 
             foreach (FileObject pending in Downloads)
             {
@@ -259,7 +267,9 @@ namespace WinScpApi
             Cache.Save(m_config.HistoryFilePath);
 
             if (Client.IsOpened)
+            {
                 await Refresh();
+            }
         }
 
         public void MarkAsDownloaded(IEnumerable<FtpFileViewModel> _selected)
@@ -267,7 +277,9 @@ namespace WinScpApi
             Debug.Assert(_selected != null);
 
             foreach (FtpFileViewModel item in _selected)
+            {
                 Cache.AddItem(item);
+            }
 
             Cache.Save(m_config.HistoryFilePath);
         }
@@ -275,7 +287,10 @@ namespace WinScpApi
         public async Task Dispose()
         {
             if (Client.IsOpened)
+            {
                 await Client.Disconnect();
+            }
+
             Client.Dispose();
 
             //cancel downloads
@@ -286,11 +301,15 @@ namespace WinScpApi
             while (true)
             {
                 if (!Downloads.Any())
+                {
                     break;
+                }
 
                 counter++;
                 if (counter >= maxCounter)
+                {
                     break;
+                }
 
                 await Task.Delay(200);
             }

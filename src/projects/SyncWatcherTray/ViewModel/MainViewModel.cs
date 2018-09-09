@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
@@ -10,23 +9,19 @@ using System.Windows;
 using System.Windows.Input;
 using Common.Framework.EventHelpers;
 using Common.IO;
-using Common.Mvvm;
 using Common.SFTP;
-using FilebotApi;
 using GalaSoft.MvvmLight;
-using MVVM.Popups;
 using MVVM.ViewModel;
 using SyncWatcherTray.Properties;
 using WinScpApi;
 using WinScpApi.ViewModel;
-using Application = System.Windows.Application;
 
 namespace SyncWatcherTray.ViewModel
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, IDisposable
     {
-        private DirectoryViewModel m_seriesDirectoryViewModel;
         private DirectoryViewModel m_moviesDirectoryViewModel;
+        private DirectoryViewModel m_seriesDirectoryViewModel;
 
         public FtpManagerViewModel FtpManagerViewModel { get; }
         public TaskbarIconViewModel TaskBarIcon { get; }
@@ -73,19 +68,15 @@ namespace SyncWatcherTray.ViewModel
             Directory.CreateDirectory(appDataDirectory);
 
             CompletedDirectory = new LocalCleanerViewModel(paths, appDataDirectory);
+            CompletedDirectory.Initialize(paths);
             CompletedDirectory.Started += Operation_Started;
             CompletedDirectory.Stopped += OperationStopped;
+        }
 
-            if (Directory.Exists(outputDir))
-            {
-                SetDirectory(outputDir);
-            }
-            else
-            {
-                ClearDirectory();
-            }
-
-            RunPostOperations();
+        public async void Dispose()
+        {
+            await Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         private void Settings_OnSettingChanging(object _sender, SettingChangingEventArgs _settingChangingEventArgs)
@@ -137,10 +128,12 @@ namespace SyncWatcherTray.ViewModel
         {
             SessionConfig ftpSessionConfig = SessionConfig.Default;
 
-            FtpManager manager = new FtpManager(ftpSessionConfig, new List<string>
-            {
-                _input
-            });
+            FtpManager manager = new FtpManager(
+                ftpSessionConfig,
+                new List<string>
+                {
+                    _input
+                });
             manager.OperationStarted += Operation_Started;
             manager.OperationCompleted += OperationStopped;
 
@@ -229,17 +222,10 @@ namespace SyncWatcherTray.ViewModel
 
         public bool CanExit()
         {
-            var canExit = true;
+            bool canExit = true;
             canExit &= FtpManagerViewModel.CanExit();
             canExit &= !CompletedDirectory.IsBusy;
             return canExit;
-        }
-
-        public async Task Dispose()
-        {
-            await FtpManagerViewModel.Dispose();
-
-            Cleanup();
         }
 
         private void Operation_Started(object _sender, EventArgs _e)
@@ -256,6 +242,34 @@ namespace SyncWatcherTray.ViewModel
             {
                 TaskBarIcon.SetIsNotBusy();
             }
+        }
+
+        protected virtual async Task Dispose(bool _disposing)
+        {
+            if (_disposing)
+            {
+                await FtpManagerViewModel.Dispose();
+
+                TaskBarIcon.Dispose();
+            }
+        }
+
+        public void Initialize()
+        {
+            Settings settings = Settings.Default;
+
+            string outputDir = settings.MediaRootDirectory;
+
+            if (Directory.Exists(outputDir))
+            {
+                SetDirectory(outputDir);
+            }
+            else
+            {
+                ClearDirectory();
+            }
+
+            RunPostOperations();
         }
     }
 }

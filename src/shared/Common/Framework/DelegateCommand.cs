@@ -9,6 +9,9 @@ namespace Common.Mvvm
     /// </summary>
     public class DelegateCommand : ICommand
     {
+        public Action CommandAction { get; set; }
+        public Func<bool> CanExecuteFunc { get; set; }
+
         public void Execute(object _parameter)
         {
             Debug.Assert(CommandAction != null);
@@ -26,8 +29,5 @@ namespace Common.Mvvm
             add => CommandManager.RequerySuggested += value;
             remove => CommandManager.RequerySuggested -= value;
         }
-
-        public Action CommandAction { get; set; }
-        public Func<bool> CanExecuteFunc { get; set; }
     }
 }

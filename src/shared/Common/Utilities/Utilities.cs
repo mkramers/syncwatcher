@@ -21,24 +21,53 @@ namespace Common
 {
     public static class Utilities
     {
+        private static readonly ILog LOG = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        public static ColorPalette Format8BppIndexedToGrayscale_Palette
+        {
+            get
+            {
+                ColorPalette palette = null;
+                Bitmap bmp = null;
+
+                try
+                {
+                    //create a dummy image so we can get a palette from it
+                    bmp = new Bitmap(1, 1, PixelFormat.Format8bppIndexed);
+
+                    //create the new palette
+                    palette = bmp.Palette;
+
+                    //convert the palette to grayscale
+                    for (int i = 0; i < palette.Entries.Length; i++)
+                    {
+                        palette.Entries[i] = System.Drawing.Color.FromArgb(i, i, i);
+                    }
+                }
+                catch (ArgumentException)
+                {
+                }
+                finally
+                {
+                    bmp?.Dispose();
+                }
+
+                return palette;
+            }
+        }
+
+        public static string Divider => "-------------------------------------------------";
+
         public static Dictionary<string, T> GetFieldValues<T>(Type _type)
         {
-            return _type
-                .GetFields()
-                .Where(p => p.FieldType == typeof(T))
-                .ToDictionary(f => f.Name,
-                    f => (T) f.GetValue(null));
+            return _type.GetFields().Where(p => p.FieldType == typeof(T)).ToDictionary(f => f.Name, f => (T) f.GetValue(null));
         }
 
         public static Dictionary<string, T> GetPropertyValues<T>(Type _type)
         {
-            var properties = _type
-                .GetProperties();
+            PropertyInfo[] properties = _type.GetProperties();
 
-            return properties
-                .Where(p => p.PropertyType == typeof(T))
-                .ToDictionary(f => f.Name,
-                    f => (T) f.GetValue(null));
+            return properties.Where(p => p.PropertyType == typeof(T)).ToDictionary(f => f.Name, f => (T) f.GetValue(null));
         }
 
         public static T[] GetEnumValues<T>()
@@ -49,14 +78,21 @@ namespace Common
         public static void ConvertTo8BitGrayscalePalette(Image _image)
         {
             if (_image != null)
+            {
                 _image.Palette = Format8BppIndexedToGrayscale_Palette;
+            }
         }
 
         public static SecureString GetSecureString(string strPassword)
         {
-            var secureStr = new SecureString();
+            SecureString secureStr = new SecureString();
             if (strPassword.Length > 0)
-                foreach (var c in strPassword.ToCharArray()) secureStr.AppendChar(c);
+            {
+                foreach (char c in strPassword)
+                {
+                    secureStr.AppendChar(c);
+                }
+            }
             return secureStr;
         }
 
@@ -67,7 +103,7 @@ namespace Common
 
         public static float[] ToFloatArray(this Vector4 _vector4)
         {
-            var array = new float[4];
+            float[] array = new float[4];
             array[0] = _vector4.X;
             array[1] = _vector4.Y;
             array[2] = _vector4.Z;
@@ -83,13 +119,15 @@ namespace Common
         public static void XmlSerializeObject<T>(T _serializableObject, string _fileName)
         {
             if (_serializableObject == null || string.IsNullOrEmpty(_fileName))
+            {
                 return;
+            }
 
             try
             {
-                var xmlDocument = new XmlDocument();
-                var serializer = new XmlSerializer(_serializableObject.GetType());
-                using (var stream = new MemoryStream())
+                XmlDocument xmlDocument = new XmlDocument();
+                XmlSerializer serializer = new XmlSerializer(_serializableObject.GetType());
+                using (MemoryStream stream = new MemoryStream())
                 {
                     serializer.Serialize(stream, _serializableObject);
                     stream.Position = 0;
@@ -114,24 +152,26 @@ namespace Common
         {
             // early out!
             if (string.IsNullOrWhiteSpace(_fileName))
+            {
                 return default(T);
+            }
 
-            var objectOut = default(T);
+            T objectOut = default(T);
 
             StringReader read = null;
 
             try
             {
-                var attributeXml = string.Empty;
+                string attributeXml = string.Empty;
 
-                var xmlDocument = new XmlDocument();
+                XmlDocument xmlDocument = new XmlDocument();
                 xmlDocument.Load(_fileName);
-                var xmlString = xmlDocument.OuterXml;
+                string xmlString = xmlDocument.OuterXml;
 
                 read = new StringReader(xmlString);
-                var outType = typeof(T);
+                Type outType = typeof(T);
 
-                var serializer = new XmlSerializer(outType);
+                XmlSerializer serializer = new XmlSerializer(outType);
 
                 XmlReader reader = new XmlTextReader(read);
                 objectOut = (T) serializer.Deserialize(reader);
@@ -156,12 +196,14 @@ namespace Common
         public static void BinarySerializeObject<T>(T _serializableObject, string _fileName)
         {
             if (_serializableObject == null || string.IsNullOrEmpty(_fileName))
+            {
                 return;
+            }
 
             try
             {
-                var stream = File.Create(_fileName);
-                var formatter = new BinaryFormatter();
+                FileStream stream = File.Create(_fileName);
+                BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(stream, _serializableObject);
                 stream.Close();
             }
@@ -172,12 +214,12 @@ namespace Common
 
         public static T BinaryDeserializeObject<T>(string _fileName)
         {
-            var deserializedObject = default(T);
+            T deserializedObject = default(T);
 
             try
             {
-                var stream = File.OpenRead(_fileName);
-                var formatter = new BinaryFormatter();
+                FileStream stream = File.OpenRead(_fileName);
+                BinaryFormatter formatter = new BinaryFormatter();
                 deserializedObject = (T) formatter.Deserialize(stream);
                 stream.Close();
             }
@@ -190,23 +232,25 @@ namespace Common
 
         public static string GetExtensionFromFileName(string _fileName)
         {
-            var extension = "invalidextension";
+            string extension = "invalidextension";
 
-            var splitName = _fileName.Split('.');
+            string[] splitName = _fileName.Split('.');
 
             if (splitName != null && splitName.Length > 0)
+            {
                 extension = splitName[splitName.Length - 1];
+            }
 
             return extension;
         }
 
         public static BitmapImage BitmapToImageSource(Bitmap bitmap)
         {
-            using (var memory = new MemoryStream())
+            using (MemoryStream memory = new MemoryStream())
             {
                 bitmap.Save(memory, ImageFormat.Bmp);
                 memory.Position = 0;
-                var bitmapimage = new BitmapImage();
+                BitmapImage bitmapimage = new BitmapImage();
                 bitmapimage.BeginInit();
                 bitmapimage.StreamSource = memory;
                 bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
@@ -218,7 +262,7 @@ namespace Common
 
         public static List<List<T>> GetValuesFromFile<T>(string _fileName, params char[] _seperator)
         {
-            var list = new List<List<T>>();
+            List<List<T>> list = new List<List<T>>();
 
             if (!File.Exists(_fileName))
             {
@@ -226,18 +270,20 @@ namespace Common
                 return list;
             }
 
-            var lines = GetFileLinesSplit(_fileName, _seperator);
+            List<string[]> lines = GetFileLinesSplit(_fileName, _seperator);
 
-            var converter = TypeDescriptor.GetConverter(typeof(T));
-            foreach (var line in lines)
+            TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
+            foreach (string[] line in lines)
             {
-                var row = new List<T>();
-                foreach (var item in line)
+                List<T> row = new List<T>();
+                foreach (string item in line)
+                {
                     if (converter.CanConvertFrom(typeof(string)))
                     {
-                        var value = (T) converter.ConvertFrom(item);
+                        T value = (T) converter.ConvertFrom(item);
                         row.Add(value);
                     }
+                }
 
                 list.Add(row);
             }
@@ -247,7 +293,7 @@ namespace Common
 
         public static List<string[]> GetFileLinesSplit(string _fileName, params char[] _seperator)
         {
-            var contents = new List<string[]>();
+            List<string[]> contents = new List<string[]>();
 
             //if (!File.Exists(_fileName))
             //{
@@ -260,7 +306,7 @@ namespace Common
                 return contents;
             }
 
-            var lines = new List<string>();
+            List<string> lines = new List<string>();
             try
             {
                 lines.AddRange(File.ReadAllLines(_fileName).ToList());
@@ -271,8 +317,10 @@ namespace Common
             }
             finally
             {
-                foreach (var line in lines)
+                foreach (string line in lines)
+                {
                     contents.Add(line.Split(_seperator, StringSplitOptions.RemoveEmptyEntries));
+                }
             }
 
             return contents;
@@ -284,7 +332,7 @@ namespace Common
 
             if (_data != null)
             {
-                var line = 0;
+                int line = 0;
                 int.TryParse(_data[4], out line);
 
                 warning = new StaticAnalysisWarning
@@ -300,25 +348,26 @@ namespace Common
             return warning;
         }
 
-        public static PropertyInfo GetPropertyInfo<TSource, TProperty>(TSource source,
-            Expression<Func<TSource, TProperty>> propertyLambda)
+        public static PropertyInfo GetPropertyInfo<TSource, TProperty>(TSource source, Expression<Func<TSource, TProperty>> propertyLambda)
         {
-            var type = typeof(TSource);
+            Type type = typeof(TSource);
 
-            var member = propertyLambda.Body as MemberExpression;
+            MemberExpression member = propertyLambda.Body as MemberExpression;
             if (member == null)
-                throw new ArgumentException(
-                    $"Expression '{propertyLambda}' refers to a method, not a property.");
+            {
+                throw new ArgumentException($"Expression '{propertyLambda}' refers to a method, not a property.");
+            }
 
-            var propInfo = member.Member as PropertyInfo;
+            PropertyInfo propInfo = member.Member as PropertyInfo;
             if (propInfo == null)
-                throw new ArgumentException(
-                    $"Expression '{propertyLambda}' refers to a field, not a property.");
+            {
+                throw new ArgumentException($"Expression '{propertyLambda}' refers to a field, not a property.");
+            }
 
-            if (type != propInfo.ReflectedType &&
-                !type.IsSubclassOf(propInfo.ReflectedType))
-                throw new ArgumentException(
-                    $"Expresion '{propertyLambda}' refers to a property that is not from type {type}.");
+            if (type != propInfo.ReflectedType && !type.IsSubclassOf(propInfo.ReflectedType))
+            {
+                throw new ArgumentException($"Expresion '{propertyLambda}' refers to a property that is not from type {type}.");
+            }
 
             return propInfo;
         }
@@ -337,47 +386,14 @@ namespace Common
         {
             Debug.Assert(_info != null);
             if (!_info.Exists)
+            {
                 throw new NotImplementedException();
+            }
 
-            var attributes = File.GetAttributes(_info.FullName);
+            FileAttributes attributes = File.GetAttributes(_info.FullName);
 
-            var containsAttribute = attributes.HasFlag(_attribute);
+            bool containsAttribute = attributes.HasFlag(_attribute);
             return containsAttribute;
         }
-
-        public static ColorPalette Format8BppIndexedToGrayscale_Palette
-        {
-            get
-            {
-                ColorPalette palette = null;
-                Bitmap bmp = null;
-
-                try
-                {
-                    //create a dummy image so we can get a palette from it
-                    bmp = new Bitmap(1, 1, PixelFormat.Format8bppIndexed);
-
-                    //create the new palette
-                    palette = bmp.Palette;
-
-                    //convert the palette to grayscale
-                    for (var i = 0; i < palette.Entries.Length; i++)
-                        palette.Entries[i] = System.Drawing.Color.FromArgb(i, i, i);
-                }
-                catch (ArgumentException)
-                {
-                }
-                finally
-                {
-                    bmp?.Dispose();
-                }
-
-                return palette;
-            }
-        }
-
-        public static string Divider => "-------------------------------------------------";
-
-        private static readonly ILog LOG = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
     }
 }

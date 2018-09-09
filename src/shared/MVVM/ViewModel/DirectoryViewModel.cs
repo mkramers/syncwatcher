@@ -12,12 +12,41 @@ using GalaSoft.MvvmLight;
 
 namespace MVVM.ViewModel
 {
-    public class DirectoryViewModel : ViewModelBase
+    public class DirectoryViewModel : ViewModelBase, IDisposable
     {
+        private bool m_isBusy;
         public FileWatcher FileWatcher { get; }
-        
+
+        public string Name { get; }
+        public string ShortName { get; }
+
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CommandAction = async () => { await Update(); }
+                };
+            }
+        }
+
+        public ObservableRangeCollection<FileInfo> FileNames { get; }
+        public bool IsBusy
+        {
+            get => m_isBusy;
+            set
+            {
+                if (m_isBusy != value)
+                {
+                    m_isBusy = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         /// <summary>
-        /// used only by desginer
+        ///     used only by desginer
         /// </summary>
         public DirectoryViewModel()
         {
@@ -35,7 +64,7 @@ namespace MVVM.ViewModel
 
             FileNames = new ObservableRangeCollection<FileInfo>();
 
-            FileWatcher= new FileWatcher(_directory);
+            FileWatcher = new FileWatcher(_directory);
             FileWatcher.WatchEvent += FileWatcher_OnWatchEvent;
             FileWatcher.Start();
 
@@ -46,36 +75,44 @@ namespace MVVM.ViewModel
             }
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         private void FileWatcher_OnWatchEvent(object _sender, FileSystemEventArgs _e)
         {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                ICommand refresh = RefreshCommand;
-                if (refresh.CanExecute(null))
+            Application.Current.Dispatcher.Invoke(
+                () =>
                 {
-                    refresh.Execute(null);
-                }
-            });
+                    ICommand refresh = RefreshCommand;
+                    if (refresh.CanExecute(null))
+                    {
+                        refresh.Execute(null);
+                    }
+                });
         }
 
         private async Task Update()
         {
-            var directory = Name;
+            string directory = Name;
             Debug.Assert(!string.IsNullOrWhiteSpace(directory));
 
             IsBusy = true;
-            
+
             if (Directory.Exists(directory))
             {
-                var files = await Task.Factory.StartNew(() =>
-                {
-                    var directoryInfo = new DirectoryInfo(directory);
+                IOrderedEnumerable<FileInfo> files = await Task.Factory.StartNew(
+                    () =>
+                    {
+                        DirectoryInfo directoryInfo = new DirectoryInfo(directory);
 
-                    var info = directoryInfo.GetFiles("*.*", SearchOption.AllDirectories);
-                    var filtered = info.Where(_file => _file.Length > 1000000);
-                    var sorted = filtered.OrderByDescending(_file => _file.CreationTime);
-                    return sorted;
-                });
+                        FileInfo[] info = directoryInfo.GetFiles("*.*", SearchOption.AllDirectories);
+                        IEnumerable<FileInfo> filtered = info.Where(_file => _file.Length > 1000000);
+                        IOrderedEnumerable<FileInfo> sorted = filtered.OrderByDescending(_file => _file.CreationTime);
+                        return sorted;
+                    });
 
                 FileNames.Clear();
                 FileNames.AddRange(files);
@@ -90,38 +127,14 @@ namespace MVVM.ViewModel
             IsBusy = false;
         }
 
-        public string Name { get; }
-        public string ShortName { get; }
-
-        public ICommand RefreshCommand
-        {
-            get
-            {
-                return new DelegateCommand
-                {
-                    CommandAction = async () =>
-                    {
-                        await Update();
-                    }
-                };
-            }
-        }
         public event EventHandler<EventArgs> Updated;
 
-        public ObservableRangeCollection<FileInfo> FileNames { get; }
-        public bool IsBusy
+        private void Dispose(bool _disposing)
         {
-            get => m_isBusy;
-            set
+            if (_disposing)
             {
-                if (m_isBusy != value)
-                {
-                    m_isBusy = value;
-                    RaisePropertyChanged();
-                }
+                FileWatcher.Dispose();
             }
         }
-
-        private bool m_isBusy;
     }
 }

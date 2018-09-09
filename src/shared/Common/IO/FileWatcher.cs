@@ -18,8 +18,6 @@ namespace Common.IO
         private bool m_disposed;
         private FileSystemEventArgs m_lastChange;
 
-        public event EventHandler<FileSystemEventArgs> WatchEvent;
-
         public FileWatcher(string _directory)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_directory));
@@ -41,6 +39,15 @@ namespace Common.IO
             m_changedTimer.Elapsed += ChangedTimer_Elapsed;
         }
 
+        // Public implementation of Dispose pattern callable by consumers.
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public event EventHandler<FileSystemEventArgs> WatchEvent;
+
         public void Start()
         {
             Debug.Assert(!m_changedTimer.Enabled);
@@ -53,13 +60,6 @@ namespace Common.IO
             Debug.Assert(m_changedTimer.Enabled);
 
             m_changedTimer.Stop();
-        }
-
-        // Public implementation of Dispose pattern callable by consumers.
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         private void ChangedTimer_Elapsed(object _sender, ElapsedEventArgs _e)

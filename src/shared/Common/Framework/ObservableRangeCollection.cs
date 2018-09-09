@@ -25,8 +25,7 @@ public class ObservableRangeCollection<T> : ObservableCollection<T>
     /// </summary>
     /// <param name="collection">collection: The collection from which the elements are copied.</param>
     /// <exception cref="System.ArgumentNullException">The collection parameter cannot be null.</exception>
-    public ObservableRangeCollection(IEnumerable<T> collection)
-        : base(collection)
+    public ObservableRangeCollection(IEnumerable<T> collection) : base(collection)
     {
     }
 
@@ -35,9 +34,15 @@ public class ObservableRangeCollection<T> : ObservableCollection<T>
     /// </summary>
     public void AddRange(IEnumerable<T> collection)
     {
-        if (collection == null) throw new ArgumentNullException(nameof(collection));
+        if (collection == null)
+        {
+            throw new ArgumentNullException(nameof(collection));
+        }
 
-        foreach (var i in collection) Items.Add(i);
+        foreach (T i in collection)
+        {
+            Items.Add(i);
+        }
         OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
     }
 
@@ -50,9 +55,11 @@ public class ObservableRangeCollection<T> : ObservableCollection<T>
         Debug.Assert(_count >= 0);
         Debug.Assert(_start + _count <= Items.Count);
 
-        var limit = Math.Min(Items.Count, _start + _count);
-        for (var i = limit - 1; i >= _start; i--)
+        int limit = Math.Min(Items.Count, _start + _count);
+        for (int i = limit - 1; i >= _start; i--)
+        {
             Items.RemoveAt(i);
+        }
 
         OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
     }
@@ -62,9 +69,15 @@ public class ObservableRangeCollection<T> : ObservableCollection<T>
     /// </summary>
     public void RemoveRange(IEnumerable<T> collection)
     {
-        if (collection == null) throw new ArgumentNullException(nameof(collection));
+        if (collection == null)
+        {
+            throw new ArgumentNullException(nameof(collection));
+        }
 
-        foreach (var i in collection) Items.Remove(i);
+        foreach (T i in collection)
+        {
+            Items.Remove(i);
+        }
         OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
     }
 
@@ -81,16 +94,22 @@ public class ObservableRangeCollection<T> : ObservableCollection<T>
     /// </summary>
     public void ReplaceRange(IEnumerable<T> collection)
     {
-        if (collection == null) throw new ArgumentNullException(nameof(collection));
+        if (collection == null)
+        {
+            throw new ArgumentNullException(nameof(collection));
+        }
 
         Items.Clear();
-        foreach (var i in collection) Items.Add(i);
+        foreach (T i in collection)
+        {
+            Items.Add(i);
+        }
         OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
     }
 
     public T Find(Predicate<T> _predicate)
     {
-        var list = this.ToList();
+        List<T> list = this.ToList();
         return list.Find(_predicate);
     }
 }

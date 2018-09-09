@@ -1,14 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using Common.IO;
+using Common.Logging;
 using Common.Mvvm;
 using FilebotApi;
-using Common.Logging;
 using GalaSoft.MvvmLight;
 using PlexTools;
 using SyncWatcherTray.Properties;
@@ -16,12 +14,12 @@ using FilebotSettings = FilebotApi.Properties.Settings;
 
 namespace SyncWatcherTray.ViewModel
 {
-    public class LocalCleanerViewModel : ViewModelBase
+    public class LocalCleanerViewModel : ViewModelBase, IDisposable
     {
-        private bool m_isPlexScanEnabled;
-        private bool m_isBusy;
-        private bool m_isAutoCleanEnabled;
         private SyncthingDirectoryViewModel m_directoryViewModel;
+        private bool m_isAutoCleanEnabled;
+        private bool m_isBusy;
+        private bool m_isPlexScanEnabled;
 
         public Filebot Filebot { get; }
         private string OutputDirectory { get; }
@@ -79,7 +77,7 @@ namespace SyncWatcherTray.ViewModel
         }
         public bool IsPlexScanEnabled
         {
-            get { return m_isPlexScanEnabled; }
+            get => m_isPlexScanEnabled;
             set
             {
                 if (m_isPlexScanEnabled != value)
@@ -103,11 +101,8 @@ namespace SyncWatcherTray.ViewModel
             }
         }
 
-        public event EventHandler<EventArgs> Started;
-        public event EventHandler<EventArgs> Stopped;
-
         /// <summary>
-        /// used by designer only
+        ///     used by designer only
         /// </summary>
         public LocalCleanerViewModel()
         {
@@ -119,17 +114,7 @@ namespace SyncWatcherTray.ViewModel
             Debug.Assert(_paths != null);
             Debug.Assert(!string.IsNullOrWhiteSpace(_appDataDirectory));
 
-            string inputDir = _paths.SourcePath;
             string outputDir = _paths.DestinationPath;
-
-            if (string.IsNullOrWhiteSpace(inputDir) || !Directory.Exists(inputDir))
-            {
-                ClearDirectory();
-            }
-            else
-            {
-                SetDirectory(inputDir);
-            }
 
             Debug.Assert(!string.IsNullOrWhiteSpace(outputDir));
 
@@ -143,9 +128,18 @@ namespace SyncWatcherTray.ViewModel
             Filebot = new Filebot(settings, log);
 
             //restore sticky setting
-            IsAutoCleanEnabled = Settings.Default.IsAutoCleanEnabled;
-            IsPlexScanEnabled = Settings.Default.IsPlexScanEnabled;
+            m_isAutoCleanEnabled = Settings.Default.IsAutoCleanEnabled;
+            m_isPlexScanEnabled = Settings.Default.IsPlexScanEnabled;
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public event EventHandler<EventArgs> Started;
+        public event EventHandler<EventArgs> Stopped;
 
         public void SetDirectory(string _directoryPath)
         {
@@ -188,7 +182,7 @@ namespace SyncWatcherTray.ViewModel
         {
             Debug.Assert(IsPlexScanEnabled);
 
-            uint[] sections = { 4, 5, 6 };
+            uint[] sections = {4, 5, 6};
 
             Log.Write(LogLevel.Info, "Starting Plex scan...");
 
@@ -230,6 +224,30 @@ namespace SyncWatcherTray.ViewModel
             if (autoCleanCommand.CanExecute(null))
             {
                 autoCleanCommand.Execute(null);
+            }
+        }
+
+        protected virtual void Dispose(bool _disposing)
+        {
+            if (_disposing)
+            {
+                DirectoryViewModel?.Dispose();
+            }
+        }
+
+        public void Initialize(SourceDestinationPaths _paths)
+        {
+            Debug.Assert(_paths != null);
+
+            string inputDir = _paths.SourcePath;
+
+            if (string.IsNullOrWhiteSpace(inputDir) || !Directory.Exists(inputDir))
+            {
+                ClearDirectory();
+            }
+            else
+            {
+                SetDirectory(inputDir);
             }
         }
     }

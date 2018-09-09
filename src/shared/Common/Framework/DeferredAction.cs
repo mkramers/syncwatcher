@@ -5,17 +5,28 @@ using System.Windows;
 namespace Common.Framework
 {
     /// <summary>
-    /// Represents a timer which performs an action on the UI thread when time elapses.  Rescheduling is supported.
+    ///     Represents a timer which performs an action on the UI thread when time elapses.  Rescheduling is supported.
     /// </summary>
     public class DeferredAction : IDisposable
     {
         private Timer timer;
 
+        private DeferredAction(Action action)
+        {
+            timer = new Timer(delegate { Application.Current.Dispatcher.Invoke(action); });
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         /// <summary>
-        /// Creates a new DeferredAction.
+        ///     Creates a new DeferredAction.
         /// </summary>
         /// <param name="action">
-        /// The action that will be deferred.  It is not performed until after <see cref="Defer"/> is called.
+        ///     The action that will be deferred.  It is not performed until after <see cref="Defer" /> is called.
         /// </param>
         public static DeferredAction Create(Action action)
         {
@@ -27,38 +38,29 @@ namespace Common.Framework
             return new DeferredAction(action);
         }
 
-        private DeferredAction(Action action)
-        {
-            this.timer = new Timer(new TimerCallback(delegate
-            {
-                Application.Current.Dispatcher.Invoke(action);
-            }));
-        }
-
         /// <summary>
-        /// Defers performing the action until after time elapses.  Repeated calls will reschedule the action
-        /// if it has not already been performed.
+        ///     Defers performing the action until after time elapses.  Repeated calls will reschedule the action
+        ///     if it has not already been performed.
         /// </summary>
         /// <param name="delay">
-        /// The amount of time to wait before performing the action.
+        ///     The amount of time to wait before performing the action.
         /// </param>
         public void Defer(TimeSpan delay)
         {
             // Fire action when time elapses (with no subsequent calls).
-            this.timer.Change(delay, TimeSpan.FromMilliseconds(-1));
+            timer.Change(delay, TimeSpan.FromMilliseconds(-1));
         }
 
-        #region IDisposable Members
-
-        public void Dispose()
+        protected virtual void Dispose(bool _disposing)
         {
-            if (this.timer != null)
+            if (_disposing)
             {
-                this.timer.Dispose();
-                this.timer = null;
+                if (timer != null)
+                {
+                    timer.Dispose();
+                    timer = null;
+                }
             }
         }
-
-        #endregion
     }
 }

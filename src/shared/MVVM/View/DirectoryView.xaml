@@ -51,8 +51,8 @@
                     <fa:ImageAwesome
                         Width="18"
                         Height="18"
-                        Icon="Refresh" 
-                        Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}"/>
+                        Icon="Refresh"
+                        Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" />
                 </Button.Content>
             </Button>
         </Grid>

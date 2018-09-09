@@ -6,6 +6,14 @@ namespace Common.Framework
 {
     public class CustomDataGrid : DataGrid
     {
+        public static readonly DependencyProperty SelectedItemsListProperty = DependencyProperty.Register("SelectedItemsList", typeof(IList), typeof(CustomDataGrid), new PropertyMetadata(null));
+
+        public IList SelectedItemsList
+        {
+            get => (IList) GetValue(SelectedItemsListProperty);
+            set => SetValue(SelectedItemsListProperty, value);
+        }
+
         public CustomDataGrid()
         {
             SelectionChanged += CustomDataGrid_SelectionChanged;
@@ -15,15 +23,5 @@ namespace Common.Framework
         {
             SelectedItemsList = SelectedItems;
         }
-
-        public IList SelectedItemsList
-        {
-            get => (IList) GetValue(SelectedItemsListProperty);
-            set => SetValue(SelectedItemsListProperty, value);
-        }
-
-        public static readonly DependencyProperty SelectedItemsListProperty =
-            DependencyProperty.Register("SelectedItemsList", typeof(IList), typeof(CustomDataGrid),
-                new PropertyMetadata(null));
     }
 }

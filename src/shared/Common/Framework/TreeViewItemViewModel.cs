@@ -10,34 +10,10 @@ namespace Common.Framework
 
     public class TreeViewItemViewModel : ViewModelBase
     {
-        protected TreeViewItemViewModel(TreeViewItemViewModel _parent, bool _lazyLoadChildren)
-        {
-            Parent = _parent;
+        private static readonly TreeViewItemViewModel DummyChild = new TreeViewItemViewModel();
 
-            Children = new ObservableCollection<TreeViewItemViewModel>();
-
-            if (_lazyLoadChildren)
-                Children.Add(DummyChild);
-        }
-
-        private TreeViewItemViewModel()
-        {
-        }
-
-        protected virtual async Task LoadChildren()
-        {
-            await Task.FromResult(0);
-        }
-
-        public async Task LazyLoad()
-        {
-            // Lazy load the child items, if necessary.
-            if (HasDummyChild)
-            {
-                Children.Remove(DummyChild);
-                await LoadChildren();
-            }
-        }
+        private bool m_isExpanded;
+        private bool m_isSelected;
 
         public bool HasDummyChild => Children.Count == 1 && Children[0] == DummyChild;
 
@@ -54,7 +30,9 @@ namespace Common.Framework
 
                 // Expand all the way up to the root.
                 if (m_isExpanded && Parent != null)
+                {
                     Parent.IsExpanded = true;
+                }
 
                 //this will trigger the children to update async. since the children are bound via observable collection, we can safely call async here
 #pragma warning disable 4014
@@ -84,9 +62,35 @@ namespace Common.Framework
         public ObservableCollection<TreeViewItemViewModel> Children { get; }
         public TreeViewItemViewModel Parent { get; }
 
-        private bool m_isExpanded;
-        private bool m_isSelected;
+        protected TreeViewItemViewModel(TreeViewItemViewModel _parent, bool _lazyLoadChildren)
+        {
+            Parent = _parent;
 
-        private static readonly TreeViewItemViewModel DummyChild = new TreeViewItemViewModel();
+            Children = new ObservableCollection<TreeViewItemViewModel>();
+
+            if (_lazyLoadChildren)
+            {
+                Children.Add(DummyChild);
+            }
+        }
+
+        private TreeViewItemViewModel()
+        {
+        }
+
+        protected virtual async Task LoadChildren()
+        {
+            await Task.FromResult(0);
+        }
+
+        public async Task LazyLoad()
+        {
+            // Lazy load the child items, if necessary.
+            if (HasDummyChild)
+            {
+                Children.Remove(DummyChild);
+                await LoadChildren();
+            }
+        }
     }
 }

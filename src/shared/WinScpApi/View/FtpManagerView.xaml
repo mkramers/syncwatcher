@@ -16,7 +16,8 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <ContextMenu x:Key="FileListRowMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+        <ContextMenu x:Key="FileListRowMenu"
+                     DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
             <MenuItem Command="{Binding CancelCommand}" Header="Cancel" />
         </ContextMenu>
         <Style x:Key="FileListRowStyle" TargetType="{x:Type DataGridRow}">
@@ -154,7 +155,8 @@
                 Visibility="{Binding Manager.Client.IsBusy, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
         </Grid>
 
-        <Grid Grid.Row="1" Visibility="{Binding Manager.Client.IsBusy, Converter={StaticResource BoolToVisibilityConverter}}">
+        <Grid Grid.Row="1"
+              Visibility="{Binding Manager.Client.IsBusy, Converter={StaticResource BoolToVisibilityConverter}}">
             <fa:ImageAwesome
                 Width="24"
                 Height="24"

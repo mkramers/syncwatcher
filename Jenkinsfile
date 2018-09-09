@@ -18,16 +18,23 @@ pipeline {
 				}
             }
         }
+		stage ('Report') {
+            steps {
+				echo 'Reporting...'
+				dir("./src/projects/syncwatchertray/build")
+				{
+					echo 'Scanning logs....'
+					
+					warnings canComputeNew: false, canResolveRelativePaths: false, categoriesPattern: '', consoleParsers: [[parserName: 'MSBuild'], [parserName: 'CodeAnalysis']], parserConfigurations: [[parserName: 'Resharper InspectCode', pattern: '**\\publish\\*.inspect.xml']], defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '', unHealthy: ''
+				}	
+			}
+		}
         stage('Deploy') {
             steps {
-                echo 'Deploying....'				
+                echo 'Deploying...'				
 				dir("./src/projects/syncwatchertray/build")
 				{
 					archiveArtifacts artifacts: 'publish/*', fingerprint: true
-					
-					echo 'Scanning logs....'
-					
-					warnings canComputeNew: false, canResolveRelativePaths: false, categoriesPattern: '', consoleParsers: [[parserName: 'Robocopy'], [parserName: 'MSBuild'], [parserName: 'Doxygen'], [parserName: 'CodeAnalysis'], [parserName: 'Resharper InspectCode']], parserConfigurations: [[parserName: 'Resharper InspectCode', pattern: '**\\publish\\*.inspect.xml']], defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '', unHealthy: ''
 				}				
             }
         }

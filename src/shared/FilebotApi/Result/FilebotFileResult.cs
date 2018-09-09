@@ -6,6 +6,9 @@ namespace FilebotApi.Result
 {
     public class FilebotFileResult : FileBotResult
     {
+        public string OriginalFile { get; set; }
+        public string OriginalFileName => Path.GetFileName(OriginalFile);
+
         public FilebotFileResult()
         {
         }
@@ -16,8 +19,5 @@ namespace FilebotApi.Result
 
             OriginalFile = _originalFile;
         }
-
-        public string OriginalFile { get; set; }
-        public string OriginalFileName => Path.GetFileName(OriginalFile);
     }
 }
