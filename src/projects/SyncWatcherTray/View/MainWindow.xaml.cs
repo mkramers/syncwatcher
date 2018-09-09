@@ -16,19 +16,29 @@ namespace SyncWatcherTray.View
     {
         private readonly SafeNativeMethods m_safeNativeMethods;
 
+        private bool m_isShown;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            Style = (Style)FindResource(typeof(Window));
+            Style = (Style) FindResource(typeof(Window));
             MoveToBottomCorner();
 
             //remember last tab
-            var lastTab = Settings.Default.LastSelectedTabIndex;
+            int lastTab = Settings.Default.LastSelectedTabIndex;
             TabControl.SelectedIndex = lastTab;
 
             m_safeNativeMethods = new SafeNativeMethods();
             m_safeNativeMethods.HotKeyPressed += SafeNativeMethods_OnHotKeyPressed;
+        }
+
+        //global hotkey
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         private void SafeNativeMethods_OnHotKeyPressed(object _sender, EventArgs _e)
@@ -52,7 +62,7 @@ namespace SyncWatcherTray.View
 
         private void MoveToBottomCorner()
         {
-            var desktopWorkingArea = SystemParameters.WorkArea;
+            Rect desktopWorkingArea = SystemParameters.WorkArea;
 
             Left = desktopWorkingArea.Right - Width;
             Top = desktopWorkingArea.Bottom - Height;
@@ -77,7 +87,7 @@ namespace SyncWatcherTray.View
         {
             if (m_isShown)
             {
-                var mainWindow = Application.Current.MainWindow;
+                Window mainWindow = Application.Current.MainWindow;
                 mainWindow?.Hide();
 
                 m_isShown = false;
@@ -121,7 +131,7 @@ namespace SyncWatcherTray.View
 
         private void TaskbarIcon_OnTrayMouseDoubleClick(object _sender, RoutedEventArgs _e)
         {
-            var isWindowShown = m_isShown;
+            bool isWindowShown = m_isShown;
             if (!isWindowShown)
             {
                 OnShowWindow(_sender, _e);
@@ -134,23 +144,13 @@ namespace SyncWatcherTray.View
 
         private void TabControl_OnSelectionChanged(object _sender, SelectionChangedEventArgs _e)
         {
-            var tabControl = _sender as TabControlEx;
+            TabControlEx tabControl = _sender as TabControlEx;
             Debug.Assert(tabControl != null);
 
-            var index = tabControl.SelectedIndex;
+            int index = tabControl.SelectedIndex;
 
             Settings.Default.LastSelectedTabIndex = index;
             Settings.Default.Save();
-        }
-
-        private bool m_isShown;
-
-        //global hotkey
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         private void Dispose(bool _isDisposing)

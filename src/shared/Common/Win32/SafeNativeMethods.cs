@@ -8,19 +8,6 @@ namespace Common.Win32
 {
     public class SafeNativeMethods : IDisposable
     {
-        [DllImport("User32.dll")]
-        private static extern bool RegisterHotKey(
-            [In] IntPtr hWnd,
-            [In] int id,
-            [In] uint fsModifiers,
-            [In] uint vk);
-
-        [DllImport("User32.dll")]
-        private static extern bool UnregisterHotKey(
-            [In] IntPtr hWnd,
-            [In] int id);
-
-        private HwndSource _source;
         private const int HOTKEY_ID = 9000;
         private const uint MOD_NONE = 0x0000; //(none)
         private const uint MOD_ALT = 0x0001; //ALT
@@ -31,6 +18,20 @@ namespace Common.Win32
         private const uint VK_CAPITAL = 0x14;
         private const uint ZKEY = 0x5A;
         private const uint EKEY = 0x45;
+
+        private HwndSource _source;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        [DllImport("User32.dll")]
+        private static extern bool RegisterHotKey([In] IntPtr hWnd, [In] int id, [In] uint fsModifiers, [In] uint vk);
+
+        [DllImport("User32.dll")]
+        private static extern bool UnregisterHotKey([In] IntPtr hWnd, [In] int id);
 
         public event EventHandler<EventArgs> HotKeyPressed;
 
@@ -100,12 +101,6 @@ namespace Common.Win32
             _source.AddHook(HwndHook);
 
             RegisterHotKey(_window);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool _disposing)
