@@ -22,10 +22,9 @@ namespace SyncWatcherTray.ViewModel
         private bool m_isPlexScanEnabled;
         private bool m_isBusy;
         private bool m_isAutoCleanEnabled;
-        public DirectoryViewModel DirectoryViewModel { get; }
+        public SyncthingDirectoryViewModel DirectoryViewModel { get; private set; }
         public Filebot Filebot { get; }
         private string OutputDirectory { get; }
-        public SyncthingWatcher SyncthingWatcher { get; }
         public bool IsBusy
         {
             get => m_isBusy;
@@ -114,10 +113,17 @@ namespace SyncWatcherTray.ViewModel
             string inputDir = _paths.SourcePath;
             string outputDir = _paths.DestinationPath;
 
-            Debug.Assert(!string.IsNullOrWhiteSpace(inputDir));
+            if (string.IsNullOrWhiteSpace(inputDir) || !Directory.Exists(inputDir))
+            {
+                ClearDirectory();
+            }
+            else
+            {
+                SetDirectory(inputDir);
+            }
+
             Debug.Assert(!string.IsNullOrWhiteSpace(outputDir));
 
-            DirectoryViewModel = new DirectoryViewModel(inputDir, "Complete");
             OutputDirectory = outputDir;
 
             FilebotSettings settings = FilebotSettings.Default;
@@ -127,13 +133,29 @@ namespace SyncWatcherTray.ViewModel
 
             Filebot = new Filebot(settings, log);
 
-            SyncthingWatcher = new SyncthingWatcher(inputDir);
-            SyncthingWatcher.WatchEvent += SyncthingWatcher_OnChanged;
-            SyncthingWatcher.Start();
-
             //restore sticky setting
             IsAutoCleanEnabled = Settings.Default.IsAutoCleanEnabled;
             IsPlexScanEnabled = Settings.Default.IsPlexScanEnabled;
+        }
+
+        public void SetDirectory(string _directoryPath)
+        {
+            Debug.Assert(_directoryPath != null);
+            Debug.Assert(Directory.Exists(_directoryPath));
+
+            DirectoryViewModel = new SyncthingDirectoryViewModel(_directoryPath, "Complete");
+            DirectoryViewModel.SyncthingCompleted += SyncthingWatcher_OnChanged;
+        }
+
+        public void ClearDirectory()
+        {
+            SyncthingDirectoryViewModel currentViewModel = DirectoryViewModel;
+            if (currentViewModel != null)
+            {
+                currentViewModel.SyncthingCompleted -= SyncthingWatcher_OnChanged;
+            }
+
+            DirectoryViewModel = null;
         }
 
         private async Task Organize()

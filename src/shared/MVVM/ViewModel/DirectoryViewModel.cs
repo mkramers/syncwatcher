@@ -11,6 +11,36 @@ using GalaSoft.MvvmLight;
 
 namespace MVVM.ViewModel
 {
+    public class SyncthingDirectoryViewModel : DirectoryViewModel
+    {
+        public SyncthingWatcher SyncthingWatcher { get; }
+
+        public event EventHandler<FileSystemEventArgs> SyncthingCompleted;
+
+        /// <summary>
+        /// used only by desginer
+        /// </summary>
+        public SyncthingDirectoryViewModel()
+        {
+        }
+        
+        public SyncthingDirectoryViewModel(string _directory, string _shortName) : base(_directory, _shortName)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(_directory));
+            Debug.Assert(!string.IsNullOrWhiteSpace(_shortName));
+            Debug.Assert(Directory.Exists(_directory));
+
+            SyncthingWatcher = new SyncthingWatcher(_directory);
+            SyncthingWatcher.WatchEvent += SyncthingWatcher_OnChanged;
+            SyncthingWatcher.Start();
+        }
+
+        private void SyncthingWatcher_OnChanged(object _sender, FileSystemEventArgs _e)
+        {
+            SyncthingCompleted?.Invoke(this, _e);
+        }
+    }
+
     public class DirectoryViewModel : ViewModelBase
     {
         public FileWatcher FileWatcher { get; }
@@ -26,6 +56,8 @@ namespace MVVM.ViewModel
         public DirectoryViewModel(string _directory, string _shortName)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_directory));
+            Debug.Assert(!string.IsNullOrWhiteSpace(_shortName));
+            Debug.Assert(Directory.Exists(_directory));
 
             Name = _directory;
             ShortName = _shortName;
