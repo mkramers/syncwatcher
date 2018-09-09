@@ -12,41 +12,6 @@ using GalaSoft.MvvmLight;
 
 namespace MVVM.ViewModel
 {
-    public class SyncthingDirectoryViewModel : DirectoryViewModel
-    {
-        public FilteredFileWatcher FilteredFileWatcher { get; }
-
-        public event EventHandler<FileSystemEventArgs> SyncthingCompleted;
-
-        /// <summary>
-        /// used only by desginer
-        /// </summary>
-        public SyncthingDirectoryViewModel()
-        {
-        }
-        
-        public SyncthingDirectoryViewModel(string _directory, string _shortName) : base(_directory, _shortName)
-        {
-            Debug.Assert(!string.IsNullOrWhiteSpace(_directory));
-            Debug.Assert(!string.IsNullOrWhiteSpace(_shortName));
-            Debug.Assert(Directory.Exists(_directory));
-
-            List<string> ignoredFileNames = new List<string>
-            {
-                "~syncthing~"
-            };
-
-            FilteredFileWatcher = new FilteredFileWatcher(_directory, ignoredFileNames);
-            FilteredFileWatcher.WatchEvent += SyncthingWatcher_OnChanged;
-            FilteredFileWatcher.Start();
-        }
-
-        private void SyncthingWatcher_OnChanged(object _sender, FileSystemEventArgs _e)
-        {
-            SyncthingCompleted?.Invoke(this, _e);
-        }
-    }
-
     public class DirectoryViewModel : ViewModelBase
     {
         public FileWatcher FileWatcher { get; }

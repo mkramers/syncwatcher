@@ -10,7 +10,6 @@ using Common.Mvvm;
 using FilebotApi;
 using Common.Logging;
 using GalaSoft.MvvmLight;
-using MVVM.ViewModel;
 using PlexTools;
 using SyncWatcherTray.Properties;
 using FilebotSettings = FilebotApi.Properties.Settings;
