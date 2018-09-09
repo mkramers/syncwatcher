@@ -8,7 +8,7 @@ using GalaSoft.MvvmLight;
 
 namespace SyncWatcherTray.ViewModel
 {
-    public class TaskbarIconViewModel : ViewModelBase
+    public class TaskbarIconViewModel : ViewModelBase, IDisposable
     {
         private const int ICON_INTERVAL = 222;
 
@@ -95,6 +95,20 @@ namespace SyncWatcherTray.ViewModel
             Debug.Assert(_image != null);
 
             Dispatcher.CurrentDispatcher.Invoke(() => IconSource = _image);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool _disposing)
+        {
+            if (_disposing)
+            {
+                m_timer.Dispose();
+            }
         }
     }
 }

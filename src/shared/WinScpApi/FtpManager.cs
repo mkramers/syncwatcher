@@ -276,6 +276,7 @@ namespace WinScpApi
         {
             if (Client.IsOpened)
                 await Client.Disconnect();
+
             Client.Dispose();
 
             //cancel downloads

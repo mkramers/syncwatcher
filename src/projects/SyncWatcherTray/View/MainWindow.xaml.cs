@@ -13,7 +13,7 @@ namespace SyncWatcherTray.View
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow
+    public partial class MainWindow : IDisposable
     {
         public MainWindow()
         {
@@ -81,9 +81,9 @@ namespace SyncWatcherTray.View
             currentWindow.Focus();
         }
 
-        private async void ExitApplication_OnClick(object _sender, RoutedEventArgs _e)
+        private void ExitApplication_OnClick(object _sender, RoutedEventArgs _e)
         {
-            var viewModel = DataContext as MainViewModel;
+            MainViewModel viewModel = DataContext as MainViewModel;
             Debug.Assert(viewModel != null);
 
             if (!viewModel.CanExit())
@@ -91,7 +91,7 @@ namespace SyncWatcherTray.View
                 return;
             }
 
-            await viewModel.Dispose();
+            Dispose();
 
             Application.Current.Shutdown();
         }
@@ -155,7 +155,7 @@ namespace SyncWatcherTray.View
             var helper = new WindowInteropHelper(this);
             _source = HwndSource.FromHwnd(helper.Handle);
             _source.AddHook(HwndHook);
-                
+
             RegisterHotKey();
         }
 
@@ -208,6 +208,25 @@ namespace SyncWatcherTray.View
         private void OnHotKeyPressed()
         {
             ShowWindow();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool _isDisposing)
+        {
+            if (_isDisposing)
+            {
+                MainViewModel viewModel = DataContext as MainViewModel;
+                Debug.Assert(viewModel != null);
+
+                viewModel.Dispose();
+
+                _source?.Dispose();
+            }
         }
     }
 }

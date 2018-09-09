@@ -12,7 +12,7 @@ using GalaSoft.MvvmLight;
 
 namespace MVVM.ViewModel
 {
-    public class DirectoryViewModel : ViewModelBase
+    public class DirectoryViewModel : ViewModelBase, IDisposable
     {
         public FileWatcher FileWatcher { get; }
         
@@ -123,5 +123,19 @@ namespace MVVM.ViewModel
         }
 
         private bool m_isBusy;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool _disposing)
+        {
+            if (_disposing)
+            {
+                FileWatcher.Dispose();
+            }
+        }
     }
 }

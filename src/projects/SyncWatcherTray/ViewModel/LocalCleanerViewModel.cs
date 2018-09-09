@@ -16,7 +16,7 @@ using FilebotSettings = FilebotApi.Properties.Settings;
 
 namespace SyncWatcherTray.ViewModel
 {
-    public class LocalCleanerViewModel : ViewModelBase
+    public class LocalCleanerViewModel : ViewModelBase, IDisposable
     {
         private bool m_isPlexScanEnabled;
         private bool m_isBusy;
@@ -230,6 +230,20 @@ namespace SyncWatcherTray.ViewModel
             if (autoCleanCommand.CanExecute(null))
             {
                 autoCleanCommand.Execute(null);
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool _disposing)
+        {
+            if (_disposing)
+            {
+                DirectoryViewModel?.Dispose();
             }
         }
     }

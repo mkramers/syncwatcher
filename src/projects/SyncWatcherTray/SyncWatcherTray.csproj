@@ -130,6 +130,7 @@
     <Compile Include="..\..\solutions\VersionInfo.cs">
       <Link>VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ViewModel\LocalCleanerViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SyncthingDirectoryViewModel.cs" />

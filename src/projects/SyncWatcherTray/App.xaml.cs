@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -15,7 +16,7 @@ namespace SyncWatcherTray
     /// <summary>
     ///     Interaction logic for App.xaml
     /// </summary>
-    public partial class App
+    public partial class App : IDisposable
     {
         protected override void OnStartup(StartupEventArgs _e)
         {
@@ -51,6 +52,20 @@ namespace SyncWatcherTray
 
         private MainViewModel m_viewModel;
         private View.MainWindow m_mainWindow;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool _disposing)
+        {
+            if (_disposing)
+            {
+                m_mainWindow.Dispose();
+            }
+        }
 
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
     }

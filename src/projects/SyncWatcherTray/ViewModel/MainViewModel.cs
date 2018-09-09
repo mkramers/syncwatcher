@@ -23,7 +23,7 @@ using Application = System.Windows.Application;
 
 namespace SyncWatcherTray.ViewModel
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, IDisposable
     {
         private DirectoryViewModel m_seriesDirectoryViewModel;
         private DirectoryViewModel m_moviesDirectoryViewModel;
@@ -235,13 +235,6 @@ namespace SyncWatcherTray.ViewModel
             return canExit;
         }
 
-        public async Task Dispose()
-        {
-            await FtpManagerViewModel.Dispose();
-
-            Cleanup();
-        }
-
         private void Operation_Started(object _sender, EventArgs _e)
         {
             if (!TaskBarIcon.IsBusy)
@@ -255,6 +248,22 @@ namespace SyncWatcherTray.ViewModel
             if (TaskBarIcon.IsBusy)
             {
                 TaskBarIcon.SetIsNotBusy();
+            }
+        }
+
+        public async void Dispose()
+        {
+            await Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual async Task Dispose(bool _disposing)
+        {
+            if (_disposing)
+            {
+                await FtpManagerViewModel.Dispose();
+
+                TaskBarIcon.Dispose();
             }
         }
     }
