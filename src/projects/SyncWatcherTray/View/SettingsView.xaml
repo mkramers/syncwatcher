@@ -1,8 +1,8 @@
 ﻿<UserControl x:Class="SyncWatcherTray.View.SettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:view="clr-namespace:WinScpApi.View;assembly=WinScpApi"
              xmlns:view1="clr-namespace:FilebotApi.View;assembly=FilebotApi"
              xmlns:view2="clr-namespace:MVVM.View;assembly=MVVM"
@@ -11,26 +11,26 @@
              xmlns:properties="clr-namespace:SyncWatcherTray.Properties"
              xmlns:view3="clr-namespace:SyncWatcherTray.View"
              xmlns:filebot="clr-namespace:FilebotApi.Properties;assembly=FilebotApi"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance viewModel:MainViewModel}">
 
     <UserControl.Resources>
-        <sftp:SessionConfig x:Key="SessionConfig"/>
-        <filebot:Settings x:Key="FilebotSettings"/>
+        <sftp:SessionConfig x:Key="SessionConfig" />
+        <filebot:Settings x:Key="FilebotSettings" />
     </UserControl.Resources>
 
     <Grid>
 
         <TabControl TabStripPlacement="Left">
             <TabItem Header="Application">
-                <view3:ApplicationSettingsView DataContext="{Binding Source={x:Static properties:Settings.Default}}"/>
+                <view3:ApplicationSettingsView DataContext="{Binding Source={x:Static properties:Settings.Default}}" />
             </TabItem>
             <TabItem Header="FTP">
-                <view:SettingsView DataContext="{Binding Source={StaticResource SessionConfig}}"/>
+                <view:SettingsView DataContext="{Binding Source={StaticResource SessionConfig}}" />
             </TabItem>
             <TabItem Header="Filebot">
-                <view1:SettingsView DataContext="{Binding Source={StaticResource FilebotSettings}}"/>
+                <view1:SettingsView DataContext="{Binding Source={StaticResource FilebotSettings}}" />
             </TabItem>
             <TabItem Header="Log">
                 <view2:LogView />

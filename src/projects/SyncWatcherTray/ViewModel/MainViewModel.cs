@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
@@ -10,23 +9,19 @@ using System.Windows;
 using System.Windows.Input;
 using Common.Framework.EventHelpers;
 using Common.IO;
-using Common.Mvvm;
 using Common.SFTP;
-using FilebotApi;
 using GalaSoft.MvvmLight;
-using MVVM.Popups;
 using MVVM.ViewModel;
 using SyncWatcherTray.Properties;
 using WinScpApi;
 using WinScpApi.ViewModel;
-using Application = System.Windows.Application;
 
 namespace SyncWatcherTray.ViewModel
 {
     public class MainViewModel : ViewModelBase, IDisposable
     {
-        private DirectoryViewModel m_seriesDirectoryViewModel;
         private DirectoryViewModel m_moviesDirectoryViewModel;
+        private DirectoryViewModel m_seriesDirectoryViewModel;
 
         public FtpManagerViewModel FtpManagerViewModel { get; }
         public TaskbarIconViewModel TaskBarIcon { get; }
@@ -78,6 +73,12 @@ namespace SyncWatcherTray.ViewModel
             CompletedDirectory.Stopped += OperationStopped;
         }
 
+        public async void Dispose()
+        {
+            await Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         private void Settings_OnSettingChanging(object _sender, SettingChangingEventArgs _settingChangingEventArgs)
         {
             Settings settings = _sender as Settings;
@@ -127,10 +128,12 @@ namespace SyncWatcherTray.ViewModel
         {
             SessionConfig ftpSessionConfig = SessionConfig.Default;
 
-            FtpManager manager = new FtpManager(ftpSessionConfig, new List<string>
-            {
-                _input
-            });
+            FtpManager manager = new FtpManager(
+                ftpSessionConfig,
+                new List<string>
+                {
+                    _input
+                });
             manager.OperationStarted += Operation_Started;
             manager.OperationCompleted += OperationStopped;
 
@@ -219,7 +222,7 @@ namespace SyncWatcherTray.ViewModel
 
         public bool CanExit()
         {
-            var canExit = true;
+            bool canExit = true;
             canExit &= FtpManagerViewModel.CanExit();
             canExit &= !CompletedDirectory.IsBusy;
             return canExit;
@@ -239,12 +242,6 @@ namespace SyncWatcherTray.ViewModel
             {
                 TaskBarIcon.SetIsNotBusy();
             }
-        }
-
-        public async void Dispose()
-        {
-            await Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         protected virtual async Task Dispose(bool _disposing)

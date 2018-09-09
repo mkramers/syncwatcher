@@ -41,6 +41,12 @@ namespace SyncWatcherTray.ViewModel
             m_timer.Elapsed += Timer_Elapsed;
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         public void SetIsBusy()
         {
             Debug.Assert(!IsBusy);
@@ -95,12 +101,6 @@ namespace SyncWatcherTray.ViewModel
             Debug.Assert(_image != null);
 
             Dispatcher.CurrentDispatcher.Invoke(() => IconSource = _image);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool _disposing)
