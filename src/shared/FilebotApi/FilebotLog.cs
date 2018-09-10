@@ -25,7 +25,7 @@ namespace FilebotApi
 
             Reload();
         }
-        
+
         public void Reload()
         {
             string serializedObject = File.ReadAllText(m_historyFilePath);
@@ -45,6 +45,16 @@ namespace FilebotApi
 
         public ObservableRangeCollection<FilebotFileResult> Entries { get; }
         private string m_historyFilePath;
+
+        public void AddEntry(FilebotFileResult _result)
+        {
+            Debug.Assert(_result != null);
+
+            //todo do existing find/replace
+            Entries.Add(_result);
+
+            Save();
+        }
     }
 
     public class FilebotLog

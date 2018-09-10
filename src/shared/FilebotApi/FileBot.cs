@@ -15,6 +15,8 @@ namespace FilebotApi
 
         public FilebotLog Log { get; }
 
+        public event EventHandler<FilebotFileResultEventArgs> FileOrganized; 
+
         public Filebot(Settings _settings, FilebotLog _log)
         {
             Debug.Assert(_settings != null);
@@ -74,6 +76,9 @@ namespace FilebotApi
                 string message = $"[Rename]: {Path.GetFileName(dest)}?";
 
                 Common.Logging.Log.Write(LogLevel.Info, message);
+
+                FilebotFileResultEventArgs args = new FilebotFileResultEventArgs(rename);
+                FileOrganized?.Invoke(this, args);
             }
         }
 

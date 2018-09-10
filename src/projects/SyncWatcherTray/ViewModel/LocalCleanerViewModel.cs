@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Common.IO;
 using Common.Logging;
 using FilebotApi;
+using FilebotApi.Result;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using PlexTools;
@@ -125,6 +126,7 @@ namespace SyncWatcherTray.ViewModel
             FilebotLog log = new FilebotLog(logPath);
 
             Filebot = new Filebot(settings, log);
+            Filebot.FileOrganized += Filebot_OnFileOrganized;
 
             string histroyPath = Path.Combine(_appDataDirectory, "history.json");
 
@@ -145,6 +147,14 @@ namespace SyncWatcherTray.ViewModel
             //restore sticky setting
             m_isAutoCleanEnabled = Settings.Default.IsAutoCleanEnabled;
             m_isPlexScanEnabled = Settings.Default.IsPlexScanEnabled;
+        }
+
+        private void Filebot_OnFileOrganized(object _sender, FilebotFileResultEventArgs _e)
+        {
+            FilebotFileResult result = _e.Result;
+            Debug.Assert(result != null);
+
+            FilebotHistory.AddEntry(result);
         }
 
         public void Dispose()
