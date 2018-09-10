@@ -122,10 +122,7 @@ namespace SyncWatcherTray.ViewModel
 
             FilebotSettings settings = FilebotSettings.Default;
 
-            string logPath = Path.Combine(_appDataDirectory, "amclog.txt");
-            FilebotLog log = new FilebotLog(logPath);
-
-            Filebot = new Filebot(settings, log);
+            Filebot = new Filebot(settings);
             Filebot.FileOrganized += Filebot_OnFileOrganized;
 
             string histroyPath = Path.Combine(_appDataDirectory, "history.json");
