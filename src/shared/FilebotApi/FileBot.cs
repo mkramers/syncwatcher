@@ -13,17 +13,13 @@ namespace FilebotApi
     {
         private readonly Settings m_settings;
 
-        public FilebotLog Log { get; }
-
         public event EventHandler<FilebotFileResultEventArgs> FileOrganized; 
 
-        public Filebot(Settings _settings, FilebotLog _log)
+        public Filebot(Settings _settings)
         {
             Debug.Assert(_settings != null);
-            Debug.Assert(_log != null);
 
             m_settings = _settings;
-            Log = _log;
         }
 
         public void Organize(string _inputDir, string _outputDir)
@@ -60,10 +56,7 @@ namespace FilebotApi
                 Console.WriteLine($"Error running filebot: {e}");
             }
 
-            //reparse records
-            Log.Reload();
-
-            Common.Logging.Log.Write(LogLevel.Info, "Completed");
+            Log.Write(LogLevel.Info, "Completed");
         }
 
         private void LogResult(FileBotResult _result)
