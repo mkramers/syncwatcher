@@ -68,21 +68,13 @@ namespace FilebotApi
         {
             Debug.Assert(_result != null);
 
-            RenameResult rename = _result as RenameResult;
-            FileBotResult result = _result;
-
-            string message;
-            if (rename != null)
+            if (_result is RenameResult rename)
             {
                 string dest = rename.ProposedFile;
-                message = $"[Rename]: {Path.GetFileName(dest)}?";
-            }
-            else
-            {
-                message = $"[Log]: {result.RawLine}";
-            }
+                string message = $"[Rename]: {Path.GetFileName(dest)}?";
 
-            Common.Logging.Log.Write(LogLevel.Info, message);
+                Common.Logging.Log.Write(LogLevel.Info, message);
+            }
         }
 
         private static string GetArguments(string _inputPath, string _outputPath, Settings _settings)

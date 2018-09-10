@@ -22,6 +22,7 @@ namespace SyncWatcherTray.ViewModel
         private bool m_isPlexScanEnabled;
 
         public Filebot Filebot { get; }
+        public FilebotHistory FilebotHistory { get; }
         private string OutputDirectory { get; }
         public bool IsBusy
         {
@@ -125,6 +126,22 @@ namespace SyncWatcherTray.ViewModel
 
             Filebot = new Filebot(settings, log);
 
+            string histroyPath = Path.Combine(_appDataDirectory, "history.json");
+
+            FilebotHistory = new FilebotHistory();
+
+            try
+            {
+                FilebotHistory.Load(histroyPath);
+            }
+            catch (Exception e)
+            {
+                Log.Write(LogLevel.Info, $"Error loading history file: {e.Message}");
+
+                FilebotHistory.Save();
+                FilebotHistory.Reload();
+            }
+
             //restore sticky setting
             m_isAutoCleanEnabled = Settings.Default.IsAutoCleanEnabled;
             m_isPlexScanEnabled = Settings.Default.IsPlexScanEnabled;
@@ -180,7 +197,7 @@ namespace SyncWatcherTray.ViewModel
         {
             Debug.Assert(IsPlexScanEnabled);
 
-            uint[] sections = {4, 5, 6};
+            uint[] sections = { 4, 5, 6 };
 
             Log.Write(LogLevel.Info, "Starting Plex scan...");
 

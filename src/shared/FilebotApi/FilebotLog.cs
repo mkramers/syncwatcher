@@ -6,9 +6,47 @@ using System.Linq;
 using System.Windows.Input;
 using FilebotApi.Result;
 using GalaSoft.MvvmLight.CommandWpf;
+using Newtonsoft.Json;
 
 namespace FilebotApi
 {
+    public class FilebotHistory
+    {
+        public FilebotHistory()
+        {
+            Entries = new ObservableRangeCollection<FilebotFileResult>();
+        }
+
+        public void Load(string _historyFilePath)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(_historyFilePath));
+
+            m_historyFilePath = _historyFilePath;
+
+            Reload();
+        }
+        
+        public void Reload()
+        {
+            string serializedObject = File.ReadAllText(m_historyFilePath);
+
+            IEnumerable<FilebotFileResult> entries = JsonConvert.DeserializeObject<IEnumerable<FilebotFileResult>>(serializedObject);
+
+            Entries.Clear();
+            Entries.AddRange(entries);
+        }
+
+        public void Save()
+        {
+            string serializedObject = JsonConvert.SerializeObject(Entries, Formatting.Indented);
+
+            File.WriteAllText(m_historyFilePath, serializedObject);
+        }
+
+        public ObservableRangeCollection<FilebotFileResult> Entries { get; }
+        private string m_historyFilePath;
+    }
+
     public class FilebotLog
     {
         public ICommand ReloadCommand => new RelayCommand(Reload);
