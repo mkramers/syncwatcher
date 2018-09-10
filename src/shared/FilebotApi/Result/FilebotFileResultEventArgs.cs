@@ -3,15 +3,15 @@ using System.Diagnostics;
 
 namespace FilebotApi.Result
 {
-    public class FilebotFileResultEventArgs : EventArgs
+    public class RenameResultEventArgs : EventArgs
     {
-        public FilebotFileResultEventArgs(FilebotFileResult _result)
+        public RenameResultEventArgs(RenameResult _result)
         {
             Debug.Assert(_result != null);
 
             Result = _result;
         }
 
-        public FilebotFileResult Result { get; }
+        public RenameResult Result { get; }
     }
 }

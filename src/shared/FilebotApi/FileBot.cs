@@ -13,7 +13,7 @@ namespace FilebotApi
     {
         private readonly Settings m_settings;
 
-        public event EventHandler<FilebotFileResultEventArgs> FileOrganized; 
+        public event EventHandler<RenameResultEventArgs> FileOrganized; 
 
         public Filebot(Settings _settings)
         {
@@ -68,10 +68,14 @@ namespace FilebotApi
                 string dest = rename.ProposedFile;
                 string message = $"[Rename]: {Path.GetFileName(dest)}?";
 
-                Common.Logging.Log.Write(LogLevel.Info, message);
+                Log.Write(LogLevel.Info, message);
 
-                FilebotFileResultEventArgs args = new FilebotFileResultEventArgs(rename);
+                RenameResultEventArgs args = new RenameResultEventArgs(rename);
                 FileOrganized?.Invoke(this, args);
+            }
+            else
+            {
+                Log.Write(LogLevel.Info, _result.RawLine);
             }
         }
 

@@ -10,7 +10,7 @@ namespace FilebotApi
     {
         public FilebotHistory()
         {
-            Entries = new ObservableRangeCollection<FilebotFileResult>();
+            Entries = new ObservableRangeCollection<RenameResult>();
         }
 
         public void Load(string _historyFilePath)
@@ -26,7 +26,7 @@ namespace FilebotApi
         {
             string serializedObject = File.ReadAllText(m_historyFilePath);
 
-            IEnumerable<FilebotFileResult> entries = JsonConvert.DeserializeObject<IEnumerable<FilebotFileResult>>(serializedObject);
+            IEnumerable<RenameResult> entries = JsonConvert.DeserializeObject<IEnumerable<RenameResult>>(serializedObject);
 
             Entries.Clear();
             Entries.AddRange(entries);
@@ -39,10 +39,10 @@ namespace FilebotApi
             File.WriteAllText(m_historyFilePath, serializedObject);
         }
 
-        public ObservableRangeCollection<FilebotFileResult> Entries { get; }
+        public ObservableRangeCollection<RenameResult> Entries { get; }
         private string m_historyFilePath;
 
-        public void AddEntry(FilebotFileResult _result)
+        public void AddEntry(RenameResult _result)
         {
             Debug.Assert(_result != null);
 

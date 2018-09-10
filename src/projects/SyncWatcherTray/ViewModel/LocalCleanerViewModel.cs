@@ -146,9 +146,9 @@ namespace SyncWatcherTray.ViewModel
             m_isPlexScanEnabled = Settings.Default.IsPlexScanEnabled;
         }
 
-        private void Filebot_OnFileOrganized(object _sender, FilebotFileResultEventArgs _e)
+        private void Filebot_OnFileOrganized(object _sender, RenameResultEventArgs _e)
         {
-            FilebotFileResult result = _e.Result;
+            RenameResult result = _e.Result;
             Debug.Assert(result != null);
 
             FilebotHistory.AddEntry(result);
