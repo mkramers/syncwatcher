@@ -63,10 +63,11 @@ namespace FilebotApi
         {
             Debug.Assert(_result != null);
 
+            Log.Write(LogLevel.Info, _result.RawLine);
             if (_result is RenameResult rename)
             {
                 string dest = rename.ProposedFile;
-                string message = $"[Rename]: {Path.GetFileName(dest)}?";
+                string message = $"\n>>>> Renamed: {Path.GetFileName(dest)}\n";
 
                 Log.Write(LogLevel.Info, message);
 
@@ -75,7 +76,6 @@ namespace FilebotApi
             }
             else
             {
-                Log.Write(LogLevel.Info, _result.RawLine);
             }
         }
 

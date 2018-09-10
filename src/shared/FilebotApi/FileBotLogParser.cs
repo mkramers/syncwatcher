@@ -19,6 +19,7 @@ namespace FilebotApi
         private const string AUTO_DETECTED = "Auto-detected query:";
         private const string TEST_RENAME = "[TEST] From";
         private const string MOVE_RENAME = "[MOVE] From";
+        private const string XATTR_RENAME = "xattr:";
         private const string SKIPPED = "Skipped";
         private const string PROCESSED = "Processed";
         private const string DONE = "Done ãƒ¾(ï¼ âŒ’ãƒ¼âŒ’ï¼ )ãƒŽ";
@@ -27,6 +28,7 @@ namespace FilebotApi
         {
             {TEST_RENAME, Rename},
             {MOVE_RENAME, Rename},
+            {XATTR_RENAME, Rename},
 
             {SKIPPED, Skip}
 
@@ -68,22 +70,32 @@ namespace FilebotApi
         {
             const string testPrefix = TEST_RENAME + " ";
             const string movePrefix = MOVE_RENAME + " ";
+            const string xattrPrefix = XATTR_RENAME + " ";
+
+            string[] splitString = null;
 
             string trimmed = "";
             if (_line.StartsWith(testPrefix))
             {
                 trimmed = _line.Replace(testPrefix, "");
+                splitString = new[] {"] to ["};
             }
             else if (_line.StartsWith(movePrefix))
             {
                 trimmed = _line.Replace(movePrefix, "");
+                splitString = new[] {"] to ["};
+            }
+            else if (_line.StartsWith(xattrPrefix))
+            {
+                trimmed = _line.Replace(xattrPrefix, "");
+                splitString = new[] {"] => ["};
             }
             else
             {
                 Debug.Fail("rename prefix not supported!");
             }
 
-            string[] split = trimmed.Split(new[] {"] to ["}, StringSplitOptions.None);
+            string[] split = trimmed.Split(splitString, StringSplitOptions.None);
             Debug.Assert(split.Length == 2);
 
             string source = split[0].TrimStart('[');

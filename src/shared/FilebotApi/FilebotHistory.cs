@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using FilebotApi.Result;
@@ -47,6 +48,14 @@ namespace FilebotApi
             Debug.Assert(_result != null);
 
             //todo do existing find/replace
+            RenameResult existing = Entries.Find(_entry => string.Equals(_entry.ProposedFileName, _result.ProposedFileName, StringComparison.OrdinalIgnoreCase));
+
+            //remove existing and add updated
+            if (existing != null)
+            {
+                Entries.Remove(existing);
+            }
+
             Entries.Add(_result);
 
             Save();

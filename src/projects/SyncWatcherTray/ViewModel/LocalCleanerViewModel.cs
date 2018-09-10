@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Common.IO;
 using Common.Logging;
@@ -151,7 +152,7 @@ namespace SyncWatcherTray.ViewModel
             RenameResult result = _e.Result;
             Debug.Assert(result != null);
 
-            FilebotHistory.AddEntry(result);
+            Application.Current.Dispatcher.Invoke(() => FilebotHistory.AddEntry(result));
         }
 
         public void Dispose()
