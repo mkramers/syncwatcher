@@ -2,12 +2,14 @@
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Common.IO;
 using Common.Logging;
-using Common.Mvvm;
 using FilebotApi;
+using FilebotApi.Result;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using PlexTools;
 using SyncWatcherTray.Properties;
 using FilebotSettings = FilebotApi.Properties.Settings;
@@ -22,6 +24,7 @@ namespace SyncWatcherTray.ViewModel
         private bool m_isPlexScanEnabled;
 
         public Filebot Filebot { get; }
+        public FilebotHistory FilebotHistory { get; }
         private string OutputDirectory { get; }
         public bool IsBusy
         {
@@ -40,23 +43,21 @@ namespace SyncWatcherTray.ViewModel
         {
             get
             {
-                return new DelegateCommand
+                async void Execute()
                 {
-                    CommandAction = async () =>
+                    OnStarted();
+
+                    await Organize();
+
+                    if (IsPlexScanEnabled)
                     {
-                        OnStarted();
+                        await ScanPlex();
+                    }
 
-                        await Organize();
+                    OnStopped();
+                }
 
-                        if (IsPlexScanEnabled)
-                        {
-                            await ScanPlex();
-                        }
-
-                        OnStopped();
-                    },
-                    CanExecuteFunc = CanAutoClean
-                };
+                return new RelayCommand(Execute, CanAutoClean);
             }
         }
         public bool IsAutoCleanEnabled
@@ -122,14 +123,36 @@ namespace SyncWatcherTray.ViewModel
 
             FilebotSettings settings = FilebotSettings.Default;
 
-            string logPath = Path.Combine(_appDataDirectory, "amclog.txt");
-            FilebotLog log = new FilebotLog(logPath);
+            Filebot = new Filebot(settings);
+            Filebot.FileOrganized += Filebot_OnFileOrganized;
 
-            Filebot = new Filebot(settings, log);
+            string histroyPath = Path.Combine(_appDataDirectory, "history.json");
+
+            FilebotHistory = new FilebotHistory();
+
+            try
+            {
+                FilebotHistory.Load(histroyPath);
+            }
+            catch (Exception e)
+            {
+                Log.Write(LogLevel.Info, $"Error loading history file: {e.Message}");
+
+                FilebotHistory.Save();
+                FilebotHistory.Reload();
+            }
 
             //restore sticky setting
             m_isAutoCleanEnabled = Settings.Default.IsAutoCleanEnabled;
             m_isPlexScanEnabled = Settings.Default.IsPlexScanEnabled;
+        }
+
+        private void Filebot_OnFileOrganized(object _sender, RenameResultEventArgs _e)
+        {
+            RenameResult result = _e.Result;
+            Debug.Assert(result != null);
+
+            Application.Current.Dispatcher.Invoke(() => FilebotHistory.AddEntry(result));
         }
 
         public void Dispose()
@@ -182,7 +205,7 @@ namespace SyncWatcherTray.ViewModel
         {
             Debug.Assert(IsPlexScanEnabled);
 
-            uint[] sections = {4, 5, 6};
+            uint[] sections = { 4, 5, 6 };
 
             Log.Write(LogLevel.Info, "Starting Plex scan...");
 

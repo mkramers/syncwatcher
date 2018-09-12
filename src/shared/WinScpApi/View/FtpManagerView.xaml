@@ -64,7 +64,7 @@
                 Height="30"
                 Margin="2"
                 Background="Transparent"
-                Command="{Binding SyncAllCommand}"
+                Command="{Binding SyncSelectedCommand}"
                 IsEnabled="{Binding Manager.Client.IsOpened}">
                 <Button.Content>
                     <fa:ImageAwesome
@@ -219,12 +219,6 @@
                 Margin="7"
                 Command="{Binding DeleteHistoryCommand}"
                 Content="Del.Histroy" />
-
-            <Button
-                Grid.Column="2"
-                Margin="7"
-                Command="{Binding TestCommand}"
-                Content="test" />
 
             <Button
                 Grid.Column="4"

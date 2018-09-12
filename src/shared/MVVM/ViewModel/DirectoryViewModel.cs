@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Common.IO;
-using Common.Mvvm;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 namespace MVVM.ViewModel
 {
@@ -24,10 +24,7 @@ namespace MVVM.ViewModel
         {
             get
             {
-                return new DelegateCommand
-                {
-                    CommandAction = async () => { await Update(); }
-                };
+                return new RelayCommand(async () => { await Update(); });
             }
         }
 

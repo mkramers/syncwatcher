@@ -26,8 +26,8 @@
         </Grid.RowDefinitions>
 
         <view1:DirectoryView
-            Grid.Row="0"
-            DataContext="{Binding DirectoryViewModel}" />
+                Grid.Row="0"
+                DataContext="{Binding DirectoryViewModel}" />
 
         <Grid
             Margin="0,8"

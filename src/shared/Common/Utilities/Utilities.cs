@@ -326,28 +326,6 @@ namespace Common
             return contents;
         }
 
-        public static StaticAnalysisWarning GetStaticAnalysisWarning(List<string> _data)
-        {
-            StaticAnalysisWarning warning = null;
-
-            if (_data != null)
-            {
-                int line = 0;
-                int.TryParse(_data[4], out line);
-
-                warning = new StaticAnalysisWarning
-                {
-                    Warning = _data[0],
-                    Desciprtion = _data[1],
-                    Project = _data[2],
-                    File = _data[3],
-                    Line = line
-                };
-            }
-
-            return warning;
-        }
-
         public static PropertyInfo GetPropertyInfo<TSource, TProperty>(TSource source, Expression<Func<TSource, TProperty>> propertyLambda)
         {
             Type type = typeof(TSource);

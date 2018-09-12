@@ -94,21 +94,25 @@
     </Compile>
     <Compile Include="Filebot.ActionType.cs" />
     <Compile Include="FileBot.cs" />
+    <Compile Include="FilebotHistory.cs" />
     <Compile Include="FileBotOrganizeEventArgs.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Result\FilebotFileResultEventArgs.cs" />
     <Compile Include="Result\OrganizeResult.cs" />
     <Compile Include="FileBotLogParser.cs" />
-    <Compile Include="FilebotLog.cs" />
     <Compile Include="Result\FileBotResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Result\FilebotFileResult.cs" />
+    <Compile Include="Result\RenameResultEventArgs.cs" />
     <Compile Include="Result\RenameResult.cs" />
     <Compile Include="Result\SkipResult.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="View\FilebotRenameResultsView.xaml.cs">
+      <DependentUpon>FilebotRenameResultsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
@@ -132,6 +136,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\FilebotRenameResultsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

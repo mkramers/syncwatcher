@@ -13,15 +13,13 @@ namespace FilebotApi
     {
         private readonly Settings m_settings;
 
-        public FilebotLog Log { get; }
+        public event EventHandler<RenameResultEventArgs> FileOrganized; 
 
-        public Filebot(Settings _settings, FilebotLog _log)
+        public Filebot(Settings _settings)
         {
             Debug.Assert(_settings != null);
-            Debug.Assert(_log != null);
 
             m_settings = _settings;
-            Log = _log;
         }
 
         public void Organize(string _inputDir, string _outputDir)
@@ -58,31 +56,27 @@ namespace FilebotApi
                 Console.WriteLine($"Error running filebot: {e}");
             }
 
-            //reparse records
-            Log.Reload();
-
-            Common.Logging.Log.Write(LogLevel.Info, "Completed");
+            Log.Write(LogLevel.Info, "Completed");
         }
 
         private void LogResult(FileBotResult _result)
         {
             Debug.Assert(_result != null);
 
-            RenameResult rename = _result as RenameResult;
-            FileBotResult result = _result;
-
-            string message;
-            if (rename != null)
+            Log.Write(LogLevel.Info, _result.RawLine);
+            if (_result is RenameResult rename)
             {
                 string dest = rename.ProposedFile;
-                message = $"[Rename]: {Path.GetFileName(dest)}?";
+                string message = $"\n>>>> Renamed: {Path.GetFileName(dest)}\n";
+
+                Log.Write(LogLevel.Info, message);
+
+                RenameResultEventArgs args = new RenameResultEventArgs(rename);
+                FileOrganized?.Invoke(this, args);
             }
             else
             {
-                message = $"[Log]: {result.RawLine}";
             }
-
-            Common.Logging.Log.Write(LogLevel.Info, message);
         }
 
         private static string GetArguments(string _inputPath, string _outputPath, Settings _settings)
