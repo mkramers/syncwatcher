@@ -27,9 +27,6 @@ namespace FilebotApi
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputDir));
             Debug.Assert(!string.IsNullOrWhiteSpace(_outputDir));
 
-            string message = $"Starting organize...\n\tSource: {_inputDir}\n\tDestination: {_outputDir}";
-            Log.Write(LogLevel.Info, message);
-
             try
             {
                 Settings settings = m_settings;
@@ -65,7 +62,7 @@ namespace FilebotApi
             if (_result is RenameResult rename)
             {
                 string dest = rename.ProposedFile;
-                string message = $">>>> Renamed: {Path.GetFileName(dest)}";
+                string message = $"  Renamed: {Path.GetFileName(dest)}";
 
                 Log.Write(LogLevel.Info, message);
 
