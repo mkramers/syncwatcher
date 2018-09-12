@@ -63,19 +63,16 @@ namespace FilebotApi
         {
             Debug.Assert(_result != null);
 
-            Log.Write(LogLevel.Info, _result.RawLine);
+            //Log.Write(LogLevel.Info, _result.RawLine);
             if (_result is RenameResult rename)
             {
                 string dest = rename.ProposedFile;
-                string message = $"\n>>>> Renamed: {Path.GetFileName(dest)}\n";
+                string message = $">>>> Renamed: {Path.GetFileName(dest)}";
 
                 Log.Write(LogLevel.Info, message);
 
                 RenameResultEventArgs args = new RenameResultEventArgs(rename);
                 FileOrganized?.Invoke(this, args);
-            }
-            else
-            {
             }
         }
 

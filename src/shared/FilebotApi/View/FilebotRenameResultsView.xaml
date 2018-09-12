@@ -25,8 +25,9 @@
             ItemsSource="{Binding EntriesView}">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding ProposedFileName}" />
-                <DataGridTextColumn Header="Added" Binding="{Binding DateTime, StringFormat=\{0 :dd/MM/yyyy\}}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding ProposedFileName}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Added" Binding="{Binding DateTime, StringFormat=\{0 :dd/MM/yyyy\}}"
+                                    IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
         
