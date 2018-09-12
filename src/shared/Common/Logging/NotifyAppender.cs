@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
+using log4net;
 using log4net.Appender;
 using log4net.Core;
 
@@ -31,6 +33,24 @@ namespace Common.Logging
         ///     Get a reference to the log instance.
         /// </summary>
         public NotifyAppender Appender => Log.NotifyAppender;
+        public bool IsDebugEnabled
+        {
+            get => m_isDebugEnabled;
+            set
+            {
+                if (m_isDebugEnabled != value)
+                {
+                    m_isDebugEnabled = value;
+
+                    Level level = m_isDebugEnabled ? Level.Debug : Level.Info;
+
+                    ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetRepository()).Root.Level = level;
+                    ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetRepository()).RaiseConfigurationChanged(EventArgs.Empty);
+
+                    OnChange();
+                }
+            }
+        }
 
         /// <summary>
         ///     Raise the change notification.
@@ -67,5 +87,7 @@ namespace Common.Logging
         }
 
         #endregion
+
+        private bool m_isDebugEnabled;
     }
 }

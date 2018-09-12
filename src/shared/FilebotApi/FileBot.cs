@@ -58,7 +58,7 @@ namespace FilebotApi
         {
             Debug.Assert(_result != null);
 
-            //Log.Write(LogLevel.Info, _result.RawLine);
+            Log.Write(LogLevel.Debug, _result.RawLine);
             if (_result is RenameResult rename)
             {
                 string dest = rename.ProposedFile;

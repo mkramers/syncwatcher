@@ -14,9 +14,28 @@
         <logging:NotifyAppender x:Key="Log" />
     </UserControl.Resources>
 
-    <Grid Margin="0,5" DataContext="{StaticResource Log}">
-        <ScrollViewer extensions:ScrollViewerExtensions.AlwaysScrollToEnd="True">
+    <Grid DataContext="{StaticResource Log}" Margin="0,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.Row="0" extensions:ScrollViewerExtensions.AlwaysScrollToEnd="True">
             <TextBlock Text="{Binding Appender.Notification, Mode=Default}" TextWrapping="Wrap" Padding="3" />
         </ScrollViewer>
+
+        <Grid Grid.Row="1" Background="DarkGray" Opacity="0.6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <CheckBox 
+                Grid.Column="2"
+                HorizontalAlignment="Center"
+                Content="Debug"
+                IsChecked="{Binding IsDebugEnabled}"/>
+        </Grid>
     </Grid>
 </UserControl>
