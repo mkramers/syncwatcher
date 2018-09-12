@@ -3,9 +3,9 @@ using System.IO;
 
 namespace EmptyDirCleaner
 {
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             ProcessDirectory(@"D:\workp4\Projects");
         }

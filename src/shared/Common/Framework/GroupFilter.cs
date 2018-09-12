@@ -5,7 +5,7 @@ namespace Common.Framework
 {
     public class GroupFilter
     {
-        private readonly List<Predicate<object>> m_filters = new List<Predicate<object>>();
+        private readonly List<Predicate<object>> m_filters;
 
         public Predicate<object> Filter { get; }
 

@@ -7,11 +7,11 @@ namespace Common.Logging
 {
     public enum LogLevel
     {
-        Debug = 0,
-        Error = 1,
-        Fatal = 2,
-        Info = 3,
-        Warning = 4
+        DEBUG = 0,
+        ERROR = 1,
+        FATAL = 2,
+        INFO = 3,
+        WARNING = 4
     }
 
     /// <summary>
@@ -49,11 +49,11 @@ namespace Common.Logging
         {
             //XmlConfigurator.Configure();
             _actions = new Dictionary<LogLevel, Action<string>>();
-            _actions.Add(LogLevel.Debug, WriteDebug);
-            _actions.Add(LogLevel.Error, WriteError);
-            _actions.Add(LogLevel.Fatal, WriteFatal);
-            _actions.Add(LogLevel.Info, WriteInfo);
-            _actions.Add(LogLevel.Warning, WriteWarning);
+            _actions.Add(LogLevel.DEBUG, WriteDebug);
+            _actions.Add(LogLevel.ERROR, WriteError);
+            _actions.Add(LogLevel.FATAL, WriteFatal);
+            _actions.Add(LogLevel.INFO, WriteInfo);
+            _actions.Add(LogLevel.WARNING, WriteWarning);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Common.Logging
         {
             if (!string.IsNullOrEmpty(message))
             {
-                if (level > LogLevel.Warning || level < LogLevel.Debug)
+                if (level > LogLevel.WARNING || level < LogLevel.DEBUG)
                 {
                     throw new ArgumentOutOfRangeException("level");
                 }
