@@ -25,27 +25,10 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <view1:DirectoryView
-                Grid.Column="0"
+        <view1:DirectoryView
+                Grid.Row="0"
                 DataContext="{Binding DirectoryViewModel}" />
-            
-            <ListBox
-                Grid.Column="1"
-                ItemsSource="{Binding FilebotHistory.Entries}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                            <TextBlock Text="{Binding Path=ProposedFileName}" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </Grid>
-        
+
         <Grid
             Margin="0,8"
             Grid.Row="1">
