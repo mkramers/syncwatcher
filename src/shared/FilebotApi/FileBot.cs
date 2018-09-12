@@ -27,8 +27,8 @@ namespace FilebotApi
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputDir));
             Debug.Assert(!string.IsNullOrWhiteSpace(_outputDir));
 
-            string message = $"Starting organize...\nSource: {_inputDir}\nTarget: {_outputDir}";
-            Common.Logging.Log.Write(LogLevel.Info, message);
+            string message = $"Starting organize...\n\tSource: {_inputDir}\n\tDestination: {_outputDir}";
+            Log.Write(LogLevel.Info, message);
 
             try
             {
