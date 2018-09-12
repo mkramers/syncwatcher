@@ -110,6 +110,9 @@
     <Compile Include="Result\RenameResult.cs" />
     <Compile Include="Result\SkipResult.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="View\FilebotRenameResultsView.xaml.cs">
+      <DependentUpon>FilebotRenameResultsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
@@ -133,6 +136,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\FilebotRenameResultsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
