@@ -34,12 +34,16 @@ namespace FileGetter
         public object Convert(object _value, Type _targetType, object _parameter, CultureInfo _culture)
         {
             if (!DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            {
                 if (!(_value is FileObjectState))
+                {
                     throw new ArgumentException("value not of type FileObjectState");
+                }
+            }
 
             SolidColorBrush color;
 
-            var state = (FileObjectState) _value;
+            FileObjectState state = (FileObjectState) _value;
             switch (state)
             {
                 case FileObjectState.NONE:
@@ -77,15 +81,21 @@ namespace FileGetter
         public object Convert(object _value, Type _targetType, object _parameter, CultureInfo _culture)
         {
             if (!DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            {
                 if (!(_value is DirectoryObjectState))
+                {
                     throw new ArgumentException("value not of type DirectoryObjectState");
+                }
+            }
 
             if (_value == null)
+            {
                 return Brushes.Yellow;
+            }
 
             SolidColorBrush color;
 
-            var state = (DirectoryObjectState) _value;
+            DirectoryObjectState state = (DirectoryObjectState) _value;
             switch (state)
             {
                 case DirectoryObjectState.NONE:

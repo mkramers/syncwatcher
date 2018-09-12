@@ -8,8 +8,7 @@ namespace FilebotApi.Result
         {
         }
 
-        public SkipResult(string _originalFile, string _rawLine, DateTime _dateTime) : base(_originalFile, _rawLine,
-            _dateTime)
+        public SkipResult(string _originalFile, string _rawLine, DateTime _dateTime) : base(_originalFile, _rawLine, _dateTime)
         {
         }
     }

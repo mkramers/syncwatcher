@@ -22,10 +22,7 @@ namespace MVVM.ViewModel
 
         public ICommand RefreshCommand
         {
-            get
-            {
-                return new RelayCommand(async () => { await Update(); });
-            }
+            get { return new RelayCommand(async () => { await Update(); }); }
         }
 
         public ObservableRangeCollection<FileInfo> FileNames { get; }

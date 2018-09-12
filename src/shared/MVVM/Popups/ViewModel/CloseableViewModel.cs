@@ -8,10 +8,16 @@ namespace MVVM.Popups.ViewModel
 {
     public class CloseableViewModel : ViewModelBase, IPopupViewModel
     {
+        public RelayCommand RequestCloseCommand => new RelayCommand(RequestClose);
+
+        public DialogResult Result { get; private set; }
+
         public void OnWindowClosing(object _sender, CancelEventArgs _e)
         {
             if (Result == DialogResult.None)
+            {
                 Result = DialogResult.Cancel;
+            }
 
             OnClosing(_sender, _e);
         }
@@ -32,9 +38,5 @@ namespace MVVM.Popups.ViewModel
         {
             OnRequestClose?.Invoke(this, new EventArgs());
         }
-
-        public RelayCommand RequestCloseCommand => new RelayCommand(RequestClose);
-
-        public DialogResult Result { get; private set; }
     }
 }
