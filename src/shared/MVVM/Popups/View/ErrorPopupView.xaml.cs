@@ -3,7 +3,7 @@
     /// <summary>
     ///     Interaction logic for InfoPopupPageView.xaml
     /// </summary>
-    public partial class ErrorPopupView : PopupView
+    public partial class ErrorPopupView
     {
         public ErrorPopupView()
         {

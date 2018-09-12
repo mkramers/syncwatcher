@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using Common.Framework;
 
-namespace Common
+namespace Common.Framework
 {
     public class FileFilter : GroupFilter
     {

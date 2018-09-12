@@ -3,7 +3,7 @@
     /// <summary>
     ///     Interaction logic for InfoPopupPageView.xaml
     /// </summary>
-    public partial class InfoPopupView : PopupView
+    public partial class InfoPopupView
     {
         public InfoPopupView()
         {
