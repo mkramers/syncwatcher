@@ -10,6 +10,11 @@ namespace FilebotApi
 {
     public class FilebotHistory
     {
+        private string m_historyFilePath;
+
+        public ObservableRangeCollection<RenameResult> Entries { get; }
+        public RelayCommand ClearHistoryCommand => new RelayCommand(ClearHistory);
+
         public FilebotHistory()
         {
             Entries = new ObservableRangeCollection<RenameResult>();
@@ -40,10 +45,6 @@ namespace FilebotApi
 
             File.WriteAllText(m_historyFilePath, serializedObject);
         }
-
-        public ObservableRangeCollection<RenameResult> Entries { get; }
-        private string m_historyFilePath;
-        public RelayCommand ClearHistoryCommand => new RelayCommand(ClearHistory);
 
         private void ClearHistory()
         {
