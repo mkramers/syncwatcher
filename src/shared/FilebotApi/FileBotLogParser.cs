@@ -28,7 +28,7 @@ namespace FilebotApi
         {
             {TEST_RENAME, Rename},
             {MOVE_RENAME, Rename},
-            {XATTR_RENAME, Rename},
+            //{XATTR_RENAME, Rename},
 
             {SKIPPED, Skip}
 

@@ -24,10 +24,15 @@ namespace Themes.Converters
 
     public class BoolToValueConverter<T> : IValueConverter
     {
+        public T FalseValue { get; set; }
+        public T TrueValue { get; set; }
+
         public object Convert(object _value, Type _targetType, object _parameter, CultureInfo _culture)
         {
             if (_value == null)
+            {
                 return FalseValue;
+            }
             return (bool) _value ? TrueValue : FalseValue;
         }
 
@@ -35,8 +40,5 @@ namespace Themes.Converters
         {
             return _value?.Equals(TrueValue) ?? false;
         }
-
-        public T FalseValue { get; set; }
-        public T TrueValue { get; set; }
     }
 }

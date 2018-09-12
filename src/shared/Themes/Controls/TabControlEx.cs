@@ -9,31 +9,30 @@ namespace Themes.Controls
     [TemplatePart(Name = "PART_ItemsHolder", Type = typeof(Panel))]
     public class TabControlEx : TabControl
     {
-        private Panel ItemsHolderPanel = null;
+        private Panel ItemsHolderPanel;
 
         public TabControlEx()
-            : base()
         {
             // This is necessary so that we get the initial databound selected item
             ItemContainerGenerator.StatusChanged += ItemContainerGenerator_StatusChanged;
         }
 
         /// <summary>
-        /// If containers are done, generate the selected item
+        ///     If containers are done, generate the selected item
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ItemContainerGenerator_StatusChanged(object sender, EventArgs e)
         {
-            if (this.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
+            if (ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
             {
-                this.ItemContainerGenerator.StatusChanged -= ItemContainerGenerator_StatusChanged;
+                ItemContainerGenerator.StatusChanged -= ItemContainerGenerator_StatusChanged;
                 UpdateSelectedItem();
             }
         }
 
         /// <summary>
-        /// Get the ItemsHolder and generate any children
+        ///     Get the ItemsHolder and generate any children
         /// </summary>
         public override void OnApplyTemplate()
         {
@@ -43,7 +42,7 @@ namespace Themes.Controls
         }
 
         /// <summary>
-        /// When the items change we remove any generated panel children and add any new ones as necessary
+        ///     When the items change we remove any generated panel children and add any new ones as necessary
         /// </summary>
         /// <param name="e"></param>
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
@@ -51,7 +50,9 @@ namespace Themes.Controls
             base.OnItemsChanged(e);
 
             if (ItemsHolderPanel == null)
+            {
                 return;
+            }
 
             switch (e.Action)
             {
@@ -63,11 +64,13 @@ namespace Themes.Controls
                 case NotifyCollectionChangedAction.Remove:
                     if (e.OldItems != null)
                     {
-                        foreach (var item in e.OldItems)
+                        foreach (object item in e.OldItems)
                         {
                             ContentPresenter cp = FindChildContentPresenter(item);
                             if (cp != null)
+                            {
                                 ItemsHolderPanel.Children.Remove(cp);
+                            }
                         }
                     }
 
@@ -91,36 +94,46 @@ namespace Themes.Controls
         private void UpdateSelectedItem()
         {
             if (ItemsHolderPanel == null)
+            {
                 return;
+            }
 
             // Generate a ContentPresenter if necessary
             TabItem item = GetSelectedTabItem();
             if (item != null)
+            {
                 CreateChildContentPresenter(item);
+            }
 
             // show the right child
             foreach (ContentPresenter child in ItemsHolderPanel.Children)
-                child.Visibility = ((child.Tag as TabItem).IsSelected) ? Visibility.Visible : Visibility.Collapsed;
+            {
+                child.Visibility = (child.Tag as TabItem).IsSelected ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
 
         private ContentPresenter CreateChildContentPresenter(object item)
         {
             if (item == null)
+            {
                 return null;
+            }
 
             ContentPresenter cp = FindChildContentPresenter(item);
 
             if (cp != null)
+            {
                 return cp;
+            }
 
             // the actual child to be added.  cp.Tag is a reference to the TabItem
             cp = new ContentPresenter();
-            cp.Content = (item is TabItem) ? (item as TabItem).Content : item;
-            cp.ContentTemplate = this.SelectedContentTemplate;
-            cp.ContentTemplateSelector = this.SelectedContentTemplateSelector;
-            cp.ContentStringFormat = this.SelectedContentStringFormat;
+            cp.Content = item is TabItem ? (item as TabItem).Content : item;
+            cp.ContentTemplate = SelectedContentTemplate;
+            cp.ContentTemplateSelector = SelectedContentTemplateSelector;
+            cp.ContentStringFormat = SelectedContentStringFormat;
             cp.Visibility = Visibility.Collapsed;
-            cp.Tag = (item is TabItem) ? item : (this.ItemContainerGenerator.ContainerFromItem(item));
+            cp.Tag = item is TabItem ? item : ItemContainerGenerator.ContainerFromItem(item);
             ItemsHolderPanel.Children.Add(cp);
             return cp;
         }
@@ -128,18 +141,26 @@ namespace Themes.Controls
         private ContentPresenter FindChildContentPresenter(object data)
         {
             if (data is TabItem)
+            {
                 data = (data as TabItem).Content;
+            }
 
             if (data == null)
+            {
                 return null;
+            }
 
             if (ItemsHolderPanel == null)
+            {
                 return null;
+            }
 
             foreach (ContentPresenter cp in ItemsHolderPanel.Children)
             {
                 if (cp.Content == data)
+                {
                     return cp;
+                }
             }
 
             return null;
@@ -147,13 +168,17 @@ namespace Themes.Controls
 
         protected TabItem GetSelectedTabItem()
         {
-            object selectedItem = base.SelectedItem;
+            object selectedItem = SelectedItem;
             if (selectedItem == null)
+            {
                 return null;
+            }
 
             TabItem item = selectedItem as TabItem;
             if (item == null)
-                item = base.ItemContainerGenerator.ContainerFromIndex(base.SelectedIndex) as TabItem;
+            {
+                item = ItemContainerGenerator.ContainerFromIndex(SelectedIndex) as TabItem;
+            }
 
             return item;
         }

@@ -1,8 +1,13 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
+using log4net;
 using log4net.Appender;
 using log4net.Core;
+using log4net.Repository.Hierarchy;
 
 namespace Common.Logging
 {
@@ -11,6 +16,14 @@ namespace Common.Logging
     /// </summary>
     public class NotifyAppender : AppenderSkeleton, INotifyPropertyChanged
     {
+        public RelayCommand ClearLogCommand => new RelayCommand(ClearLog);
+
+        private void ClearLog()
+        {
+            Notification = "";
+        }
+
+        private bool m_isDebugEnabled;
         /// <summary>
         ///     Get or set the notification message.
         /// </summary>
@@ -31,6 +44,24 @@ namespace Common.Logging
         ///     Get a reference to the log instance.
         /// </summary>
         public NotifyAppender Appender => Log.NotifyAppender;
+        public bool IsDebugEnabled
+        {
+            get => m_isDebugEnabled;
+            set
+            {
+                if (m_isDebugEnabled != value)
+                {
+                    m_isDebugEnabled = value;
+
+                    Level level = m_isDebugEnabled ? Level.Debug : Level.Info;
+
+                    ((Hierarchy) LogManager.GetRepository()).Root.Level = level;
+                    ((Hierarchy) LogManager.GetRepository()).RaiseConfigurationChanged(EventArgs.Empty);
+
+                    OnChange();
+                }
+            }
+        }
 
         /// <summary>
         ///     Raise the change notification.

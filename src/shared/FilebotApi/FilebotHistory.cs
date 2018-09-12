@@ -1,17 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Data;
 using FilebotApi.Result;
+using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
 
 namespace FilebotApi
 {
     public class FilebotHistory
     {
+        private ICollectionView m_entriesView;
+        private string m_historyFilePath;
+
+        public ObservableRangeCollection<RenameResult> Entries { get; }
+        public RelayCommand ClearHistoryCommand => new RelayCommand(ClearHistory);
+
+        public ICollectionView EntriesView => m_entriesView ?? (m_entriesView = CollectionViewSource.GetDefaultView(Entries));
+
         public FilebotHistory()
         {
             Entries = new ObservableRangeCollection<RenameResult>();
+            EntriesView.SortDescriptions.Add(new SortDescription("DateTime", ListSortDirection.Descending));
         }
 
         public void Load(string _historyFilePath)
@@ -40,8 +52,11 @@ namespace FilebotApi
             File.WriteAllText(m_historyFilePath, serializedObject);
         }
 
-        public ObservableRangeCollection<RenameResult> Entries { get; }
-        private string m_historyFilePath;
+        private void ClearHistory()
+        {
+            Entries.Clear();
+            Save();
+        }
 
         public void AddEntry(RenameResult _result)
         {

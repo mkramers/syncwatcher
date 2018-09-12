@@ -45,6 +45,13 @@ namespace SyncWatcherTray.ViewModel
             {
                 async void Execute()
                 {
+                    string input = DirectoryViewModel.Name;
+                    string output = OutputDirectory;
+
+                    string message = $"Starting cleaning...\n  Source: {input}\n  Destination: {output}\n  {new string('=', 24)}";
+
+                    Log.Write(LogLevel.Info, message);
+
                     OnStarted();
 
                     await Organize();
@@ -53,6 +60,8 @@ namespace SyncWatcherTray.ViewModel
                     {
                         await ScanPlex();
                     }
+
+                    Log.Write(LogLevel.Info, $"  {new string('=', 24)}\nCleaning complete.\n***\n");
 
                     OnStopped();
                 }

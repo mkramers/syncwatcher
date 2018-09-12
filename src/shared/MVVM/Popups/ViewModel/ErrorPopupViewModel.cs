@@ -2,10 +2,7 @@
 {
     public class ErrorPopupViewModel : CloseableViewModel
     {
-        public ErrorPopupViewModel(string _message)
-        {
-            m_message = _message;
-        }
+        private string m_message;
 
         public string Message
         {
@@ -17,6 +14,9 @@
             }
         }
 
-        private string m_message;
+        public ErrorPopupViewModel(string _message)
+        {
+            m_message = _message;
+        }
     }
 }

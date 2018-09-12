@@ -7,14 +7,7 @@ namespace MVVM.Popups.ViewModel
 {
     public class PopupWindowViewModel : ViewModelBase
     {
-        public PopupWindowViewModel(IPopupViewModel _viewModel)
-        {
-            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
-                return;
-
-            Debug.Assert(_viewModel != null);
-            ViewModel = _viewModel;
-        }
+        private string m_title;
 
         public IPopupViewModel ViewModel { get; }
 
@@ -28,6 +21,15 @@ namespace MVVM.Popups.ViewModel
             }
         }
 
-        private string m_title;
+        public PopupWindowViewModel(IPopupViewModel _viewModel)
+        {
+            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            {
+                return;
+            }
+
+            Debug.Assert(_viewModel != null);
+            ViewModel = _viewModel;
+        }
     }
 }

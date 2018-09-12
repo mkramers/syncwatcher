@@ -8,6 +8,10 @@ namespace Common.SFTP
 {
     public class FileHistory
     {
+        private readonly object m_lock = new object();
+
+        public List<FileHistoryEntry> Entries { get; } = new List<FileHistoryEntry>();
+
         public static bool TryLoad(string _filePath, out FileHistory _history)
         {
             _history = Utilities.XmlDeserializeObject<FileHistory>(_filePath);
@@ -16,7 +20,7 @@ namespace Common.SFTP
 
         public static FileHistory LoadOrCreate(string _fileName)
         {
-            if (!TryLoad(_fileName, out var history))
+            if (!TryLoad(_fileName, out FileHistory history))
             {
                 history = new FileHistory();
                 //Log.Info("No valid cache file!");
@@ -37,8 +41,8 @@ namespace Common.SFTP
         {
             Debug.Assert(_file != null);
 
-            var newCompletedTime = DateTime.Now;
-            var existing = Entries.Find(_entry => _entry.FullName == _file.FullName);
+            DateTime newCompletedTime = DateTime.Now;
+            FileHistoryEntry existing = Entries.Find(_entry => _entry.FullName == _file.FullName);
             if (existing != null)
             {
                 existing.UpdateCompletedTime(newCompletedTime);
@@ -54,33 +58,38 @@ namespace Common.SFTP
         {
             Debug.Assert(_directory != null);
 
-            foreach (var entry in Entries)
-                if (string.Equals(_directory.FullName, entry.FullName,
-                    StringComparison.InvariantCultureIgnoreCase))
+            foreach (FileHistoryEntry entry in Entries)
+            {
+                if (string.Equals(_directory.FullName, entry.FullName, StringComparison.InvariantCultureIgnoreCase))
+                {
                     _directory.State = DirectoryObjectState.COMPLETED;
+                }
+            }
         }
 
         public void UpdateStatus(FileObject _file)
         {
             Debug.Assert(_file != null);
-            foreach (var entry in Entries)
-                if (string.Equals(_file.FullName, entry.FullName,
-                    StringComparison.InvariantCultureIgnoreCase))
+            foreach (FileHistoryEntry entry in Entries)
+            {
+                if (string.Equals(_file.FullName, entry.FullName, StringComparison.InvariantCultureIgnoreCase))
+                {
                     _file.State = FileObjectState.COMPLETED;
+                }
+            }
         }
 
         public void Clear()
         {
             Entries.Clear();
         }
-
-        public List<FileHistoryEntry> Entries { get; } = new List<FileHistoryEntry>();
-
-        private readonly object m_lock = new object();
     }
 
     public class FileHistoryEntry
     {
+        public string FullName { get; set; }
+        public DateTime CompletedTime { get; set; }
+
         public FileHistoryEntry()
         {
         }
@@ -97,8 +106,5 @@ namespace Common.SFTP
         {
             CompletedTime = _newTime;
         }
-
-        public string FullName { get; set; }
-        public DateTime CompletedTime { get; set; }
     }
 }

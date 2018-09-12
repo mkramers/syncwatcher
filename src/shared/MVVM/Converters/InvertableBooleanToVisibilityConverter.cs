@@ -17,23 +17,33 @@ namespace MVVM.Converters
     {
         public object Convert(object _value, Type _targetType, object _parameter, CultureInfo _culture)
         {
-            var flag = false;
+            bool flag = false;
             if (_value is bool b)
+            {
                 flag = b;
+            }
 
             if (_parameter != null)
+            {
                 if (bool.Parse((string) _parameter))
+                {
                     flag = !flag;
+                }
+            }
 
             return flag ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object _value, Type _targetType, object _parameter, CultureInfo _culture)
         {
-            var back = _value is Visibility visibility && visibility == Visibility.Visible;
+            bool back = _value is Visibility visibility && visibility == Visibility.Visible;
             if (_parameter != null)
+            {
                 if ((bool) _parameter)
+                {
                     back = !back;
+                }
+            }
             return back;
         }
     }

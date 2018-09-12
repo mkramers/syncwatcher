@@ -13,8 +13,6 @@ namespace FilebotApi
     {
         private readonly Settings m_settings;
 
-        public event EventHandler<RenameResultEventArgs> FileOrganized; 
-
         public Filebot(Settings _settings)
         {
             Debug.Assert(_settings != null);
@@ -22,13 +20,12 @@ namespace FilebotApi
             m_settings = _settings;
         }
 
+        public event EventHandler<RenameResultEventArgs> FileOrganized;
+
         public void Organize(string _inputDir, string _outputDir)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_inputDir));
             Debug.Assert(!string.IsNullOrWhiteSpace(_outputDir));
-
-            string message = $"Starting organize...\nSource: {_inputDir}\nTarget: {_outputDir}";
-            Common.Logging.Log.Write(LogLevel.Info, message);
 
             try
             {
@@ -55,27 +52,22 @@ namespace FilebotApi
             {
                 Console.WriteLine($"Error running filebot: {e}");
             }
-
-            Log.Write(LogLevel.Info, "Completed");
         }
 
         private void LogResult(FileBotResult _result)
         {
             Debug.Assert(_result != null);
 
-            Log.Write(LogLevel.Info, _result.RawLine);
+            Log.Write(LogLevel.Debug, _result.RawLine);
             if (_result is RenameResult rename)
             {
                 string dest = rename.ProposedFile;
-                string message = $"\n>>>> Renamed: {Path.GetFileName(dest)}\n";
+                string message = $"  Renamed: {Path.GetFileName(dest)}";
 
                 Log.Write(LogLevel.Info, message);
 
                 RenameResultEventArgs args = new RenameResultEventArgs(rename);
                 FileOrganized?.Invoke(this, args);
-            }
-            else
-            {
             }
         }
 

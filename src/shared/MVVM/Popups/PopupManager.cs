@@ -15,7 +15,7 @@ namespace MVVM.Popups
             Debug.Assert(!string.IsNullOrWhiteSpace(_message));
             Debug.Assert(_windowTitle != null);
 
-            var info = new InfoPopupViewModel(_message);
+            InfoPopupViewModel info = new InfoPopupViewModel(_message);
             Show(info, PopupBehavior.BLOCKING, ResizeMode.NoResize, _windowTitle);
         }
 
@@ -24,20 +24,24 @@ namespace MVVM.Popups
             Debug.Assert(!string.IsNullOrWhiteSpace(_message));
             Debug.Assert(_windowTitle != null);
 
-            var error = new ErrorPopupViewModel(_message);
+            ErrorPopupViewModel error = new ErrorPopupViewModel(_message);
             Show(error, PopupBehavior.BLOCKING, ResizeMode.NoResize, _windowTitle);
         }
     }
 
     public partial class PopupManager
     {
+        public static PopupManager Instance { get; } = new PopupManager();
+
+        public List<Popup> Popups { get; } = new List<Popup>();
+
         public void Exit()
         {
             //make a copy so can modify the popup list while we iterate
-            var popups = new List<Popup>(Popups);
-            foreach (var popup in popups)
+            List<Popup> popups = new List<Popup>(Popups);
+            foreach (Popup popup in popups)
             {
-                var window = popup.Window;
+                PopupWindow window = popup.Window;
                 Debug.Assert(window != null);
 
                 window.Close();
@@ -50,8 +54,7 @@ namespace MVVM.Popups
             Close(_viewModel);
         }
 
-        public void Show(IPopupViewModel _viewModel, PopupBehavior _behavior, ResizeMode _resizeMode,
-            string _windowTitle, Size? _size = null)
+        public void Show(IPopupViewModel _viewModel, PopupBehavior _behavior, ResizeMode _resizeMode, string _windowTitle, Size? _size = null)
         {
             Debug.Assert(_viewModel != null);
 
@@ -82,19 +85,22 @@ namespace MVVM.Popups
 
                     if (existing.Any())
                     {
-                        var first = existing.First();
+                        Popup first = existing.First();
                         Debug.Assert(first.Behavior == _behavior);
 
-                        Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            var window = first.Window;
-                            if (window.Visibility != Visibility.Visible)
-                                window.Visibility = Visibility.Visible;
+                        Application.Current.Dispatcher.Invoke(
+                            () =>
+                            {
+                                PopupWindow window = first.Window;
+                                if (window.Visibility != Visibility.Visible)
+                                {
+                                    window.Visibility = Visibility.Visible;
+                                }
 
-                            ResizeWindow(window, _size);
+                                ResizeWindow(window, _size);
 
-                            window.Activate();
-                        });
+                                window.Activate();
+                            });
                     }
                     else
                     {
@@ -104,9 +110,11 @@ namespace MVVM.Popups
                     break;
                 case PopupBehavior.SINGLE_NEW:
                 {
-                    var existing = Find(_viewModel);
-                    foreach (var popup in existing)
+                    List<Popup> existing = Find(_viewModel);
+                    foreach (Popup popup in existing)
+                    {
                         Remove(popup);
+                    }
 
                     ShowNewWindow(_viewModel, _behavior, _resizeMode, _windowTitle, _size);
                 }
@@ -117,42 +125,46 @@ namespace MVVM.Popups
             }
         }
 
-        private void ShowNewWindow(IPopupViewModel _viewModel, PopupBehavior _behavior, ResizeMode _resizeMode,
-            string _windowTitle, Size? _size = null)
+        private void ShowNewWindow(IPopupViewModel _viewModel, PopupBehavior _behavior, ResizeMode _resizeMode, string _windowTitle, Size? _size = null)
         {
             Debug.Assert(_viewModel != null);
 
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                var mainWindow = Application.Current.MainWindow;
-
-                var popupViewModel = new PopupWindowViewModel(_viewModel)
+            Application.Current.Dispatcher.Invoke(
+                () =>
                 {
-                    Title = _windowTitle
-                };
+                    Window mainWindow = Application.Current.MainWindow;
 
-                var window = new PopupWindow
-                {
-                    DataContext = popupViewModel,
-                    ResizeMode = _resizeMode,
-                    Owner = mainWindow
-                };
+                    PopupWindowViewModel popupViewModel = new PopupWindowViewModel(_viewModel)
+                    {
+                        Title = _windowTitle
+                    };
 
-                ResizeWindow(window, _size);
+                    PopupWindow window = new PopupWindow
+                    {
+                        DataContext = popupViewModel,
+                        ResizeMode = _resizeMode,
+                        Owner = mainWindow
+                    };
 
-                window.Closed += Window_Closed;
-                window.Closing += _viewModel.OnWindowClosing;
+                    ResizeWindow(window, _size);
 
-                _viewModel.OnRequestClose += (_sender, _e) => window.Close();
+                    window.Closed += Window_Closed;
+                    window.Closing += _viewModel.OnWindowClosing;
 
-                var popup = new Popup(window, popupViewModel, _behavior);
-                Popups.Add(popup);
+                    _viewModel.OnRequestClose += (_sender, _e) => window.Close();
 
-                if (_behavior == PopupBehavior.BLOCKING)
-                    window.ShowDialog();
-                else
-                    window.Show();
-            });
+                    Popup popup = new Popup(window, popupViewModel, _behavior);
+                    Popups.Add(popup);
+
+                    if (_behavior == PopupBehavior.BLOCKING)
+                    {
+                        window.ShowDialog();
+                    }
+                    else
+                    {
+                        window.Show();
+                    }
+                });
         }
 
         private static void ResizeWindow(Window _window, Size? _size)
@@ -161,7 +173,7 @@ namespace MVVM.Popups
 
             if (_size != null)
             {
-                var size = _size.Value;
+                Size size = _size.Value;
                 Debug.Assert(size.Width > 0);
                 Debug.Assert(size.Height > 0);
 
@@ -173,16 +185,18 @@ namespace MVVM.Popups
 
         public List<Popup> FindofType(Type _type)
         {
-            var existing = new List<Popup>();
-            foreach (var popup in Popups)
+            List<Popup> existing = new List<Popup>();
+            foreach (Popup popup in Popups)
             {
-                var popupWindowViewModel = popup.ViewModel as PopupWindowViewModel;
+                PopupWindowViewModel popupWindowViewModel = popup.ViewModel as PopupWindowViewModel;
                 Debug.Assert(popupWindowViewModel != null);
 
-                var viewModel = popupWindowViewModel.ViewModel;
+                IPopupViewModel viewModel = popupWindowViewModel.ViewModel;
 
                 if (viewModel.GetType() == _type)
+                {
                     existing.Add(popup);
+                }
             }
             return existing;
         }
@@ -190,48 +204,54 @@ namespace MVVM.Popups
         public void Hide(IPopupViewModel _viewModel)
         {
             if (_viewModel != null)
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    var existing = Find(_viewModel);
-                    if (existing.Any())
+            {
+                Application.Current.Dispatcher.Invoke(
+                    () =>
                     {
-                        var first = existing.First();
+                        List<Popup> existing = Find(_viewModel);
+                        if (existing.Any())
+                        {
+                            Popup first = existing.First();
 
-                        var window = first.Window;
-                        window.Hide();
-                    }
-                });
+                            PopupWindow window = first.Window;
+                            window.Hide();
+                        }
+                    });
+            }
         }
 
         public void Close(IPopupViewModel _viewModel)
         {
             if (_viewModel != null)
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    var existing = Find(_viewModel);
-                    if (existing.Any())
+            {
+                Application.Current.Dispatcher.Invoke(
+                    () =>
                     {
-                        var first = existing.First();
+                        List<Popup> existing = Find(_viewModel);
+                        if (existing.Any())
+                        {
+                            Popup first = existing.First();
 
-                        var window = first.Window;
-                        window.Close();
-                    }
-                });
+                            PopupWindow window = first.Window;
+                            window.Close();
+                        }
+                    });
+            }
         }
 
         private void Window_Closed(object _sender, EventArgs _e)
         {
-            var window = _sender as Window;
+            Window window = _sender as Window;
             Debug.Assert(window != null);
 
-            var viewModel = window.DataContext as PopupWindowViewModel;
+            PopupWindowViewModel viewModel = window.DataContext as PopupWindowViewModel;
             Debug.Assert(viewModel != null);
 
-            var popups = Find(viewModel.ViewModel);
-            foreach (var popup in popups)
+            List<Popup> popups = Find(viewModel.ViewModel);
+            foreach (Popup popup in popups)
             {
                 //ensure they are equal!
-                var popupWindow = popup.Window;
+                PopupWindow popupWindow = popup.Window;
                 Debug.Assert(Equals(popupWindow, window));
 
                 Remove(popup);
@@ -244,7 +264,7 @@ namespace MVVM.Popups
 
             OnPopupClosed(_popup);
 
-            var removed = Popups.Remove(_popup);
+            bool removed = Popups.Remove(_popup);
             Debug.Assert(removed);
         }
 
@@ -252,11 +272,11 @@ namespace MVVM.Popups
         {
             Debug.Assert(_viewModel != null);
 
-            var popups = Find(_viewModel);
+            List<Popup> popups = Find(_viewModel);
 
-            foreach (var popup in popups)
+            foreach (Popup popup in popups)
             {
-                var window = popup.Window;
+                PopupWindow window = popup.Window;
 
                 Application.Current.Dispatcher.Invoke(() => { window.Activate(); });
             }
@@ -266,15 +286,17 @@ namespace MVVM.Popups
         {
             Debug.Assert(_viewModel != null);
 
-            var popups = new List<Popup>();
-            foreach (var popup in Popups)
+            List<Popup> popups = new List<Popup>();
+            foreach (Popup popup in Popups)
             {
-                var windowViewModel = popup.ViewModel as PopupWindowViewModel;
+                PopupWindowViewModel windowViewModel = popup.ViewModel as PopupWindowViewModel;
                 Debug.Assert(windowViewModel != null);
 
-                var viewModel = windowViewModel.ViewModel;
+                IPopupViewModel viewModel = windowViewModel.ViewModel;
                 if (Equals(viewModel, _viewModel))
+                {
                     popups.Add(popup);
+                }
             }
             return popups;
         }
@@ -283,14 +305,16 @@ namespace MVVM.Popups
         {
             Debug.Assert(_viewModel != null);
 
-            var popups = new List<Popup>();
-            foreach (var popup in Popups)
+            List<Popup> popups = new List<Popup>();
+            foreach (Popup popup in Popups)
             {
-                var windowViewModel = popup.ViewModel as PopupWindowViewModel;
+                PopupWindowViewModel windowViewModel = popup.ViewModel as PopupWindowViewModel;
                 Debug.Assert(windowViewModel != null);
-                var viewModel = windowViewModel.ViewModel;
+                IPopupViewModel viewModel = windowViewModel.ViewModel;
                 if (viewModel.GetType() == _viewModel.GetType())
+                {
                     popups.Add(popup);
+                }
             }
             return popups;
         }
@@ -301,8 +325,5 @@ namespace MVVM.Popups
         }
 
         public event EventHandler PopupClosed;
-        public static PopupManager Instance { get; } = new PopupManager();
-
-        public List<Popup> Popups { get; } = new List<Popup>();
     }
 }
