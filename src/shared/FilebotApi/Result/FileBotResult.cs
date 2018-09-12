@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace FilebotApi
+namespace FilebotApi.Result
 {
     public class FileBotResult
     {
