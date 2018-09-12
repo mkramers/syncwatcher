@@ -24,7 +24,7 @@
             <TextBlock Text="{Binding Appender.Notification, Mode=Default}" TextWrapping="Wrap" Padding="3" />
         </ScrollViewer>
 
-        <Grid Grid.Row="1" Background="DarkGray" Opacity="0.6">
+        <Grid Grid.Row="1" Margin="6" Background="YellowGreen">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -32,10 +32,18 @@
             </Grid.ColumnDefinitions>
 
             <CheckBox
-                Grid.Column="2"
+                Grid.Column="0"
                 HorizontalAlignment="Center"
+                VerticalAlignment="Center"
                 Content="Debug"
                 IsChecked="{Binding IsDebugEnabled}" />
+            
+            <Button 
+                Grid.Column="2"
+                Margin="8"
+                Padding="12,2"
+                Content="Clear"
+                Command="{Binding ClearLogCommand}"/>
         </Grid>
     </Grid>
 </UserControl>

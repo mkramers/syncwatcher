@@ -91,7 +91,7 @@
                 <Grid>
                     <Image Source="{StaticResource SyncWatcherTrayImage}"
                            Width="80" Height="80" HorizontalAlignment="Right"
-                           VerticalAlignment="Bottom" Margin="14,4" Opacity="0.25" />
+                           VerticalAlignment="Top" Margin="14,4" Opacity="0.25" />
 
                     <view1:LogView Focusable="False" />
 
@@ -100,7 +100,7 @@
                     Height="18"
                     Margin="12,12,24,12"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
+                    VerticalAlignment="Top"
                     Icon="Spinner"
                     Spin="True"
                     SpinDuration="2"

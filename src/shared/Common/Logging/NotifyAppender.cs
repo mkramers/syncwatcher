@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 using log4net;
 using log4net.Appender;
 using log4net.Core;
@@ -14,6 +16,13 @@ namespace Common.Logging
     /// </summary>
     public class NotifyAppender : AppenderSkeleton, INotifyPropertyChanged
     {
+        public RelayCommand ClearLogCommand => new RelayCommand(ClearLog);
+
+        private void ClearLog()
+        {
+            Notification = "";
+        }
+
         private bool m_isDebugEnabled;
         /// <summary>
         ///     Get or set the notification message.
