@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FilebotApi.View"
              xmlns:filebotApi="clr-namespace:FilebotApi"
+             xmlns:result="clr-namespace:FilebotApi.Result"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400"
              d:DataContext="{d:DesignInstance filebotApi:FilebotHistory}">
@@ -17,14 +18,15 @@
         <DataGrid
             Grid.Row="0"
             AutoGenerateColumns="False"
-            ItemsSource="{Binding Entries}">
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            CanUserReorderColumns="False"
+            CanUserResizeRows="False"
+            ItemsSource="{Binding EntriesView}">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding ProposedFileName}" />
-
-                <DataGridTextColumn Header="Added" Binding="{Binding DateTime, StringFormat=\{0 :dd/MM/yyyy\}}">
-                </DataGridTextColumn>
-
+                <DataGridTextColumn Header="Added" Binding="{Binding DateTime, StringFormat=\{0 :dd/MM/yyyy\}}"/>
             </DataGrid.Columns>
         </DataGrid>
         
@@ -34,7 +36,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="2" Content="Clear" Command="{Binding ClearHistoryCommand}"></Button>
+            <Button Grid.Column="2" Content="Clear" Command="{Binding ClearHistoryCommand}"/>
         </Grid>
     </Grid>
 </UserControl>

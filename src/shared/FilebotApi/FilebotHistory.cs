@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Data;
 using FilebotApi.Result;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
@@ -18,6 +20,7 @@ namespace FilebotApi
         public FilebotHistory()
         {
             Entries = new ObservableRangeCollection<RenameResult>();
+            EntriesView.SortDescriptions.Add(new SortDescription("DateTime", ListSortDirection.Descending));
         }
 
         public void Load(string _historyFilePath)
@@ -69,5 +72,11 @@ namespace FilebotApi
 
             Save();
         }
+
+        public ICollectionView EntriesView
+        {
+            get { return m_entriesView ?? (m_entriesView = CollectionViewSource.GetDefaultView(Entries)); }
+        }
+        private ICollectionView m_entriesView;
     }
 }
