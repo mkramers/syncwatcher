@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Common.Framework.EventHelpers;
 using Common.SFTP;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -116,7 +115,7 @@ namespace WinScpApi.ViewModel
                     Manager.CurrentLocalRoot = value;
                     RaisePropertyChanged();
 
-                    LocalRootChanged?.Invoke(this, new StringEventArgs(value));
+                    LocalRootChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -138,7 +137,7 @@ namespace WinScpApi.ViewModel
             Manager.ClientConnectionChanged += Manager_OnClientConnectionChanged;
         }
 
-        public event EventHandler<StringEventArgs> LocalRootChanged;
+        public event EventHandler<EventArgs> LocalRootChanged;
 
         public bool CanExit()
         {
