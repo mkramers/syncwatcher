@@ -54,6 +54,8 @@ namespace SyncWatcherTray.ViewModel
                         await ScanPlex();
                     }
 
+                    Log.Write(LogLevel.Info, "Cleaning complete.\n\n\n");
+
                     OnStopped();
                 }
 

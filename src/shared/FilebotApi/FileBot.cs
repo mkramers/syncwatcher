@@ -55,8 +55,6 @@ namespace FilebotApi
             {
                 Console.WriteLine($"Error running filebot: {e}");
             }
-
-            Log.Write(LogLevel.Info, "Completed");
         }
 
         private void LogResult(FileBotResult _result)
