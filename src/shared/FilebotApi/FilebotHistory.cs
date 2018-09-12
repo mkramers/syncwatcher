@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using FilebotApi.Result;
+using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
 
 namespace FilebotApi
@@ -42,6 +43,13 @@ namespace FilebotApi
 
         public ObservableRangeCollection<RenameResult> Entries { get; }
         private string m_historyFilePath;
+        public RelayCommand ClearHistoryCommand => new RelayCommand(ClearHistory);
+
+        private void ClearHistory()
+        {
+            Entries.Clear();
+            Save();
+        }
 
         public void AddEntry(RenameResult _result)
         {

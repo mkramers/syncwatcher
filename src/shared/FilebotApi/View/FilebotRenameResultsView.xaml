@@ -6,16 +6,35 @@
              xmlns:local="clr-namespace:FilebotApi.View"
              xmlns:filebotApi="clr-namespace:FilebotApi"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="500" d:DesignWidth="400"
              d:DataContext="{d:DesignInstance filebotApi:FilebotHistory}">
     <Grid>
-        <ListBox
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <DataGrid
+            Grid.Row="0"
+            AutoGenerateColumns="False"
             ItemsSource="{Binding Entries}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Path=ProposedFileName}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding ProposedFileName}" />
+
+                <DataGridTextColumn Header="Added" Binding="{Binding DateTime, StringFormat=\{0 :dd/MM/yyyy\}}">
+                </DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <Grid Grid.Row="1" Margin="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="2" Content="Clear" Command="{Binding ClearHistoryCommand}"></Button>
+        </Grid>
     </Grid>
 </UserControl>

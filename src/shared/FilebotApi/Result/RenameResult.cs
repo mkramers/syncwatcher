@@ -5,6 +5,7 @@ using System.IO;
 namespace FilebotApi.Result
 {
     public class RenameResult : FilebotFileResult
+
     {
         public RenameResult()
         {
