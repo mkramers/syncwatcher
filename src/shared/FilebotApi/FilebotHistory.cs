@@ -12,10 +12,13 @@ namespace FilebotApi
 {
     public class FilebotHistory
     {
+        private ICollectionView m_entriesView;
         private string m_historyFilePath;
 
         public ObservableRangeCollection<RenameResult> Entries { get; }
         public RelayCommand ClearHistoryCommand => new RelayCommand(ClearHistory);
+
+        public ICollectionView EntriesView => m_entriesView ?? (m_entriesView = CollectionViewSource.GetDefaultView(Entries));
 
         public FilebotHistory()
         {
@@ -72,11 +75,5 @@ namespace FilebotApi
 
             Save();
         }
-
-        public ICollectionView EntriesView
-        {
-            get { return m_entriesView ?? (m_entriesView = CollectionViewSource.GetDefaultView(Entries)); }
-        }
-        private ICollectionView m_entriesView;
     }
 }

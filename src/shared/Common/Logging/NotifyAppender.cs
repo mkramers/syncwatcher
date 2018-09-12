@@ -5,6 +5,7 @@ using System.IO;
 using log4net;
 using log4net.Appender;
 using log4net.Core;
+using log4net.Repository.Hierarchy;
 
 namespace Common.Logging
 {
@@ -13,6 +14,7 @@ namespace Common.Logging
     /// </summary>
     public class NotifyAppender : AppenderSkeleton, INotifyPropertyChanged
     {
+        private bool m_isDebugEnabled;
         /// <summary>
         ///     Get or set the notification message.
         /// </summary>
@@ -44,8 +46,8 @@ namespace Common.Logging
 
                     Level level = m_isDebugEnabled ? Level.Debug : Level.Info;
 
-                    ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetRepository()).Root.Level = level;
-                    ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetRepository()).RaiseConfigurationChanged(EventArgs.Empty);
+                    ((Hierarchy) LogManager.GetRepository()).Root.Level = level;
+                    ((Hierarchy) LogManager.GetRepository()).RaiseConfigurationChanged(EventArgs.Empty);
 
                     OnChange();
                 }
@@ -87,7 +89,5 @@ namespace Common.Logging
         }
 
         #endregion
-
-        private bool m_isDebugEnabled;
     }
 }

@@ -13,14 +13,14 @@ namespace FilebotApi
     {
         private readonly Settings m_settings;
 
-        public event EventHandler<RenameResultEventArgs> FileOrganized; 
-
         public Filebot(Settings _settings)
         {
             Debug.Assert(_settings != null);
 
             m_settings = _settings;
         }
+
+        public event EventHandler<RenameResultEventArgs> FileOrganized;
 
         public void Organize(string _inputDir, string _outputDir)
         {
