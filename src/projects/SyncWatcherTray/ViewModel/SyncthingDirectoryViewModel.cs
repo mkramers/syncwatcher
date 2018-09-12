@@ -9,8 +9,6 @@ namespace SyncWatcherTray.ViewModel
 {
     public class SyncthingDirectoryViewModel : DirectoryViewModel
     {
-        private readonly FilteredFileWatcher m_filteredFileWatcher;
-
         /// <summary>
         ///     used only by desginer
         /// </summary>
@@ -29,9 +27,9 @@ namespace SyncWatcherTray.ViewModel
                 "~syncthing~"
             };
 
-            m_filteredFileWatcher = new FilteredFileWatcher(_directory, ignoredFileNames);
-            m_filteredFileWatcher.WatchEvent += SyncthingWatcher_OnChanged;
-            m_filteredFileWatcher.Start();
+            FilteredFileWatcher filteredFileWatcher = new FilteredFileWatcher(_directory, ignoredFileNames);
+            filteredFileWatcher.WatchEvent += SyncthingWatcher_OnChanged;
+            filteredFileWatcher.Start();
         }
 
         public event EventHandler<FileSystemEventArgs> SyncthingCompleted;

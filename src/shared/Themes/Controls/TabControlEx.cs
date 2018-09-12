@@ -174,11 +174,7 @@ namespace Themes.Controls
                 return null;
             }
 
-            TabItem item = selectedItem as TabItem;
-            if (item == null)
-            {
-                item = ItemContainerGenerator.ContainerFromIndex(SelectedIndex) as TabItem;
-            }
+            TabItem item = selectedItem as TabItem ?? ItemContainerGenerator.ContainerFromIndex(SelectedIndex) as TabItem;
 
             return item;
         }

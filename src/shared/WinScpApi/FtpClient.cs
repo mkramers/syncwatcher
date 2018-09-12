@@ -6,10 +6,10 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using FileGetter;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using log4net;
+using WinScpApi;
 using WinSCP;
 
 namespace Common.SFTP
@@ -267,7 +267,7 @@ namespace Common.SFTP
 
         private bool TryListDirectory(Session _session, string _path, out RemoteDirectoryInfo _remoteDirectory)
         {
-            bool success = false;
+            bool success;
 
             _remoteDirectory = null;
             //try

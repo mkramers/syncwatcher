@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using Common.SFTP;
-using FileGetter;
 using GalaSoft.MvvmLight;
 using log4net;
 using WinScpApi.ViewModel;

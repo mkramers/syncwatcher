@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Common;
-using Common.SFTP;
-using FileGetter;
 using WinScpApi.ViewModel;
 
 namespace WinScpApi

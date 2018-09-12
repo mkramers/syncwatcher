@@ -162,8 +162,6 @@ namespace Common
 
             try
             {
-                string attributeXml = string.Empty;
-
                 XmlDocument xmlDocument = new XmlDocument();
                 xmlDocument.Load(_fileName);
                 string xmlString = xmlDocument.OuterXml;

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using FileGetter;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using WinSCP;
 
-namespace Common.SFTP
+namespace WinScpApi
 {
     public class FileObject : ViewModelBase
     {

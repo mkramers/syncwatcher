@@ -6,15 +6,15 @@ namespace Common.Framework
 {
     public class GridHelpers
     {
-        private static void SetStarColumns(Grid grid)
+        private static void SetStarColumns(Grid _grid)
         {
-            string[] starColumns = GetStarColumns(grid).Split(',');
+            string[] starColumns = GetStarColumns(_grid).Split(',');
 
-            for (int i = 0; i < grid.ColumnDefinitions.Count; i++)
+            for (int i = 0; i < _grid.ColumnDefinitions.Count; i++)
             {
                 if (starColumns.Contains(i.ToString()))
                 {
-                    grid.ColumnDefinitions[i].Width = new GridLength(1, GridUnitType.Star);
+                    _grid.ColumnDefinitions[i].Width = new GridLength(1, GridUnitType.Star);
                 }
             }
         }
