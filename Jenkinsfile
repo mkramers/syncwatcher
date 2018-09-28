@@ -25,7 +25,7 @@ pipeline {
 				script {													
 					dir("./src/shared/build/inspect")
 					{
-						bat "powershell -ExecutionPolicy Bypass -File inspect.ps1 -solution=../../../Solutions/Projects.sln -output=../../../projects/syncwatchertray/build/publish"
+						bat "powershell -ExecutionPolicy Bypass -File inspect.ps1 -solution=../../../Solutions/Projects.sln -output=../../../projects/syncwatchertray/build/publish -failoninspect=false"
 					}
 				}
             }

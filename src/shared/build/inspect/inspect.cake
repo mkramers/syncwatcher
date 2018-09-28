@@ -3,6 +3,7 @@
 string target = Argument<string>("target", "Default");
 string solutionFilePath = Argument<string>("solution", "");
 string outputDir = Argument<string>("output", @".\publish");
+bool failOnInspect = Argument<bool>("failoninspect", false);
 
 Task("Inspect")
     .Does(() =>
@@ -14,7 +15,7 @@ Task("Inspect")
 	InspectCode(solutionFilePath, new InspectCodeSettings {
 		SolutionWideAnalysis = true,
 		OutputFile = Directory(outputDir) + File($"{shortname.ToLower()}.inspect.xml"),
-		ThrowExceptionOnFindingViolations = false,
+		ThrowExceptionOnFindingViolations = failOnInspect,
 	});
 });
 
