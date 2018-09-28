@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
+using Common.Logging;
 using log4net;
 using log4net.Config;
 using MVVM.Popups;
+using SyncWatcherTray.Properties;
 using SyncWatcherTray.View;
 using SyncWatcherTray.ViewModel;
 
@@ -35,6 +38,9 @@ namespace SyncWatcherTray
             FileInfo logConfig = new FileInfo("Config/log4net.config");
             GlobalContext.Properties["LogFileName"] = "log.txt";
             XmlConfigurator.Configure(logConfig);
+
+            NotifyAppender appender = Common.Logging.Log.NotifyAppender;
+            Debug.Assert(appender != null);
 
             Log.Info("Starting SyncWatcherTray");
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using GalaSoft.MvvmLight.Command;
@@ -22,7 +23,8 @@ namespace Common.Logging
             Notification = "";
         }
 
-        private bool m_isDebugEnabled;
+        private static bool m_isDebugEnabled;
+
         /// <summary>
         ///     Get or set the notification message.
         /// </summary>
@@ -34,7 +36,7 @@ namespace Common.Logging
                 if (_notification != value)
                 {
                     _notification = value;
-                    OnChange();
+                    OnChange(nameof(Notification));
                 }
             }
         }
@@ -43,7 +45,7 @@ namespace Common.Logging
         ///     Get a reference to the log instance.
         /// </summary>
         public NotifyAppender Appender => Log.NotifyAppender;
-        public bool IsDebugEnabled
+        public static bool IsDebugEnabled
         {
             get => m_isDebugEnabled;
             set
@@ -54,10 +56,10 @@ namespace Common.Logging
 
                     Level level = m_isDebugEnabled ? Level.Debug : Level.Info;
 
-                    ((Hierarchy) LogManager.GetRepository()).Root.Level = level;
-                    ((Hierarchy) LogManager.GetRepository()).RaiseConfigurationChanged(EventArgs.Empty);
+                    ((Hierarchy)LogManager.GetRepository()).Root.Level = level;
+                    ((Hierarchy)LogManager.GetRepository()).RaiseConfigurationChanged(EventArgs.Empty);
 
-                    OnChange();
+                    SettingChanged?.Invoke(null, EventArgs.Empty);
                 }
             }
         }
@@ -65,13 +67,12 @@ namespace Common.Logging
         /// <summary>
         ///     Raise the change notification.
         /// </summary>
-        private void OnChange()
+        private void OnChange(string _propertyName = "")
         {
+            Debug.Assert(_propertyName != null);
+
             PropertyChangedEventHandler handler = _propertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(string.Empty));
-            }
+            handler?.Invoke(this, new PropertyChangedEventArgs(_propertyName));
         }
 
         /// <summary>
@@ -88,6 +89,8 @@ namespace Common.Logging
         #region Members and events
 
         private static string _notification;
+        public static event EventHandler<EventArgs> SettingChanged;
+
         private event PropertyChangedEventHandler _propertyChanged;
 
         public event PropertyChangedEventHandler PropertyChanged

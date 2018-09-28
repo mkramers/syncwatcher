@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Common.Properties;
 using log4net;
 using log4net.Appender;
 
@@ -31,13 +33,13 @@ namespace Common.Logging
             get
             {
                 foreach (ILog log in LogManager.GetCurrentLoggers())
-                foreach (IAppender appender in log.Logger.Repository.GetAppenders())
-                {
-                    if (appender is NotifyAppender)
+                    foreach (IAppender appender in log.Logger.Repository.GetAppenders())
                     {
-                        return appender as NotifyAppender;
+                        if (appender is NotifyAppender)
+                        {
+                            return appender as NotifyAppender;
+                        }
                     }
-                }
                 return null;
             }
         }
@@ -54,6 +56,19 @@ namespace Common.Logging
             _actions.Add(LogLevel.FATAL, WriteFatal);
             _actions.Add(LogLevel.INFO, WriteInfo);
             _actions.Add(LogLevel.WARNING, WriteWarning);
+
+            //set default settings for appender
+            NotifyAppenderSettings settings = NotifyAppenderSettings.Default;
+
+            NotifyAppender.SettingChanged += Appender_OnSettingChanged;
+            NotifyAppender.IsDebugEnabled = settings.IsDebugEnabled;
+        }
+
+        private static void Appender_OnSettingChanged(object _sender, EventArgs _e)
+        {
+            NotifyAppenderSettings settings = NotifyAppenderSettings.Default;
+            settings.IsDebugEnabled = NotifyAppender.IsDebugEnabled;
+            settings.Save();
         }
 
         /// <summary>

@@ -98,6 +98,11 @@
     <Compile Include="Framework\GroupFilter.cs" />
     <Compile Include="Framework\ObservableRangeCollection.cs" />
     <Compile Include="Framework\Tree.cs" />
+    <Compile Include="Properties\NotifyAppenderSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>NotifyAppenderSettings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\Utilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Framework\WatermarkAdorner.cs" />
@@ -107,6 +112,10 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Properties\NotifyAppenderSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>NotifyAppenderSettings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Framework\Popup.xaml">
