@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-		stage('Run All')
+		stage('Run All') {
 			parallel {
 				agent any
 				stage('Build') {
@@ -21,7 +21,7 @@ pipeline {
 						}
 					}
 				}
-				
+
 				agent any
 				stage('Inspect') {
 					steps {			
@@ -36,28 +36,28 @@ pipeline {
 					}
 				}
 			}
-		}
-        
-		stage ('Report') {
-            steps {
-				echo 'Reporting...'
-				dir("./src/projects/syncwatchertray/build")
-				{
-					echo 'Scanning logs....'
-					
-					warnings canComputeNew: false, canResolveRelativePaths: false, categoriesPattern: '', consoleParsers: [[parserName: 'MSBuild'], [parserName: 'CodeAnalysis']], parserConfigurations: [[parserName: 'Resharper InspectCode', pattern: '**\\publish\\*.inspect.xml']], defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '', unHealthy: ''
-				}	
+		        
+			stage ('Report') {
+				steps {
+					echo 'Reporting...'
+					dir("./src/projects/syncwatchertray/build")
+					{
+						echo 'Scanning logs....'
+						
+						warnings canComputeNew: false, canResolveRelativePaths: false, categoriesPattern: '', consoleParsers: [[parserName: 'MSBuild'], [parserName: 'CodeAnalysis']], parserConfigurations: [[parserName: 'Resharper InspectCode', pattern: '**\\publish\\*.inspect.xml']], defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '', unHealthy: ''
+					}	
+				}
+			}
+			stage('Deploy') {
+				steps {
+					echo 'Deploying...'				
+					dir("./src/projects/syncwatchertray/build")
+					{
+						archiveArtifacts artifacts: 'publish/*', fingerprint: true
+					}				
+				}
 			}
 		}
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'				
-				dir("./src/projects/syncwatchertray/build")
-				{
-					archiveArtifacts artifacts: 'publish/*', fingerprint: true
-				}				
-            }
-        }
     }
 	
 	post {	
