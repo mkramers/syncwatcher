@@ -18,6 +18,18 @@ pipeline {
 				}
             }
         }
+		stage('Inspect') {
+            steps {			
+                echo 'Inspecting..'			
+						
+				script {													
+					dir("./src/solutions")
+					{
+						bat "powershell -ExecutionPolicy Bypass -File ../../../shared/build/inspect/inspect.ps1 -solutuion=Projects.sln"
+					}
+				}
+            }
+        }
 		stage ('Report') {
             steps {
 				echo 'Reporting...'

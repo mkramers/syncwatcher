@@ -56,22 +56,22 @@ Task("Inspect")
     .WithCriteria(!isMultiStage)
     .DoesForEach(solutions, (_solution) =>
 {
-	if (isQuickMode)
-	{
-		Information("Skipping inspect...");
-		return;
-	}
+	// if (isQuickMode)
+	// {
+	// 	Information("Skipping inspect...");
+	// 	return;
+	// }
 
-	string solutionFile = _solution.Item1;
-	string shortname= System.IO.Path.GetFileNameWithoutExtension(solutionFile);
+	// string solutionFile = _solution.Item1;
+	// string shortname= System.IO.Path.GetFileNameWithoutExtension(solutionFile);
 
-	Information($"Inspecting sln: {solutionFile}");
+	// Information($"Inspecting sln: {solutionFile}");
 
-	InspectCode(solutionFile, new InspectCodeSettings {
-		SolutionWideAnalysis = true,
-		OutputFile = Directory(outputDir) + File($"{shortname.ToLower()}.inspect.xml"),
-		ThrowExceptionOnFindingViolations = failOnInspect
-	});
+	// InspectCode(solutionFile, new InspectCodeSettings {
+	// 	SolutionWideAnalysis = true,
+	// 	OutputFile = Directory(outputDir) + File($"{shortname.ToLower()}.inspect.xml"),
+	// 	ThrowExceptionOnFindingViolations = failOnInspect
+	// });
 });
 
 Task("Build")
