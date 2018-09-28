@@ -4,13 +4,11 @@
 
 string target = Argument<string>("target", "Default");
 string outputDir = Argument<string>("output", @".\publish");
-bool isQuickMode = Argument<bool>("quick", false);
 string buildNumber = Argument<string>("buildNumber", "666");
 string gitVersion = Argument<string>("gitVersion", "v1.1-80-gdb791cd"); //may be db791cd if no tags present
 string gitBranch = Argument<string>("gitBranch", "develop");
 bool isMultiStage = Argument<bool>("multistage", false);
 string buildConfiguration = Argument<string>("buildconfig", "Release");
-bool failOnInspect = Argument<bool>("failoninspect", false);
 
 //make outputdir absolute
 outputDir = System.IO.Path.GetFullPath(outputDir);
@@ -21,7 +19,7 @@ List<(string, string, PlatformTarget)> solutions = new List<(string, string, Pla
 };
 
 const string ASSEMBLIES_FILE = "assemblies.txt";
-string[] assemblyInfoFiles = System.IO.File.ReadAllLines(ASSEMBLIES_FILE);
+string[] assemblyInfoFiles = new []{ @"..\..\..\solutions\VersionInfo.cs"};
 
 string nsiScript = @".\build.nsi";
 
@@ -49,28 +47,6 @@ Task("Update-Version")
 		FileVersion = shortVersion,
 		InformationalVersion = longVersion,
 		Copyright = string.Format("Copyright (c) mkramers 2017 - {0}", DateTime.Now.Year)
-	});
-});
-
-Task("Inspect")
-    .WithCriteria(!isMultiStage)
-    .DoesForEach(solutions, (_solution) =>
-{
-	if (isQuickMode)
-	{
-		Information("Skipping inspect...");
-		return;
-	}
-
-	string solutionFile = _solution.Item1;
-	string shortname= System.IO.Path.GetFileNameWithoutExtension(solutionFile);
-
-	Information($"Inspecting sln: {solutionFile}");
-
-	InspectCode(solutionFile, new InspectCodeSettings {
-		SolutionWideAnalysis = true,
-		OutputFile = Directory(outputDir) + File($"{shortname.ToLower()}.inspect.xml"),
-		ThrowExceptionOnFindingViolations = failOnInspect
 	});
 });
 
@@ -134,7 +110,6 @@ Task("Restore-Version")
 Task("Default")
     .IsDependentOn("Restore-NuGet-Packages")
     .IsDependentOn("Update-Version")
-    .IsDependentOn("Inspect")
     .IsDependentOn("Build")
     .IsDependentOn("Build-Installer")
     .IsDependentOn("Restore-Version");
