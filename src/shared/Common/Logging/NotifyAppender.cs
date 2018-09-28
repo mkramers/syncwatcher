@@ -50,17 +50,14 @@ namespace Common.Logging
             get => m_isDebugEnabled;
             set
             {
-                if (m_isDebugEnabled != value)
-                {
-                    m_isDebugEnabled = value;
+                m_isDebugEnabled = value;
 
-                    Level level = m_isDebugEnabled ? Level.Debug : Level.Info;
+                Level level = m_isDebugEnabled ? Level.Debug : Level.Info;
 
-                    ((Hierarchy)LogManager.GetRepository()).Root.Level = level;
-                    ((Hierarchy)LogManager.GetRepository()).RaiseConfigurationChanged(EventArgs.Empty);
+                ((Hierarchy)LogManager.GetRepository()).Root.Level = level;
+                ((Hierarchy)LogManager.GetRepository()).RaiseConfigurationChanged(EventArgs.Empty);
 
-                    SettingChanged?.Invoke(null, EventArgs.Empty);
-                }
+                SettingChanged?.Invoke(null, EventArgs.Empty);
             }
         }
 

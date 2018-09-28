@@ -60,8 +60,8 @@ namespace Common.Logging
             //set default settings for appender
             NotifyAppenderSettings settings = NotifyAppenderSettings.Default;
 
-            NotifyAppender.SettingChanged += Appender_OnSettingChanged;
             NotifyAppender.IsDebugEnabled = settings.IsDebugEnabled;
+            NotifyAppender.SettingChanged += Appender_OnSettingChanged;
         }
 
         private static void Appender_OnSettingChanged(object _sender, EventArgs _e)
