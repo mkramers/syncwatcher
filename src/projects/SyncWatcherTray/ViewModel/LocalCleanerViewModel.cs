@@ -132,6 +132,11 @@ namespace SyncWatcherTray.ViewModel
 
             FilebotSettings settings = FilebotSettings.Default;
 
+            //hardcode filepaths
+            settings.LogFilePath = Path.Combine(_appDataDirectory, "amc_log.txt");
+            settings.ExcludeListPath = Path.Combine(_appDataDirectory, "amc_exclude.txt");
+            settings.Save();
+
             Filebot = new Filebot(settings);
             Filebot.FileOrganized += Filebot_OnFileOrganized;
 
