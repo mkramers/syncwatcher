@@ -25,7 +25,7 @@ pipeline {
 				script {													
 					dir("./src/solutions")
 					{
-						bat "powershell -ExecutionPolicy Bypass -File ../../../shared/build/inspect/inspect.ps1 -solutuion=Projects.sln"
+						bat "powershell -ExecutionPolicy Bypass -File ../shared/build/inspect/inspect.ps1 -solutuion=Projects.sln"
 					}
 				}
             }
