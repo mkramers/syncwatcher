@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Common.Controls
+namespace Common.Extensions
 {
     //http://stackoverflow.com/a/1356781/1620721
 

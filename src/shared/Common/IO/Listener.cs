@@ -28,7 +28,6 @@ namespace Common.IO
 
                 // Buffer for reading data
                 byte[] bytes = new byte[256];
-                string data = null;
 
                 // Enter the listening loop.
                 while (true)
@@ -49,7 +48,7 @@ namespace Common.IO
                     while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
                     {
                         // Translate data bytes to a ASCII string.
-                        data = Encoding.ASCII.GetString(bytes, 0, i);
+                        string data = Encoding.ASCII.GetString(bytes, 0, i);
                         Console.WriteLine("Received: {0}", data);
 
                         _onReceivedMessage?.Invoke(new ListenerEventArgs(data));

@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
-
-namespace Common.Framework
+﻿namespace Common.Framework
 {
     /// <summary>
     ///     Interaction logic for Popup.xaml
     /// </summary>
-    public partial class Popup : UserControl
+    public partial class Popup
     {
         public Popup()
         {

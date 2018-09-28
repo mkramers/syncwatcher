@@ -1,4 +1,4 @@
-﻿namespace FilebotApi
+﻿namespace FilebotApi.Result
 {
     public enum OrganizeResult
     {

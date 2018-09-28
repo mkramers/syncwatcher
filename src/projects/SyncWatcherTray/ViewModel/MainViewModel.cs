@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Common.Framework.EventHelpers;
 using Common.IO;
 using Common.SFTP;
 using GalaSoft.MvvmLight;
@@ -163,7 +162,7 @@ namespace SyncWatcherTray.ViewModel
             return isValid;
         }
 
-        private void FtpManagerViewModel_LocalRootChanged(object _sender, StringEventArgs _e)
+        private void FtpManagerViewModel_LocalRootChanged(object _sender, EventArgs _e)
         {
             Settings.Default.LastRemotePath = FtpManagerViewModel.SelectedRemoteRoot;
             Settings.Default.Save();

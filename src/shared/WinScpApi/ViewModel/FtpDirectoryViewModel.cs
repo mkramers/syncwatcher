@@ -4,8 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Framework;
-using Common.SFTP;
-using FileGetter;
 using GalaSoft.MvvmLight.Command;
 using WinSCP;
 

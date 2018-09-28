@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Common.Properties;
 using log4net;
 using log4net.Appender;
 
@@ -7,11 +9,11 @@ namespace Common.Logging
 {
     public enum LogLevel
     {
-        Debug = 0,
-        Error = 1,
-        Fatal = 2,
-        Info = 3,
-        Warning = 4
+        DEBUG = 0,
+        ERROR = 1,
+        FATAL = 2,
+        INFO = 3,
+        WARNING = 4
     }
 
     /// <summary>
@@ -31,13 +33,13 @@ namespace Common.Logging
             get
             {
                 foreach (ILog log in LogManager.GetCurrentLoggers())
-                foreach (IAppender appender in log.Logger.Repository.GetAppenders())
-                {
-                    if (appender is NotifyAppender)
+                    foreach (IAppender appender in log.Logger.Repository.GetAppenders())
                     {
-                        return appender as NotifyAppender;
+                        if (appender is NotifyAppender)
+                        {
+                            return appender as NotifyAppender;
+                        }
                     }
-                }
                 return null;
             }
         }
@@ -49,11 +51,24 @@ namespace Common.Logging
         {
             //XmlConfigurator.Configure();
             _actions = new Dictionary<LogLevel, Action<string>>();
-            _actions.Add(LogLevel.Debug, WriteDebug);
-            _actions.Add(LogLevel.Error, WriteError);
-            _actions.Add(LogLevel.Fatal, WriteFatal);
-            _actions.Add(LogLevel.Info, WriteInfo);
-            _actions.Add(LogLevel.Warning, WriteWarning);
+            _actions.Add(LogLevel.DEBUG, WriteDebug);
+            _actions.Add(LogLevel.ERROR, WriteError);
+            _actions.Add(LogLevel.FATAL, WriteFatal);
+            _actions.Add(LogLevel.INFO, WriteInfo);
+            _actions.Add(LogLevel.WARNING, WriteWarning);
+
+            //set default settings for appender
+            NotifyAppenderSettings settings = NotifyAppenderSettings.Default;
+
+            NotifyAppender.IsDebugEnabled = settings.IsDebugEnabled;
+            NotifyAppender.SettingChanged += Appender_OnSettingChanged;
+        }
+
+        private static void Appender_OnSettingChanged(object _sender, EventArgs _e)
+        {
+            NotifyAppenderSettings settings = NotifyAppenderSettings.Default;
+            settings.IsDebugEnabled = NotifyAppender.IsDebugEnabled;
+            settings.Save();
         }
 
         /// <summary>
@@ -66,7 +81,7 @@ namespace Common.Logging
         {
             if (!string.IsNullOrEmpty(message))
             {
-                if (level > LogLevel.Warning || level < LogLevel.Debug)
+                if (level > LogLevel.WARNING || level < LogLevel.DEBUG)
                 {
                     throw new ArgumentOutOfRangeException("level");
                 }

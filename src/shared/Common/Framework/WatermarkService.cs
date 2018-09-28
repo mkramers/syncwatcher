@@ -5,9 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
-using Common.Framework;
 
-namespace Common.Controls
+namespace Common.Framework
 {
     /// <summary>
     ///     Class that provides the Watermark attached property

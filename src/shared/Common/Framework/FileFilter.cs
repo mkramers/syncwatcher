@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
-namespace Common
+namespace Common.Framework
 {
     public class FileFilter : GroupFilter
     {

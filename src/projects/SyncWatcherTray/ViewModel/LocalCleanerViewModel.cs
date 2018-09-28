@@ -50,7 +50,7 @@ namespace SyncWatcherTray.ViewModel
 
                     string message = $"Starting cleaning...\n  Source: {input}\n  Destination: {output}\n  {new string('=', 24)}";
 
-                    Log.Write(LogLevel.Info, message);
+                    Log.Write(LogLevel.INFO, message);
 
                     OnStarted();
 
@@ -61,7 +61,7 @@ namespace SyncWatcherTray.ViewModel
                         await ScanPlex();
                     }
 
-                    Log.Write(LogLevel.Info, $"  {new string('=', 24)}\nCleaning complete.\n***\n");
+                    Log.Write(LogLevel.INFO, $"  {new string('=', 24)}\nCleaning complete.\n***\n");
 
                     OnStopped();
                 }
@@ -132,6 +132,11 @@ namespace SyncWatcherTray.ViewModel
 
             FilebotSettings settings = FilebotSettings.Default;
 
+            //hardcode filepaths
+            settings.LogFilePath = Path.Combine(_appDataDirectory, "amc_log.txt");
+            settings.ExcludeListPath = Path.Combine(_appDataDirectory, "amc_exclude.txt");
+            settings.Save();
+
             Filebot = new Filebot(settings);
             Filebot.FileOrganized += Filebot_OnFileOrganized;
 
@@ -145,7 +150,7 @@ namespace SyncWatcherTray.ViewModel
             }
             catch (Exception e)
             {
-                Log.Write(LogLevel.Info, $"Error loading history file: {e.Message}");
+                Log.Write(LogLevel.INFO, $"Error loading history file: {e.Message}");
 
                 FilebotHistory.Save();
                 FilebotHistory.Reload();
@@ -216,17 +221,17 @@ namespace SyncWatcherTray.ViewModel
 
             uint[] sections = { 4, 5, 6 };
 
-            Log.Write(LogLevel.Info, "Starting Plex scan...");
+            Log.Write(LogLevel.INFO, "Starting Plex scan...");
 
             try
             {
                 await Task.Factory.StartNew(() => PlexScanner.ScanSections(sections));
 
-                Log.Write(LogLevel.Info, "Plex scan completed.");
+                Log.Write(LogLevel.INFO, "Plex scan completed.");
             }
             catch (Exception e)
             {
-                Log.Write(LogLevel.Info, $"Error scanning plex: {e.Message}");
+                Log.Write(LogLevel.INFO, $"Error scanning plex: {e.Message}");
             }
         }
 

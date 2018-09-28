@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using FileGetter;
+using Common;
 using WinScpApi.ViewModel;
 
-namespace Common.SFTP
+namespace WinScpApi
 {
     public class FileHistory
     {

@@ -1,8 +1,6 @@
-﻿using System.Windows.Controls;
-
-namespace WinScpApi.View
+﻿namespace WinScpApi.View
 {
-    public partial class FtpExplorerView : UserControl
+    public partial class FtpExplorerView
     {
         public FtpExplorerView()
         {

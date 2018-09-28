@@ -4,16 +4,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:System.Windows.Controls;assembly=MultiSelectTreeView"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:fileGetter="clr-namespace:FileGetter"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="clr-namespace:WinScpApi.View"
     xmlns:viewModel="clr-namespace:WinScpApi.ViewModel"
+    xmlns:winScpApi="clr-namespace:WinScpApi"
     d:DataContext="{d:DesignInstance viewModel:FtpDirectoryViewModel}"
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <fileGetter:FileObjectStateBrushConverter x:Key="FileObjectStateBrushConverter" />
-        <fileGetter:DirectoryObjectStateBrushConverter x:Key="DirectoryObjectStateBrushConverter" />
+        <winScpApi:FileObjectStateBrushConverter x:Key="FileObjectStateBrushConverter" />
+        <winScpApi:DirectoryObjectStateBrushConverter x:Key="DirectoryObjectStateBrushConverter" />
     </UserControl.Resources>
 
     <Grid>
