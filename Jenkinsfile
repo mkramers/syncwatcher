@@ -1,10 +1,9 @@
 pipeline {
     agent any
 	stages {
-		stage('Run All') {
+		steps {
 			parallel {
 				stage('Build') {
-					agent any
 					steps {			
 						echo 'Building..'			
 										
@@ -23,7 +22,6 @@ pipeline {
 				}
 
 				stage('Inspect') {
-					agent any
 					steps {			
 						echo 'Inspecting..'			
 								
