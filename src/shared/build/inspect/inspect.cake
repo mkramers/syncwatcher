@@ -1,12 +1,15 @@
+#tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
 
+string target = Argument<string>("target", "Default");
 string solutionFilePath = Argument<string>("solution", "");
+string outputDir = Argument<string>("output", @".\publish");
 
 Task("Inspect")
-    .DoesForEach(solutions, (_solution) =>
+    .Does(() =>
 {
 	string shortname= System.IO.Path.GetFileNameWithoutExtension(solutionFilePath);
 
-	Information($"Inspecting sln: {solutionFile}");
+	Information($"Inspecting sln: {solutionFilePath}");
 
 	InspectCode(solutionFilePath, new InspectCodeSettings {
 		SolutionWideAnalysis = true,

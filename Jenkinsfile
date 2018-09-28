@@ -23,9 +23,9 @@ pipeline {
                 echo 'Inspecting..'			
 						
 				script {													
-					dir("./src/solutions")
+					dir("./src/shared/build/inspect")
 					{
-						bat "powershell -ExecutionPolicy Bypass -File ../shared/build/inspect/inspect.ps1 -solutuion=Projects.sln"
+						bat "powershell -ExecutionPolicy Bypass -File inspect.ps1 -solution=../../../Solutions/Projects.sln -output=../../../projects/syncwatchertray/build/publish"
 					}
 				}
             }
