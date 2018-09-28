@@ -22,6 +22,6 @@ echo Git Branch %gitBranch%
 echo Git Label %gitDescribe%
 echo Build Number %buildNumber%
 
-powershell -File .\build.ps1 -buildNumber="%buildNumber%" -gitVersion="%gitDescribe%" -gitBranch="%gitBranch%" --buildconfig="%buildConfig%" --quick=false --failoninspect=false
+powershell -File .\build.ps1 -buildNumber="%buildNumber%" -gitVersion="%gitDescribe%" -gitBranch="%gitBranch%" --buildconfig="%buildConfig%"
 
 exit /b
