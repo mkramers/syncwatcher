@@ -26,7 +26,8 @@
     mc:Ignorable="d">
 
     <Window.InputBindings>
-        <KeyBinding Command="{Binding SwitchToMoviesCommand}" Key="F" Modifiers="Alt" />
+        <KeyBinding Command="{Binding SwitchToCompletedCommand}" Key="A" Modifiers="Alt" />
+        <KeyBinding Command="{Binding SwitchToMoviesCommand}" Key="D" Modifiers="Alt" />
         <KeyBinding Command="{Binding SwitchToSeriesCommand}" Key="S" Modifiers="Alt" />
     </Window.InputBindings>
 
@@ -51,7 +52,8 @@
         <Grid Grid.Row="0" Grid.RowSpan="2" Margin="3">
             <controls:TabControlEx
                 x:Name="TabControl"
-                SelectionChanged="TabControl_OnSelectionChanged">
+                SelectionChanged="TabControl_OnSelectionChanged"
+                SelectedIndex="{Binding SelectedTabIndex}">
                 <TabItem Header="Server">
                     <winscp:FtpManagerView DataContext="{Binding FtpManagerViewModel}" />
                 </TabItem>

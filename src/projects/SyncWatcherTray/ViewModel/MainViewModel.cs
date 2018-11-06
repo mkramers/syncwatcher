@@ -23,6 +23,17 @@ namespace SyncWatcherTray.ViewModel
     {
         private MediaDirectoryViewModel m_moviesDirectoryViewModel;
         private MediaDirectoryViewModel m_seriesDirectoryViewModel;
+        private int m_selectedTabIndex;
+
+        public int SelectedTabIndex
+        {
+            get => m_selectedTabIndex;
+            set
+            {
+                m_selectedTabIndex = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public FtpManagerViewModel FtpManagerViewModel { get; }
         public TaskbarIconViewModel TaskBarIcon { get; }
@@ -46,9 +57,11 @@ namespace SyncWatcherTray.ViewModel
             }
         }
 
-        public RelayCommand SwitchToMoviesCommand => new RelayCommand(SwitchToMovies);
+        public RelayCommand SwitchToCompletedCommand => new RelayCommand(() => SelectedTabIndex = 1);
 
-        public RelayCommand SwitchToSeriesCommand => new RelayCommand(SwitchToSeries);
+        public RelayCommand SwitchToMoviesCommand => new RelayCommand(() => SelectedTabIndex = 3);
+
+        public RelayCommand SwitchToSeriesCommand => new RelayCommand(() => SelectedTabIndex = 2);
 
         public MainViewModel()
         {
@@ -82,15 +95,6 @@ namespace SyncWatcherTray.ViewModel
         {
             await Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        private void SwitchToMovies()
-        {
-
-        }
-
-        private void SwitchToSeries()
-        {
         }
 
         private void Settings_OnSettingChanging(object _sender, SettingChangingEventArgs _settingChangingEventArgs)

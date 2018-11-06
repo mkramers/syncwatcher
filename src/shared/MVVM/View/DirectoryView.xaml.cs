@@ -26,8 +26,15 @@ namespace MVVM.View
         {
             InitializeComponent();
 
+            Loaded += OnLoaded;
+
             m_delay = TimeSpan.FromMilliseconds(100);
             m_deferredAction = DeferredAction.Create(ApplySearchCriteria);
+        }
+
+        private void OnLoaded(object _sender, RoutedEventArgs _e)
+        {
+            SearchTextBox.Focus();
         }
 
         private void OnDataContextChanged(object _sender, DependencyPropertyChangedEventArgs _e)
