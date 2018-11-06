@@ -27,7 +27,7 @@ namespace MVVM.View
             InitializeComponent();
 
             Loaded += OnLoaded;
-
+            
             m_delay = TimeSpan.FromMilliseconds(100);
             m_deferredAction = DeferredAction.Create(ApplySearchCriteria);
         }

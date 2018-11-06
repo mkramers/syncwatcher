@@ -109,9 +109,6 @@ namespace SyncWatcherTray.View
             }
 
             m_isShown = true;
-
-            currentWindow.Activate();
-            currentWindow.Focus();
         }
 
         private void ExitApplication_OnClick(object _sender, RoutedEventArgs _e)
