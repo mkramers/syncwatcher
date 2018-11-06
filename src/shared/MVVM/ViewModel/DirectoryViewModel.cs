@@ -46,10 +46,9 @@ namespace MVVM.ViewModel
             Debug.Assert(IsInDesignMode);
         }
 
-        public DirectoryViewModel(string _directory, string _shortName)
+        public DirectoryViewModel(string _directory)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_directory));
-            Debug.Assert(!string.IsNullOrWhiteSpace(_shortName));
             Debug.Assert(Directory.Exists(_directory));
 
             Name = _directory;

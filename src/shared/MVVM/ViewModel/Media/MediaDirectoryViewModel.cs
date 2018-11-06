@@ -12,7 +12,7 @@
         {
         }
 
-        public MediaDirectoryViewModel(string _directory, string _shortName, MediaDirectoryType _type) : base(_directory, _shortName)
+        public MediaDirectoryViewModel(string _directory, MediaDirectoryType _type) : base(_directory)
         {
             Type = _type;
         }
