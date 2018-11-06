@@ -56,7 +56,14 @@ namespace SyncWatcherTray.View
 
         private void SafeNativeMethods_OnHotKeyPressed(object _sender, EventArgs _e)
         {
-            ShowWindow();
+            if (m_isShown)
+            {
+                HideWindow();
+            }
+            else
+            {
+                ShowWindow();
+            }
         }
 
         protected override void OnSourceInitialized(EventArgs e)
