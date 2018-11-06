@@ -52,7 +52,6 @@
         <Grid Grid.Row="0" Grid.RowSpan="2" Margin="3">
             <controls:TabControlEx
                 x:Name="TabControl"
-                SelectionChanged="TabControl_OnSelectionChanged"
                 SelectedIndex="{Binding SelectedTabIndex}">
                 <TabItem Header="Server">
                     <winscp:FtpManagerView DataContext="{Binding FtpManagerViewModel}" />

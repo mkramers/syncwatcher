@@ -27,10 +27,6 @@ namespace SyncWatcherTray.View
             Style = (Style) FindResource(typeof(Window));
             MoveToBottomCorner();
 
-            //remember last tab
-            int lastTab = Settings.Default.LastSelectedTabIndex;
-            TabControl.SelectedIndex = lastTab;
-
             m_safeNativeMethods = new SafeNativeMethods();
             m_safeNativeMethods.HotKeyPressed += SafeNativeMethods_OnHotKeyPressed;
         }
@@ -157,17 +153,6 @@ namespace SyncWatcherTray.View
             {
                 OnHideWindow(_sender, _e);
             }
-        }
-
-        private void TabControl_OnSelectionChanged(object _sender, SelectionChangedEventArgs _e)
-        {
-            TabControlEx tabControl = _sender as TabControlEx;
-            Debug.Assert(tabControl != null);
-
-            int index = tabControl.SelectedIndex;
-
-            Settings.Default.LastSelectedTabIndex = index;
-            Settings.Default.Save();
         }
 
         private void Dispose(bool _isDisposing)

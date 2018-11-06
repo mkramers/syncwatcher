@@ -31,6 +31,10 @@ namespace SyncWatcherTray.ViewModel
             set
             {
                 m_selectedTabIndex = value;
+
+                Settings.Default.LastSelectedTabIndex = m_selectedTabIndex;
+                Settings.Default.Save();
+
                 RaisePropertyChanged();
             }
         }
@@ -69,6 +73,10 @@ namespace SyncWatcherTray.ViewModel
 
             Settings settings = Settings.Default;
             settings.SettingChanging += Settings_OnSettingChanging;
+
+            //remember last tab
+            int lastTab = Settings.Default.LastSelectedTabIndex;
+            SelectedTabIndex = lastTab;
 
             string input = settings.CompletedDirectory;
             string outputDir = settings.MediaRootDirectory;
