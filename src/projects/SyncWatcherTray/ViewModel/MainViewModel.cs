@@ -224,9 +224,12 @@ namespace SyncWatcherTray.ViewModel
             Debug.Assert(_directoryPath != null);
             Debug.Assert(Directory.Exists(_directoryPath));
 
-            SeriesDirectoryViewModel = new MediaDirectoryViewModel(Path.Combine(_directoryPath, "TV Shows"), "TV", MediaDirectoryType.SERIES);
+            string seriesDir = Path.Combine(_directoryPath, "TV Shows");
+            string moviesDir = Path.Combine(_directoryPath, "Movies");
 
-            MoviesDirectoryViewModel = new MediaDirectoryViewModel(Path.Combine(_directoryPath, "Movies"), "MOVIES", MediaDirectoryType.MOVIES);
+            SeriesDirectoryViewModel = new MediaDirectoryViewModel(seriesDir, "TV", MediaDirectoryType.SERIES);
+
+            MoviesDirectoryViewModel = new MediaDirectoryViewModel(moviesDir, "MOVIES", MediaDirectoryType.MOVIES);
         }
 
         private void ClearDirectory()

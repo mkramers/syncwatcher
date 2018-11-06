@@ -18,7 +18,6 @@ namespace MVVM.ViewModel
         public FileWatcher FileWatcher { get; }
 
         public string Name { get; }
-        public string ShortName { get; }
 
         public ICommand RefreshCommand
         {
@@ -54,7 +53,6 @@ namespace MVVM.ViewModel
             Debug.Assert(Directory.Exists(_directory));
 
             Name = _directory;
-            ShortName = _shortName;
 
             FileNames = new ObservableRangeCollection<FileInfo>();
 
