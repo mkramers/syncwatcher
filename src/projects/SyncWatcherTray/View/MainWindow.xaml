@@ -60,11 +60,11 @@
                     <view:LocalCleanerView DataContext="{Binding CompletedDirectory}" />
                 </TabItem>
 
-                <TabItem Header="SERIES">
+                <TabItem Header="{Binding SeriesDirectoryViewModel.ShortName}">
                     <mvvmview:DirectoryView DataContext="{Binding SeriesDirectoryViewModel}" />
                 </TabItem>
 
-                <TabItem Header="MOVIES">
+                <TabItem Header="{Binding MoviesDirectoryViewModel.ShortName}">
                     <mvvmview:DirectoryView DataContext="{Binding MoviesDirectoryViewModel}" />
                 </TabItem>
 
