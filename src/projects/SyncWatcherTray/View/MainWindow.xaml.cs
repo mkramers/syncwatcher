@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using Common.Win32;
+using MVVM.View;
 using SyncWatcherTray.Properties;
 using SyncWatcherTray.ViewModel;
 using Themes.Controls;
@@ -15,12 +16,13 @@ namespace SyncWatcherTray.View
     public partial class MainWindow : IDisposable
     {
         private readonly SafeNativeMethods m_safeNativeMethods;
-
         private bool m_isShown;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            Activated += MainWindow_Activated;
 
             Style = (Style) FindResource(typeof(Window));
             MoveToBottomCorner();
@@ -39,6 +41,17 @@ namespace SyncWatcherTray.View
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        private void MainWindow_Activated(object _sender, EventArgs _e)
+        {
+            UserControl userControl = TabControl.SelectedContent as UserControl;
+            Debug.Assert(userControl != null);
+
+            if (userControl is ISearchableView searchableView)
+            {
+                searchableView.Activate();
+            }
         }
 
         private void SafeNativeMethods_OnHotKeyPressed(object _sender, EventArgs _e)

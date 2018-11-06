@@ -12,10 +12,15 @@ using MVVM.ViewModel;
 
 namespace MVVM.View
 {
+    public interface ISearchableView
+    {
+        void Activate();
+    }
+
     /// <summary>
     ///     Interaction logic for DirectoryView.xaml
     /// </summary>
-    public partial class DirectoryView
+    public partial class DirectoryView : ISearchableView
     {
         private readonly DeferredAction m_deferredAction;
         private readonly TimeSpan m_delay;
@@ -32,9 +37,14 @@ namespace MVVM.View
             m_deferredAction = DeferredAction.Create(ApplySearchCriteria);
         }
 
-        private void OnLoaded(object _sender, RoutedEventArgs _e)
+        public void Activate()
         {
             SearchTextBox.Focus();
+        }
+
+        private void OnLoaded(object _sender, RoutedEventArgs _e)
+        {
+            Activate();
         }
 
         private void OnDataContextChanged(object _sender, DependencyPropertyChangedEventArgs _e)
