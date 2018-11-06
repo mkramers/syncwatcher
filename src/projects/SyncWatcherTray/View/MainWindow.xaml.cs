@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using Common.Win32;
+using MVVM.View;
 using SyncWatcherTray.Properties;
 using SyncWatcherTray.ViewModel;
 using Themes.Controls;
@@ -15,19 +16,16 @@ namespace SyncWatcherTray.View
     public partial class MainWindow : IDisposable
     {
         private readonly SafeNativeMethods m_safeNativeMethods;
-
         private bool m_isShown;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            Activated += MainWindow_Activated;
+
             Style = (Style) FindResource(typeof(Window));
             MoveToBottomCorner();
-
-            //remember last tab
-            int lastTab = Settings.Default.LastSelectedTabIndex;
-            TabControl.SelectedIndex = lastTab;
 
             m_safeNativeMethods = new SafeNativeMethods();
             m_safeNativeMethods.HotKeyPressed += SafeNativeMethods_OnHotKeyPressed;
@@ -41,9 +39,27 @@ namespace SyncWatcherTray.View
             GC.SuppressFinalize(this);
         }
 
+        private void MainWindow_Activated(object _sender, EventArgs _e)
+        {
+            UserControl userControl = TabControl.SelectedContent as UserControl;
+            Debug.Assert(userControl != null);
+
+            if (userControl is ISearchableView searchableView)
+            {
+                searchableView.Activate();
+            }
+        }
+
         private void SafeNativeMethods_OnHotKeyPressed(object _sender, EventArgs _e)
         {
-            ShowWindow();
+            if (m_isShown)
+            {
+                HideWindow();
+            }
+            else
+            {
+                ShowWindow();
+            }
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -109,9 +125,6 @@ namespace SyncWatcherTray.View
             }
 
             m_isShown = true;
-
-            currentWindow.Activate();
-            currentWindow.Focus();
         }
 
         private void ExitApplication_OnClick(object _sender, RoutedEventArgs _e)
@@ -140,17 +153,6 @@ namespace SyncWatcherTray.View
             {
                 OnHideWindow(_sender, _e);
             }
-        }
-
-        private void TabControl_OnSelectionChanged(object _sender, SelectionChangedEventArgs _e)
-        {
-            TabControlEx tabControl = _sender as TabControlEx;
-            Debug.Assert(tabControl != null);
-
-            int index = tabControl.SelectedIndex;
-
-            Settings.Default.LastSelectedTabIndex = index;
-            Settings.Default.Save();
         }
 
         private void Dispose(bool _isDisposing)

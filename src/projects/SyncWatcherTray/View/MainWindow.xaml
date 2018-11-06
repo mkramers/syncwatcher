@@ -25,12 +25,17 @@
     Background="#dfdfdfdf"
     mc:Ignorable="d">
 
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding SwitchToCompletedCommand}" Key="A" Modifiers="Alt" />
+        <KeyBinding Command="{Binding SwitchToMoviesCommand}" Key="D" Modifiers="Alt" />
+        <KeyBinding Command="{Binding SwitchToSeriesCommand}" Key="S" Modifiers="Alt" />
+    </Window.InputBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
 
         <tb:TaskbarIcon
             IconSource="{Binding TaskBarIcon.IconSource}"
@@ -45,10 +50,9 @@
         </tb:TaskbarIcon>
 
         <Grid Grid.Row="0" Grid.RowSpan="2" Margin="3">
-
             <controls:TabControlEx
                 x:Name="TabControl"
-                SelectionChanged="TabControl_OnSelectionChanged">
+                SelectedIndex="{Binding SelectedTabIndex}">
                 <TabItem Header="Server">
                     <winscp:FtpManagerView DataContext="{Binding FtpManagerViewModel}" />
                 </TabItem>
@@ -57,11 +61,11 @@
                     <view:LocalCleanerView DataContext="{Binding CompletedDirectory}" />
                 </TabItem>
 
-                <TabItem Header="SERIES">
+                <TabItem Header="{Binding SeriesDirectoryViewModel.Type}">
                     <mvvmview:DirectoryView DataContext="{Binding SeriesDirectoryViewModel}" />
                 </TabItem>
 
-                <TabItem Header="MOVIES">
+                <TabItem Header="{Binding MoviesDirectoryViewModel.Type}">
                     <mvvmview:DirectoryView DataContext="{Binding MoviesDirectoryViewModel}" />
                 </TabItem>
 

@@ -8,14 +8,20 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using Common.Framework;
+using Common.Win32;
 using MVVM.ViewModel;
 
 namespace MVVM.View
 {
+    public interface ISearchableView
+    {
+        void Activate();
+    }
+
     /// <summary>
     ///     Interaction logic for DirectoryView.xaml
     /// </summary>
-    public partial class DirectoryView
+    public partial class DirectoryView : ISearchableView
     {
         private readonly DeferredAction m_deferredAction;
         private readonly TimeSpan m_delay;
@@ -26,8 +32,20 @@ namespace MVVM.View
         {
             InitializeComponent();
 
+            Loaded += OnLoaded;
+            
             m_delay = TimeSpan.FromMilliseconds(100);
             m_deferredAction = DeferredAction.Create(ApplySearchCriteria);
+        }
+
+        public void Activate()
+        {
+            SearchTextBox.Focus();
+        }
+
+        private void OnLoaded(object _sender, RoutedEventArgs _e)
+        {
+            Activate();
         }
 
         private void OnDataContextChanged(object _sender, DependencyPropertyChangedEventArgs _e)
@@ -91,9 +109,7 @@ namespace MVVM.View
             string fullName = fileInfo.FullName;
             Debug.Assert(!string.IsNullOrWhiteSpace(fullName));
 
-            string argument = "/select, \"" + fullName + "\"";
-
-            Process.Start("explorer.exe", argument);
+            OpenInExplorer.Open(fullName);
         }
 
         private void SearchTextbox_OnTextChanged(object _sender, TextChangedEventArgs _e)

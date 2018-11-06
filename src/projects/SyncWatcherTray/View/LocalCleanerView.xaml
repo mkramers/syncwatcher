@@ -27,6 +27,7 @@
         </Grid.RowDefinitions>
 
         <view1:DirectoryView
+                x:Name="DirectoryView"
                 Grid.Row="0"
                 DataContext="{Binding DirectoryViewModel}" />
 

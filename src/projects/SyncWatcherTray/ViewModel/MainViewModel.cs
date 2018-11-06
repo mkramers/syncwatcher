@@ -10,7 +10,9 @@ using System.Windows.Input;
 using Common.IO;
 using Common.SFTP;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using MVVM.ViewModel;
+using MVVM.ViewModel.Media;
 using SyncWatcherTray.Properties;
 using WinScpApi;
 using WinScpApi.ViewModel;
@@ -19,13 +21,28 @@ namespace SyncWatcherTray.ViewModel
 {
     public class MainViewModel : ViewModelBase, IDisposable
     {
-        private DirectoryViewModel m_moviesDirectoryViewModel;
-        private DirectoryViewModel m_seriesDirectoryViewModel;
+        private MediaDirectoryViewModel m_moviesDirectoryViewModel;
+        private MediaDirectoryViewModel m_seriesDirectoryViewModel;
+        private int m_selectedTabIndex;
+
+        public int SelectedTabIndex
+        {
+            get => m_selectedTabIndex;
+            set
+            {
+                m_selectedTabIndex = value;
+
+                Settings.Default.LastSelectedTabIndex = m_selectedTabIndex;
+                Settings.Default.Save();
+
+                RaisePropertyChanged();
+            }
+        }
 
         public FtpManagerViewModel FtpManagerViewModel { get; }
         public TaskbarIconViewModel TaskBarIcon { get; }
         public LocalCleanerViewModel CompletedDirectory { get; }
-        public DirectoryViewModel SeriesDirectoryViewModel
+        public MediaDirectoryViewModel SeriesDirectoryViewModel
         {
             get => m_seriesDirectoryViewModel;
             set
@@ -34,7 +51,7 @@ namespace SyncWatcherTray.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public DirectoryViewModel MoviesDirectoryViewModel
+        public MediaDirectoryViewModel MoviesDirectoryViewModel
         {
             get => m_moviesDirectoryViewModel;
             set
@@ -44,12 +61,22 @@ namespace SyncWatcherTray.ViewModel
             }
         }
 
+        public RelayCommand SwitchToCompletedCommand => new RelayCommand(() => SelectedTabIndex = 1);
+
+        public RelayCommand SwitchToMoviesCommand => new RelayCommand(() => SelectedTabIndex = 3);
+
+        public RelayCommand SwitchToSeriesCommand => new RelayCommand(() => SelectedTabIndex = 2);
+
         public MainViewModel()
         {
             TaskBarIcon = new TaskbarIconViewModel();
 
             Settings settings = Settings.Default;
             settings.SettingChanging += Settings_OnSettingChanging;
+
+            //remember last tab
+            int lastTab = Settings.Default.LastSelectedTabIndex;
+            SelectedTabIndex = lastTab;
 
             string input = settings.CompletedDirectory;
             string outputDir = settings.MediaRootDirectory;
@@ -209,8 +236,11 @@ namespace SyncWatcherTray.ViewModel
             Debug.Assert(_directoryPath != null);
             Debug.Assert(Directory.Exists(_directoryPath));
 
-            SeriesDirectoryViewModel = new DirectoryViewModel(Path.Combine(_directoryPath, "TV Shows"), "TV");
-            MoviesDirectoryViewModel = new DirectoryViewModel(Path.Combine(_directoryPath, "Movies"), "MOVIES");
+            string seriesDir = Path.Combine(_directoryPath, "TV Shows");
+            SeriesDirectoryViewModel = new MediaDirectoryViewModel(seriesDir, MediaDirectoryType.SERIES);
+
+            string moviesDir = Path.Combine(_directoryPath, "Movies");
+            MoviesDirectoryViewModel = new MediaDirectoryViewModel(moviesDir, MediaDirectoryType.MOVIES);
         }
 
         private void ClearDirectory()

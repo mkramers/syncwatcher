@@ -16,7 +16,7 @@ namespace SyncWatcherTray.ViewModel
         {
         }
 
-        public SyncthingDirectoryViewModel(string _directory, string _shortName) : base(_directory, _shortName)
+        public SyncthingDirectoryViewModel(string _directory, string _shortName) : base(_directory)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(_directory));
             Debug.Assert(!string.IsNullOrWhiteSpace(_shortName));
