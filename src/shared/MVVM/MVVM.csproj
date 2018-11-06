@@ -96,6 +96,7 @@
     <Compile Include="Utilities\FrameworkUtilities.cs" />
     <Compile Include="ViewModel\DirectoryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\Media\MediaDirectoryViewModel.cs" />
     <Compile Include="View\DirectoryView.xaml.cs">
       <DependentUpon>DirectoryView.xaml</DependentUpon>
     </Compile>

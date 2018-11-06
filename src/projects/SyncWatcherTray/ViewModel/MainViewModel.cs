@@ -12,6 +12,7 @@ using Common.SFTP;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MVVM.ViewModel;
+using MVVM.ViewModel.Media;
 using SyncWatcherTray.Properties;
 using WinScpApi;
 using WinScpApi.ViewModel;
@@ -20,13 +21,13 @@ namespace SyncWatcherTray.ViewModel
 {
     public class MainViewModel : ViewModelBase, IDisposable
     {
-        private DirectoryViewModel m_moviesDirectoryViewModel;
-        private DirectoryViewModel m_seriesDirectoryViewModel;
+        private MediaDirectoryViewModel m_moviesDirectoryViewModel;
+        private MediaDirectoryViewModel m_seriesDirectoryViewModel;
 
         public FtpManagerViewModel FtpManagerViewModel { get; }
         public TaskbarIconViewModel TaskBarIcon { get; }
         public LocalCleanerViewModel CompletedDirectory { get; }
-        public DirectoryViewModel SeriesDirectoryViewModel
+        public MediaDirectoryViewModel SeriesDirectoryViewModel
         {
             get => m_seriesDirectoryViewModel;
             set
@@ -35,7 +36,7 @@ namespace SyncWatcherTray.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public DirectoryViewModel MoviesDirectoryViewModel
+        public MediaDirectoryViewModel MoviesDirectoryViewModel
         {
             get => m_moviesDirectoryViewModel;
             set
@@ -223,8 +224,9 @@ namespace SyncWatcherTray.ViewModel
             Debug.Assert(_directoryPath != null);
             Debug.Assert(Directory.Exists(_directoryPath));
 
-            SeriesDirectoryViewModel = new DirectoryViewModel(Path.Combine(_directoryPath, "TV Shows"), "TV");
-            MoviesDirectoryViewModel = new DirectoryViewModel(Path.Combine(_directoryPath, "Movies"), "MOVIES");
+            SeriesDirectoryViewModel = new MediaDirectoryViewModel(Path.Combine(_directoryPath, "TV Shows"), "TV", MediaDirectoryType.SERIES);
+
+            MoviesDirectoryViewModel = new MediaDirectoryViewModel(Path.Combine(_directoryPath, "Movies"), "MOVIES", MediaDirectoryType.MOVIES);
         }
 
         private void ClearDirectory()
