@@ -10,6 +10,7 @@ using System.Windows.Input;
 using Common.IO;
 using Common.SFTP;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using MVVM.ViewModel;
 using SyncWatcherTray.Properties;
 using WinScpApi;
@@ -44,6 +45,10 @@ namespace SyncWatcherTray.ViewModel
             }
         }
 
+        public RelayCommand SwitchToMoviesCommand => new RelayCommand(SwitchToMovies);
+
+        public RelayCommand SwitchToSeriesCommand => new RelayCommand(SwitchToSeries);
+
         public MainViewModel()
         {
             TaskBarIcon = new TaskbarIconViewModel();
@@ -76,6 +81,15 @@ namespace SyncWatcherTray.ViewModel
         {
             await Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        private void SwitchToMovies()
+        {
+
+        }
+
+        private void SwitchToSeries()
+        {
         }
 
         private void Settings_OnSettingChanging(object _sender, SettingChangingEventArgs _settingChangingEventArgs)
