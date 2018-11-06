@@ -107,6 +107,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Framework\WatermarkAdorner.cs" />
     <Compile Include="Framework\WatermarkService.cs" />
+    <Compile Include="Win32\OpenInExplorer.cs" />
     <Compile Include="Win32\SafeNativeMethods.cs" />
   </ItemGroup>
   <ItemGroup>

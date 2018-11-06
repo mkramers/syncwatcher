@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using Common.Framework;
+using Common.Win32;
 using MVVM.ViewModel;
 
 namespace MVVM.View
@@ -108,9 +109,7 @@ namespace MVVM.View
             string fullName = fileInfo.FullName;
             Debug.Assert(!string.IsNullOrWhiteSpace(fullName));
 
-            string argument = "/select, \"" + fullName + "\"";
-
-            Process.Start("explorer.exe", argument);
+            OpenInExplorer.Open(fullName);
         }
 
         private void SearchTextbox_OnTextChanged(object _sender, TextChangedEventArgs _e)

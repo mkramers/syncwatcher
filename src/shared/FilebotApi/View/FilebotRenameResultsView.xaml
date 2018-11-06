@@ -24,6 +24,12 @@
             CanUserResizeRows="False"
             ItemsSource="{Binding EntriesView}">
 
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="DataGrid_OnDoubleClickRow" />
+                </Style>
+            </DataGrid.Resources>
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding ProposedFileName}" IsReadOnly="True" />
                 <DataGridTextColumn Header="Added" Binding="{Binding DateTime, StringFormat=\{0 :dd/MM/yyyy\}}"
