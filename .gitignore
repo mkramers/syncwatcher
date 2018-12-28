@@ -335,3 +335,4 @@ src/projects/tools/CakeExtensions/build/tools/
 src/shared/build/inspect/tools/
 src/projects/CMakeTests/build/
 src/external/build/
+src/projects/external/build/
