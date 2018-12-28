@@ -12,7 +12,7 @@ add_definitions(
 
 ### GLFW ###
 
-add_subdirectory (glfw-3.1.2)
+add_subdirectory (glfw)
 
 include_directories(
 	glfw/include/GLFW/
@@ -37,19 +37,19 @@ endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 ### GLEW ###
 
 set(GLEW_SOURCE
-	glew-1.13.0/src/glew.c
+	glew/src/glew.c
 )
 
 set(GLEW_HEADERS
 )
 
 
-add_library( GLEW_1130 STATIC
+add_library( GLEW STATIC
 	${GLEW_SOURCE}
 	${GLEW_INCLUDE}
 )
 
-target_link_libraries(GLEW_1130
+target_link_libraries(GLEW
 	${OPENGL_LIBRARY}
 	${EXTRA_LIBS}
 )
