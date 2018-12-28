@@ -333,3 +333,4 @@ src/projects/SyncWatcherTray/build/tools/
 /src/external/packages
 src/projects/tools/CakeExtensions/build/tools/
 src/shared/build/inspect/tools/
+src/projects/CMakeTests/build/
