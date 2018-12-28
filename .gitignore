@@ -336,3 +336,4 @@ src/shared/build/inspect/tools/
 src/projects/CMakeTests/build/
 src/external/build/
 src/projects/external/build/
+src/projects/CMakeTests/CrossPlatformTest/CrossPlatformTest/

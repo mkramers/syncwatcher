@@ -4,7 +4,13 @@
 cmake_minimum_required (VERSION 3.8)
 
 # Add source to this project's executable.
-add_executable (CrossPlatformTest "CrossPlatformTest.cpp" "CrossPlatformTest.h")
+add_executable (CrossPlatformTest "CrossPlatformTest.cpp" "CrossPlatformTest.h" 
+	../common/shader.cpp
+	../common/shader.hpp
+	
+	../common/shaders/simple.frag
+	../common/shaders/simple.vert
+)
 
 target_link_libraries(CrossPlatformTest
 	${ALL_LIBS}
@@ -15,13 +21,16 @@ create_target_launcher(CrossPlatformTest WORKING_DIRECTORY "${CMAKE_CURRENT_SOUR
 create_default_target_launcher(CrossPlatformTest WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/CrossPlatformTest/") # tut 1 is not the default or people would complain that tut 2 doesn't work
 
 SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*" )
-SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$" )
+SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/shaders/.*$" )
 
 if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode" )
-# add_custom_command(
-   # TARGET CrossPlatformTest POST_BUILD
-   # COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/CrossPlatformTest${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/CrossPlatformTest/"
-# )
+add_custom_command(
+   TARGET CrossPlatformTest POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_SOURCE_DIR}/CrossPlatformTest/"
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/../common/shaders/simple.frag" "${CMAKE_CURRENT_SOURCE_DIR}/CrossPlatformTest/"
+      COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/../common/shaders/simple.vert" "${CMAKE_CURRENT_SOURCE_DIR}/CrossPlatformTest/"
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/CrossPlatformTest${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/CrossPlatformTest/"
+)
 
 elseif (${CMAKE_GENERATOR} MATCHES "Xcode" )
 

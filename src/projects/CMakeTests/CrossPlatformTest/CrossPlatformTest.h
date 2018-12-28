@@ -5,4 +5,15 @@
 
 #include <iostream>
 
-// TODO: Reference additional headers your program requires here.
+// Include standard headers
+#include <stdio.h>
+#include <stdlib.h>
+
+// Include GLEW
+#include <GL/glew.h>
+
+// Include GLFW
+#include <GLFW/glfw3.h>
+GLFWwindow* window;
+
+#include <common/shader.hpp>
