@@ -17,7 +17,7 @@ endif()
 
 
 # Compile external dependencies 
-add_subdirectory ("../../external" "../../external/build)
+add_subdirectory ("../../external" "../../external/build")
 
 # On Visual 2005 and above, this module can set the debug working directory
 cmake_policy(SET CMP0026 OLD)
@@ -30,15 +30,15 @@ if(INCLUDE_DISTRIB)
 endif(INCLUDE_DISTRIB)
 
 include_directories(
-	../../external/glfw-3.1.2/include/
-	../../external/glew-1.13.0/include/
+	../../external/glfw/include/
+	../../external/packages/glew-2.1.0/include/
 	.
 )
 
 set(ALL_LIBS
 	${OPENGL_LIBRARY}
 	glfw
-	GLEW_1130
+	GLEW2100
 )
 
 add_definitions(
